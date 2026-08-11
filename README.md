@@ -73,6 +73,7 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 
 ### [04 — August: Delegation](04-august-delegation/) · *we stop writing and start choosing what gets written*
 - [Week 10 (Aug 3-9)](04-august-delegation/week-10/) - the week we hand the pen over: a mechanism's blast radius is a design parameter
+- [Week 11 (Aug 10-16)](04-august-delegation/week-11/) - the week we ask which body a name belongs to: identity is proven by the caller
 
 ## Editions and what's coming
 

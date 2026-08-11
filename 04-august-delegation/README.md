@@ -10,6 +10,7 @@
 
 ## Chapters
 
+- [Week 11 (Aug 10-16)](week-11/) - *the week we ask which body a name belongs to: a name is a claim about an object, and the object answers to whoever calls it*
 - [Week 10 (Aug 3-9)](week-10/) - *the week we hand the pen over: a mechanism's blast radius is a design parameter, and if you did not choose it, it is maximal*
 
 ---
