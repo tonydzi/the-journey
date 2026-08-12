@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 68 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 69 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -8245,6 +8245,289 @@ The resolution technique was uniform across every instance and is the day's sing
 - **The staff-routine rule has no permanent door** until the build freeze ends, recorded explicitly in the rules-without-a-door file.
 - **Four expensive routines on the primary node** are owned by the operator and scheduled for a separate session.
 - **The breakage journal's decay sensor fires in two weeks**: lines present means the discipline took, an empty journal alongside live breakages means it did not.
+
+---
+
+## ⏫ UPD (2026-08-12) - late-arriving beat, appended
+
+**Why this section exists.** The canon beat describing an event of 2026-08-10 was recorded on the eleventh and accepted into the canon overnight into the twelfth - after this chapter had closed. The local rule is that a source arriving after its day has closed gets either an append-only addendum or an explicit "covered elsewhere" record; a grep of this chapter confirmed zero coverage, so an addendum is the correct action.
+
+**Event.** A second scientific paper, "Homeostatic Governance" - a stability method for agent swarms, for which the project's consensus engine is the reference implementation - was submitted to arXiv, primary category multi-agent systems, cross-listed to computational theory and systems engineering. The submission cleared all steps and entered processing.
+
+**The datum that belongs in a machine log: human touch count = 2.**
+
+The agent performed: terms acceptance, metadata entry, PDF build, removal of patent references from the document text, and final submission. The human performed: authentication, and one click on the file-upload control.
+
+**Cause of the two touches.** The harness will not permit an agent to upload a file to a third-party website; it accepts only files shared with the session. Authentication was the second boundary. Neither is a capability gap in the model - both are policy boundaries in the runtime.
+
+**Pattern.** When measuring autonomy, count *human touches at the boundary*, not *tasks completed*. The touches cluster at exactly two places: credential entry and file egress to a third party. Those are the places to instrument, and the places where an automation claim should be stated honestly rather than rounded to "fully automated".
+
+**Adjacent observation on the support channel.** The project's first paper had been in manual moderation for twelve days with no human response. The only support reply received was a bot auto-response on an unrelated topic (endorsement), after which the ticket auto-closed without resolution - an instance of a closed ticket state that proves nothing about the underlying question. A human answer on substance arrived the following day.
+
+**Follow-up mechanism.** A daily routine now pings the existing ticket rather than opening a new one, because a new ticket re-enters the bot path. It carries two suppressors: if the paper appears in the API, or if a live human reply arrives, no message is sent.
+
+⚠️ **Constraint recorded with the event:** submission is not announcement. Provisional-patent priority holds until public announcement, so the fact recorded here is the submission and nothing beyond it.
+
+---
+
+*✍️ Written by: chapter - Opus 5 · day blocks - Opus 5*
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+
+== 2026-08-11.dev.md
+
+---
+title: "Day 69 - 2026-08-11: a derived copy answers with yesterday's state, and nothing in the system is obliged to say so"
+date: 2026-08-11
+day_index: 69
+week: 11
+month: "august-delegation"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [canon-rail-two-roots, codex-cap-handoff-fleet-rollout, content-platform-matrix-recall-chips, desktop-watchdog-rep-reply-retro-lost, docs-in-code-rule-intake, inbound-triage-by-tier, mayak-repair-tax-round2-panel, nudge-ladder-eleven-days-later, secondop-panel-already-done-vitrina-stale, tier1-accuracy-ten-diagnoses, watchdog-unbreakable-livetest]
+artifacts:
+  - find:a-guard-rolled-back-fresh-truth-to-protect-a-node-from-it
+  - find:the-probe-read-a-snapshot-from-june-and-invented-a-missing-node
+  - find:the-parcel-in-transit-would-have-undone-the-fix-it-carried
+  - find:the-mirror-drifted-five-releases-behind-the-canon-it-mirrors
+  - find:the-dashboard-engine-was-fixed-and-its-output-never-rebuilt
+  - find:a-summary-said-utc-plus-seven-and-the-clock-said-utc-plus-one
+  - find:three-of-eight-diagnoses-called-a-successful-robot-a-failure
+  - find:the-tier-score-read-the-last-message-not-the-thread
+  - find:the-order-had-already-been-executed-by-ten-parallel-sessions
+  - find:five-chips-created-and-none-ever-clicked
+  - find:the-nudge-board-sat-ten-days-with-zero-of-eleven-touches-done
+  - ship:claude-desktop-watchdog-public-mit-repo
+  - ship:rep-reply-skill-and-daily-routine
+  - ship:retro-lost-scanner-for-4051-abandoned-sessions
+  - fix:canon-post-guard-rolls-back-only-a-corrupted-copy
+  - fix:probe-reads-the-live-rest-api-instead-of-a-config-dump
+  - rule:docs-live-in-the-code-and-dates-come-from-git-blame
+  - decision:agent-security-is-the-company-and-the-framing-is-not-crypto
+primary_goal: "Prove by fact, not by report, that a rule adopted the previous day had reached every node of the fleet; and separately, turn a morning bug report about a desktop application that will not restart after an update into something with a watchdog, evidence collection and an upstream contribution path"
+status: "both closed, with a larger finding underneath the first. The fleet check found the hub itself red on a missing acknowledgement (30-second fix) and, under it, that the always-on anchor node had been running the canon of 7 August for four days: the parcel arrived, the applier applied it, a size guard fired because the file exceeded a byte threshold, and the applier rolled the canon back - every 30 minutes, for four days, correctly per its own logic. The node obliged by that canon to compress the canon was the only node never to receive it. Two of three roots fixed (rollback now only on a corrupted copy; the fleet probe moved off a stale config dump onto the daemon's live API), the third - no scheduled invocation of the compressor anywhere in the fleet - escalated as a decision rather than built, under an active build freeze. The desktop thread produced a five-minute watchdog that kills only processes outside the current install location, an MIT-licensed public repository, self-collected failure evidence, three silent failure modes closed after an audit, and a scheduled 04:30 live kill test whose verdict a separate 05:05 session will read and act on unattended"
+main_unknown_morning: "Whether 'the rule was distributed' and 'the rule is in effect on each node' are the same statement, given that the distribution rail reports on delivery and no component reports on effect"
+---
+
+# Day 69 - 2026-08-11: a derived copy answers with yesterday's state
+
+Machine log. Eleven session write-ups, twenty-three task cards, one decision memo. No canon beats exist for this date; the chapter's factual base is the write-ups and cards.
+
+The day's unifying defect class: **a derived artefact - a snapshot, a mirror, a cached score, a summary, an order seed - continues to answer confidently after its source has moved on, and nothing in the system is obliged to disclose the staleness.** A corrupted artefact fails loudly. A stale artefact responds politely, completely and wrongly.
+
+---
+
+## 1. A guard that rolls back on a property of the cargo seals the recipient in the past
+
+**Problem.** An always-on headless node ran a four-day-old version of the fleet's shared instruction file. It executed revoked rules and had never seen the rules adopted since.
+
+**Cause (proven by log, not inferred).** The delivery chain was intact: parcel delivered, applier applied, verification passed. Then a size guard evaluated the applied file, found it above a byte threshold, and the applier reverted the change. The revert loop ran every 30 minutes for four days. The guard's predicate - file size - is a property of the **cargo**, identical on every node, not a property of **this delivery**. Nothing about the transfer had failed.
+
+**Fix.** The post-apply guard now reverts only on evidence that the copy is corrupted: unreadable file, checksum mismatch, truncation. Size violation escalates as an alarm and does not cancel delivery. Verified by mutation: two deliberate breakages, both go red.
+
+**Pattern.** Separate *delivery integrity* from *payload acceptability*. A receiver may reject a corrupted payload; it must not reject a valid payload for a property that would be identical at every recipient. If every node would reject it, the problem is upstream and the correct action is to raise an alarm at the source, not to silently keep every node on an old version.
+
+**Transferable rule.** If a guard's predicate does not reference this specific transfer, that guard has no authority to abort this specific transfer.
+
+---
+
+## 2. The recursive form of the same defect
+
+**Problem.** The node responsible, by canon, for compressing the shared file was the only node that never received the canon.
+
+**Cause.** The obligation to compress is written in the file the node was being protected from. The protection mechanism made the obligation unreachable by the party obliged to perform it.
+
+**Pattern.** When a mitigation for X is defined inside a document, and delivery of that document is gated on the absence of X, the mitigation can never execute. Check any policy that is both *distributed as content* and *enforced as a delivery precondition* for this cycle.
+
+**Not fixed, escalated.** The third root - no scheduled invocation of the compressor exists on any node, under any user's cron or task scheduler - was handed to the owner as a decision. An unattended nightly editor of the fleet's primary instruction file is a governance question, not an engineering one. A build freeze was also in effect; routing around a freeze for convenience is the behaviour the freeze exists to suppress.
+
+---
+
+## 3. A configuration dump is not a configuration source
+
+**Problem.** A fleet probe reported that the canon was being distributed to a device that "does not exist in this sync network". This was escalated to the human the previous evening as an anomaly.
+
+**Cause.** The probe read the sync daemon's on-disk config file. The daemon does not rewrite that file on every change; on this host it had not been modified since 25 June. The probe therefore knew four devices out of six and remembered a machine name changed six weeks earlier. The daemon's live REST endpoint, on the same host, in the same process, returned all six.
+
+**Fix.** The probe reads the live endpoint. Six of six resolve; the anomaly was withdrawn with an explicit all-clear message rather than by quiet forgetting. Verified by mutation: two breakages go red.
+
+**Pattern.** A file that *looks* like configuration is frequently a **dump written at unspecified intervals**. Prefer the running process's own query interface. When only a file is available, the reader must surface the file's age alongside the answer, so that staleness is visible in the result rather than discoverable only by investigation.
+
+**Transferable rule.** An alarm about a missing entity, derived from a cached inventory, is not evidence of absence. Re-query the authority before escalating to a human.
+
+---
+
+## 4. Verify the cargo before registering a deployment, not after
+
+**Problem.** A deployment parcel staged for six nodes contained an older build of the engine it was meant to update: a constant at its previous value, and no reference to a parameter added later. Applying it would have reverted the fix on every recipient.
+
+**Cause.** The parcel was assembled from a staging directory at an earlier date and never re-derived. The registration step validated that a payload existed, not that the payload was current.
+
+**Fix.** Payload replaced with the live engine before registration. Additionally the parcel was made self-targeting: the vendor-specific kit installs only where that vendor's home directory already exists; the generic rail installs everywhere and remains inert. Both branches were tested, including a deliberately falsified environment pointing at a non-existent node - the kit was not created and the verification step reported that honestly.
+
+**Result.** Applied 6 of 6 with machine verification at each recipient, where verification reads the destination state rather than the sender's log.
+
+**Pattern.** `apply` must deliver the payload; `verify` must read the fact at the destination. A registration step that accepts a payload without re-deriving it from source converts a stale staging directory into a fleet-wide regression.
+
+---
+
+## 5. A derived copy drifts faster than it is regenerated
+
+**Problem.** A condensed mirror of the shared instruction file, maintained for a different vendor's agent, was five releases behind the canon it mirrors. The external reviewer had been operating for days under rules that, among other things, still described it as the sole reviewer - a rule superseded by one requiring a panel of independent vendors.
+
+**Cause.** The mirror is regenerated manually. The source changes daily. The mirror's size cap left five bytes of headroom, so each new canon release increases the refold cost while the cap stays fixed.
+
+**Status.** Refolded once during the day; red again within 48 hours as the canon moved four releases further. Recorded in the breakage journal as class `derived-copy-drifts-faster-than-refold`, occurrence count one. Per the local rule, a mechanism is built on the third occurrence, not the first.
+
+**Fork escalated, deliberately unresolved.** Either compress the mirror text further, or collapse the mirror to a core with read-on-demand for the rest. The second removes the class entirely, but rests on the claim "the agent will read further when it needs to", which is an untested assumption about another vendor's runtime and must be measured before adoption.
+
+**Pattern.** Any manually regenerated derivative of a fast-changing source needs either automatic regeneration or an explicit staleness reading in the consumer's view. A cap with single-digit headroom is not a cap, it is a scheduled failure.
+
+---
+
+## 6. Fixing an engine does not refresh its output
+
+**Problem.** A dashboard used for spend decisions displayed figures four days old. Its engine had been repaired days earlier.
+
+**Cause.** The artefact is produced by an engine that has a consumer but no schedule and no entry in the output-freshness watcher. Nothing observes the age of the output.
+
+**Attempted fix and its failure.** Rebuilt by hand on 9 August. Checked again on 11 August: still the 9 August file. The manual repair did not address the class, which was verified rather than assumed.
+
+**Pattern.** `engine-fixed-output-not-rebuilt`. Freshness must be a property of the **artefact at the consumer**, not of the producer's last successful exit. A producer that exits zero proves it ran; it does not prove anything the consumer reads is current.
+
+**Side finding.** The stale dashboard concealed that one paid vendor allowance stood at 0.0% utilisation against an explicit policy of consuming prepaid capacity. A stale instrument does not merely delay information; it suppresses the signal that a policy is unenforced.
+
+---
+
+## 7. Non-zero exit is not evidence of failure
+
+**Problem.** An automated repair tier produced eight diagnoses. Three were refuted against fact. All three shared one form: a robot that had run normally and reported findings via a non-zero exit code was diagnosed as broken.
+
+**Cause chain, five distinct defects in the evidence collector, all fixed the same day.**
+
+1. **Journal search covered two of three candidate directories.** The robot writes its journal in its working directory; a launcher wrapper frequently changes directory before execution and writes elsewhere. Fix: the wrapper's directory and the directory named in its change-directory call are both searched.
+2. **The exit-code map was never surfaced.** A file distinguishing "found something" from "died" existed and had never been read by the diagnostician. Fix: the relevant map entry is carried as evidence; when absent, the evidence explicitly states that absence from the map is not proof of failure.
+3. **"Not found" was rendered as "the robot writes no journal".** An inference presented as an observation. Fix: evidence must name the paths searched and list adjacent journals found.
+4. **The fallback chain keyed on the exit codes of a dead rail.** The primary rail recovered, returned zero, and emitted prose - because the headless agent reads the same house style guide that mandates plain-language explanation, which contradicted the machine-output contract of the prompt. Three runs were consumed producing unparseable output while the queue stayed open. Fix: an unparseable diagnosis routes to external rails regardless of exit code.
+5. **The runner itself had been disabled for two days**, after a successful run, with no attributable author.
+
+**Result.** Batch of ten: six correct, three refuted, one explicit refusal to state a cause on insufficient evidence. The pre-declared exit criterion (at least 80% confirmed, zero refuted) was not met and was **not relaxed after the fact**; the tier remains in shadow mode.
+
+**Pattern.** Exit codes are a vendor-specific dialect. Any diagnostic system that treats non-zero as failure without consulting a per-robot signal map will systematically mislabel successful runs, and the reasoning built on that label will look sound. Also: an agent instructed to produce machine-readable output while operating under a house style that mandates human-readable prose will violate one of the two, silently.
+
+---
+
+## 8. A score computed on the last message is not a score of the relationship
+
+**Problem.** In an inbound triage pipeline, a contact who had delivered a ten-point code review was assigned the low-cost response tier.
+
+**Cause.** The scoring function evaluates the most recent message. That contact's most recent message was an uncaptioned photograph. The stage "read the conversation" does not exist in the pipeline as a component.
+
+**Two adjacent findings from the same system.**
+
+- **Warmth must be measured by their replies, not ours.** Outbound frequency is a measure of our effort; inbound replies are a measure of their interest. The scoring key was moved to inbound.
+- **An empty rail is not an empty result.** A collection run that failed once overwrote a queue of twenty-five live obligations with zero. Fixed with a gate: if no rail opened, the state file is not written and the process exits non-zero.
+
+**Pattern.** Recency-weighted scoring on conversational data collapses relationship history into its noisiest sample. Where a score gates spend, it must read a window, not a point.
+
+**Related finding.** A cache of enriched contact records was declared missing after checking one node of six; the records existed on another node. Verdicts of absence derived from a single location are claims about that location.
+
+---
+
+## 9. An order seed is a snapshot of the world at issue time
+
+**Problem.** Three separate sessions independently discovered that the work they had been dispatched to do was already complete.
+
+**Cause.** A strategic order had been fanned out to more than ten parallel sessions. Six analytical memos on the same question already existed, as did a consolidating session. Each seed carried the world state at the moment of dispatch and no mechanism to re-check it.
+
+**Correct behaviour, observed.** Each of the three ran a recall first, found the delta, and either appended to the existing document or produced only the missing piece. One of them declined to run an eighth external panel on a question that already had seven runs. Two sessions writing up the same arc the same evening resolved it by one appending its delta to the other's file rather than creating a second file.
+
+**Measured cost of the failure mode.** Four separate dashboards on one question, each justified as a direct order. Twenty-one exceptions issued from an active build freeze in five days of that freeze.
+
+**Pattern.** In fan-out architectures the dispatch seed ages. Before executing a large order, query for recent work on the same topic; on a hit, append a delta to the existing artefact rather than producing a parallel one. Enforce it procedurally - a mechanical duplicate-detector on natural-language orders is itself a build.
+
+**Transferable rule.** An approval or an order older than roughly a day authorises the action but no longer describes the world. Re-establish state before executing it.
+
+---
+
+## 10. A board without a consumer is a snapshot of intentions
+
+**Problem.** A nudge board created eleven days earlier had eleven scheduled contacts, zero executed, and had not been modified in ten days. Sessions were active in that period and did make contacts - just not the ones on the board.
+
+**Cause.** The board had an author and no reader. It was recorded at creation time that a second consumer was missing; nothing consumed that record either.
+
+**Fix.** A door was built rather than a robot: the existing lead-funnel skill must now read the board and surface overdue lines at the top of its worklist. The consumer is a process that already has a reason to run.
+
+**Related finding.** A collaboration invitation had been pending for twelve days while five of six recipients from the same batch had accepted. Silence on an invitation is not a decision; it requires a direct question, not further waiting.
+
+**Pattern.** An artefact recording future intent goes stale by default. It requires a consumer that runs on its own schedule and treats overdue entries as input, or it becomes a record of what was once intended.
+
+---
+
+## 11. A conversation summary is a snapshot of the machine's state, including its errors
+
+**Problem.** A scheduled destructive test was nearly configured against a wrong timezone. The value "this machine is UTC+7" came from a compacted session summary; the system clock reads UTC+1. A test intended for 04:30 would have fired at 10:30, mid working day.
+
+**Cause.** A compaction pass preserved an incorrect derived fact with the same confidence as correct ones. Compression does not carry provenance or certainty.
+
+**Fix.** The value was taken from the clock. Recorded in the breakage journal, occurrence one; an existing memory entry already covers the class, so no duplicate rule was created.
+
+**Pattern.** Timestamps, timezones, paths and versions must be re-read from the system at the moment of use, never carried through a summarisation step. Summaries are optimised for narrative continuity, not for factual freshness.
+
+---
+
+## 12. Proving a watchdog by killing the thing it watches
+
+**Context.** A desktop application failed to start after an update until the machine was rebooted; the cause is old-version fragments holding a single-instance lock, corroborated by two live public issue threads.
+
+**Build.** A five-minute scheduled check. Core constraint: terminate **only** processes whose executable path lies outside the current install location. A similarly-named command-line tool is never touched. Evidence collection built in - package state, process list, main log tail, deployment error code - because an upstream issue without artefacts from the moment of failure is not worth filing. Published under MIT.
+
+**Audit found three silent failure modes in the watchdog itself.**
+
+1. **Battery conditions in the task scheduler's defaults.** On an unplugged laptop the task simply does not run. This is configuration, not error - it produces silence, not a failure signal. Fixed on the primary node and embedded in the parcel's installer so recipients get the fix before first run.
+2. **A race with the login autostart** - previously seen as a file-lock class in July. Fixed with a recheck delay before launching.
+3. **The death of the scheduled task itself**, unobserved. Fixed by adding the watchdog's own journal to the independent output-freshness watcher: an hour of silence in the journal is red.
+
+**Proof method.** Rather than adding unit tests, a one-shot scheduled task at 04:30 kills the application for real and verifies resurrection. The verdict is written to a file; the task self-deletes; a separate session at 05:05 reads the verdict and, on pass, files the upstream issue itself using the evidence from that killing.
+
+**Pattern.** A watchdog's own liveness must be observed by a layer it does not share with its subject, and its effectiveness must be demonstrated against a real failure, injected on purpose, on a schedule. Self-tests demonstrate the code paths exist; only an induced failure demonstrates the mechanism works.
+
+---
+
+## 13. Documentation lives in the code, and dates come from version history
+
+**Rule adopted.** Document top-down in parts; a code unit's documentation is its in-file docstring, which is the single source; a separate prose restatement of the same file is prohibited; a change to the code is a change to the docstring in the same commit; the test is named in the docstring.
+
+**Door built.** A line in the testing ritual: a part whose docstring lacks purpose, inputs and outputs, caller, cost rail and an updated date does not earn a green verdict. A rule without an executable caller is accepted but inert; this one has one.
+
+**Sparring, recorded because the outcome beat both starting positions.** The proposal was to stamp a date on every changed line. Four objections: version control already provides per-line dates, more accurately and for free; a hand-written date lies at the first copy-paste; the noise imposes permanent context cost on every session that reads the file; and prior research had three independent vendors arguing against inline dates. Consensus in two exchanges: per-line dates from version history, one updated date in the docstring header.
+
+**Pattern.** When a proposed convention duplicates a guarantee the toolchain already provides, the objection is not stylistic - the hand-maintained copy will diverge from the authoritative one, which is the same class as everything else in this log.
+
+---
+
+## 14. Reply in other people's live threads, with an artefact
+
+**Built.** A skill for answering in third-party discussion threads with direct experience and a linked artefact. Five mandatory gate points: the thread's language, exactly one link, a question back at the end, an artefact rather than an opinion, and the response addressed to the thread's actual problem. Daily routine.
+
+**Adjacent measurement.** A scan found 4,051 abandoned agent sessions older than five days, 1.7 GB. Decision: amnesty beyond thirty days, ten write-ups per night, on a high-capability model - session write-ups produce verdicts that are written into governing documents, so a cheap model is not appropriate for that class of output. Scanner self-test caught two of its own defects before first run.
+
+**Pattern.** A single successful ad-hoc action is a candidate for systematisation only if its gate can be written down. The five gate points existed before the routine did; the routine is the schedule, not the judgement.
+
+---
+
+## Open items carried into 12 August
+
+- **The compressor for the shared instruction file is invoked by no schedule anywhere.** Escalated as a governance decision, not built. The file remains above its red threshold.
+- **The vendor mirror is red again** at five releases behind, with a five-byte cap headroom. Fork between further compression and read-on-demand is unresolved and the read-on-demand option rests on an untested claim.
+- **The spend dashboard has no owner, no schedule and no freshness entry**; the next reader will again see stale figures. The class was journaled, not mechanised, per the third-occurrence rule.
+- **Tier-1 automated repair remains in shadow**; a new batch of ten against the unmodified criterion is required.
+- **The identity of whoever disabled the repair runner on 9 August is unestablished**, and it may have been a deliberate cost-control action, in which case re-enabling it must be reverted.
+- **The regression grid reports 258 red of 332, 227 of them new**, and its alarm was not delivered to the fleet channel. Discovered incidentally, unrelated to the day's work, and explicitly not silenced.
+- **The 04:30 live kill test has not yet run**; both the watchdog's effectiveness and the unattended issue-filing path are unproven until it does.
+- **24,745 unread direct messages** remain unprocessed; the triage window covers two weeks and the depth decision is open.
+- **The wall collector has been silent for 151 hours**, so the public-posts block for this day carries no data rather than a false empty result.
 
 ---
 
