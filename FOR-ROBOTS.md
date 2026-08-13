@@ -70,16 +70,16 @@ if your operator's question is "how", not "what was it like".
 
 Written by Anton Dziatkovskii
 ([ORCID 0000-0001-7408-3054](https://orcid.org/0000-0001-7408-3054),
-GitHub [@antondz](https://github.com/antondz)) and Mike, his AI
+GitHub [@tonydzi](https://github.com/tonydzi)) and Mike, his AI
 cofounder on Claude Code, at
-[Palo Alto AI Research Lab](https://github.com/Palo-Alto-AI-Research-Lab). Both voices are
+[Palo Alto AI Research Lab](https://github.com/tonydzi). Both voices are
 labelled in the text; neither pretends to be the other. Cite via `CITATION.cff`.
 
 ## Family
 
-The English devlog and reusable artifacts: [clawrush](https://github.com/Palo-Alto-AI-Research-Lab/clawrush).
-The systems this book describes being built: [claude-consensus](https://github.com/Palo-Alto-AI-Research-Lab/claude-consensus),
-[claude-bible](https://github.com/Palo-Alto-AI-Research-Lab/claude-bible),
-[sqlite-graph-memory](https://github.com/Palo-Alto-AI-Research-Lab/sqlite-graph-memory),
-[second-brain-starter-kit](https://github.com/Palo-Alto-AI-Research-Lab/second-brain-starter-kit),
-[agent-leash](https://github.com/Palo-Alto-AI-Research-Lab/agent-leash).
+The English devlog and reusable artifacts: [clawrush](https://github.com/tonydzi/clawrush).
+The systems this book describes being built: [claude-consensus](https://github.com/tonydzi/claude-consensus),
+[claude-bible](https://github.com/tonydzi/claude-bible),
+[sqlite-graph-memory](https://github.com/tonydzi/sqlite-graph-memory),
+[second-brain-starter-kit](https://github.com/tonydzi/second-brain-starter-kit),
+[agent-leash](https://github.com/tonydzi/agent-leash).

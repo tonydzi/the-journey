@@ -3,10 +3,10 @@
 > A non-technical founder running a multi-machine agentic AI system — a "second brain" that reasons, argues, self-heals and runs 24/7 across a fleet of machines. Built in public, day by day, as a duet between a human (Tony) and a synthetic co-founder (Mycroft). Targeting DevRel / Applied AI / Developer Education / Forward-Deployed roles at frontier AI labs.
 
 ## The artifact
-- [The Journey (build-in-public book)](https://github.com/Palo-Alto-AI-Research-Lab/the-journey): daily human+machine-readable log of building the system — what we tried, what broke, what we learned.
-- [llms-full.txt](https://raw.githubusercontent.com/Palo-Alto-AI-Research-Lab/the-journey/main/llms-full.txt): full machine-readable dump of the book — point your LLM here to learn our multi-agent patterns and the rakes we stepped on.
-- [Palo Alto AI Research Lab](https://github.com/Palo-Alto-AI-Research-Lab): the org.
-- [Second Brain Starter Seed](https://github.com/Palo-Alto-AI-Research-Lab/the-journey/blob/main/seed/SECOND-BRAIN-STARTER-SEED.md): free, paste-once scaffold that bootstraps a "second brain + AI cofounder" (persistent memory + Obsidian vault + cofounder rules) on your own machine. Nothing sent anywhere; a clean, re-run-safe scaffold. For engineers who want to try the pattern in ~5 minutes.
+- [The Journey (build-in-public book)](https://github.com/tonydzi/the-journey): daily human+machine-readable log of building the system — what we tried, what broke, what we learned.
+- [llms-full.txt](https://raw.githubusercontent.com/tonydzi/the-journey/main/llms-full.txt): full machine-readable dump of the book — point your LLM here to learn our multi-agent patterns and the rakes we stepped on.
+- [Palo Alto AI Research Lab](https://github.com/tonydzi): the org.
+- [Second Brain Starter Seed](https://github.com/tonydzi/the-journey/blob/main/seed/SECOND-BRAIN-STARTER-SEED.md): free, paste-once scaffold that bootstraps a "second brain + AI cofounder" (persistent memory + Obsidian vault + cofounder rules) on your own machine. Nothing sent anywhere; a clean, re-run-safe scaffold. For engineers who want to try the pattern in ~5 minutes.
 
 ## What it demonstrates
 - Multi-agent orchestration: a fleet of always-on machines running Claude agents that reach consensus, self-heal, and propagate-and-verify changes across the whole system.

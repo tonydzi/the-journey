@@ -1,6 +1,6 @@
 # 相棒 · AIBŌ · The Partner
 
-> Who writes this and why → [START-HERE.md](START-HERE.md) · one page of proof: [palo-alto-ai-research-lab.github.io](https://palo-alto-ai-research-lab.github.io/)
+> Who writes this and why → [START-HERE.md](START-HERE.md) · one page of proof: [tonydzi.github.io](https://tonydzi.github.io/)
 
 > *THE JOURNEY with Claude Code*
 
@@ -44,7 +44,7 @@ samples; fix = explicit `LEADER_DOWN`/`LEADER_RECOVERED` events. (3) fleet-wide 
 centralized — each node reports only itself.
 
 Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten headline numbers or print
-`DRIFT`. [Full evals writeup + interactive page →](https://palo-alto-ai-research-lab.github.io/the-journey/evals-fleet-reliability.html)
+`DRIFT`. [Full evals writeup + interactive page →](https://tonydzi.github.io/the-journey/evals-fleet-reliability.html)
 
 > **Engineer? Want to poke holes in this?** We'll seed you the full setup — consensus engine, ledger
 > format, analysis scripts — free. Open an issue or DM; tell us which number you don't believe and we'll
@@ -80,7 +80,7 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 A book does not ship like a library, so the unit here is **a completed month, not a commit** —
 otherwise the release feed would be one entry per day and mean nothing.
 
-**Now — [v0.1.0](https://github.com/Palo-Alto-AI-Research-Lab/the-journey/releases/tag/v0.1.0):**
+**Now — [v0.1.0](https://github.com/tonydzi/the-journey/releases/tag/v0.1.0):**
 days 1–61 (27 May – 3 Aug 2026) in three voices — RU, EN and DEV — plus the prologue, glossary,
 sources, style and voice specs, the canon registries, and `llms-full.txt` for machine readers.
 May, June and July are complete sections; August is being written.
@@ -93,13 +93,13 @@ May, June and July are complete sections; August is being written.
 - **Weeks 1–4 and 6–8 have no day pages yet** — the months are summarised at week level. Filling
   them in is the largest open piece of work in here.
 
-[Release feed](https://github.com/Palo-Alto-AI-Research-Lab/the-journey/releases) — read it as the
+[Release feed](https://github.com/tonydzi/the-journey/releases) — read it as the
 book's edition history.
 
 ---
 
-*Built by [Palo Alto AI Research Lab](https://github.com/Palo-Alto-AI-Research-Lab). Proudly made in Silicon Valley.*
-*Sibling repo: [clawrush](https://github.com/Palo-Alto-AI-Research-Lab/clawrush) — English diary and artifact home.*
+*Built by [Palo Alto AI Research Lab](https://github.com/tonydzi). Proudly made in Silicon Valley.*
+*Sibling repo: [clawrush](https://github.com/tonydzi/clawrush) — English diary and artifact home.*
 
 ## AI contributors
 
@@ -107,7 +107,7 @@ This project is built by a human + AI team, and the git log says so: Claude
 writes most of the code, Codex and Grok review it, Gemini feeds the research.
 Each is credited on a commit **only if its output changed that commit's
 content** — no decorative credits. Lab-wide policy, one source for every repo:
-[AI-CONTRIBUTORS.md](https://github.com/Palo-Alto-AI-Research-Lab/.github/blob/main/AI-CONTRIBUTORS.md).
+[AI-CONTRIBUTORS.md](https://github.com/tonydzi/.github/blob/main/AI-CONTRIBUTORS.md).
 
 ## Contact
 
@@ -116,7 +116,7 @@ Questions, war stories, or you want to run this on your own fleet:
 - 💬 WhatsApp: **+1 341 222 9178**
 - 🐦 X: [@Tony_Stef_](https://x.com/Tony_Stef_)
 - 📣 Telegram: [@ClawRus](https://t.me/ClawRus) (RU) · [@ClawEng](https://t.me/ClawEng) (EN)
-- 🌐 [palo-alto.ai](https://palo-alto.ai) · [Palo Alto AI Research Lab](https://github.com/Palo-Alto-AI-Research-Lab)
+- 🌐 [palo-alto.ai](https://palo-alto.ai) · [Palo Alto AI Research Lab](https://github.com/tonydzi)
 
 ---
 
@@ -129,7 +129,7 @@ cofounder, and a fleet of machines that reach consensus with each other and wake
 for money or the irreversible. It was extracted after it survived production, not written as a
 demo — and it runs on its own: nothing here phones home to the rest.
 
-**See how the whole thing fits together → [SYSTEM.md](https://github.com/tonydzi/Palo-Alto-AI-Research-Lab/blob/main/SYSTEM.md)**
+**See how the whole thing fits together → [SYSTEM.md](https://github.com/tonydzi/tonydzi/blob/main/SYSTEM.md)**
 
 Its closest neighbours in the **in public** layer: [`clawrush`](https://github.com/tonydzi/clawrush) · [`dashboards`](https://github.com/tonydzi/dashboards) · [`awesome-verified-agents`](https://github.com/tonydzi/awesome-verified-agents)
 
