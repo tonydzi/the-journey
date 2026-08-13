@@ -110,7 +110,7 @@ Machine files: dry — the two links + "give this link to your coding agent, it'
 
 ## Publishing
 
-GitHub push is autonomous (Anton "ДОВЕРЯЮ", 2026-07-03) after leak-scan passes. Repo: `github.com/Palo-Alto-AI-Research-Lab/the-journey` (new, links to sibling `clawrush`). Repo creation needs the web UI (PAT lacks admin scope); content push via normal `git push` (PAT fixed 2026-07-04), web-commit fallback as break-glass.
+GitHub push is autonomous (Anton "ДОВЕРЯЮ", 2026-07-03) after leak-scan passes. Repo: `github.com/tonydzi/the-journey` (new, links to sibling `clawrush`). Repo creation needs the web UI (PAT lacks admin scope); content push via normal `git push` (PAT fixed 2026-07-04), web-commit fallback as break-glass.
 
 ## Sources of truth
 
