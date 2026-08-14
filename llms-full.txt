@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 69 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 71 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -8528,6 +8528,443 @@ The day's unifying defect class: **a derived artefact - a snapshot, a mirror, a 
 - **The 04:30 live kill test has not yet run**; both the watchdog's effectiveness and the unattended issue-filing path are unproven until it does.
 - **24,745 unread direct messages** remain unprocessed; the triage window covers two weeks and the depth decision is open.
 - **The wall collector has been silent for 151 hours**, so the public-posts block for this day carries no data rather than a false empty result.
+
+---
+
+*✍️ Written by: chapter - Opus 5 · day blocks - Opus 5*
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+
+== 2026-08-12.dev.md
+
+---
+title: "Day 70 - 2026-08-12: a queue reports its length and never its age, so cargo expires in transit"
+date: 2026-08-12
+day_index: 70
+week: 11
+month: "august-delegation"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [registry-readers-rollout-roots, retro-lost-batch-01-robot-runs, habr-promise-guardrails-agentevals, oss-watchdog-v02-release, repair-dead-scheduled-task, value-teaser-always-links]
+artifacts:
+  - find:a-parcel-waited-seventeen-days-and-expired-in-the-queue
+  - find:the-test-defended-a-contract-the-code-had-already-left
+  - find:nine-of-ten-abandoned-sessions-were-robots-that-finished-fine
+  - find:a-breakage-class-reached-nine-dated-entries-with-a-threshold-of-three
+  - fix:hub-applies-parcels-over-ssh-instead-of-waiting-for-acknowledgement
+  - fix:schema-errors-fall-from-five-to-zero-by-teaching-the-indexer-two-maps
+  - rule:if-you-gave-value-you-gave-a-link
+primary_goal: "Close a 17-day-old undelivered rollout of the task-registry readers (session-start hook plus portable indexer) to three nodes, and establish why a delivered parcel can sit unapplied without any watchdog turning red"
+status: "one of three nodes provably applied; the larger finding is that the parcel had itself expired. The destination hook had been rewritten on 5 August with a live count and a cache-age field; mechanically applying the 26 July payload would have reverted a ten-day-old improvement. The parcel was rebuilt from live files with a single-use installer, tests taken from 16/17 to 17/17 by correcting the test rather than the code, and indexer schema errors reduced 5 to 0 by teaching two enumeration maps. The remaining two nodes were unreachable over the secure channel (closed port, remote login disabled) and were left a parcel plus a named bus task with an acknowledgement watchdog. Separately: the first nightly run of the abandoned-session scanner returned 10 candidates of which 7 were normally completed scheduled robot runs and exactly 1 was a genuine loss; and the breakage journal was found holding 9 dated entries for one class against a firing threshold of 3"
+main_unknown_morning: "Why three nodes that all received a parcel and all had a working applier had none of them applied it, with no component reporting anything abnormal"
+---
+
+# Day 70 - 2026-08-12: a queue reports its length and never its age
+
+Machine log. Two session write-ups, four task cards, one day ledger. No canon beats exist for this date; the factual base is the write-ups, the cards and the ledger. Live sessions that day: 74. Robot sessions: 210+. Write-ups produced: 2.
+
+The day's unifying defect class: **the system models queues as a quantity and never as a duration.** "Delivered and not applied" is a legal, non-alarming state. It has a count. It has no clock. Anything that can sit in such a state can therefore also expire in it, and the expiry is not merely a delay - the payload becomes actively harmful, because the destination keeps moving while the payload does not.
+
+Yesterday's class was *a derived copy answers after its source moved on*. Today's is its transport-layer twin: *a payload in transit ages against a destination that does not wait for it*. Same physics, different location. Yesterday the stale thing was being read. Today the stale thing is about to be written.
+
+---
+
+## 1. A delivered-and-unapplied state with no age is invisible to every watchdog
+
+**Problem.** A deployment parcel built on 26 July, addressed to three nodes, sat unapplied on all three for 17 days. No alarm fired at any point.
+
+**Cause.** The delivery rail is correctly specified: "sent" is not "done", and proof of completion is a fact read at the destination rather than a receipt. Delivery succeeded on all three nodes, so no delivery watchdog had anything to report. Application never occurred, and the absence of application is not an event - it is the continuation of a legal state. The fleet report exposed the queue as a cardinal number ("parcels queued: N"), which was accurate for the entire 17 days. The question that exposes the defect is not "how many" but "since when", and no surface answered it.
+
+**Fix (partial, one node).** The hub stopped waiting for acknowledgement and applied the parcel to itself over the secure channel: copy, checksum comparison, test run **on the node**, install, verify, mark applied, DONE marker synced. Two nodes remain unreachable (port 22 closed on one, remote login disabled on the other) and received a parcel plus a named bus task with an armed acknowledgement watchdog.
+
+**Pattern.** Any state a work item can rest in indefinitely needs an age, and the age needs a threshold. A count of items in a queue proves nothing about the queue's health; the oldest item's age proves nearly everything. Instrument the maximum, not the cardinality.
+
+**Transferable rule.** If a state has no maximum permitted duration, it is not a queue, it is a landfill.
+
+---
+
+## 2. Cargo expires in transit, and applying it mechanically is a regression
+
+**Problem.** When the parcel was finally opened, its payload was stale. The session-start hook it carried had been superseded on 5 August by a rewrite on the hub that added a live task count, a cache-age field and a part passport. Applying the 26 July payload as shipped would have rolled that improvement back.
+
+**Cause.** A parcel is a snapshot of a source tree at build time. The destination is not frozen while the parcel waits. The delivery protocol modelled the parcel as authoritative on arrival, with no comparison against the destination's current state and no freshness predicate at apply time.
+
+**Fix.** Parcel rebuilt from the live files, with a single-use installer written for it. Applied and verified on the hub.
+
+**Pattern.** Two distinct failure modes hide behind "the update did not arrive": *delay* and *spoilage*. They need different cures. Delay is cured by reachability - push instead of waiting. Spoilage is cured by an expiry predicate - a parcel older than its shelf life must be treated as suspect and re-derived from source before it is allowed to write anything.
+
+**Transferable rule.** An apply step must compare payload provenance against destination state. "Newer than the destination" is a precondition, not an assumption.
+
+---
+
+## 3. A red test is not automatically evidence against the code
+
+**Problem.** The rollout's test suite reported 16/17. The failing case appeared to indict the hook.
+
+**Cause.** The test asserted a status-line contract the code had abandoned during the 5 August rewrite. The test was correct with respect to an agreement whose other party had left a week earlier.
+
+**Fix.** The test was updated to the live contract, taking the suite to 17/17. The code was not touched.
+
+**Pattern.** A guard and the thing it guards can drift apart in either direction. Before treating a red result as an indictment, establish which side of the contract moved. The cheap discriminator is version history: whichever side changed last is the side to question first.
+
+**Transferable rule.** When a test and its subject disagree, the test is a claim like any other and requires the same evidence.
+
+---
+
+## 4. Schema errors that are not bugs but missing enumerations
+
+**Problem.** The task indexer reported 5 schema errors.
+
+**Cause.** None were code defects. The state map lacked an entry for a state meaning "waiting on the hub"; the owner map assumed an owner is a person and could not resolve owners that are colleagues' machines. One further case was a genuinely malformed YAML line with an unescaped quote inside a verdict field.
+
+**Fix.** Both maps extended, the malformed line repaired by hand. Schema errors 5 → 0.
+
+**Pattern.** A validator that rejects unfamiliar-but-legitimate values is producing false alarms at exactly the rate the domain grows. Each such error previously meant a task card invisible to prioritisation, so the failure was silent in the direction that matters: work vanished from the queue rather than appearing in it wrongly.
+
+---
+
+## 5. A detector built on absence cannot distinguish "finished" from "abandoned"
+
+**Problem.** The first nightly run of the abandoned-session scanner produced 10 candidates from a corpus of 820. Review found 7 were scheduled robot runs that completed normally, wrote a full report and exited; 1 already had a retrospective from 6 August; 2 were genuine build sessions without a write-up, of which 1 had a real loss. **Genuine losses: 1 of 10.** Nine slots of the night budget were consumed by work items with nothing to recover.
+
+**Cause.** The scanner's four predicates - silence over 5 days, size at or above 100 KB, traces of building, no retrospective note - are all satisfied identically by an abandoned human session and a completed robot run. All four are properties of absence. Silence does not carry its cause.
+
+**Fix.** None built. A cheap deterministic discriminator exists and was documented: a robot run's first user block opens with the scheduled-task service header, contains zero live human prompts, and terminates with a report and a heartbeat stamp.
+
+**Pattern.** A detector whose entire feature set is composed of absent signals will classify by whatever produces silence most often, not by what you intended to find. Add at least one positive marker before trusting the output.
+
+**Deliberately not fixed.** First dated case of the class. Under the third-breakage rule, one line to the journal and no mechanism. Two further occurrences make the scanner fix mandatory.
+
+---
+
+## 6. A counter with no reader does not fire a threshold
+
+**Problem.** The same breakage journal that received today's new line was found to be holding **9 dated entries** for the class "a scheduled task died quietly", against a firing threshold of **3**.
+
+**Cause.** The counter functioned: all nine entries present, dated, with node and symptom. The rule functioned as text. The missing element was an obligation on some component or session to read the counter and compare it to the threshold. A rule that says "act on the third occurrence" implies a reader that counts occurrences; no such reader was scheduled.
+
+**Fix.** The class was declared systemic and a dedicated repair session opened. Six of the nine entries had already been resolved by an earlier session; that review had produced four independent root causes worth recording:
+
+- Two different scheduled tasks invoked the same script while the exit-code semantics map was keyed by **task name**, so an identical exit was scored as success under one schedule and failure under the other.
+- The orphan-engine detector exits `1` to mean "orphans found"; the watchdog read `1` as "crashed".
+- A monthly report failed to start because the executable on that machine carries no conventional extension and the process-creation call, unlike a shell, does not append one.
+- Underneath that, a headless session printed an authentication failure and exited `0`, reporting success while doing nothing.
+
+The ninth and newest entry remains open: the watchdog robot could not restore an interactive application launch on the hub, no runbook exists, and the cure is recorded as unknown rather than guessed.
+
+**Pattern.** Every threshold rule needs three parts: a counter, a threshold and a scheduled reader. Two of three is a rule that documents inaction.
+
+---
+
+## 7. Permission relapse, second dated occurrence
+
+**Problem.** Two content-factory working directories were again owned by `root`, blocking writes by the user the robots run as.
+
+**Cause.** Same class as a July occurrence on a different directory of the same node; the ownership is re-established by a process that runs elevated.
+
+**Fix.** Access control list reapplied. No mechanism built - second dated case, one line to the journal.
+
+---
+
+## 8. A public promise is a debt with a clock
+
+**Problem.** Under the lab's article on a technical portal, an engineer with the handle `danilovmy` named two external tools he uses - Invariant Guardrails and AgentEvals. The lab account replied publicly: haven't looked, will look, thanks.
+
+**Handling.** Converted the same day into a dated debt card: read both repositories at the level of their checking code, run the lab's own fixture through both, produce an honest rather than promotional comparison, publish in-thread and as a standalone post, and name the adviser voluntarily. An entry for the adviser was recorded in the credit register.
+
+**Open tails on the same publication.** Cover art produced but never uploaded; a promised intro edit never inserted; the article refused by two topical sections. Views ~4800 overnight, rating -1. All four recorded rather than omitted.
+
+**Pattern.** A reply in a public thread creates an obligation whose default outcome is silent default. Convert it to a tracked item at the moment of sending, not at the moment of remembering.
+
+---
+
+## 9. Rule captured, door not built
+
+**Problem.** A voice instruction established a rule: any short text carrying value must carry a link to the product itself. Value without a link is deferred-payment self-promotion. A second clause targets the reader's agent rather than the reader: hand the link to your own assistant, the repository carries a machine-facing description and a machine-readable log.
+
+**Status.** Rule captured as a canon candidate. Its enforcement point - a teaser gate requiring a product link - is **not built**, because a build freeze is in force until 20 August. Recorded explicitly as accepted-and-inert rather than as shipped.
+
+**Pattern.** Under a build freeze the honest state of a new rule is "captured, unenforced". Reporting it as adopted inflates the rule count and produces exactly the gap this book has been measuring all month.
+
+---
+
+## 10. A release deliberately blocked on an experiment rather than on a person
+
+**Problem.** Version 0.2 of the public desktop watchdog - three-way death detection, a battery-sleep installer fix, a live-test script, a crash-resume hook, and a readme section carrying a depersonalised real verdict - was ready to ship.
+
+**Status.** Blocked on the scheduled 04:30 live kill test on 13 August. Until the application is deliberately killed and observed to return, the release does not go out.
+
+**Pattern.** The most defensible reason for a work item to wait is a pending measurement of itself. This was the only item in the day's queue whose waiting had a stated end condition.
+
+---
+
+## Open items carried into 13 August
+
+- **Two of three nodes remain unapplied**; both were unreachable over the secure channel, so the rollout is closed on the hub only and provable nowhere else.
+- **No expiry predicate exists on parcels**; the class "delivered, unapplied, expired" is named but unmechanised.
+- **No queue surface reports age**; the oldest-item metric does not exist on any dashboard.
+- **The abandoned-session scanner still cannot recognise a robot run**; deliberately unfixed at case one of three.
+- **The ninth entry of the dead-scheduled-task class is undiagnosed**; no runbook, cure recorded as unknown.
+- **The debt to `danilovmy` is open** with a review date of 15 August; the honest comparison has not been run.
+- **Watchdog v0.2 is unreleased** pending the 04:30 live kill test.
+- **The teaser gate requiring a product link is unbuilt** under the freeze to 20 August.
+- **The wall collector has been silent for 8 days**, so the public-posts block for this day carries no data rather than a false empty result.
+- **This chapter itself was written two days late**; the 13 August morning run did not fire, leaving the day as a hole in the book until 14 August.
+
+---
+
+*✍️ Written by: chapter - Opus 5 · day blocks - Opus 5*
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+
+== 2026-08-13.dev.md
+
+---
+title: "Day 71 - 2026-08-13: a mechanism that generates work needs an off-switch at the level that generates it"
+date: 2026-08-13
+day_index: 71
+week: 11
+month: "august-delegation"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [dr-runner-clone-storm, dr-runner-storm-standdown, dr-runner-storm-clone-standdown, fleet-backlog-root-and-arming, approval-clock-spool-peredignoz-i-kanareyka, content-factory-bridge-revival-fable, canon-size-rail-silent-week, canon-versioning-eol-watchdog-fix, firefox-max-fable-revision-units-fix, coding-outsource-shadow-week-close, session-recall-distributor-stopflag-roots, x-posts-mac-path-ledger-fix, identity-sewn-cloud-routine-relearned, flagship-session-repair-and-retro, flagship-session-root-repairs, git-s9-ninth-run-phantom-ask-finalize, git-s9-tenth-run-fastmcp-leak-adk-vendor-quota, git-s24-run7-breakfix, git-s24-content-bridge-0508, git-s24-concurrent-clone-standdown, oss-door-scan-echo-fix-finalize, telegram-archive-link-death-root-and-panel, benchmark-labeling-pipeline, arxiv-homeostatic-submitted-daily-ping, dr-registry-file-dedup-root-fix, phase0-fable-audit-revive-or-park, dr-runner-hourly-retro, grok-cli-migration-secondop-peer, chat00-daily-content-and-fleet-stop-crane, claude-md-v2-restructure-closeout]
+artifacts:
+  - find:killing-a-cloud-clone-makes-the-cloud-host-another-one
+  - find:the-cure-was-armed-on-one-node-of-six-for-two-weeks
+  - find:a-fix-worked-for-eight-days-and-nobody-knew-it-was-alive
+  - find:the-bridge-died-of-one-untested-edit-and-lay-dead-seven-days
+  - find:the-size-rail-named-guards-that-do-not-exist
+  - find:the-browser-metric-compared-driver-launches-to-individual-clicks
+  - find:a-freeze-marker-outlived-its-conditions-by-three-weeks
+  - find:the-watchdog-had-a-mouth-and-no-ear
+  - ship:second-paper-submitted-to-arxiv-homeostatic-governance
+  - ship:git-rail-for-engines-in-shadow-mode-with-a-named-flip-date
+  - fix:autoapply-armed-across-the-whole-fleet-backlog-140-to-27
+  - fix:stop-crane-moved-inside-the-outbound-doors-and-fails-closed
+  - decision:external-llms-write-the-code-experiment-does-not-flip
+primary_goal: "Unblocked repair day across the fleet: close roots of failures dated late July and early August. Interrupted at 14:08 by a cloud dispatcher replaying a ten-day backlog of one hourly routine and spawning 34+ then 38+ duplicate sessions"
+status: "storm contained but not stopped by end of day - process kills proved counterproductive (31+2 killed, 5 re-hosts in 5 minutes) because the cloud treats a killed host as a failed host and re-hosts the work; the only effective control is a pause in the vendor's routine interface, reachable by a human only, and the escalation was still open at the last write-up. Data intact: research registry 377 records, 0 hanging, 93% closure. Alongside: fleet auto-apply found armed on 1 node of 6 (29 automatic markers of 601), armed fleet-wide, backlog 140 to 27; publication clock proven alive after 8 days of unnoticed correct operation; document bridge revived after 7.2 days dead; browser measurement found comparing incommensurable units and undercounting fourfold; external-implementer experiment closed with verdict no-flip despite its headline metric being overachieved 2.5x"
+main_unknown_morning: "Whether the repair backlog across the fleet was a labour problem (apply parcels by hand, faster) or a configuration problem"
+---
+
+# Day 71 - 2026-08-13: nobody built the stop button
+
+Machine log. Thirty session write-ups, seventeen task cards, one canon beat. The most heavily sourced day in the book to date.
+
+The day's unifying defect class: **the system implements generation at one level and termination at a lower level, or at no level.** A component that can create work is deployed with full authority to create and no matching authority to stop. Termination is then improvised at whatever level the operator happens to have access to, which is usually below the level at which the work originates - and improvised termination at a lower level is not merely ineffective, it is amplifying.
+
+This closes a three-day arc. Day 69: a derived copy answers after its source moved on. Day 70: a payload ages against a destination that does not wait. Day 71: a generator runs without a brake at its own level. The first two are defects of state and require a reader to do damage. This one requires nothing; it is self-driving.
+
+---
+
+## 1. Killing a cloud-hosted clone instructs the cloud to host another
+
+**Problem.** At 14:08 a desktop application restarted on the hub. The cloud bridge reconnected, found a backlog of approximately ten days of missed runs for one hourly routine, and began replaying it: one new session every 40-60 seconds. Count reached 34, then 38+. First clone's lifetime: 95 minutes.
+
+**Cause.** The dispatcher's reconnect semantics are *replay the backlog*, not *run once now*. Nothing failed; the component executed its specification. Compounding it, the cloud's supervision model treats a killed process as a failed host: 31+2 processes were killed and 5 were re-hosted within 5 minutes. Local termination is at a strictly lower level than cloud generation, so it reads as a fault signal to the generator.
+
+**Fix (partial).** Kills abandoned. Containment by stand-down broadcast on the bus. Escalation raised for a human to press pause in the vendor's routine interface - the only control at the generating level. **Not closed by end of day.**
+
+**Pattern.** Termination authority must exist at or above the level of generation authority. A local kill against a supervised remote scheduler is an amplifier, not a brake: the supervisor interprets the kill as the failure it exists to repair.
+
+**Transferable rule.** Before deploying anything that can create work autonomously, name the control that stops creation, and verify it is not below the layer doing the creating.
+
+**Non-obvious secondary result.** Three sessions encountered the storm independently and did not collide. The on-air declaration board held: first claimant took the zone exclusive, the other two stood down and each staked a distinct contribution (forensics, external panel, protocol). Zero duplicated repairs, zero write conflicts. A harness-level write guard additionally rejected a concurrent overwrite in a separate three-session collision the same day, and that session inherited the twin's work rather than redoing it.
+
+**Damage assessment.** Context burned across 38 copies of one job, plus 5 consecutive session replies lost to vendor-side overload errors during the window. Data untouched: research registry 377 records, 245 applied, 106 parked, 25 dead, 0 hanging, 93% conversion.
+
+---
+
+## 2. A cure applied to self is not a cure for the class
+
+**Problem.** ~150 deployment parcels sat unapplied across the fleet. The condition had been treated for weeks as manual labour.
+
+**Cause.** The auto-apply engine ticks on all six nodes; code deployed everywhere; tests green everywhere. The live arming marker that moves the engine from observe to apply was set on **one node of six**. Of 601 applied-markers fleet-wide, 29 were automatic. Root in history: a session on 30 July found the fix, applied it locally and did not propagate it. The task was phrased as "fix it here" and was executed correctly.
+
+**Fix.** A dedicated arming tool, fail-closed, with explicit arm / disarm / status / self-test, shipped to all six nodes. Backlog **140 → 27** with no human hands, in 40 minutes of work across two nodes. One peer went 85 → 0.
+
+**Pattern.** "Deployed" and "enabled" are separate facts and are usually reported as one. Audit the enable flag separately from the deploy marker; a fleet-wide capability with a per-node enable defaults to a fleet-wide illusion.
+
+**Sub-finding - the checker was wrong three times in one session.** A verification searched for a literal renamed by a legitimate refactor; an exit-code variable captured a command-parse failure rather than a result; a parcel with an obfuscated body reported a successful install having installed nothing. Instruments failed more often than the parts they measured.
+
+---
+
+## 3. A correct fix can run in production invisibly for a week
+
+**Problem.** On 4 August the hourly publication tick on the hub was diagnosed dead. On 13 August direct inspection found it had been alive throughout, and so had the repair installed on 5 August.
+
+**Cause of the false diagnosis.** The diagnosis was made from a log's modification time **on a different machine** - a log the hub never sees, because state files were excluded from synchronisation by a glob pattern. The actual defect was never the robot; it was two nodes writing the same state file independently.
+
+**Fix.** A spool with one writer per file, plus an explicit sync allow-list entry.
+
+**Why it stayed invisible.** The fix synced and ran in production for the whole week (~130 items filed). The installing session ended without carrying its verification to a canary, so no surface recorded that the repair was live. On 13 August a canary completed the full loop - peer, sync, hub, processing, return - in ~8 minutes; regression 14/14; a four-model external panel produced 1 genuine finding (a sync conflict in a service filename) and 4 rejected.
+
+**Pattern.** Verification is what makes a fix exist in the record. An unverified working fix and an unverified broken fix are indistinguishable from outside, and the system will keep paying attention to the wrong one.
+
+---
+
+## 4. One untested edit, seven days of downtime
+
+**Problem.** The bridge into a documents service was dead for **7.2 days** (6 Aug 16:12 to 13 Aug 20:53).
+
+**Cause.** An unrelated session editing ping text broke a string literal. `SyntaxError`. The bridge's own test would have caught it in one second; it was not run.
+
+**Two further roots.** Its ledgers were per-node under the same sync glob blacklist as item 3, and a timer armed from a laptop did not exist from the hub's point of view. Separately, `PATH` resolved an interpreter lacking the required client library - the bridge lived in exactly one of five installed versions. That is the **third dated case** of "path resolves the wrong binary", so the class crosses the third-breakage threshold and earns a mechanism.
+
+**Fix.** Literal repaired, constant extracted, ledger append made atomic, warnings made honest. Live proof 13 minutes later: the tick caught an edit in a document.
+
+---
+
+## 5. A fictional guard is worse than a dead guard
+
+**Problem.** The fleet's shared instruction file exceeded its red threshold - 125,660 bytes against 120,000 - from approximately 6 August. Unnoticed for a week.
+
+**Cause.** The growth-signal rail was fictional: the operator hint named guard components that do not exist on disk, and the real gate had no scheduled full invocation anywhere.
+
+**Fix.** Real gate wired into the nightly task; false hint corrected; two dead guards disabled rather than deleted. External panel returned 5 findings, all accepted as debts; a second model returned none.
+
+**Pattern.** Failure modes of a guard are ordered by detectability: a crashing guard is loudest, a silent guard is catchable by absence of output, and a **fictional** guard is undetectable by monitoring because it produces confident, well-formed output naming components that are not there. Verify that every referenced guard resolves to a file, and that every guard has a caller in a schedule.
+
+**Open.** The file remains over threshold. No compressor exists in any schedule.
+
+---
+
+## 6. Both sides of a comparison must be in the same unit
+
+**Problem.** A two-week experiment measuring browser-engine share reported 1.6%. Review found the counter measured **driver launches** for one engine and **individual clicks through a tool interface** for the other.
+
+**Cause.** Two independent instrumentation points were written at different times against different natural units, and their outputs were divided by one another without a unit check.
+
+**Fix.** Both sides recomputed over 30-minute sessions: honest share **7.6%**. Underlying rows: 77 against 4777; sessions 10 against 122.
+
+**Pattern.** A ratio between two counters is only meaningful if both counters answer the same question. Name the unit out loud before the measurement starts, because after the fact the number will be defended rather than examined. Note the direction of the error: it favoured the incumbent, which is the direction least likely to prompt review.
+
+**Aggravating detail.** Three external breakers reviewed this measurement on 4 August and none of them caught it. Panels check reasoning, not units.
+
+---
+
+## 7. An overachieved headline metric does not overturn a no-flip verdict
+
+**Problem.** The experiment "external LLMs write the code, Claude orchestrates" reached its decision date.
+
+**Data.** Token savings 79% against a 30% target - overachieved 2.6x. Rework 25% against a 0% target. Task queue **dead since 4 August**: five days with no new task, unnoticed for nine.
+
+**Verdict.** No flip.
+
+**Cause of the queue death.** No role was obliged to feed the queue. Implementation capacity and review capacity both existed; supply did not.
+
+**Pattern.** A pipeline needs a producer, a consumer and a feeder. Building the first two and measuring the throughput of the pair produces excellent numbers for a line with nothing entering it.
+
+**Tooling repaired en route.** The breaker panel accepted a **file path** as code and praised an empty artefact; one model hallucinated C source that exists nowhere. Panel inputs are now checked for being code before dispatch.
+
+---
+
+## 8. A hundred and seventy-six correct refusals produce zero output
+
+**Problem.** No content published for 8 days after a session reported the class closed on 5 August.
+
+**Cause.** Three ledger entries carried a path in another operating system's format, which does not resolve on the hub. The content gate failed to open the file, recorded a legitimate error state, and deferred. **176 consecutive hourly ticks.** Every tick behaved correctly. Second root: two versions of the gate had drifted, so a body of 196 characters passed on one machine and failed on the other, where the threshold is 200.
+
+**Fix.** Applied to the data - three records repaired, body extended 196 → 210 - not to the engines.
+
+**Pattern.** A deferral state with no age and no escalation is an outage that reports itself as normal operation. Same shape as Day 70's queue-without-a-clock, applied to a gate rather than a transport.
+
+**Related, same class.** The fleet publishing kill-switch raised on 12 August was invisible to one pipeline node, which was checking a renamed local file rather than the fleet flag. Fixed by moving the switch inside the outbound doors themselves and failing closed when the bus is unreachable. In the evening the switch was lifted by the operator and the queue released at 5 posts/day with a 90-minute gap; the next-day observation of 1 of 5 released is on-schedule behaviour, not under-release, and is recorded here so it is not later misread.
+
+---
+
+## 9. An alarm with nobody obliged to act
+
+**Problem.** The inbound-feedback watchdog filed issues on 8 and 11 August. Unread for 5 days.
+
+**Cause (corrected overnight).** The first hypothesis - a pointer to a deleted organisation - was plausible: the lab organisation on that platform is genuinely deleted and returns 404, and the main personal account was renamed on 5 August. Reading the code produced the real cause: the watchdog by design filters out threads opened by our own robots. It was behaving to specification.
+
+**Status.** Third dated case of "alarm raised, no consumer obliged to act". The class now crosses the threshold and a mechanism is mandatory.
+
+**Related identity work.** Anchor files, descriptions, machine-readable pointers and the citation file were re-pointed to a single handle: 70+3 replacements, 4 commits, 3 issues closed. This is the direct continuation of Day 68's blinded mission counter.
+
+---
+
+## 10. Success criterion "built" produces machines nobody switches on
+
+Three instances, one shape.
+
+- **Labelling pipeline for the benchmark paper**: untouched for **17 days**. On first run, `sys.executable` resolved an interpreter without the numeric library, producing 38/38 silent failures. Fixed with a discriminating probe plus AST extraction. Panel found 2 genuine holes (a stale temp file; an empty payload passing as ok).
+- **Diagnostic product Phase 0**: unconsumed for **27 days**. No task card was filed in the registry, and the session's definition of done was "built" rather than "consumed". Fork - revive or park - assigned with a deadline.
+- **Hourly research routine**: mission accomplished (queue debt 219 → 0) and judged the wrong steady state - a full language session every hour to perform three deterministic checks. Converted to a downgrade task.
+
+**Pattern.** A definition of done that terminates at "built" reliably produces assets with no consumer. The measurable form of the correct criterion is a state change in something downstream, not the existence of the artefact.
+
+---
+
+## 11. Third-occurrence mechanism, correctly triggered
+
+**Problem.** The research registry's update command blindly re-appended a dead local path that had already been removed.
+
+**Status.** Third dated case of the class. Under the rule, a forever-fix was built rather than a journal line: deduplication plus a warning on a dead local path. Tests 7/7 plus 4/4 regressions; registry cleaned.
+
+**Note.** This is the day's counterexample to the rest of the log - the rule fired at exactly its stated threshold, neither early nor late. Compare with Day 70, where a class reached nine dated entries against a threshold of three because no reader was scheduled.
+
+---
+
+## 12. A phantom investigated to zero, with a real conflict underneath
+
+**Problem.** An approval request was recorded as sent to the operator.
+
+**Evidence.** Zero rows in the approvals database, zero events in the append-only log and in both backups, zero messages across all channels on all accounts.
+
+**Conclusion.** Never existed. Not lost.
+
+**Underneath.** A genuine conflict surfaced: a vendor's model quota contradicts the lab's own policy table on autonomous entry into third-party organisations. Escalated as a decision rather than resolved unilaterally; the vendor's organisation remains off-limits for autonomous entry pending that decision.
+
+---
+
+## 13. Green output over a lossy run
+
+**Problem.** A message-archiving engine printed a green "archive OK" on runs during which the connection dropped, losing 33,241 and 34,991 conversations on two accounts and 1,205 on a third. The green verdict was issued twice in one session.
+
+**Fix.** The engine now returns red on a disconnect or on ≥5% skipped conversations.
+
+**Separately.** A session started 20 June had broken off with its final step - a database merge - living inside it. Completed by hand: 6,929,599 → 8,842,858 messages.
+
+**Pattern.** An engine that reports on its own completion must distinguish "finished" from "stopped early". Absent that distinction, a partial run is indistinguishable from a complete one, and the green is not a lie so much as an unanswerable question.
+
+---
+
+## 14. Inbound economics on the code platform
+
+**Problem.** Five inbound change requests sat unanswered for 4 days against a canonical 24-hour threshold. Historical conversion: 7 requests, 0% useful.
+
+**After review.** 46% genuine patches, 13% catalogue value, 5% noise. Three merged, one declined.
+
+**Best engineering result of the day.** An external patch arrived with green tests. Verification against 1701 real transcripts showed the patch fixes **0** real files; a corrected condition fixes 35, at a cost of +64.6 MiB. The author's tests were not wrong - they contained no case drawn from production.
+
+**Outbound counterpart.** A full sweep of four external repositories (73 / 309 / 21 / 735 issues) found no live doors, so **zero** patches were submitted, and zero is published as the result. A defect in our own door-finder surfaced: it counted our own comments as evidence of a live thread, producing three false positives. Opening an issue instead of a patch drew a maintainer reply within 2 days.
+
+---
+
+## 15. Shipped: second paper, and a shadow rail with a pre-declared criterion
+
+- **Homeostatic Governance** submitted to the preprint archive; multi-agent section with cross-listing; status processing. The first paper remains on hold at day 21 with no moderator action; a daily ticket-ping robot now runs on the hub at 09:30 ET, first letter sent on the 10th, against a ceiling of 30 letters.
+- **Git rail for engine code, wave 1**, approved after the proposal sat 18 days: shadow committer with the version-control directory placed **outside** the synchronised tree (closing the "repository inside a sync folder" anti-pattern architecturally), tests 7/7, live baseline over 1478 files. Day-zero metric: **41 sync conflicts** in the working directory. Flip criterion named before the start; verdict due 27 August.
+- **A canon freeze marker** was found still active three weeks after its lifting conditions were met, having neither a time-to-live nor an owner. Lifted; confirmed by external panel.
+
+---
+
+## Open items carried into 14 August
+
+- **The clone storm is not stopped.** It waits on a human pressing pause in a vendor interface; no component of the fleet can close this line.
+- **No termination control exists at the cloud level**; the local safety cannot stop work the cloud has already started.
+- **The shared instruction file remains over its red threshold** and no compressor is scheduled anywhere.
+- **The class "alarm with no obliged consumer" has crossed three dated cases** and the mechanism is not yet built.
+- **The class "path resolves the wrong binary" has crossed three dated cases** and the mechanism is not yet built.
+- **Phase 0 fork - revive or park - is open** with a deadline of 20 August.
+- **The shadow rail verdict is due 27 August** against a criterion fixed in advance; the honest outcome may be a second no-flip in one week.
+- **The vendor-quota versus policy-table conflict is with the operator** as an open decision.
+- **The wall collector has been silent for 9 days**, so the public-posts block for this day carries no data rather than a false empty result.
+- **This chapter and Day 70 were both written on 14 August**; the morning run of the 13th did not fire and the book carried a two-day hole until then.
 
 ---
 
