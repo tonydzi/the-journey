@@ -120,6 +120,9 @@
 | 69 | 2026-08-08 | 💥 fail | <a id="beat-2026-08-08-prompt-died-in-cmd-c"></a>Автозапуск сессий рапортовал успех, а промпт до Claude не доезжал: многострочная строка умирала в cmd /c. | [arc-trust-calibration](ARCS.md#arc-trust-calibration) [arc-swarm-consensus](ARCS.md#arc-swarm-consensus) | happened/observed |
 | 69 | 2026-08-08 | 📡 external | <a id="beat-2026-08-08-vendor-shut-the-door-on-one-interface"></a>Попытка свести все оплаченные подписки в один кодовый интерфейс упёрлась в стену вендора, правку откатили. | [arc-swarm-consensus](ARCS.md#arc-swarm-consensus) | happened/observed |
 | 71 | 2026-08-10 | 🔧 ship | <a id="beat-2026-08-10-homeostatic-governance-arxiv-submitted"></a>Вторая научная статья «Homeostatic Governance» (метод, для которого claude-consensus — референсная реализация) прошла все шаги и подана на arXiv в cs.MA — после того как первая статья 12+ дней провисела в модерации без единого ответа человека. | [arc-llm-hire](ARCS.md#arc-llm-hire) [arc-swarm-consensus](ARCS.md#arc-swarm-consensus) | happened/observed |
+| 0 | 2026-08-13 | ⚖️ decision | <a id="beat-2026-08-13-engines-shadow-wave1-launched"></a>Антон дал «+» на волну 1 рельсы «Git для авторинга движков»: за один заход построен shadow-коммиттер (git-dir вне синк-дерева), 7/7 тестов, живой baseline 1478 файлов — и метрика сразу показала 41 sync-conflict в боевой папке. | `engines-sync-topology` | happened/observed |
+| 74 | 2026-08-13 | 🔧 ship | <a id="beat-2026-08-13-session-crash-birthed-slash-1"></a>A work session died mid-task (crash/machine loss); instead of just resuming blind, we built /1 — a black-box SQLite recall + health-ping + full-history resurrection command. | [arc-remembering-vs-reconstructing](ARCS.md#arc-remembering-vs-reconstructing) | happened/observed |
+| 75 | 2026-08-14 | ⚖️ decision | <a id="beat-2026-08-14-two-human-gates-for-a-headless-pipeline"></a>A multi-LLM Deep-Research consensus fanned out to design an alpha-extraction pipeline (Harari's ideas/persona) and landed on exactly two human gates — needs_reauth and drift_suspected — everything else runs headless. | [arc-swarm-consensus](ARCS.md#arc-swarm-consensus) [arc-boundary-shifts](ARCS.md#arc-boundary-shifts) | happened/observed |
 
 ### <a id="beat-2026-05-27-second-brain-born"></a>День 1 — 2026-05-27
 
@@ -1986,6 +1989,56 @@ _(для ленты: интрига/ставка)_
 _(для книги; можно заполнить позже)_
 
 **Последствия:** Гонка патентов открыта: сабмит ещё не анонс, EU-приоритет провизорок цел, пока статья не объявлена публично.; Ежедневный пинг-робот к тикету поддержки arXiv поставлен на хабе (0 LLM-токенов; идемпотентность проверена).
+
+### <a id="beat-2026-08-13-engines-shadow-wave1-launched"></a>День 0 — 2026-08-13
+
+Антон дал «+» на волну 1 рельсы «Git для авторинга движков»: за один заход построен shadow-коммиттер (git-dir вне синк-дерева), 7/7 тестов, живой baseline 1478 файлов — и метрика сразу показала 41 sync-conflict в боевой папке.
+
+## Наблюдаемые факты
+Мемо Option D (Git для кода · Syncthing для данных · подписанный deploy) лежало `proposed` с 26.07. Сегодня «+» Антона → в тот же заход: engines_shadow_commit.py (анти-паттерн «.git в синк-папке» закрыт архитектурно — git-dir вне дерева, worktree живой), тест 7/7, канарейка на HP17: baseline `10538de`, 1478 *.py, `sync_conflicts_seen: 41`. Критерий флипа назван ДО старта. Хабу ушла задача dual-send.
+
+## Почему важно сейчас
+Ставка: две недели тень молча считает, сколько раз Syncthing попытался съесть код роботов. 41 конфликт виден уже в нулевой день — интрига в том, покроет ли git-история хотя бы один восстановимым дифом.
+
+## Значение задним числом
+_(заполнится после вердикта 27.08)_
+
+**Последствия:** ночные shadow-коммиты на хабе; bare на Маяке (задача хабу шиной); вердикт флипа 27.08 по критерию; названному ДО старта
+
+### <a id="beat-2026-08-13-session-crash-birthed-slash-1"></a>День 74 — 2026-08-13
+
+A work session died mid-task (crash/machine loss); instead of just resuming blind, we built /1 — a black-box SQLite recall + health-ping + full-history resurrection command.
+
+## Наблюдаемые факты
+_(только то, что реально видел/подтверждено — по truth_mode)_
+- Сессия оборвалась посреди работы (крэш/выключение компа), новая сессия открылась пустой.
+- Признано: `/retro` тут не подходит — это протокол ЧИСТОГО завершения (упаковка + compact), а после крэша упаковывать нечего.
+- За тот же заход собрана команда `/1`: (1) RECALL из TurnState — чёрного ящика SQLite, который пишет КАЖДЫЙ ход через Stop-хук и переживает любой крэш; (2) health-пинг зелёный/красный по системе (arch/sync/mcp); (3) полный подхват истории прошлой сессии в буфер.
+
+## Почему важно сейчас
+_(для ленты: интрига/ставка)_
+Это чистый пример «сломалось → сразу почини корень, а не симптом»: вместо того чтобы просто попросить пересказать контекст, из единственного случая потери сессии выросла постоянная страховка на будущее.
+
+## Значение задним числом
+_(для книги; можно заполнить позже)_
+
+### <a id="beat-2026-08-14-two-human-gates-for-a-headless-pipeline"></a>День 75 — 2026-08-14
+
+A multi-LLM Deep-Research consensus fanned out to design an alpha-extraction pipeline (Harari's ideas/persona) and landed on exactly two human gates — needs_reauth and drift_suspected — everything else runs headless.
+
+## Наблюдаемые факты
+_(только то, что реально видел/подтверждено — по truth_mode)_
+- `/dr-fanout` разослал Deep Research по 3+ внешним LLM для проектирования конвейера извлечения альфы (идеи + персона) из материалов Харари.
+- Консенсус вендоров сузил человеко-гейты ровно до двух: `needs_reauth` и `drift_suspected` — всё остальное безлюдно.
+- Семантический/LLM-поиск элемента разрешён только в dry-run/repair-режиме, никогда на боевом квота-сабмите.
+- Зафиксирована общая фолбэк-лестница извлечения: официальный export/share → backend JSON → DOM-scrape → эскалация человеку (в этом порядке, человек — последний, не первый, шаг).
+
+## Почему важно сейчас
+_(для ленты: интрига/ставка)_
+Конкретное число («ровно 2 гейта», не «где-то нужен человек») — редкий случай, когда несколько независимых LLM сошлись не на общей идее, а на точной границе автономии.
+
+## Значение задним числом
+_(для книги; можно заполнить позже)_
 
 > 🔒 Ещё **23** бит(а) запечатаны до своего reveal-времени. Спойлеров не будет.
 ---
