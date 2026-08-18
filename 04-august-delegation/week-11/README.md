@@ -22,6 +22,14 @@
 
 Общая формула четверга: **у механизма, умеющего порождать работу, выключатель обязан жить на том же уровне, что и порождение.** Ниже - не выключатель, а усилитель.
 
+> ⏳ **Неделя 11 закрыта не полностью.** Пятница 14, суббота 15 и воскресенье 16 августа
+> на момент этой записи (ночь на 19 августа) главами не закрыты. Причина не в том, что дни
+> были пустыми: за 14 августа лежит шестьдесят разборов сессий, за 15 - три. Утренняя рутина,
+> которая закрывает день книги, перестала давать выход после 12 августа, и её молчание никто
+> не прочитал пять суток. Дни 72-75 остаются долгом и заведены отдельной задачей.
+> Воскресенье 16 августа - единственный по-настоящему тихий день недели: ноль разборов,
+> ноль битов канона.
+
 ## Chapters
 
 - [День 68 - 10 августа: имя отклеилось от тела](2026-08-10.ru.md) · [EN](2026-08-10.en.md) · [🤖 machine](2026-08-10.dev.md) - *the day every instrument was sound, honest and read, and several of them measured the wrong instance: an account consolidation four days earlier had silently invalidated the mission's headline external-mention counter, dropping nine named external humans from the results while admitting the project's own site and substring noise from unrelated domains, and the number was due to gate a public launch decision the next morning; fifteen pairs of identically named tests were resolved one at a time by asking which instance a scheduler, hook, cron entry or skill canon actually invokes, retiring twelve copies and confirming the clean-up by an independent overnight run at thirty red against the previous thirty-three; a fork retired four days earlier was found resurrected by a lagging peer, which produced the rule that a local delete on a synchronised share proves nothing; an uninstrumented copy of a browser engine on the primary node had been biasing a two-week experiment toward the incumbent; the lab's first public tool shipped under MIT with fifty-eight green tests after an external reviewer found the line that cancelled the engine's stated contract, a line fifty-four internal green tests had not covered, and two of three findings had to be applied to the internal original as well; three service bytes prepended by an editor brought down an autostart script at line one character one; a console hider was found unable to distinguish a robot's window from its owner's terminal because both share a window class; three of the project's own regulations were filed where their guard could not see them, including the regulation about when to build a mechanism; a canon rollout was found addressing a node that does not exist as a device; and a late human acknowledgement was proven to move an approval question into a state no watcher ever reads*
