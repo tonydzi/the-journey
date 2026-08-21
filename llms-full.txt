@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 72 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 73 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -9231,3 +9231,443 @@ This entry was written in the night leading into 19 August, five days late. The 
 *✍️ Written by: chapter - Fable 5 · day blocks - Fable 5*
 *Придумано Майкрофтом и Тони. Palo Alto AI Research Lab.*
 
+
+== 2026-08-20.dev.md
+
+---
+title: "Day 78 - 2026-08-20: the evidence was authored by the accused"
+date: 2026-08-20
+day_index: 78
+week: 12
+month: "august-delegation"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [adversarial-verification-pass, apple-contacts-dedupe-merge, fleet-routines-registry, github-routines-registry-and-n8n-plan, grok-exoneration-false-figures, llm-failover-ladder-canary, mac-apple-data-full-export, mac16-recall-decisions-failover-dispatch, night-rails-memo-and-launcher-classes, openrouter-rails-subs-first, radio-honest-exit-root-audit, routine-registry-probe-truth, s22-handover-and-inbound-decommission, s22-root-confirm-bucket-exhaustion, session-spawn-recall-routines-vs-plain, task-now-ranking-system, telethon-lock-roots-and-steal-or-shout]
+artifacts:
+  - find:a-lock-that-judged-ownership-by-pid-held-a-rail-blind-for-thirteen-hours
+  - find:a-race-test-proved-an-exclusivity-that-was-already-broken
+  - find:a-watchdog-verified-by-mocking-itself-was-blind-at-rc-zero
+  - find:years-of-test-fixtures-written-into-a-production-reliability-ledger
+  - find:a-live-radar-counted-silent-for-650-hours-by-measuring-the-wrong-log
+  - find:an-mcp-tool-returned-six-of-seventy-nine-tasks
+  - find:intent-words-scored-as-evidence-of-urgency
+  - find:a-weekly-lane-always-fires-in-the-dry-tail-of-its-own-bucket-cycle
+  - find:a-resumed-session-nearly-overwrote-its-own-june-enrichment
+  - find:parity-went-stale-inside-the-minutes-that-verified-it
+  - fix:steal-or-shout-lock-contract-71-checks-7-mutants-3-operating-systems
+  - fix:non-delivery-now-exits-non-zero-across-seven-couriers
+  - fix:test-fixture-filter-in-the-reliability-meter
+  - ship:a-routine-registry-that-judges-output-not-mtime
+  - ship:task-now-ranking-engine-v4
+  - ship:read-only-apple-data-export-with-a-typedstream-decoder
+primary_goal: "Close the roots behind a 13-hour blind read rail and a fleet-wide class of watchdogs that report green while the thing they watch is dead: prove lock ownership constructively, make non-delivery exit non-zero, and re-measure every rail whose reliability figure was produced by the rail's own test harness"
+status: "Ten distinct defects of one class closed or named the same day. The lock contract moved from TTL-and-steal to steal-or-shout under three rounds of adversarial rejection and shipped byte-identical on three nodes with 71 checks, 7 mutants, 3 operating systems. A vendor's 61% reliability verdict was withdrawn after test fixtures were filtered out of the production ledger: 30/30 on the hub, 35/35 for the second rail, and every remaining silence was exactly the old 90-second ritual timeout, raised to 300s that same morning - a live call then answered in 148s. A routine registry that judged robots by log mtime was rebuilt to judge them by output, immediately finding a live radar counted silent for 650 hours and an eleven-day 404 on a renamed handle. A task ranker that scored the words urgent and fix as evidence of burning went from 16 fires and 1 money task in its top-20 to 12 money and 2 fires. Two months of outbound GitHub work were measured for the first time: 75 PRs, 20 merged, 63 issues, 20 PRs answered by a live maintainer"
+main_unknown_morning: "How many of our green tests prove a shape that the production code never produces"
+tags: [fleet, watchdogs, lying-instruments, locks, measurement, llm-rails, task-ranking, n8n, github-outbound, apple-export]
+---
+
+# Day 78 - 2026-08-20: the evidence was authored by the accused
+
+Machine log. Seventeen session write-ups from four nodes, cross-checked against the day ledger.
+
+The day's unifying defect class is narrower than "the instrument was broken", and worth stating precisely, because the broad version is useless as a design rule. **On 20 August the instruments were working correctly. The defect was that the evidence they produced was manufactured from the same material as the thing under test, so agreement was guaranteed and therefore carried no information.**
+
+Six concrete shapes of that one defect, all found on the same day:
+
+- A lock's identity test compared a string against a string written by the same helper that the test itself invoked. The comparison could never fail in the test and could never succeed in production.
+- A watchdog's hermetic test mocked the very function whose blindness was the bug. The mock returned the shape the author expected; the live call returned an empty set at exit code 0.
+- A reliability ledger was fed for years by unit-test fixtures whose engines deliberately simulate dead rails, written into the same journal as live calls, unlabelled. The resulting reliability percentage was a measurement of our own test suite.
+- A routine's health was read from the freshness of a log file that the routine writes at start. The freshness proved the process opened a file handle, nothing more; in one case the status was read from the same log the failure had just been written into.
+- A task ranker scored the presence of the words "urgent" and "fix" inside a task's own title as evidence that the task was burning. The author of the evidence was the task.
+- A root cause was declared from a single dead lane, where the single lane was also the only observation available. n=1 produced a story, not a cause.
+
+The engineering consequence is a rule about provenance, not about instrument quality: **an instrument must be fed by a source that is independent of the thing being judged, and where independence is impossible, the property must be established by construction rather than by observation.** The lock section below is the pure case: exclusivity is not observable by racing, at any number of rounds, but it is trivially guaranteed by `O_CREAT|O_EXCL`.
+
+Counts for the day: 17 session write-ups; two independent adversarial panels (6 lenses and 24 agents) plus three smaller ones; 13 broken parts found in 3 classes by the largest audit; roughly 30 dated lines added to the breakage journal across all sessions; every shipped fix mutant-checked.
+
+---
+
+## 1. A race test cannot prove exclusivity
+
+**Problem.** A hung process held the fleet's shared Telethon lock for 12 hours 53 minutes. The read rail behind that lock was blind and silent for 13 hours. The measured legal hold time for the same lock, taken from live runs, is 4.51 seconds - the observed hold exceeded the legitimate one by four orders of magnitude, and nothing noticed.
+
+**Cause.** `acquire_lock()`, in two separate copies of the code, judged the owner's liveness by a single question: is the pid alive. A hung process is alive by that test. A zombie process is also alive by that test, and the day's first probe confirmed the zombie case directly. Underneath that sat the real find, and it is the day's title in miniature:
+
+- The sidecar that records the owner's identity wrote the process identity in `sys.argv` form.
+- The comparator that decides "is this still the same process" read the identity in `ps` command-line form.
+- The two forms are not equal for any real process. The comparison could never match in production.
+- The test suite passed anyway, at 60 rounds, because the test wrote the identity itself - in `ps` form. The test compared its own output to its own output.
+
+The third instrument was the race test proper. It ran 60 rounds of concurrent acquisition and reported exclusivity. The exclusivity it reported did not exist; the test simply never sampled a window in which the collision was visible. A race test is a sampling procedure with an unknown and unbounded miss rate, and reporting its pass as a proof of a safety property is a category error.
+
+A fourth item belongs in the same paragraph because it is the same reasoning error one level up: a verdict of "this function does not exist", reached from a single `--help` invocation, is the identical class as "there is no access here". Both are claims about one copy of one surface, generalized to all copies. The lock lived in two copies. The audit had to walk both.
+
+**Solution.** Identity is now a pair that a hung process cannot forge and a recycled pid cannot accidentally satisfy: the `ps` command line plus the process start time, produced by one function that both the writer and the comparator call, so a form mismatch is structurally impossible rather than merely tested-against. Exclusivity itself is no longer asserted by racing: the lock is created with `O_CREAT|O_EXCL`, which makes mutual exclusion a property of the syscall rather than an observation about a sample of runs. The test suite was rewritten to attack the contract instead of confirming it - 71 checks and 7 mutants across 3 operating systems, with the mutants specifically covering "identity written in the wrong form" and "owner dead but pid recycled".
+
+**Pattern.** Safety properties are established constructively or not at all. A concurrency test that passes tells you the sampler missed; it does not tell you the property holds. And when a test writes the artifact it later compares against, the test has no informational content whatsoever - it is a tautology with a green checkmark. Look for this shape by asking one question of every green test: **who authored the expected value, and does production author it the same way?**
+
+---
+
+## 2. steal-or-shout: when the cure has a larger blast radius than the disease
+
+**Problem.** The obvious fix for section 1 was a time-to-live: hold the lock at most 300 seconds - 66 times the measured legal hold of 4.51 seconds - and steal it once it goes stale. The adversarial panel rejected that design three rounds running, with the same argument each round, refusing to be talked out of it.
+
+**Cause.** The panel's argument was about blast radius, not probability. Stealing a Telethon lock from an owner that is actually alive produces a duplicated authorization key, and that failure propagates to every node using the shared session - the whole fleet, not one rail. The disease is one rail blind for hours, locally, recoverably. The cure's failure mode is a fleet-wide session corruption requiring re-authentication. A fix that trades a local recoverable failure for a global one is not a fix at a lower probability; it is a worse design at any probability, because the probability of the new failure is set by exactly the condition the fix cannot measure - whether the owner is alive.
+
+That is why the naive TTL kept coming back: TTL reasons about *time*, and the property that matters is *liveness*. Time is a proxy for liveness that is wrong precisely in the case the whole mechanism exists for - a slow but healthy owner.
+
+**Solution.** The final contract, named steal-or-shout:
+
+- Steal only from an owner that is **provably dead**, where the proof is the identity pair from section 1 - the `ps` command line plus the process start time. Absence of proof is not proof of death.
+- Otherwise do not take the lock. Return busy and emit a loud, greppable stuck-lock line, so that the blindness has a voice instead of being silently converted into corruption.
+- Give the operator one explicit environment-variable override for genuine force majeure, so that the strict path never becomes an argument for weakening the default.
+
+Shipped with it, in the same pass: hang guards inside the consensus runner (a 120-second pool timeout and a 900-second alarm on the tick, exiting 4), which is what makes "the owner hung forever" a bounded event rather than an unbounded one; a shim pointing a bare script name at the canonical implementation, which closed the class "a bare name resolves to the weakest copy on the box" and removed the stale 90-second ritual timeout that had been riding along inside that weak copy; and an honesty fix in the fleet tool, where the alarm "tree is broken" now fires on the fact of brokenness rather than on the return code of an interrupted call - the fourteenth lying-indicator case closed by class rather than by instance.
+
+Verification: 71 checks, 7 mutants, 3 operating systems, byte-identical deployment proven by hash on 3 nodes.
+
+Two adjacent defects were deliberately **not** built, both being first dated occurrences under the three-strikes rule: handling for a Windows node hanging inside an uninterruptible Telethon call, and a permanent mirror-to-imports rail on the anchor node. Each got a dated journal line and nothing else.
+
+**Pattern.** When a fix substitutes one failure mode for another, compare blast radius before comparing likelihood - a rare global corruption outranks a frequent local blindness. And an adversarial panel that **reverses** a design is worth an order of magnitude more than one that polishes it: three identical rejections were not the panel failing to understand the fix, they were the panel being right about a dimension the fix never modelled.
+
+---
+
+## 3. A watchdog verified by mocking itself is not verified
+
+**Problem.** A watchdog written the same week, by the same author, to prove that the fleet's shared tool tree was intact, returned an empty result set at exit code 0. Empty at rc=0 reads downstream as "nothing wrong". Its hermetic test suite was green.
+
+**Cause.** Two layers, and the second is the interesting one.
+
+The mechanical layer: the watchdog ran `git --git-dir=<path>` without specifying a work-tree. In that configuration git resolves a pathspec relative to the current working directory, not relative to the repository root. The routine's working directory sits inside a different, foreign work-tree. Every pathspec therefore matched nothing, and matching nothing is not an error condition - it is a successful query with an empty result. Exit code 0, empty set, green board.
+
+The evidential layer: the hermetic test could not see this, because it mocked the function whose behavior was the bug. The mock returned the file list the author intended `git` to return. The test then verified that the code correctly processed the list the test had just handed it. The test was internally consistent, fast, deterministic, and blind by construction - it validated the author's model of git, and the defect lived entirely in the gap between that model and git.
+
+The blindness was found by a live run against the real tree, in the real working directory, on the real node.
+
+**Solution.** The working-directory bug fixed at the call site, plus the same `channel_owned()` ownership check propagated into the nightly copier, the payload installer and three older installers - five call sites, because the class had five homes. Tests rewritten to run against a real temporary repository rather than a mock, 4 of 4 with mutants; the mutant that specifically survives under the old mocked design is the one that changes the working directory.
+
+**Pattern.** A mock is a statement of the author's belief about a dependency. Testing code against a mock tests the code against the belief, which is exactly the surface where this defect class lives. **At least one test per boundary must call the real dependency**, even if it is slow, even if it needs a temp directory - and a watchdog specifically must be proven by breaking the real thing it watches and observing it go red. Corollary, from the same session: an empty result set and a healthy result set must not share an exit code. Emptiness is a distinct answer and deserves a distinct code.
+
+---
+
+## 4. Test fixtures polluting a production ledger
+
+**Problem.** A second-opinion rail had been carrying a reliability figure of 61% for weeks. That figure had already travelled into four homes - the memory index, the canon, a retro and a dashboard - and was on its way to becoming a vendor verdict: the most expensive and least reliable of our external rails. The operator's instruction contained the day's most valuable hedge: *"fix Grok, he is the most expensive and the most unreliable - but I am NOT SURE he is broken."* The hedge turned out to be more accurate than the verdict.
+
+**Cause.** Two independent contaminations, both of which the meter reported faithfully.
+
+First, provenance. The production reliability ledger had been receiving, for years, the output of our own unit-test fixtures - synthetic engines named for the conditions they simulate, whose entire purpose is to imitate a dead rail, an empty response, a failed route. They wrote into the same journal as live calls, in the same format, with no label distinguishing test from production. Every simulated corpse was counted as a live failure of the real vendor. The reliability percentage was, in substantial part, a measurement of how many dead-rail scenarios our test suite exercises.
+
+Second, the timeout. Every remaining silence attributed to the vendor was **exactly 90 seconds**. Not approximately: exactly. That is the signature of a ceiling, not of a vendor. The ritual-call budget had been set at 90 seconds long ago and raised to 300 seconds that same morning in an unrelated session. A slow-but-healthy answer had been recorded as a death every time it crossed the old ceiling.
+
+**Solution.** A fixture filter in the measuring tool, which excludes known test-fixture task identifiers and - equally important - **states aloud in its output that it filtered, and how many rows it dropped**, so that a future reader can tell a filtered figure from an unfiltered one. Test writes were separately isolated onto their own ledger through a dedicated environment variable, proven by a counter that stayed at 328 before and after the isolation, which is what proves the isolation moved writes rather than losing them. The filter was rolled out fleet-wide the same day.
+
+Clean numbers after filtering: on the hub, the accused rail answered 30 of 30 calls, and the second rail 35 of 35. On the operator's mac, 18 of 21, with every one of the three silences at the 90-second mark. A live control call at a 300-second budget answered in **148 seconds** - dead under the old ceiling, healthy above it, same vendor, same day. The auto-fallback rate, recomputed on clean data, was zero: 24 runs on the mac, subscriptions handling 23, zero automatic fallbacks; zero on the hub as well, against a previously reported 15%.
+
+The verdict on the vendor was withdrawn, the treatment was already in place from the morning, and all four homes carrying the false figure were corrected in the same pass rather than "when convenient".
+
+**Pattern.** A production journal is a shared resource with a provenance requirement: **anything written by a test must be labelled at write time or routed to a different sink**, because after the fact it is indistinguishable from the thing it imitates - that is precisely what makes it a good fixture. Second: an identical value repeated across "failures" is a signature of a ceiling in your own code. Look for the constant before accusing the counterparty. Third: a false number that has already been delivered to a decision-maker is not corrected by publishing a corrected number - it is corrected by walking every home it reached, in the same pass.
+
+---
+
+## 5. Freshness of a log proves the robot WROTE, not that it WORKED
+
+**Problem.** A routine registry, built to answer "which of our robots are actually alive", judged liveness by the modification time of a robot's log file. Two live failures fell out of that within one session: a radar that runs nightly and works was counted **silent for 650 hours**, and a storefront audit that returned HTTP 401 on **7 runs out of 7** was reported green.
+
+**Cause.** Three distinct mistakes, sharing one root that is worth stating in its own sentence: **a fresh mtime proves the robot WROTE, not that the robot WORKED.**
+
+- *Wrong file.* The radar writes its work into one log; the process supervisor creates an adjacent, permanently empty stdout file. The registry measured the empty one. Its mtime never moved, so a healthy robot read as dead for 27 days.
+- *The error is the evidence.* The storefront audit's status was read from the log into which the audit's own 401 response had just been written. The write kept the file fresh; the freshness was interpreted as health. The failure was, quite literally, the proof of success. This is the day's title with no metaphor at all.
+- *Wrong binding.* The first attempt to repair the instrument bound logs to parts by "share one word in the name". That heuristic attributed foreign logs to 18 different routines. The accompanying error detector then painted healthy robots red because it matched the substring on lines tagged WARN and INF.
+
+Both repair-stage errors were caught by the instrument's own run before publication, which is the one part of the sequence that worked as designed.
+
+**Solution.** The registry now judges the *content* of the output, not the timestamp of a file, and finds the real log by **name containment** - the part's name must be contained in the log's name - rather than by word overlap. Log **level beats keyword**: a WARN line is not a verdict, an ERROR line in caps is. Status gained a value that did not exist before, "running but failing", which is exactly the state the storefront audit had occupied invisibly for seven runs. Nine checks plus a mutant; the mutant is the mtime heuristic itself.
+
+The repaired instrument immediately found a third live breakage that the old one could not see by construction: an inbound watcher had been knocking at a renamed GitHub handle for **11 days**, taking a 404 as an empty inbox. The organization account was renamed on 9 August; nothing downstream was told.
+
+The class was then measured rather than asserted: a grep of the breakage journal returned **18 dated mtime-related lines out of 456** entries. That is a systemic class, and it was recorded as one - after an earlier draft of the same journal line had claimed "third dated case" without counting, and was corrected.
+
+**Pattern.** Liveness of a process and success of its work are different questions and need different sensors. Bind "this log is this part's output" by a rule that cannot silently match the wrong file - containment, not overlap - and read severity from the log's own level field rather than from keywords in the payload. Then, before calling a class systemic, **count it**; a claim about a class is a claim, with the same evidential burden as any other.
+
+---
+
+## 6. Delivery non-arrival must exit non-zero
+
+**Problem.** The fleet's alerting rail - the radio every robot shouts into - was off on one node, and every robot that shouted into it exited 0. Measured shape of the silence: the index-cleanup routine produced 14 skipped pings for 2 actual deliveries; the fleet git channel was silent for **8 days** with 61 commits unpublished; an hourly research courier exited 0 on an empty token bucket; an inbox robot was silent for 24 hours after 41-plus limit ticks without taking a single task; a channel checker suppressed a RED status for 12 hours; a lead radar actually lost a morning digest.
+
+**Cause.** Three layers, and the audit had to fix all three because any one of them alone reproduces the symptom:
+
+- **Node data.** The bus environment variable was simply absent from the node's machine environment file. The rail had no address to send to.
+- **Code.** The publishing function was a thin delegate to a Telethon copy that had died, with no fallback ladder underneath it. One dead dependency, no degradation path, no noise.
+- **Honesty.** Non-delivery returned 0. This is the layer that turned a fixable outage into an invisible one for eight days: every consumer downstream, including the watchdogs, treated 0 as delivered.
+
+A separate, adjacent instance of the same dishonesty class: an LLM limit was being judged by the CLI's return code, and an exhausted weekly bucket returns rc=1 while the old detector only recognized the limit at rc=0. The bucket state is in the *output*, not in the exit code.
+
+And a fourth, in the file-distribution layer: a nightly copier overwrote 4 fresh files with older copies from the hub, because the older copies had a newer mtime. **An mtime is not a version.** A copier that ranks by mtime will, on any clock skew or any restore-from-backup, confidently move the fleet backwards.
+
+**Solution.** Non-delivery now exits 3 and spools the undelivered message rather than dropping it, so the failure is both loud and recoverable - 5 of 5 tests with mutants. The publishing function got a real fallback ladder instead of a single delegate. The LLM limit is now judged by matching the output text, not the return code, and that door was wired into four LLM-driven routines. Honest exit codes were propagated into 7 wrappers and couriers in one pass, because the class had 7 homes and fixing one is a subscription rather than a repair. File ownership was made explicit through `channel_owned()`: **one owner-deliverer per file**, so a copier can no longer win a race it was never entitled to enter. Three July-era installers were found carrying live pending payloads a month old; the ownership guard defused them, proven by a live hold rather than by reading the code.
+
+Rolled out fleet-wide the same day: 2 of 6 nodes proven DONE by reading, 4 pending. Tests 6 of 6 green, two new guard files at 9 and 4 cases, all mutant-checked, 8 lines to the breakage journal.
+
+**Pattern.** **An alarm rail that cannot report its own non-delivery is not a rail, it is a decoration.** Encode the three states separately - delivered, spooled, failed - and never let non-delivery share an exit code with success. Judge an external system's state from the artifact it produces (its output text), not from the exit code of the process that called it; exit codes are the wrapper's opinion, output is the vendor's statement. And never use a timestamp as a version: give the file one owner and one deliverer, and let the ranking be explicit.
+
+---
+
+## 7. Self-declared urgency is not evidence of urgency
+
+**Problem.** The day's task-ranking engine was asked for one thing: put what is broken and burning at the top. Its first live top-20 contained **16 fires and 1 money task**. That ordering was not merely useless, it was actively inverted against the operator's stated goal.
+
+**Cause.** The formula scored intent words. A task whose title contained "urgent", "fix", "broken" earned +40 points as evidence of burning right now. The author of that evidence was the task's own title - written, in most cases, by the person or robot who filed it, at a moment that may be weeks in the past. Self-declared urgency is a statement of intent at filing time, not a measurement of state at ranking time. Every backlog drifts toward maximum declared urgency, because declaring urgency is free and nothing decays it.
+
+Two instrument failures were caught in the same session before they reached a live run, both of the same "evidence manufactured locally" family:
+
+- A grep pattern intended to count open checkboxes was consuming `- [ ]` as a command-line option and returning 0 matches instead of 1008. A zero from a search tool is a claim about the tool.
+- A path written with `~` under a root cron would have expanded to a different home directory - pointing the writer at an empty location while still succeeding.
+
+A third measurement gap sat underneath the formula: **240 of 835 tasks had no `touched_at` field at all.** The rot sensor was blind on 29% of its input, and blindness there reads as "not rotting".
+
+**Solution.** The formula is deterministic, zero LLM, and it now separates a *claim* about state from *evidence* of state:
+
+- A fire counts only if a **state word** is present **and** a fresh trace exists - a session touch within 7 days. Words alone score nothing.
+- Money does not rot, it **appreciates**: +2 per day of waiting, capped at 16, and frozen after 21 idle days so a dead lead cannot inflate itself to the top forever.
+- Missing timestamps are resolved by an explicit ladder of fallbacks - touched, then the front-matter date, then created, then the filename, then mtime - so that "unknown age" is never silently treated as "young".
+
+Result on the same input: the top-20 became **12 money tasks and 2 fires**. Engine v4 with 17 checks and a kill-list of 5 mutations, all killed, deployed to the single writer - the anchor node, on a root cron - with local runs restricted to manual calibration so that two writers can never fight over the output.
+
+The design passed through four review lenses plus a devil's advocate: 20 proposals in, 7 keep, 6 simplify, **7 killed**. The killed set is recorded by name so it is not reopened without new data: category quotas, auto-raising the number-one session, a hook-based click counter, a "cellar" tier, and three separate ping channels.
+
+**Pattern.** Never score a signal that the subject of the ranking authors about itself, unless it is corroborated by an independent trace. The corroboration here is cheap and external: did anybody actually touch this in the last week. Second: for any decaying quantity, decide explicitly whether it decays or appreciates, and cap both - an unbounded score is a guarantee that one category eventually owns the top of the list. Third: **a missing field is a third state**, not a zero.
+
+---
+
+## 8. n=1 is not a root cause
+
+**Problem.** A weekly security lane had exactly one run in its life, on 19 August, and that run died with a weekly-limit error at **zero tokens**. The first diagnosis attributed the death to the wrong thing, and a proposed remedy - hand the lane to another node - was formulated confidently before the cause was proven.
+
+**Cause.** The adversarial panel caught the overstatement, and its argument was purely evidential: the claim "the other node cures the root" rested on a single observation, and a single observation cannot distinguish a cause from a coincidence. It also caught a second, quieter error in the same sentence: the receiving node is not, in fact, on a different token bucket - the token distribution hands the same token to both, so the migration would have been theatre.
+
+The real cause was then established at **n=3** from transcripts rather than from a re-run, which was both cheaper and stronger:
+
+- The bucket emptied on 19 August between 19:02Z and 22:06Z.
+- Every lane firing after that point died identically - in under one second, at zero tokens: one at 22:06Z, one at 23:05Z, one at 01:09Z.
+- Four lanes firing the same day **before** that point ran normally: 88.8k, 75.3k, 102.9k and 21.4k output tokens. The last of those is itself evidence - that lane normally burns 108k to 136k, so its collapse marks the bucket's dry tail rather than a lane-specific fault.
+
+Underneath the empirical cause sits a structural one that no amount of retrying would have fixed. The bucket resets Friday at 17:00 PT. The lane's cron fires Wednesday at 15:00 - roughly **hour 118 of a 168-hour cycle**. A weekly lane gets one shot per cycle and its shot is always in the dry tail, unlike a daily lane which gets seven attempts and needs only one of them to land in a full bucket. Total context for the cycle from 14 to 20 August: the lane family produced about 3.5 million output tokens, peaking on 18 August at 1.38 million across 12 runs.
+
+A live probe confirmed the window independently, returning rc=123 and a message naming the reset date.
+
+**Solution.** Nothing was rebuilt. The remedy that follows from the structural cause costs nothing: move the weekly lane's cron past the Friday reset, into the full head of the cycle rather than its dry tail. The migration to another node was cancelled, since it would have carried the identical weekly-cycle vulnerability onto a bucket with the same reset.
+
+Two self-corrections were recorded in the same retro, both worth keeping:
+
+- A scheduled confirmation task fired **1 day 4 hours 6 minutes before its own scheduled time**, and the session initially took that firing as evidence that the planned date had arrived. "The seed fired" does not prove "the seed's date came" - the date is checked against a clock.
+- A stop hook flagged a claim of "zero lines in its whole life"; the lane had in fact lived 6 days and fired once. The journal was genuinely empty across all 9 backups, but the two facts are different and were being merged.
+
+A related process decision came out of it: a retrofit of 97 existing seeds to add a premise-check line was **rejected**. Only 1 seed of 98 on that node carried the check; the correct repair is the seed-creation path, not 97 files after the fact.
+
+**Pattern.** A cause proven on one observation is a story. Before acting on it, ask what the second and third instances would look like and go find them - transcripts are usually cheaper than a re-run and give you the shape of the distribution rather than one point on it. Where a resource is periodic, model the **phase**, not just the rate: a consumer that fires once per cycle, late in the cycle, is starving by design, and no retry logic addresses a design.
+
+---
+
+## 9. A resumed session duplicates its own past work if it acts before recall
+
+**Problem.** A contact-export session that began in mid-June resumed on 20 August, after a gap of more than two months, on a question about whether contacts were syncing. It moved toward a re-import into the canonical store. A comparison against the canon reported **874 differences** on roughly 8,500 records, which reads as a large gap and argues for an overwrite.
+
+**Cause.** The 874 differences were the session's own June work. Between June and August, the canonical cards had been enriched with CRM fields, back-links and transliteration aliases. The comparison saw those enrichments as divergence from the raw export, and an overwrite would have erased every one of them. **Truly new records were 2 of 8,495.**
+
+The premise that started the move was also wrong, and wrong in the day's characteristic way - derived from a single surface. The conclusion "the vault is not syncing" came from a comment in a machine configuration file, while the actual vault syncs over a different transport entirely and was fine. The real defect was elsewhere and specific: the cloud-drive application on that node was switched off, so writes landed in the file-provider cache and were never uploaded. A file provider accepts writes to a dead rail silently and reports success, which is the same silent-acceptance class as section 6.
+
+The operator caught the duplication with one question - *"we already went through this, didn't we?"* - which is a recall that the session owed itself before acting.
+
+**Solution.** Merge, never overwrite, implemented as a promoted tool rather than a scratch script: fields present in the canon are preserved, fields present only in the fresh export are added. Result: **+43 new cards, 2 updated with CRM fields preserved**, canon at 8,542 files, with 842 back-links and 3,771 transliteration aliases retained that a straight overwrite would have destroyed. A permissions defect surfaced during the merge - the canonical folder stood read-only and the merge failed loudly with a permission error, which is the correct behavior and the reason it was noticed.
+
+En route, a discrepancy between two contact counts in a neighbouring tool - 12,495 against 15,423 - was resolved and documented as a filter difference (named records only, versus all records), rather than left as an unexplained delta between two instruments.
+
+**Pattern.** For any long-lived enriched store, the update primitive is a merge and the overwrite primitive should not exist. State it as a property of the store, not as a habit of the operator. Second, for resumed work: **recall is the first deliverable of a returning session, not its warm-up** - the returner's own past work is indistinguishable from foreign divergence when viewed through a diff. Third: a diff between a raw source and an enriched destination measures enrichment, and reading it as drift inverts the value of the destination.
+
+---
+
+## 10. MCP tooling that returns only its own session's store
+
+**Problem.** A node-wide inventory of scheduled routines reported that 70 of 152 routines had "no schedule". The figure was an artifact of the instrument. The scheduling tool's list call returned **6 tasks out of 79 that exist on disk**.
+
+**Cause.** The tool returns the contents of its own session's store rather than the union of the stores present on the node. That behavior is defensible in isolation and catastrophic as a data source, because it looks exactly like a complete answer: a list, well-formed, with no indication that it is a slice.
+
+The consequence is what makes this a systemic entry rather than a curiosity. A formula for picking "the current store" - **take the newest store by mtime** - had been written into the vault as canon on 29 July. Applied on 20 August, that formula returns the store of the newest session, which is typically nearly empty. It would have returned 6 tasks and lost 73, including every one of the 27 lanes of the outbound GitHub pipeline. Five downstream readers had already inherited the defect, two of them consequential:
+
+- The **slot allocator** saw 5 free slots instead of 61, which throttles the node's ability to open work.
+- The **session reaper** runs on a 15-minute cron and kills sessions. A reaper reading a partial list of what is legitimately running is the most dangerous of the five by a wide margin.
+
+The same session also demonstrated the collision hazard directly. Building its dashboard and collector under names already taken, it overwrote two live foreign artifacts: an hourly-refreshed dashboard and a working 237-line aggregator from 11 July. Both were restored and verified by hash. That class - overwriting a foreign live artifact - now stands at **14 or more dated lines** in the breakage journal, with a prior instance on the same node the day before.
+
+And a second session inventoried the same node independently, 8 minutes behind the first. The two produced 152 and 151 routines respectively. Neither number is wrong; they were taken at different moments with slightly different filters, and the difference is recorded rather than reconciled away, because a silently reconciled count teaches nothing.
+
+**Solution.** The canonical formula in the passport corrected from "newest store by mtime" to **the union of all stores on the node**. The class itself - "one store chosen by mtime" - was handed to a separate visible repair session rather than patched inside the slot allocator, on the grounds that a class with five inheritors is not fixed at one inheritor. The new collector runs at zero LLM and zero network, with a test that includes a mutant reproducing the partial-store read. The dashboard was renamed to a distinct filename so that it cannot clobber the existing one, and both artifacts are published to the public pages site.
+
+Counts, for the record: 152 routines on the node across four engines (56 supervisor jobs, 81 application tasks, 10 cron entries, 5 daemons); 53 had run recently, 56 one-shots closed, 32 silent, 4 disabled, 1 stale, 2 outside any scheduler; portability assessed as 66 hub-movable, 34 anchor-movable, 52 local-only. The fleet aggregate rose from 420 to 480 routines once this node was added - meaning 60 routines had been invisible fleet-wide until this inventory ran.
+
+**Pattern.** Any API that can return a **subset shaped like a complete answer** must be treated as an untrusted source until its scope is proven - ask it for something you know exists and check that it comes back. Second: a formula written into canon is code, and it decays like code; the mtime heuristic was correct on the day it was written and wrong three weeks later, with no event in between to make anyone re-read it. Third: when a defect has N inheritors, the fix belongs at the source, and the inheritors need enumerating before, not after.
+
+---
+
+## 11. Parity went stale inside the minutes that verified it
+
+**Problem.** A six-lens adversarial workflow was run over the previous session's claims, with each lens instructed to **refute** the prior session's assertions by command rather than accept them on the write-up's word. 38 checks, 107 commands, roughly 671k subagent tokens. 34 of 38 held; 2 failed and 3 warned. The final state was proven byte-for-byte across 7 files on 3 nodes.
+
+**Cause.** The most instructive failure was not a wrong claim but a **perishable** one. A routine synchronization pull, firing in production in the middle of the verification, brought in another node's fix to the same file under test - a skip-condition now exiting 3. The parity that had been verified minutes earlier was no longer the parity on disk. Nothing was broken; the evidence had simply expired faster than the report describing it.
+
+The second failure was procedural and the same class as section 1: a deployment manifest was captured **before** the file it describes was edited. The manifest was therefore a truthful record of a state that no longer existed by the time anyone read it - a document that lies without anyone lying.
+
+Two more findings from the same pass: a false premise ("that rail does not exist on the anchor node") had already been transmitted over the bus, when in fact the rail's cron had been live since 6 August and the real gap was narrower - JSON files falling outside an include pattern. And an outgoing directory still held a 35 KB canon snapshot from 24 July, which is a downgrade vector: a peer applying it would have been silently moved backwards. It was refreshed to the live 119 KB version.
+
+**Solution.** The merged version of the alerting tool - our steal-or-shout plus the other node's exit-3 skip - was adopted as the fleet canon rather than either side winning. The manifest was re-taken after the edits, at zero divergence. The stale outbound canon was replaced. Incoming archive snapshots containing old copies were explicitly ruled **not** installation vectors and left untouched, so that a cleanup does not turn an archive into a deployment.
+
+**Pattern.** A verification result has a timestamp and a scope, and both belong in the report: "parity proven at time T over file set F" is a claim; "parity proven" is a slogan. Where a live sync can move the artifacts under test, either freeze it for the duration or re-verify at the end - and take manifests **after** the last write, never before.
+
+---
+
+## 12. Also measured
+
+Short entries. Each is a real session or a real finding; none of them is padding.
+
+**A false memory blocked a build that should never have been built.** The operator recalled that other machines had "moved away from routines" to plain sessions, and asked why this node still created auto-sessions as routines. Recall against memory, canon and the live tools did not confirm it: the application exposes no create-a-plain-session call at all - only list, get, send, rename, archive. The single handle for creating a session is the scheduled-task call; a direct spawner using a bare headless invocation had once produced 29 invisible sessions on the hub and is now blocked by a guard. Nothing was built, because the premise expired before the build - which is the cheapest possible outcome and the correct one. The one real residue is cosmetic: completed one-shot tasks accumulate in the routines list. A canary to delete a task after its session starts is proposed and awaits approval. *Pattern: a remembered transition is a claim; check it against the tool surface before designing around it.*
+
+**A detector that judges by substring hit the three-strikes threshold at four.** A maintenance gate matching on substrings blocked a read-only search operation - the fourth dated case of "the detector judges a substring", and this time our own gate against our own work. Under the standing rule that a mechanism is built only after the third case, a separate visible repair session was opened rather than a patch applied in place.
+
+**A harvest watcher ate the day it was supposed to record.** The watcher read the word "close" in a note as a delivered verdict and consumed the current day's harvest. Second dated case of the class. Fixed with 8 of 8 tests, mutant-checked.
+
+**A background observer does not survive its session.** A background shell watching a certification re-scan died silently when its parent session restarted - first dated case of that class, and the reason a re-scan verdict stayed at a stale failure from 10 August after the blocking condition had been resolved.
+
+**The approval queue was clogged by its own duplicates.** Three copies of the same question sat in the operator-approval channel, consuming the daily limit and pushing the operator toward deciding alone - the opposite of what the channel exists for.
+
+**A pilot returned a negative verdict, on purpose.** The harvest of a tool-filtering pilot came back with a clear no: the filter narrows but cannot widen on the fly, which breaks the use case. Two bugs went back to the author - a silent filter reset on an unknown argument, and a tool counter that reports incorrectly. The 34x saving the tool claims was independently confirmed. A negative harvest with a confirmed number and two upstream bug reports is a successful pilot.
+
+**The failover ladder was verified by running it, not by reading its mtime.** A voice instruction the same morning - routines must attempt a second LLM rather than die on one - turned out to be already built by an earlier phase of the same task, between 01:32 and 01:51. That was established by executing the components, not by trusting timestamps. A three-rail adversarial panel returned in 91 seconds with 4 findings, of which exactly **1 was real** (25% precision, recorded as such). The real one: a drain routine returned rc=0 in the state "a run happened, no work happened", which is section 6's class again; it now returns 2, mutant-verified by reverting the fix and watching two tests go red. Live proof on a genuinely empty budget: the normal path exited 0 through the fallback vendor, and with the primary rails forced dead the ladder descended by itself, printed a degraded-path marker naming the vendor it landed on, and finished the work. 118 tests green across five suites.
+
+**One routine was deliberately left broken as a control group.** Four agent routines were **not** migrated onto the new ladder before the harvest date, and one specific research runner - which died of an empty bucket on 18 August, not of a ladder defect - was kept unsplit on purpose so that the harvest on 27 August compares two logs instead of interpreting one. A measurement without a control is an anecdote with a number attached.
+
+**A door with no consumers is not a door.** A generic LLM-ask entry point stood for 14 days with zero robot consumers - built, tested, documented, and never called by anything. It acquired its first consumer on 20 August.
+
+---
+
+## 13. Rail order inverted: node subscriptions first, OpenRouter as fallback
+
+**Problem.** The question that opened the session was simple - is the paid aggregator wired in as an insurance rail? Recall said yes: built on 6 August and made the default. The live check said the key had never been delivered to this node, not for one day. The panel had been silently falling back to a local CLI backup the entire time, and reporting success.
+
+**Cause.** A deployment gap of the ordinary kind: the design shipped, the credential did not, and nothing downstream distinguished "answered by the intended rail" from "answered by the backup". Adjacent to it, a third dated case of the class "half the panel goes silent in reasoning": the cheap fast model tiers hit their answer ceiling and emit the tail of their reasoning instead of a verdict, which reads as a malformed answer rather than as a truncation.
+
+**Solution.** Key provisioned; the rail order **inverted by the operator's order**: the node's own subscriptions are tried first and the aggregator is the fallback when they glitch, which reverses the 6 August ordering. The reasoning is utilization, not preference - a subscription that is not burned is money already spent and thrown away, and an aggregator that answers first hides whether the subscription rails work at all.
+
+Three constraints ride with the new order and are enforced in code:
+
+- **Top models only** on the aggregator, never the fast or lite tiers - those tiers produced the three dated silent-panel cases and give a false sense of independent review.
+- **Medium reasoning effort** on the aggregator side, against maximum effort on the node's own subscription rails.
+- **Ritual-call timeout raised from 90 to 300 seconds** - the same ceiling that had been manufacturing the false vendor-death figures in section 4.
+
+First live fan-out under the new order: 4 models of 4 returned in 185 seconds, at a cost measured in small fractions of a cent. Six tests plus a mutant on the ordering itself, so that a future edit cannot silently restore the old precedence.
+
+**Pattern.** Any preference between two providers must be enforced where it can be observed, and each answer must record which rail produced it. "Configured as default" and "actually answered" are separate facts, and only the second is a measurement. When a design's justification is utilization of a prepaid resource, the metric to log is the utilization, not the latency.
+
+---
+
+## 14. The n8n verdict: duplicate the watchdogs, not the machines
+
+**Problem.** A night seed asked, architecturally, whether the fleet's nightly routines should migrate onto the workflow engine. The honest live state of the rails that morning framed the question: the primary model bucket was exhausted with a reset more than a day away, the second vendor was answering with its bucket 7% consumed, and one CLI vendor was dead on the node entirely.
+
+**Cause and analysis.** The memo landed on no, with six objections, and the load-bearing one is short: **the workflow engine does not fix the root.** The root is that classes of routines - orchestration, voice, MCP-driven - had no second rail, which makes each a single point of failure on one token bucket. Moving the trigger to another engine changes what starts the routine, not what the routine spends. A routine that dies of an empty bucket dies of an empty bucket wherever it is triggered from.
+
+What the engine *is* good for is narrower and real: its credentials live in its own store. That single property fixes the day's most common GitHub-side failure, where the CLI cannot read a token from the OS keychain when it runs under a system scheduler - the shared root behind all three lying GitHub watchdogs in section 15.
+
+A second structural finding came out of the same argument, after a verbal sparring round with the operator: routines split into **two launcher classes** that behave differently and had been treated as one. OS-scheduler routines always start, regardless of who is logged in. Application scheduled-tasks are account-bound and do not. Every migration debate that ignores which class a routine belongs to is discussing the wrong variable.
+
+**Solution.** Position adopted: **n8n duplicates the watchdogs, not the machines.** The pipeline lanes stay home, because they clone repositories and run foreign test suites - work that has nothing to gain from an orchestration engine. What moves into shadow form is the *watching*: the PR watch (currently missing 9 of 104 positions), the storefront audit (7 failures out of 7), and the 24-hour inbound check (11 days of 404 against a renamed handle). Shadows start 21-22 August with a harvest date of 4-5 September, both dates recorded at the moment the shadow is switched on.
+
+One process note worth keeping: the operator's own selection criterion - a candidate must involve both a GitHub API call and a textual LLM step - excluded the two strongest candidates, which use zero LLM. That was said out loud with the numbers rather than worked around, and the criterion was dropped: *"drop the llm-step criterion."*
+
+**Pattern.** When evaluating a platform migration, separate the **trigger** from the **budget** from the **brain**. Most migration proposals implicitly promise all three and deliver only the first. And a selection criterion is a hypothesis about what matters; when it demonstrably excludes the best candidates, the criterion is the thing that is wrong.
+
+---
+
+## 15. Two months of outbound GitHub work, measured for the first time
+
+**Problem.** The outbound contribution pipeline had never been graded by **result**, only by whether its lanes ran. Three of its watchdogs were reporting green while blind.
+
+**Measurement, 21 June to 20 August.** 138 artifacts sent outward: **75 pull requests, of which 20 merged (27%), and 63 issues.** 20 pull requests received a reply from a live human being, and among those repliers were maintainers at OpenAI, Microsoft, UK AISI, deepset, pydantic and Qwen. Supporting counts: 114 comments, 35 own repositories, 41 stars, 20 followers, 539 views and 315 unique visitors over 14 days, 104 positions in the outbound registry, 17 live GitHub routines plus 21 completed one-shots, 9 green lanes and 3 yellow, 5 infrastructure routines of which 3 red.
+
+Lane-level grading put the spread on the record: the strongest lane has 5 merges, two more sit at 2-3 merges, one has 0 merges, and one - the weekly lane from section 8 - had never completed a run.
+
+**Cause of the blind watchdogs.** All three failures share one root: the GitHub CLI cannot retrieve its token from the OS keychain when launched under a system scheduler. The three surface shapes are the ones already catalogued above - the store-by-mtime read that returned an empty task list and exited 0 announcing "no live lanes" (section 10), the storefront audit whose green status was read out of the log containing its own 401 (section 5), and the vendor radar measured on an empty supervisor stdout file instead of its real log (section 5).
+
+**Solution.** A registry that grades each GitHub routine on three independent axes - **did it launch, what did it claim, and does the artifact exist when checked live** - with a test that specifically reproduces the blindness the previous watchdog had (16 checks plus a mutant). One robot was decommissioned outright: the inbound watcher from section 5, unloaded from the scheduler, its configuration moved to a disabled directory and the retirement recorded reversibly. The weekly lane was disabled on its node and handed over with an explicit condition attached - migrating it to the workflow engine is a no-go, because its core is agentic.
+
+Two overreaches were caught inside the same session and are recorded because they are the same class as everything above: "27 orphan lanes" (produced by reading the wrong store) and "any robot following the canon carries my bug" (a sweep of 110 files found zero cases besides the author's own). Both times the generalization was more convenient than the measurement.
+
+**Pattern.** Grade a pipeline by the artifact at the far end, not by the exit code at the near end. Where several watchdogs fail at once, look for a shared dependency before writing three separate repairs - here a single credential-access rule under a system scheduler explains all three. And when a sweep contradicts a generalization, the sweep wins, out loud.
+
+---
+
+## 16. A read-only export of a decade of Apple data
+
+**Problem.** After a request to pull one note archive across to the main machine, the scope widened to a full question: what exists on the mac that does not exist anywhere else. The answer required a read-only export across six Apple data sources, with full disk access granted explicitly for the session.
+
+**Cause of the hard part.** Two of the six sources refused the ordinary route:
+
+- **Messages.** 97% of messages do not store their text in a text column. They store it inside a binary `attributedBody` field in Apple's typedstream format. Any export that reads the text column reports a near-empty archive and reports it successfully.
+- **Contacts.** The scripting bridge failed with error -1741 on a set of roughly 16,000 records. The failure is a hard stop at that volume, not a slow path.
+
+A third, quieter trap: the calendar `.ics` files sitting in the system folder turned out to be backups from 2018-2022, not the live calendar. "The files are there" and "the files are current" are different facts, and only the second one was worth exporting.
+
+**Solution.** A typedstream decoder for the binary message bodies, achieving **99.9% decode success - 37,911 of 37,913 messages**, across a corpus of 39,052 messages in 3,376 conversations. Contacts extracted by reading 13 address-book databases directly and de-duplicating, yielding 15,423 records where the scripting bridge yielded an error. The live calendar database read directly rather than the stale exports: 27,476 events into 15 calendar files. Notes: 649, converted to markdown with 157 inline images recovered out of base64. Browser data: 3,301 bookmarks, 196 reading-list entries, 851 history rows. Reminders: 57. Message attachments: 1,645 files. Integrity confirmed by a 9-of-9 counter check after one path defect was corrected.
+
+The path defect is worth one line as a rake: `cp -R src/ dst/` with a trailing slash copies the *contents* without the root folder, which silently produced a layout that the written documentation described incorrectly.
+
+Disposition: heavy attachments stay on cloud storage with a pointer rather than being pulled into the knowledge base; the existing export skill was upgraded rather than duplicated; and the onward import into a contacts service remains an explicit human decision, not an automatic consequence of having the data.
+
+**Pattern.** Before exporting from any store, verify where the payload actually lives - a column that exists is not evidence that the column is used. And when an official API fails at scale, reading the underlying storage directly is often not a workaround but the more reliable path, provided the read is read-only and the record count is checked at both ends.
+
+---
+
+## 17. Shipped
+
+- **The steal-or-shout lock contract**, live in two tools plus a dedicated test file: identity proven by command line and process start time, exclusivity by `O_CREAT|O_EXCL`, refusal plus a loud stuck-lock line where death cannot be proven. 71 checks, 7 mutants, 3 operating systems, byte-identical on 3 nodes by hash.
+- **Honest exit codes across the alerting rail**: non-delivery exits 3 and spools; the publishing function gained a fallback ladder; the LLM-limit check moved from exit code to output text and was wired into 4 routines; honest return codes propagated into 7 wrappers and couriers; single-owner delivery enforced by `channel_owned()` at 5 call sites. Rolled out fleet-wide.
+- **A test-fixture filter in the reliability meter**, which announces its own filtering, plus isolation of test writes onto a separate ledger proven by an unchanged 328-row counter. Rolled out fleet-wide; one vendor verdict withdrawn as a direct result.
+- **A routine registry that judges output rather than mtime** - name-containment binding, log-level severity, and a new "running but failing" status - plus its dashboard, published to the public pages site. It found two live breakages within minutes of being repaired.
+- **A GitHub routine registry graded on three axes** (launch, claim, live artifact) with a test that reproduces the previous watchdog's blindness; 3 real defects surfaced in 49 seconds on first run.
+- **Task-Now ranking engine v4** - deterministic, zero LLM, fires require corroboration, money appreciates and freezes, missing timestamps resolved by an explicit ladder. 17 checks, 5 mutations all killed, single-writer deployment on the anchor node.
+- **A merge tool for the contact canon** that preserves enrichment: +43 cards, 2 updated, 842 back-links and 3,771 aliases retained.
+- **Three Apple export adapters** (messages with the typedstream decoder, all-source contacts, browser/calendar/reminders), read-only, with counter-verified integrity.
+- **The failover policy itself**, versioned in the routing configuration: subscription, then gateway, then paid aggregator, then alarm - with the voice rail degrading only within its own model family.
+- **The night memo on the workflow engine** with six objections and the two-launcher-class section added after the sparring round.
+
+---
+
+## Open items carried into 21 August
+
+- **Three nodes are pending on the lock parcel.** The contract is proven on three nodes and outstanding on three; until it lands everywhere, the fleet has two lock semantics at once.
+- **Four of six nodes are pending on the honest-exit-code rollout**, with two proven DONE by reading rather than assumed.
+- **The Windows-node hang inside an uninterruptible Telethon call has no handler**, deliberately - first dated case, journal line only.
+- **The "one store by mtime" class is open** in a separate repair session; five readers still inherit it, including the session reaper on a 15-minute cron.
+- **The weekly lane's cron has not been moved yet** past the Friday bucket reset; the confirmation task will fire again at its real scheduled time.
+- **The n8n shadows start 21-22 August with a 4-5 September harvest** - three watchdogs only, both dates already recorded.
+- **The control group is intentionally unrepaired** until the 27 August harvest: four agent routines stay off the failover ladder and one research runner stays unsplit.
+- **The account ladder is blocked on one human action** - two of three headless token stores are missing and need a single interactive consent click each.
+- **The certification re-scan verdict is stale** at a 10 August failure, because the background observer watching it died with its session.
+- **The completed one-shot tasks still accumulate** in the routines list; the deletion canary awaits approval.
+- **The primary model bucket was exhausted all day**, with the reset falling on 21 August; three of four paid rails remain unmeasured for utilization.
+- **The public praise post and several outbound items** remain in their queues from previous days, unchanged by this day's work.
+
+---
+
+## Publication note
+
+Written from 17 session write-ups produced on four nodes on the same day, with the numbers taken from the sessions' own measurements rather than from their conclusions. Where a session's conclusion was later refuted inside the same day - the vendor reliability figure in section 4 is the clearest case - both the original figure and the correction are recorded here, because the correction is only legible next to what it replaced.
+
+One claim in this chapter is explicitly a **hypothesis and not proven**: that the shared credential-access failure under system schedulers (section 15) is the sole root of all three blind GitHub watchdogs. It explains all three, it was verified for the mechanism, and no counter-example was found - but no experiment was run that would have distinguished it from a second, coincident cause.
+
+---
+
+*✍️ Written: chapter - Opus 5 · facts - Sonnet extractors*
+*Придумано Майкрофтом и Тони. Palo Alto AI Research Lab.*
