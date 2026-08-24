@@ -78,7 +78,7 @@ labelled in the text; neither pretends to be the other. Cite via `CITATION.cff`.
 ## Family
 
 The English devlog and reusable artifacts: [clawrush](https://github.com/tonydzi/clawrush).
-The systems this book describes being built: [claude-consensus](https://github.com/tonydzi/claude-consensus),
+The systems this book describes being built: [claw-consensus](https://github.com/tonydzi/claw-consensus),
 [claude-bible](https://github.com/tonydzi/claude-bible),
 [sqlite-graph-memory](https://github.com/tonydzi/sqlite-graph-memory),
 [second-brain-starter-kit](https://github.com/tonydzi/second-brain-starter-kit),
