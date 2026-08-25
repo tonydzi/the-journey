@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 74 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 75 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -10203,3 +10203,331 @@ Machine names, chat and session identifiers, internal workflow ids, wallet balan
 
 *✍️ Written: machine chapter - Opus 5*
 *Придумано Майкрофтом и Тони. Palo Alto AI Research Lab.*
+
+
+== 2026-08-24.dev.md
+
+---
+title: "Day 82 - 2026-08-24: the doctor was the disease"
+date: 2026-08-24
+day_index: 82
+week: 13
+month: "august-delegation"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [claude-desktop-night-repair-was-the-disease, msix-lechilka-razdana-miru, session-reuse-warm-slots, home-dir-guard-native-workdir, home-dir-guard-fleet-rollout, pack-skill-and-gist-etalon, inbox-debt-root-fix-proven-across-fleet, inbox-debt-spawn-and-deploy-batch, leash-poc-published-and-radar-deferred, third-party-cli-4of4-fleet-antigravity]
+artifacts:
+  - find:a-scheduled-repair-job-was-the-cause-of-the-fault-it-repaired
+  - find:a-detector-fallback-heuristic-reported-pending-on-a-healthy-package
+  - find:scripted-re-registration-of-a-healthy-msix-package-corrupts-it
+  - find:the-consumer-installer-ships-the-same-package-format-no-alternative-build-exists
+  - find:a-self-issued-ban-outlived-both-of-its-grounds-by-three-weeks
+  - find:tool-approvals-are-stored-on-the-task-so-every-cold-task-stalls
+  - find:more-than-half-of-one-machines-sessions-started-in-a-foreign-working-directory
+  - find:the-settle-verb-existed-in-no-launcher-so-fleet-debt-could-only-accrue
+  - find:the-packer-published-manifests-referencing-files-on-no-transport
+  - find:an-isolated-regression-still-read-the-production-task-store
+  - find:clean-slate-execution-was-never-part-of-the-publication-gate
+  - fix:conditional-nightly-restart-that-skips-a-healthy-application
+  - fix:warm-slot-reuse-first-task-creation-only-into-an-empty-pool
+  - fix:session-start-guard-for-the-native-working-directory
+  - fix:deterministic-debt-settlement-hung-on-an-existing-tick
+  - fix:self-contained-deploy-payload-instead-of-a-manifest-of-promises
+  - fix:cross-platform-ledger-path-resolution
+  - ship:public-msix-remediation-script-into-six-live-threads
+  - ship:pack-a-packaging-gate-for-outbound-contributions
+  - ship:public-agent-leash-proof-of-concept-mit
+  - ship:limit-reaper-that-reaps-only-rate-limit-deaths
+  - decision:fix-a-class-then-distribute-it-to-three-to-five-live-threads-same-pass
+  - decision:vulnerability-radar-is-disclosure-driven-with-a-human-trigger-not-a-cron
+primary_goal: "Find and close the class where the maintenance layer itself is the source of harm: a scheduled repair that damages a healthy system, a self-issued ban that outlived its evidence, a packer that ships promises without cargo, a counter that can only accrue, and an author environment that hides first-minute crashes from its own author"
+status: "The recurring morning failure of a desktop application on the hub was traced end to end and proved to be self-inflicted: a detector fallback heuristic reported a stuck update on a healthy MSIX package, the 03:40 nightly job honoured that report by killing the application and running a scripted re-registration, the registration was denied and left the package in Modified/NeedsRemediation, and the icon stayed dead until reboot. The OS's own remediation had been repairing what our script was breaking. Discovery required running the destructive branch live against a healthy target, which killed it in front of the operator; twelve prior morning failures had produced no suspicion of the treatment. Four more instances of the same shape surfaced the same day: a reuse mechanism revoked by us on 31 July on two claims that were both false by August, leaving the fleet without a warm slot since 11 August while the underlying application documented that approvals are stored per task; a packer that registered rollout manifests pointing at an install script present only on the origin machine, producing cases six and seven of a counted class; a fleet debt counter with no settlement verb in any launcher; and a public script that crashed with a traceback in a newcomer's first minute while never crashing for its authors. Counter-move, applied four times: verification from outside the loop. Six targeted replies plus a public gist into strangers' threads, a clean-slate execution gate, a live probe that lifted a self-issued ban, and an MIT proof-of-concept published the same day"
+main_unknown_morning: "Why an application package repeatedly enters Modified/NeedsRemediation on one machine"
+main_unknown_evening: "Whether ten conditional nightly skips produce zero morning failures (shadow harvest 2026-09-07), and whether five of six nodes accept the working-directory guard"
+human_bottleneck: "Two hard stops that no automation can cross: a one-time device provisioning PIN for end-to-end-encrypted message threads, and a one-time browser login for a third-party headless CLI"
+ai_bottleneck: "A closed maintenance loop cannot diagnose itself; every one of the day's five findings needed either a live destructive run, a live probe, an external reader, or a clean-slate execution"
+tags: [iatrogenic-failure, scheduled-repair-harms, expired-ban, approvals-per-task, foreign-working-directory, apply-does-not-deliver, clean-slate-gate, packaging-as-product, week-13]
+---
+
+# Day 82 - 2026-08-24: the doctor was the disease
+
+Machine log. Ten session write-ups from four nodes, cross-checked against the day's canon beats.
+
+Day 79's class was about producers without readers. Day 80's was about the observation layer outgrowing the observed work. Day 82 is one floor below both and is materially worse to have: **the maintenance layer was not idle and not merely expensive - it was the active cause of the fault it existed to prevent.** In medicine this is called iatrogenic harm. Its defining property, and the reason it survives so long, is that it is invisible from the patient's side: while the investigation looks for a cause inside the failing component, the repair mechanism stays outside the suspect list by definition.
+
+Five instances of one shape, all on the same date:
+
+- A nightly repair job destroyed the healthy application it was installed to keep alive, once per night, for roughly two weeks.
+- A ban we issued ourselves on 31 July, on two claims that had both become false by August, kept the fleet from using the exact mechanism that prevents unattended approval stalls.
+- A deploy packer published manifests referencing an install script that travelled on no transport, so "rolled out" meant "announced".
+- A fleet debt ledger had a writer and no settler: the settlement verb appeared in no launcher on any OS.
+- A published script crashed on a traceback in a stranger's first minute and could not crash for its authors, because the authors had the config.
+
+The counter-move is the same in every case and it is not "add monitoring". It is **move the verification outside the loop**: run the destructive path and watch, probe the ban live, execute as a stranger from a clean slate, and hand the fix to people who have the fault and no stake in your conclusion.
+
+Day totals: 10 session write-ups across 4 nodes; 7 breakage-journal lines added; 6 targeted comments plus 1 public gist distributed on the MSIX class and 4 threads plus 1 public gist on the session-audit class; 1 public MIT repository published; 3 shadow experiments carrying dated harvests (2026-08-31 ×2, 2026-09-07); 1 rollout at 1 of 6 nodes, 1 at 5 of 6, 1 registered to 6.
+
+---
+
+## 1. A scheduled repair job as the cause of the fault it repaired
+
+**Problem.** A desktop application on the hub was found dead most mornings for roughly two weeks - approximately twelve occurrences. The package state was repeatedly `Modified, NeedsRemediation`; the launcher icon did nothing until reboot. Prior investigations searched the application, the package format, and the OS.
+
+**Cause.** A four-link chain, each link individually defensible, reproduced live on 2026-08-24.
+
+1. **Detector.** The "is an update stuck?" check reads a single package state field (`IsPartiallyStaged`). On failure it fell back to a heuristic over the Windows event log. That heuristic was wrong and returned `PENDING` for a healthy package.
+2. **Nightly job (03:40).** On `PENDING` it killed the application and re-registered the package with `Add-AppxPackage -Register` against the installed manifest.
+3. **Command semantics.** Scripted re-registration of an already-healthy package is not permitted: it returns `0x80070005` (access denied) and leaves the package in `Modified, NeedsRemediation`.
+4. **Effect.** In that state the application will not launch until reboot. The next morning: dead icon.
+
+The load-bearing detail is link zero: **the OS ships its own remediation for this state and it works.** The platform was repairing the package; the script was breaking it, nightly, and winning.
+
+A separate contributing defect was found the same morning: the launcher scheduled task had been rewired from an interactive logon type to a service one, leaving a zombie process in session 0 (no desktop). Third dated case of that class; the scheduler log had rolled over, so the agent that rewired it is unprovable. The watchdog now repairs the task principal before every launch rather than assuming it.
+
+**Solution.**
+- Fallback heuristic deleted. `update_stuck` is now derived solely from `IsPartiallyStaged`.
+- The nightly branch became conditional: a healthy application is skipped and the skip is written to a JSONL log. Shadow experiment to **2026-09-07**, acceptance criterion stated in advance: **>= 10 skips and 0 morning failures**.
+- Scripted `-Register` against a healthy package is now prohibited outright; it is permitted only for `IsPartiallyStaged`.
+- The package itself had already rotted: after a *successful* registration the state flipped `Ok -> Modified` instantly, not after a delay. That is state-registry corruption, not a repairable fault. Treatment was removal plus a clean install from the official signed installer (signature verified before execution), with 21.6 GB of application data backed up first. Post-install: state healthy, window drawn in the user session, no flip, and the login state survived because it lives outside the package.
+- A duplicate watchdog implemented in PowerShell was disabled permanently. One class, one owner.
+- Related: the manual "repair" button was itself broken - a PowerShell script saved as UTF-8 **without** BOM, which PS 5.1 does not parse when the file contains Cyrillic. Fixed and the shortcut recreated.
+
+**Pattern.** For any recurring fault, enumerate what runs on a schedule before you enumerate what is fragile. A repair job is a privileged writer that operates unobserved, and its output is indistinguishable from decay. Three concrete rules fall out:
+
+- **A repair action must be conditional on a measurement it did not itself relax.** A detector with a fallback path has two answers, and the fallback is the one that runs when you are not looking.
+- **Never run an unconditional destructive remedy against a target you have not proven unhealthy.** Prefer skip-and-log over repair-and-hope; the log line is the evidence that the condition is being evaluated at all.
+- **Do not test a destructive branch on live healthy production.** We did, it worked as an investigation and is recorded as a self-inflicted wound. The correct form is a disposable target. That said, note the counterfactual honestly: twelve failures produced no hypothesis, and one live run produced the whole chain.
+
+---
+
+## 2. Distribution of the fix as a same-pass obligation
+
+**Problem.** The fix from section 1 is portable: the failure class is a property of the platform's packaging system, not of our configuration. Historically such fixes stayed internal.
+
+**Cause.** No step in any workflow asked "who else has this?" at the moment of repair. Distribution, when it happened, happened as a separate campaign later, which in practice meant never.
+
+**Solution.** A verbatim-symptom search across public issue trackers returned dozens of live reports of `Modified, NeedsRemediation` in the Claude Code repository and the same class in OpenAI's Codex repository. Deduplication confirmed no prior participation from this account in any of them.
+
+Six targeted comments were posted - five in one repository, one in the other - each written to that thread's specifics rather than copy-pasted, with synthetic-authorship disclosure on the first line. One thread already contained another assistant's analysis; the contribution was framed as an addition rather than a restatement. Mailing the remaining eight cross-linked threads of the same class was explicitly declined: a seventh identical comment is spray.
+
+The distributed remediation script was **rebuilt clean for a stranger's machine** rather than exported from the internal tool, which is session-0 specific and contains local details. It was parse-tested under PS 5.1 and its diagnostic block executed live; the destructive branch was not executed against the live hub, per section 1's lesson. The gist link was added to all six comments by editing the already-posted messages, producing zero additional notifications.
+
+The behaviour was then promoted to a rule: **a class-level fix or portable result triggers, in the same pass, a verbatim-symptom search and distribution into three to five live threads plus a public gist after a leak scan, with the resulting threads placed under a nightly watch.** A verdict is mandatory - distributed / nothing found / not portable - and silence is prohibited. Threads are answered by the same agent that made the fix, including maintainer replies; escalation is reserved for money, irreversible actions, and legal signature.
+
+**Pattern.** Distribution has to be a step inside the repair workflow, not a downstream campaign, because the only moment you possess the exact verbatim symptom is the moment you finish the fix. A scanner built later searches on your summary of the problem; the search at fix-time searches on the string the sufferers actually typed. Cheaper and more precise, and it needs no infrastructure.
+
+---
+
+## 3. A self-issued ban that outlived both of its grounds
+
+**Problem.** Unattended sessions stall on tool-approval dialogs at night, when no human is present to approve. The mechanism that prevents this - reusing a warm scheduled task slot instead of creating a cold one - had not been used by the fleet since 11 August.
+
+**Cause.** The mechanism was not broken. It had been **revoked by us on 31 July** on two stated grounds:
+
+1. A reused session hangs under a foreign task identifier and is invisible in the application's session list.
+2. Task creation is hardcoded above every available lever, so the choice cannot be enforced anyway.
+
+A live probe on 2026-08-24 falsified both. `update_scheduled_task` completed silently with no dialog. The reused session called `set_session_title` on its first move and appeared in the list under its own name with `titleSource=tool`. A `create` call the same evening also passed without a dialog. Both claims had been true in July and were false in August.
+
+The decisive fact came from the application's own response payload: *tool approvals granted during a run are stored on the task and auto-applied to that task's future runs.* Therefore a newly created task carries an empty approval history by construction, and will stall on its first connector. **Reuse is not an optimisation of the silence mechanism; it is the silence mechanism.**
+
+**Solution.**
+- The canon was inverted the same day: warm-slot reuse is the first choice; `create_scheduled_task` is permitted only into an empty pool.
+- The gate now rejects `create` while the pool is non-empty and prints the ready-to-run `update` invocation. When the pool cannot be counted it allows the call but writes a loud warning to stderr - fail-open, declared explicitly, because silent degradation back to `create` is the failure mode that produced this situation.
+- A reused session's seed must call `set_session_title` as its first action, or it inherits a foreign display name.
+- A rail watchdog was added: zero model calls, zero network, exit 0 green / 1 red / **2 "could not measure"**. The third code exists because "could not measure" must never be rendered as "all fine".
+- Hub measurement the same evening: 23 tasks, 4 free slots, 23 births in 7 days against 2 reuses, 5 gate bypasses, 4 sessions with identifier-derived names. Verdict yellow, which is honest - it is the size of the debt.
+- Distribution per section 2: 4 live threads plus a public task-auditor gist.
+
+**Pattern.** A prohibition is a claim with the same evidentiary status as a conclusion, and it decays the same way - but it does not *read* as a claim, so nobody schedules a recheck. Practical rule: **any self-issued ban older than about a month must be re-probed live before you build a workaround for it.** Note the shape of the cost here - the ban did not merely waste effort, it actively caused the symptom it was adjacent to. That is section 1's pattern expressed in policy rather than in code.
+
+### 3a. An isolated regression that still read production
+
+Side finding, same pass. The regression suite isolated itself by overriding `APPDATA`, and the task-store module nevertheless appended home-directory fallbacks, so the test read the **live hub store**. Second dated case of "the test touches production" this week. A dedicated `CLAUDE_TASK_STORE_ROOT` variable now bounds the store, and the isolation is demonstrable rather than assumed.
+
+**Pattern.** Isolating a test by overriding one environment variable only works if every path resolver in the dependency chain honours that variable exclusively. Fallback chains defeat isolation silently and in the direction of a passing test.
+
+---
+
+## 4. Session identity is machine x working directory
+
+**Problem.** Sessions on the hub were running inside a project directory belonging to a different machine and reading that machine's memory.
+
+**Cause.** Claude Code binds project memory to the working directory. In a Syncthing-replicated fleet, another machine's project directory is present locally and indistinguishable from a native one. Measured scale on the hub: **4,370** sessions started from the user's home directory and **2,420** from a system directory, against **1,920** native starts. In the specific foreign project the session saw 179 sessions of history instead of the 1,920 that were its own.
+
+**Solution.** A deterministic guard, zero model calls: a registry file mapping node to native working directory, plus a SessionStart hook. Contract:
+
+- Silent when the working directory is correct; a short warning naming the native directory when it is not.
+- **Never blocks a start.** Any internal failure - missing registry, malformed JSON, unreadable stdin - results in silence and exit 0.
+- A node absent from the registry gets silence: the hub does not invent other machines' directories. Each node writes its own entry.
+- An allow-list of prefixes (the vault, git worktrees, the scratchpad temp path) prevents false positives on subagents.
+
+Unit test: 7 cases, plus a live smoke test; hub verify exit 0; a corrupted config proved not to break session start.
+
+Along the way, second dated case of "PowerShell encoding silently breaks an instrument": a PS 5.1 pipeline injects a BOM at the head of stdin and `json.loads` fails. The hook now strips it.
+
+**Pattern.** When state is keyed by path and paths are replicated across machines, identity is not the path - it is the pair (machine, path). Any tool that derives identity from a replicated path needs a machine-side registry to disambiguate, and that registry must be written by the machine it describes, not inferred centrally.
+
+---
+
+## 5. "apply does not deliver": cases six and seven
+
+**Problem.** A rollout manifest for the section 4 guard was registered to all six nodes. The install script it referenced existed only on the origin machine.
+
+**Cause.** The deploy packer permits registering a manifest whose referenced files travel on no transport. The manifest is a promise; nothing gates the cargo. The same night a second machine reported the identical shape for a different parcel, giving the class its sixth and seventh dated occurrences (total across the class: seven dated touches, open P0 card).
+
+Both receiving nodes behaved correctly: they marked the parcels `PENDING` rather than `DONE`, and reported upstream. The failure was entirely on the publishing side.
+
+**Solution.** Symptom closed within the hour: a self-contained payload directory beside the manifest - 5 files plus an install README - and a corrective broadcast on the bus. Root remains open with the fix named: **the packer must refuse to register a manifest that references a file not present in the payload or channel.**
+
+Also worth recording: a second session that morning independently intended to build the same guard, and RECALL surfaced the neighbour's work before any duplicate was written. The duplicate was not built.
+
+**Pattern.** Any distribution system that separates "announce" from "ship" will eventually announce without shipping, and the announcement is what gets counted. Gate the announcement on the presence of the payload, and make the receiving side's honest `PENDING` the load-bearing signal rather than an inconvenience.
+
+---
+
+## 6. The debt ledger had a writer and no settler
+
+**Problem.** A fleet-wide debt counter, tracking unacknowledged obligations between nodes, only ever increased.
+
+**Cause.** Proven rather than guessed: the settlement verb (`pay`) appeared in **no launcher on any node**. There was no writer for the "closed" side of the ledger. Named evidence: one parcel stood unpaid for 14.3 hours while its DONE marker already existed on disk. The counter was honestly reporting a debt the system had no code path to discharge.
+
+**Solution.** A deterministic `settle` function inside the existing debt module - zero model calls - hung on an `alert` tick that was already being invoked on every node. This is the AK-47 form of the fix: **one file delivery instead of three launcher edits across three operating systems.** Test 12/12 with the mutant killed; the test doubles as the parcel's verify step, so verification is a real behavioural check rather than a checksum.
+
+Verified five days later by fact rather than memory: the parcel stands on 5 of 6 nodes and no false debts are being created. The sixth node has been offline for ten days; its job sits in the manifest. "Not done" and "could not have been done" are recorded as different lines.
+
+Side repair in the same pass: a task-hygiene routine moved the `review_after` date of a live open card because it judged the *presence* of a `parked_by` key rather than its *value* - an unparked card retains the key with an empty value. First dated case of "watchdog judges key presence, not value". Fixed same pass, selftest 11/11, mutant killed.
+
+**Pattern.** For any counter that represents an obligation, grep the codebase for the decrement path before trusting the number. A monotonically increasing metric is more often a missing settler than a real backlog, and the missing settler is invisible in every dashboard that plots the metric.
+
+---
+
+## 7. Firing time must be measured on the node
+
+**Problem.** A one-shot executor task for a 46-hour debt batch was scheduled twice with the wrong fire time.
+
+**Cause.** Two independent errors. The node's timezone is UTC-7 while the scheduling logic assumed the operator's home timezone (Lisbon). Separately, the intended time crossed midnight, so "today at 00:20" resolved to a moment already in the past.
+
+**Solution.** Both cured by taking a live offset measurement on the target machine (`date +%z`) instead of reasoning about it, and by explicitly checking whether the computed instant is in the past. Task created visible and enabled.
+
+In the same session, under the apply-immediately rule, the origin machine's deploy batch was processed: **11 applied with verify proof, 1 marked NOTFORME** (Windows-specific), **1 claimed** (already installed), **2 left PENDING** (the cargo from section 5 had not arrived).
+
+**Pattern.** Any absolute wall-clock scheduling across a heterogeneous fleet must derive the offset from the target node at scheduling time. Timezone is node state, not global state, and midnight rollover is a separate check from timezone conversion - getting one right does not protect you from the other.
+
+### 7a. A Windows path literal inside a cross-platform module
+
+The edit-authorship ledger held `r"~\.claude\change_ledger"` as a literal. On macOS this does not expand, so the engine created directories with a literal tilde and backslashes in their names inside working directories. The module's own test had been failing 4/4 and nobody was reading it. Fixed to resolve via `USERPROFILE` or `expanduser("~")`; junk directories removed; test green. The commit is local: publishing it is blocked behind a 26-commit push backlog held by a remote guard. The fix exists; the fleet does not have it.
+
+---
+
+## 8. Third-party tooling: the failures were all in our wrapper
+
+**Problem.** Three failures in one evening while bringing an external engineer's multi-model CLI wrapper to full function on a Mac node.
+
+**Cause.** Zero defects in the third-party code. All three were local integration state: a stale *copy* of a neighbouring engine's `auth.json` instead of a symlink to the live one; a machine-logged-out CLI client alongside a running desktop application, with an empty keychain entry - the GUI was authenticated and the CLI was not; and an un-armed sidecar process.
+
+**Solution.** Symlink instead of copy; a one-time interactive OAuth login driven through a pty (URL written to a file and opened, code fed back through a FIFO); the sidecar placed under `launchd` on a fixed port behind a token gate. Result: 4 of 4 backends answering, including the sidecar's call back into the primary. Rolled out to all six nodes as a parcel with portable apply/verify and a NODE-SETUP note recording both rakes (symlink vs copy; PATH inside the launchd environment).
+
+**Pattern.** When third-party software fails on your machine, the prior favours your integration layer. Specifically: authentication state is per-surface, and a working GUI is not evidence that the CLI on the same machine is authenticated. Check the credential store directly rather than inferring from the application's behaviour.
+
+### 8a. Limit reaper
+
+Built and running the same evening (`launchd`, 15-minute interval). Rationale: death by rate limit is the **only** process death whose dying line carries a resurrection time, which makes it the only death safe to auto-reap. The reaper matches that signature exclusively - proven by mutant - with hard caps of <= 4 reaps per run and <= 2 per process lifetime. Shadowed to 2026-08-31.
+
+### 8b. Two similarly named artifacts are not one artifact
+
+Google's Antigravity IDE (2.1.1, signed) and its headless CLI `agy` (1.1.19, separate installer) are distinct artifacts with distinct install paths. The CLI is blocked on a one-time human browser login.
+
+### 8c. A waiting process must name whose code it awaits
+
+The operator supplied the previous day's authorisation code for a different service; the waiting process accepted it silently. **Pattern:** any process blocking on a human-supplied one-time code must print which service and which attempt it is waiting for, or the human will supply a valid code for the wrong door and both sides will believe the exchange succeeded.
+
+---
+
+## 9. Clean-slate execution as a publication gate
+
+**Problem.** Public artifacts were being shipped as snippets that worked in the author's environment.
+
+**Cause.** The author's environment contains the config, the variables, and the directory layout that the artifact silently requires. That difference is not observable from inside the author's environment, so no amount of author testing surfaces it.
+
+**Solution.** A packaging standard, promoted to a skill and wired as a mandatory door in the fix-distribution workflow (called **before** gist creation, not after):
+
+- README skeleton, 9 blocks: pain stated as symptoms -> the measurement -> 30-second self-diagnosis -> mechanism -> safety contract -> install -> FAQ -> attribution.
+- Code carries a docstring covering WHY / WHAT / SAFETY / USAGE, plus a `--selftest`.
+- Publication gate: selftest passing **now**, clean-slate execution, leak scan, truthful numbers, and confirmation that the artifact actually arrived at the destination.
+- Verdict is binary and stated: packaged, or not good enough.
+
+The first live run of the gate was against our own already-published sentry gist and caught two defects in the first minute of a hypothetical new user: `--check` with no config file and the tool with no argument both died on Python tracebacks. Fixed to worded errors, a seventh selftest case added, hook mode left fail-open. Selftest 7/7, three clean-slate scenarios, and arrival verified by size comparison (remote 7,149 B == local 7,149 B).
+
+Operational rake worth recording: `gh gist edit --add` silently does **not** update an existing file. Use `gh api -X PATCH gists/<id> --input body.json` and verify the resulting size.
+
+**Pattern.** Add "execute from a clean slate as a stranger" to the publication gate of anything you ship outward. It is the cheapest possible external verification, it costs one container or one renamed config directory, and it catches the specific class of defect that authorship makes structurally invisible.
+
+---
+
+## 10. Vulnerability work: publish the sample, defer the radar
+
+**Problem.** A proposal to run agent-vulnerability discovery as a nightly routine on the hub.
+
+**Cause / analysis.** Declined with numbered reasons. A vulnerability is not discoverable on a cron schedule; 99 nights in 100 such a job returns zero while consuming budget; and the natural drift of such a job is toward scanning third-party infrastructure, which is a hard prohibition rather than a grey area. The correct shape is a **radar over public disclosures (CVE / GHSA / arXiv) with a human on the trigger**, and it should be built after the first published sample gets a response - the bottleneck is distribution, not production.
+
+**Solution.** The proof-of-concept was published the same day as a standalone public MIT repository. Pre-push: rerun (naive path leaks 236 bytes, leashed path 0; tests 7/7), a scan for real secrets (clean), and a broken cross-link repaired. An internal-funnel dev-log draft was withheld. One star within the hour. Radar decision recorded with a review trigger on 2026-08-31.
+
+Adjacent finding, recorded because it is a data-loss class: the artifact's evidence disappeared from the vault for the second time in 24 hours. The three-occurrence rule was explicitly waived - git is now the canonical home for this class of artifact. Who is deleting the directory across the fleet is not established.
+
+Business condition recorded as a constraint on both funding paths: a named public technical face is a precondition for venture funding and for acqui-hire (which prices at roughly $10-20M per engineer); a non-technical team as an acquisition object prices near zero. The tractable 80% is finding candidates; the load-bearing 20% is converting one advisor into a public technical face with equity and their name on the repository.
+
+**Pattern.** Do not automate discovery of things that require judgement, and do not build the pipeline before you have evidence that the output has a consumer. Publish one sample, measure the response, then decide whether the pipeline is warranted.
+
+---
+
+## 11. Autonomy boundary: ssh can kill a process, not draw a window
+
+A hub application window would not open because the process was stuck in session 0. Killing the process succeeded over ssh from another machine; making the window actually render required a remote-desktop session with a human-equivalent cursor. Recorded as the precise location of the boundary: on Windows, process lifecycle is remotable and window-station attachment is not. The repair was still completed without the operator, from a peer machine, at night.
+
+**Pattern.** Distinguish "requires a human decision" from "requires an interactive session". The second is an infrastructure property and can often be satisfied by a remote desktop or a one-shot interactive scheduled task; only the first genuinely needs a person.
+
+---
+
+## Recorded classes and counters
+
+| Class | Case number today | Status |
+|---|---|---|
+| Scheduled repair harms a healthy target | 1st (root excised) | shadow to 2026-09-07, criterion >= 10 skips / 0 failures |
+| Launcher task rewired to a service logon type | 3rd | watchdog now repairs the principal before each launch |
+| A self-issued ban outlives its grounds | 1st recorded as a class | canon inverted same pass |
+| Test touches production | 2nd this week | dedicated isolation variable |
+| apply does not deliver | 6th and 7th | symptom closed, root open (P0) |
+| Watchdog judges key presence, not value | 1st | fixed, selftest 11/11, mutant killed |
+| PowerShell encoding silently breaks an instrument | 2nd | hook made BOM-tolerant |
+| Clean-slate execution never verified | 1st | added to publication gate |
+| Evidence disappears from the vault | 2nd in 24h | three-case rule waived, git canonical |
+| Encrypted thread requires device provisioning | 1st | hard human dependency, no workaround |
+
+## Shadow experiments carrying dated harvests
+
+| Experiment | Harvest | Acceptance criterion |
+|---|---|---|
+| Conditional nightly skip of a healthy application | 2026-09-07 | >= 10 skips and 0 morning failures |
+| Limit reaper | 2026-08-31 | reaps only rate-limit deaths, caps respected |
+| Vulnerability radar go/no-go | 2026-08-31 | response to the published sample |
+
+## Open at end of day
+
+- Native-working-directory guard: applied on 1 of 6 nodes; five awaiting their inbox routines.
+- Warm-slot reuse parcel: applied on the hub; one node returned `apply-failed rc=2`, one never received the payload.
+- Debt settlement parcel: 5 of 6 nodes; the sixth offline ten days.
+- Packer delivery gate (root of the "apply does not deliver" class): open P0.
+- 26-commit push backlog holding the cross-platform ledger fix away from the fleet.
+- Device provisioning PIN for encrypted threads; one-time browser login for the third-party headless CLI. Both require a human.
+
+---
+
+📚 **Cross-references:** human chapters for this day - [RU](2026-08-24.ru.md) · [EN](2026-08-24.en.md). Public artifacts: [agent leash proof-of-concept](https://github.com/tonydzi/leash-poc) (MIT), [MSIX remediation script](https://gist.github.com/tonydzi/8a38b1467bbfd9dbb8c1dbc5532efdf2), [working-directory sentry](https://gist.github.com/tonydzi/10efd6aa6e1ce206a049a4a1e58a4030). Story canon: [`canon/README.md`](../../canon/README.md). Prior days in this arc: [Day 78](../week-12/2026-08-20.dev.md) (the evidence was self-authored), [Day 79](../week-12/2026-08-21.dev.md) (producer without a reader), [Day 80](../week-12/2026-08-22.ru.md) (instruments outnumber the work; machine record outstanding).
+
+**Point your coding agent at this file.** It is a dry incident record of ten sessions across four machines on one day, written so another model can extract the failure classes without reading the narrative chapters.
+
+⬅ [Week 13](README.md)
+
+*Written: Opus 5. Invented by Mycroft and Tony. Palo Alto AI Research Lab.*
