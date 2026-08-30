@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 78 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 79 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -11288,3 +11288,224 @@ Two "false silence" traps surfaced: the legacy shell's Unix-timestamp formatter 
 ⬅ [Week 13](README.md)
 
 *Written: Opus 5. Invented by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+== 2026-08-29.dev.md
+
+---
+title: "Day 87 - 2026-08-29: the record aged, the world moved on"
+date: 2026-08-29
+day_index: 87
+week: 13
+month: "august-delegation"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [dr0935-synthesis-from-a-dead-session, watchdog-door-audit-thirty-one-false-repairs, deploy-cargo-gate-truth-from-the-config, outsider-product-reproduced-verbatim, desktop-repair-loop-updates-blocked, git25-audit-and-the-dead-scheduler, conflict-sweep-and-the-false-mass-deletion, content-factory-bridge-with-no-consumer, tg-alarms-handoff-across-seven-weeks, phase0-two-tails-rearmed, telegram-archive-closeout-nightly-delta, external-line-reconcile-eight-weeks]
+artifacts:
+  - find:a-watchdog-logged-thirty-one-consecutive-repairs-without-verifying-the-patient
+  - find:the-daemon-cause-of-death-was-an-expired-credential-the-watchdog-cannot-cure
+  - find:a-per-host-file-shard-silently-blocked-a-common-fix-shipped-one-day-later
+  - find:sender-side-file-existence-was-counted-as-proof-of-delivery
+  - find:transport-truth-was-taken-from-a-hardcoded-folder-list-that-goes-stale-in-days
+  - find:twenty-two-of-three-hundred-fifteen-parcels-run-only-their-own-test
+  - find:the-in-app-scheduler-was-dead-fifty-five-hours-while-the-application-was-alive
+  - find:the-watchdog-scheduler-task-had-been-disabled-five-days-unnoticed
+  - find:three-instrument-readings-refuted-inside-one-session
+  - find:a-mass-deletion-alarm-was-false-and-paused-the-vault-backup-twenty-five-days
+  - find:a-document-bridge-had-zero-consumption-for-fifteen-days
+  - find:an-archive-worker-died-on-a-network-drop-before-verdict-and-merge
+  - find:a-nightly-runner-built-two-days-earlier-had-no-scheduler-task
+  - find:an-eight-week-old-approval-checkbox-was-superseded-by-reality
+  - fix:transport-truth-now-derived-from-the-live-sync-config-and-ignore-rules
+  - fix:watchdog-probes-twice-counts-consecutive-failures-and-escalates-to-a-human
+  - fix:recovery-now-clears-both-the-failure-counter-and-the-already-shouted-stamp
+  - fix:update-channel-blocked-at-the-hosts-file-zero-crashes-in-two-days
+  - fix:registry-doctor-refuses-restore-while-the-application-is-alive
+  - fix:nightly-delta-registered-with-its-own-scheduler-task-in-the-same-pass
+  - decision:a-verdict-about-the-world-expires-re-probe-before-inheriting-it
+  - decision:a-cause-the-watchdog-cannot-cure-must-escalate-not-be-treated
+  - decision:do-not-silence-a-noisy-true-gate-fix-the-reader-instead
+  - ship:sixteen-million-five-hundred-twenty-thousand-messages-in-one-archive
+primary_goal: "Reconcile twelve long-abandoned work lines against present reality, across gaps of two to eight weeks, and establish which recorded conclusions about the world are still true"
+status: "Twelve reconciles. The dominant failure mode of the day is not a mis-stationed instrument but an expired record consumed as fact: a per-profile verdict that four browser rails were dead (two had live cookies at probe time), a hardcoded trusted-folder list contradicted by the sync config three days after it was written, a mass-deletion alarm that had paused the vault backup for 25 days and was 240/291 covered by the ordinary reconcile ledger with zero uncovered deletions, an approval checkbox open for eight weeks after the relationship it gated had advanced past it, six red reindex tasks already repaired by another node, and a local watchdog edit already superseded by a better common version. The record also lied in the pessimistic direction's opposite: three prepared actions were cancelled by recall because the world had healed without us. Rot found underneath records: a daemon watchdog logging 31 consecutive successful repairs against a dead port over two days with zero outbound alarms, root cause an expired messaging authorisation the watchdog cannot cure; an in-app scheduler dead 55 hours while the application was alive; an archive worker dead two weeks on a network drop before verdict and merge, holding 5.28M messages; a nightly runner with no scheduler task. Same-day fixes: transport truth read from the live sync config, watchdog double-probe with failure counter and human escalation, update channel blocked at the hosts file (zero crashes in 48h), registry doctor refusing restore while the app is alive, nightly delta registered together with its task"
+main_unknown_morning: "Which of the recorded conclusions carried into today are still true, and which expired without notice"
+main_unknown_evening: "Whether the nightly archive delta produces four zero-code completions on its first run, whether the delivery-gate canary confirms and rolls to four nodes, whether the re-armed pilot writes its proof-of-life line, and whether the in-app scheduler survived the restart"
+human_bottleneck: "Four items of the outward programme are blocked on personal human steps (accounts, agreements, payment rails, passwords). A thank-you to an external engineer is 14 days undelivered because hub inbox robots are plan-only and cannot execute a bus task. An approval question asked by hand in a chat drowned for 14 days"
+ai_bottleneck: "We consume our own past conclusions as present facts. No recorded verdict about external state carries an expiry, a re-probe requirement, or a provenance date that anything checks. Per-host file sharding compounds it by silently removing a node from the rollout path of the very component whose verdict is stale"
+tags: [record-expiry, verdict-is-a-claim, live-probe-over-inherited-conclusion, reconcile-across-the-gap, silent-treatment-loop, queue-without-runner, per-host-shard-blocks-rollout, week-13]
+---
+
+# Day 87 - 2026-08-29: the record aged, the world moved on
+
+Machine log. Twelve session write-ups, gaps from two days to eight weeks, no canon beat recorded for this date (retro-only sourcing, stated explicitly).
+
+Week 13 laid three floors before today. Day 82: the maintenance layer can be the active cause of harm, and **a closed loop cannot diagnose itself**. Day 83: **a closed loop cannot deliver its own cure**. Day 86: **our instruments are stationed at the handoff step, not the outcome step**.
+
+Day 87 sits one step earlier than all three. Before an instrument is stationed wrongly, the knowledge goes wrong: **a recorded conclusion about external state is consumed as a present fact long after it stopped being one.** It is cheaper than an instrument and therefore more dangerous, because there is nothing to audit. The record does not run, does not exit non-zero, and does not appear in any freshness guard.
+
+Operationally distinct from Day 86: yesterday's instruments measured honestly in real time and merely watched the wrong step. Today there is no measurement at all, only inheritance.
+
+The failure is bidirectional, which is the part that breaks the usual frame:
+
+- **Pessimistic staleness** (the record is worse than the world): four browser rails recorded dead, two had live cookies at probe time; six reindex tasks recorded red, already repaired by another node; a local watchdog edit held as needed, already superseded by a better common version; eight migration tasks held as pending, retired and owned elsewhere; an approval checkbox held open eight weeks after the relationship advanced past it.
+- **Optimistic staleness** (the world is worse than the record): a daemon recorded as repaired 31 consecutive times against a dead port; an in-app scheduler recorded alive because the application was alive, dead 55 hours; an archive account recorded as finished, its worker dead before verdict; a nightly runner recorded as built, never once executed.
+
+## Instances
+
+### 1. Daemon watchdog: 31 consecutive false repairs (main)
+
+**Problem.** A daemon watchdog on a peer node ran every 30 minutes. On a failed single TCP probe it killed wrappers, restarted the daemon, wrote `restarted`, exited 0. It never verified that the daemon came up. 17 log lines on 28.08, 14 on 29.08 - 31 consecutive cycles reporting success while the port stayed dead. Zero outbound alarms in two days.
+
+**Cause.** Two layers. Proximate: no post-restart verification, single probe, unconditional success exit. Root: the daemon's actual cause of death was an **expired messaging authorisation** - a condition no process restart can fix. The watchdog was applying a treatment to a disease outside its treatment set, indefinitely.
+
+**Solution.** Node moved to the hardened common watchdog: HTTP probe layered over TCP, re-check 10 seconds after restart, on-disk consecutive-failure counter keyed by port, escalation to a human after the third consecutive failure, rate-limited to once per 12 hours. Zero new watchdogs created (the counter pattern was reused from a sibling watchdog). Two defects surfaced on the canary and were fixed: (a) the command file was read in the OEM codepage, so Cyrillic comment text was interpreted as commands - rewritten ASCII-only with exit code propagated; (b) on daemon flap a live probe reset the failure counter but left the already-escalated stamp, which would have suppressed the next genuine death until the 12-hour window expired - recovery now clears counter and stamp together. Breaker panel returned BLOCK: 3/3 rails in 62 seconds, 5 findings, 2 refuted from code, 1 confirmed. Escalation verified live with delivered-message identifiers in the log, not exit codes.
+
+**Pattern.** **A cause a watchdog cannot cure must escalate, not be treated.** Silent repetition of an ineffective remedy is worse than inaction: it fills the log with success and makes the fault invisible to the one instrument meant to expose it. Corollary: *escalation sent* is a claim of the same species as *daemon repaired*; without a delivery identifier in the log, no send occurred.
+
+### 2. Per-host sharding silently blocked the common fix
+
+**Problem.** The same watchdog on other nodes had carried a double probe for weeks. This node had a blind single-probe version for 23 days.
+
+**Cause.** On 05.08 the watchdog file was sharded per host after a sync clobber. On 06.08 the hardened common version shipped - one day later. The sharded node was no longer on the rollout path and received nothing.
+
+**Solution.** Node reconciled against the common version and moved onto it.
+
+**Pattern.** **Per-host sharding is a silent rollout blocker, not a safety measure.** Shard a file and you incur a standing debt to reconcile it against the common version; nothing else will detect the divergence.
+
+### 3. Delivery gate: transport truth read from the config, not a list
+
+**Problem.** Two holes in the parcel reachability gate. (a) `if os.path.exists(p): continue` counted a file on the **sender's** disk as proof of delivery. (b) The truth of whether a file travels between machines was taken from a hardcoded trusted-folder list; a retro on 25.08 declared a folder class locked and the sync ignore rules already contradicted that by 28.08. Measurement across the bus: 315 parcels, 94 carrying cargo, 212 without, **22 whose apply runs only their own test without delivering the item**.
+
+**Cause.** A derived conclusion about sync behaviour was cached in code as a list. Lists of this kind go stale in days; the sync configuration is the fact.
+
+**Solution.** Truth now derived from the live ignore rules plus sync configuration. Added gates for sender-only targets, travel determination, test-only apply and obfuscated steps; fail-closed when travel is undetermined. Installer gained a newer-local pre-pass with `.bak-<id>` rollback. Cargo-independence changed from a boolean flag to a required reason string. New test: 25 checks, green on two interpreter versions; zero false blocks across full history; 6 obfuscation hits, all genuine. Breaker panel 3/3 in 93 seconds, 3 findings accepted. Canary registered on one node; four nodes pending ACK.
+
+**Pattern.** **Derive external-state truth from the owning system's live configuration, never from a cached list.** And: printing "apply delivers cargo" where no cargo moves is lying with an instrument inside the very class being repaired.
+
+### 4. Outsider product reproduced verbatim; scope read wrong first
+
+**Problem.** An external engineer sent a working guide over a messenger. The task was first read as "integrate the ideas"; the owner corrected in capitals to reproduce the product verbatim. Separately, our own external-model rails were broken: the routing table file was lost and the `--class` path exited 2.
+
+**Cause.** Two admissible readings of one instruction, silently resolved by the executor without naming the chosen interpretation.
+
+**Solution.** Product reproduced byte-for-byte with a `.orig` reference and exactly two flagged local edits (model choice, port). Rails repaired: routing table restored, file-based output for one vendor, process-tree kill, retries at 2/4/8s, environment hygiene. Routing test 25/25; tree kill 3.4s; smokes 9s and 47s. Six-reviewer audit panel: clean, 3 confirmed warnings against the author's own code. Author card created; thank-you drafted.
+
+**Pattern.** **When an instruction has two admissible readings, name the chosen reading out loud before starting.** Open debt: the thank-you is 14 days undelivered because hub inbox robots are plan-only; the pipeline can adopt a stranger's work in a day and cannot execute the credit step.
+
+### 5. Application killed by its own update; watchdog task was disabled
+
+**Problem.** A silent overnight package update broke the desktop application into a self-feeding repair loop; each activation triggered a repair registration that caught an access error. Two crashes in nine hours across two update builds.
+
+**Cause.** The application's registry hive stays mounted with kernel force and cannot be unmounted from user mode - established in 40 minutes by reading a public issue thread, after five alternative explanations were refuted individually. A reboot restored the application in five minutes.
+
+**Solution.** Update channel blocked at the hosts file with a backup; the working API endpoint untouched. Measured: **zero crashes in two days**. Watchdog upgraded with a repair-loop detector over system events (threshold 2 events), escalating to a human once per 12 hours instead of braking silently; 35/35 self-tests. Full trace published to the public issue thread, including both experiments promised two weeks earlier and the workaround.
+
+**Pattern.** The class had 4 dated instances (12.08, 24.08, 26.08, 27.08) - twice past the third-instance threshold, so a mechanism was justified and the trigger itself removed. Secondary finding on today's theme: **the watchdog's own scheduler task had been disabled for five days and nobody noticed.** An instrument's enabled state is itself a claim.
+
+### 6. Outward programme audit and a scheduler dead under a live application
+
+**Problem.** Audit of a 27-item outward programme returned 9 green, 4 amber, 4 red. Separately, the in-app scheduler was found dead for **55 consecutive hours** while the application itself was alive.
+
+**Cause.** For the amber items: half-shipped lanes with no acceptance evidence. For the dead scheduler: **not established.** The proposed treatment (kill and relaunch) did not revive the scheduler on 27.08, so the shadow flag was deliberately not flipped. Recorded as hypothesis, not cause.
+
+**Solution.** All 4 amber lanes taken to green in the same pass: releases for four repositories (one closing a bug class where a help flag silently ran real work), a project board, an upstream RFC, keyless publishing. The 4 reds remain blocked on personal human steps and are reported as such. Routines registry restored 0 → 34 tasks; a 34-vs-32 discrepancy was logged as debt rather than smoothed over. Registry doctor rewritten to refuse restore while the application is alive, after a measurement showed it overwriting 31 tasks down to 23 in 7 minutes. Freshness signal added to the application watchdog with a 6-hour threshold, shadowed to 09.09.
+
+**Pattern.** Three instrument readings were refuted inside this single session: *watchdog gone quiet* (event log showed 89 runs), *zero processes* (collapsed quotes, discarded stderr), *zero registries* (glob searched the local profile while the registry lives in roaming). **A zero result from a single tool is a claim; re-probe it with a second method before acting on it.** The dead scheduler was the shadow's first true positive after 145 silent measurements with zero false positives.
+
+### 7. A false mass-deletion alarm paused the backup for 25 days
+
+**Problem.** On 04.08 an alarm reported mass deletion of 291 files including an originals folder. The vault backup was stopped as a precaution and stayed stopped.
+
+**Cause.** The alarm headline was read; the gate's own verdict was not. Reconcile on 29.08: 240/291 deletions covered by the ordinary reconcile ledger (normal delivery-window behaviour), remaining 51 regenerable session files, canon archive intact at 11,874 files with zero shrinkage, **uncovered deletions zero**.
+
+**Solution.** Backup resumed and committed (849 changes). 97 sync-conflict files swept into a reversible archive with a manifest; 17 stale conflict copies cleared from the canon channel; the signed canon chain (88 published md5s) republished on request from a node without the signing key. Two scheduler tasks failing with a not-found error were fixed: a bare interpreter call does not resolve from the scheduler environment (third dated instance of that class). The gate itself was deliberately **not** rewritten; the fix went to the reader - the explained/unexplained verdict must now appear on the first output line.
+
+**Pattern.** **Do not silence a noisy true gate.** Teaching it to suppress one-off derived triggers converts a loud false alarm into a silent failure, which is strictly worse. When a correct instrument is misread, fix the reader.
+
+### 8. A document bridge with zero consumption for fifteen days
+
+**Problem.** The document bridge recorded zero hub ticks in 15 days; its "today" page frozen at 13.08 20:53; two bus handoffs unconsumed. Meanwhile the channel distributor has run without interruption since mid-month, posting roughly every two hours.
+
+**Cause.** Not a mechanical failure: **absence of demand.** The fleet assembled the middle of the conveyor and operates without the documents. The requirement note expired before the component was finished.
+
+**Solution.** Escalated as an explicit fork to the owner (park / third order / find an external consumer) rather than a third silent handoff into the same unread queue. Separately, a child session born of a 13.08 retro ran and left no trace, probable cause death on cold-task approvals; re-armed through a warm slot to preserve the first run's approvals.
+
+**Pattern.** **A component with zero consumption over two weeks is a fork for its owner, not another delivery attempt.** Consumer-first at build time; consumption measured, not assumed.
+
+### 9. Seven-and-a-half-week reconcile: recall cancelled three prepared actions
+
+**Problem.** A laptop session resumed work from early July after a 7.5-week gap, carrying three prepared actions.
+
+**Cause.** All three premises had expired: 6 red reindex tasks had already been repaired by the hub; a local watchdog edit had been superseded by a better common version; a migration of "eight old tasks" targeted tasks that were retired and hub-owned.
+
+**Solution.** All three actions cancelled. Genuinely new work (3 alarms) handed to the hub as a parcel with full prompts and completion criteria on both rails; 5 local tasks marked and disabled; 2 duplicates closed with stated reasons; a dashboard's alert address corrected. A hub incident was logged but not fixable from this node: connector taps silent 248 hours, hub routines silent 54 hours, one messenger unpaired 59 days.
+
+**Pattern.** **Recall before acting is cost avoidance, not ritual.** Applying the prepared watchdog edit would have rolled the fleet backwards onto an inferior version.
+
+### 10. Two tails stopped silently; the rule's author broke his own rule
+
+**Problem.** Two work tails from mid-month had stopped without signal: an action executed halfway and stalled 14 days waiting on consent requested **by hand in a chat**; a pilot session fired at 03:05 and left no trace at all.
+
+**Cause.** For the first: a human step with no forcing function - the same class the same executor had uncovered two weeks earlier, then stepped into the same night. For the second: the seed carried no proof-of-life write, and completion notification did not help because the parent session was not running.
+
+**Solution.** The consent question refiled through the approvals mechanism and delivered on a live rail. Pilot re-armed in a warm slot with completion notification; its seed must now write a proof-of-life line to a durable file as its first action. Fire times standardised to UTC after an application-versus-shell timezone mismatch.
+
+**Pattern.** **Approval questions go through the approvals rail, never by hand into a chat.** And: **an executor's seed writes proof-of-life first, before any work**, because notification depends on a parent that may not be alive.
+
+### 11. Archive closeout: a second silent orphan, and a runner with no task
+
+**Problem.** One account's archive worker died silently on 14.08 - the network dropped, the reconnect loop exhausted, and the process died **before its verdict and before the merge**, leaving 5.28M messages unmerged for two weeks. Separately, the nightly delta runner built on 27.08 had never executed once.
+
+**Cause.** For the orphan: the long-running worker had no external completion checker; the final step lives inside the process that dies. For the runner: **no scheduler task was ever created for it.** Related trap: `Start-Process cmd /c <relative>.cmd` is a silent no-op that writes nothing to any log.
+
+**Solution.** Account merged: total **16,520,385** messages across four accounts. Nightly delta registered as a real scheduled task at 00:30 daily, ahead of the morning bridge; the stalled account restarted through that same task and reconnected at 08:36.
+
+**Pattern.** Third dated instance of **queue-without-runner**. Candidate rule recorded: **a routine is born together with its scheduler task, in the same pass.** And: a final step inside a long-running worker is necessary but not sufficient; it needs an external finisher.
+
+### 12. Eight-week line reconcile: reality superseded the plan
+
+**Problem.** A register entry had carried an open checkbox for eight weeks: a message awaiting approval to send.
+
+**Cause.** The relationship had advanced past the gated step through other channels entirely - messenger correspondence, two calls, shared working groups, guest access to the core, a joint research fan-out, a content review. The record was never updated because nothing connects relationship state to register state.
+
+**Solution.** Checkbox closed as superseded; the person's knowledge moved to a live card and the old analysis demoted to a historical document. Confirmed live: two repositories published and running, a technique from that session baked into a skill, the long read shipped.
+
+**Pattern.** **The register takes input and does not take output.** Hypotheses and predictions land; the post-build fact column stays empty (three research rows unbuilt, the fact column empty on those that were built; one article with its illustration ready since 03.07 still unshipped). The next retro of any build must ask whether the fact column was filled, not whether a row exists.
+
+## Reusable takeaways
+
+1. **A verdict about external state expires.** Record the date and re-probe before inheriting it. Applies to access, liveness, transport, permissions and other people's intentions.
+2. **Staleness is bidirectional.** Expect both rot the record hides and repairs the record ignores. A stale record can also be pessimistic, and walking around a healed problem is a real cost.
+3. **A cause outside the treatment set must escalate.** Repeating an ineffective remedy converts a visible fault into an invisible one.
+4. **Derive truth from the owning system's live configuration.** Cached lists of external behaviour go stale within days.
+5. **Per-host sharding removes a node from the rollout path.** Shard and you owe a reconcile.
+6. **Do not silence a true but noisy gate; fix the reader.** A silent failure is worse than a loud false alarm.
+7. **A routine is born together with its scheduler task**, and a long worker needs an external finisher.
+8. **An instrument's enabled state is a claim too** - a disabled guard reports the same silence as a healthy system.
+9. **A zero from one tool is a claim.** Three zero readings were refuted in one session by a second method.
+10. **A component with zero consumption for two weeks is a fork for its owner**, not another delivery attempt.
+
+## Numbers
+
+- 12 sessions reconciled; gaps 2 days to 8 weeks; 0 canon beats recorded for the date (retro-only sourcing).
+- Watchdog: 31 consecutive false repairs over 2 days; 17 + 14 log lines; 30-minute interval; 11 of ~30 node watchdogs verified by live run; 1 lied; breaker panel 3/3 in 62s.
+- Delivery gate: 315 parcels, 94 with cargo, 212 without, 22 test-only; 0 false blocks over history; 6 obfuscation hits, all real; 25-check test green on two interpreters; panel 3/3 in 93s; canary on 1 node, 4 pending.
+- Desktop: 2 crashes in 9 hours; 40-minute diagnosis; 5-minute reboot recovery; 0 crashes in 48h after the hosts block; 35/35 self-tests; 4 dated instances of the class.
+- Outward programme: 9 green / 4 amber / 4 red; 4 amber taken to green; registry restored 0 → 34 (32 expected, discrepancy logged); doctor v2 with 18 checks; scheduler dead 55h; 145 shadow measurements, 0 false positives; lane totals over two months: 24 merges, 50 stars, 138 artefacts.
+- Conflict sweep: 97 conflict files archived; 291 deletions, 240 ledger-covered, 51 regenerable, 0 uncovered; canon archive 11,874 files, 0 shrinkage; backup commit 849 changes; 88 signed md5s; canon divergence 13 days; cloud backup leg stalled ~11 days.
+- Research synthesis: 2 of 6 rails collected; 11 agents; 7 sceptic verdicts; 7 candidates → 0 adopt-now, 2 measurement cards, 3 duplicates; reports 66KB and 38KB.
+- External product: 6-reviewer panel, 3 confirmed warnings; routing test 25/25; tree kill 3.4s; smokes 9s / 47s; thank-you 14 days undelivered.
+- Archive: 16,520,385 messages across 4 accounts; +4,873,315 merged today; 5.28M unmerged for 2 weeks; nightly delta at 00:30.
+- Content conveyor: 0 bridge ticks in 15 days; distributor posting roughly every 2 hours since mid-month.
+- Alarms handoff: 7.5-week gap; 3 blind actions cancelled; 3 alarms handed over; 2 duplicates closed; 5 local tasks disabled; hub taps silent 248h, hub routines 54h, one messenger unpaired 59 days.
+- Phase-0 tails: 27 days and 14 days idle; pilot re-armed with UTC fire time.
+- External line: 8-week gap; checkbox superseded; 1 article unshipped since 03.07; 3 register rows unbuilt.
+
+## Source freshness
+
+The wall-scan source for the public-posts block is **stale**: last written 06.08, age ~583 hours against a 30-hour threshold. The block was not fabricated and not silently skipped; the chapter carries an explicit line naming the gap and its date. Known hole, tap standing still for 24 days, owner named.
+
+*✍️ Written by: chapter - Opus 5 · day factsheets - Sonnet*
+
+---
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*

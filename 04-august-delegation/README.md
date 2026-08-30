@@ -10,7 +10,7 @@
 
 ## Chapters
 
-- [Week 13 (Aug 24-30)](week-13/) - *the week the treatment turns out to be the disease, then to have no road, and finally to go unmissed: maintenance is a privileged writer that works unobserved, its damage is indistinguishable from decay, a closed loop can neither diagnose itself nor deliver its own cure - and it cannot notice that nothing happened, because every observation point it owns is stationed at the handoff step rather than the outcome step*
+- [Week 13 (Aug 24-30)](week-13/) - *the week the treatment turns out to be the disease, then to have no road, and finally to go unmissed: maintenance is a privileged writer that works unobserved, its damage is indistinguishable from decay, a closed loop can neither diagnose itself nor deliver its own cure - and it cannot notice that nothing happened, because every observation point it owns is stationed at the handoff step rather than the outcome step; then Saturday steps back one floor further, to the knowledge itself: a recorded verdict about the world has a shelf life nobody stamps, it goes on being consumed as a present fact long after it stopped being one, and it lies in both directions - hiding rot under some notes while, under others, the world quietly repaired itself without us*
 - [Week 12 (Aug 17-23)](week-12/) - *the week the returning worker turns out to be the stale one: a resumed session is not a reader of stale state, it is stale state with hands*
 - [Week 11 (Aug 10-16)](week-11/) - *the week we ask which body a name belongs to: a name is a claim about an object, and the object answers to whoever calls it*
 - [Week 10 (Aug 3-9)](week-10/) - *the week we hand the pen over: a mechanism's blast radius is a design parameter, and if you did not choose it, it is maximal*
