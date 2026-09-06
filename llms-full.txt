@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 85 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 86 daily .dev.md files. Story canon: canon/README.md
 
 == 2026-05-27.dev.md
 
@@ -12603,5 +12603,202 @@ One decision was made against our own interest: the session shield was withheld 
 
 ---
 *Machine record for Day 93. Human chapters: [RU](2026-09-04.ru.md) · [EN](2026-09-04.en.md). Full machine book: [llms-full.txt](../../llms-full.txt). Point your coding agent at this file - it will work the rest out itself.*
+
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+== 2026-09-05.dev.md
+
+---
+title: "Day 94 - 2026-09-05: yesterday's snapshot judged today's world"
+date: 2026-09-05
+day_index: 94
+week: 14
+month: "august-delegation"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [four-research-reports-declared-dead-were-alive-with-fifty-two-to-one-hundred-eight-citations, a-corpus-measurement-taken-on-one-surface-lived-a-month-as-fact-and-was-forty-seven-times-too-small, a-seed-that-lay-thirty-days-re-asked-a-question-closed-six-days-earlier, an-orphan-guard-stopped-trusting-the-nightly-snapshot-and-rescans-the-delta-live, a-write-guard-was-silently-dead-six-weeks-because-its-path-was-unquoted, the-breakage-journal-lost-its-own-writes-and-got-one-shard-per-node, a-voice-registry-was-split-in-two-and-both-halves-thought-they-were-whole, the-publisher-shipped-node-state-and-impossible-filenames-across-the-fleet, an-elephant-ate-one-piece-of-twelve-for-five-days-and-reported-full, a-messaging-engine-was-dead-forty-five-days-under-green-containers, a-laptop-ran-its-gpu-at-seventy-seven-degrees-for-two-months-from-a-synced-hub-flag, three-cannots-turned-out-to-be-false-and-sixteen-touches-went-out, the-lead-rating-lost-two-sources-of-fake-warmth, one-mail-connector-per-account-was-proven-and-the-pipe-moved-to-a-local-rail, a-paper-mirror-draft-was-written-through-the-api-because-the-form-forgets-clicks, a-humor-bank-of-fifty-five-lines-and-a-canonical-disclosure-word, the-wall-read-rail-was-proven-end-to-end-at-the-consumer, links-that-survived-an-account-rename-were-rebuilt-from-the-live-list, cross-contamination-was-refuted-deterministically-zero-of-fifty-seven-thousand-lines, thirty-nine-thousand-orphans-became-five-hundred-seventy-of-real-debt, a-backlog-digest-measured-seventeen-p-zero-in-august-and-one-hundred-thirty-eight-today, two-rules-on-a-teammates-node-were-silently-not-executing, the-application-engines-got-their-first-tests-and-a-proven-red-run]
+artifacts:
+  - find:four-deep-research-runs-written-off-as-dead-carried-fifty-two-to-one-hundred-eight-citations-each
+  - find:one-fan-out-wave-ran-with-two-vendors-of-three-and-no-watchdog-noticed
+  - find:a-corpus-was-measured-on-one-surface-and-the-convenient-result-lived-a-month-as-fact
+  - find:voice-recognisability-falls-from-zero-point-nine-four-in-twenty-twenty-three-to-zero-point-four-five-in-twenty-twenty-six
+  - find:a-thirty-day-old-seed-re-asked-a-closed-question-and-recall-confirmed-it-from-a-stale-copy
+  - find:a-memory-write-guard-logged-zero-real-blocks-for-six-weeks-because-its-path-was-unquoted
+  - find:ninety-three-percent-of-journal-writes-went-through-the-shell-so-an-edit-only-hook-would-have-caught-seven
+  - find:a-voice-registry-held-four-rows-on-one-node-and-fifteen-on-another-both-believing-they-were-complete
+  - find:an-underfeed-counter-only-incremented-on-a-round-zero-so-one-piece-of-twelve-was-structurally-invisible
+  - find:a-messaging-engine-was-dead-forty-five-days-while-its-containers-stayed-green
+  - find:a-thermal-logger-wrote-ninety-five-degrees-every-five-minutes-since-september-first-with-no-reader
+  - find:a-backlog-digest-reported-seventeen-p-zero-on-august-sixth-and-one-hundred-thirty-eight-today
+  - find:fifty-one-new-holes-in-seven-days-hid-behind-one-single-red-that-everyone-read-as-expected
+  - fix:the-orphan-guard-rescans-the-delta-since-the-snapshot-instead-of-trusting-the-snapshot
+  - fix:twenty-unquoted-hook-paths-were-quoted-and-the-whole-class-was-closed-at-once
+  - fix:the-breakage-journal-became-one-shard-per-node-with-a-gate-on-shell-writes-too
+  - fix:the-publisher-never-ships-node-state-or-impossible-filenames-again
+  - fix:the-underfeed-detector-was-placed-in-the-shared-measurement-point-not-per-consumer
+  - fix:identity-that-rests-on-one-bare-first-name-is-capped-and-an-unknown-role-scores-an-honest-zero
+  - fix:file-readiness-is-judged-by-a-rename-probe-not-by-filesystem-metadata
+  - decision:a-negative-conclusion-must-carry-a-date-and-a-surface
+  - decision:old-papers-mirror-to-an-open-repository-and-the-preprint-server-is-reserved-for-flagships
+  - decision:api-posting-requires-a-page-because-professional-mode-is-still-a-profile
+  - ship:a-deterministic-verifier-that-refuted-cross-contamination-zero-of-fifty-seven-thousand-lines
+  - ship:the-first-tests-for-the-application-engines-with-a-proven-red-run-on-seven-of-seven-breaks
+tags: [age-of-a-reading, false-negative, stale-snapshot, self-serving-conclusion, week-14]
+---
+
+# Day 94 - 2026-09-05: yesterday's snapshot judged today's world
+
+Machine log. Twenty-six session write-ups across four nodes, including four lost-session sweeps. Canon beats for this date: none - the canon is empty for 2026-09-05, and that is a named gap rather than a silent skip.
+
+Week 14 ladder so far: Day 89 - one object present in many copies, counted as many objects. Day 90 - a prohibition with no named author. Day 91 - a stale inventory of our own holdings. Day 92 - a verdict read off something adjacent to the subject. Day 93 - an instrument aimed correctly that had never been tested on its ability to fail.
+
+Day 94 is the step all five were standing on. **Every reading has an age, and nothing in the system asked for it.** A registry answers "as of the last sync". An index answers "as of last night". A seed answers "as of when I was written". A measurement answers "on the surface I measured". All four honestly answer a question about the past and are consumed as answers about the present.
+
+The second half is the part that makes this day distinct from Day 93. Yesterday the false readings were **green**: a positive claim nobody had tried to refute. Today they were **red**: eleven verdicts of dead / empty / not collected / not allowed, none of which was re-checked, because a negative verdict closes the work instead of creating it. Several of them were additionally **self-serving** - they granted permission not to spend money, not to write, not to collect.
+
+Two durable rules came out: **a negative conclusion must carry a date and a surface** ("the rail did not answer on surface X on date Y", never "the rail is dead"), and **the cure for a stale snapshot is a delta read, not blind trust and not a full rebuild**.
+
+## Incidents
+
+### 1. Four deep-research runs written off as dead carried 52-108 citations each
+
+- **Problem.** A standing observation held that an entire vendor rail of the deep-research fan-out was broken: runs came back with zero citations, so the rail counted as out and the fan-out was running with fewer vendors than ordered.
+- **Cause.** The citation count was read from the rendered page rather than from the backend record. The counter, not the work, was returning zero. Nothing in the pipeline treated a zero as a claim requiring proof - a zero looked like an answer.
+- **Solution.** Every rejected run with a saved conversation id was re-fetched through the backend path (`/api/auth/session` → bearer → `/backend-api/conversation/<id>` → widget state). Four of four were alive with 57 / 106 / 52 / 108 citations. Reports were lifted into the originals store with a `recovered_from` field, refutation banners were pinned onto the stale files and ledgers, and the registry was rewritten. The memory entry holding the verdict was closed by fields (`status: refuted`, `valid_to`, `superseded_by`) in both copies rather than rewritten in one.
+- **Pattern.** A counter is a claim on the same footing as the conclusion drawn from it. A zero read off a rendering is evidence about the rendering.
+
+### 2. One fan-out wave ran with two vendors of three and no watchdog noticed
+
+- **Problem.** In the same audit, one wave turned out to have no artifacts from one ordered vendor at all - three rails ordered, two vendors present in the vault.
+- **Cause.** Freshness watchdogs count what arrives. Nothing compared the set of arrived legs against the set of ordered legs, so an incomplete fan-out is indistinguishable from a complete one at read time.
+- **Solution.** Named explicitly in the audit; the "do not reject a run by its counter" gate was written into the fan-out skill in the same pass, together with "not collected is also a claim" - verify the freshness of the local registry shard before declaring a report uncollected or ordering it again.
+- **Pattern.** A watchdog that measures arrivals cannot detect a missing order. Coverage must be computed against intent, not against inventory.
+
+### 3. A corpus measurement taken on one surface lived a month as fact and was 47x too small
+
+- **Problem.** On 08-05 the text corpus for the voice-twin project was measured at 3.29 MB, and the conclusion "the corpus is small, renting compute may be unnecessary, spending is premature" was recorded and cited for a month.
+- **Cause.** Only the markdown vault was measured; the message archive was not. The real corpus is 958,014 messages / 154.6 MB / ~27M words. The conclusion was also **self-serving** - it authorised not spending the owner's money - and the canon rule requiring a stronger check for self-serving conclusions was never triggered, because the conclusion was not recognised as self-serving.
+- **Solution.** Full census run; the old memory entry closed by fields with a named successor. Fifth dated line of the class "conclusion drawn from a single surface"; the family stands at 91 cases since 07-27, so the class is systemic and a repair session is filed.
+- **Pattern.** "I measured X" and "I measured the corpus" are different claims. Name the surface inside the claim, or the claim will silently generalise itself.
+
+### 4. Voice recognisability drops from 0.94 (2023) to 0.45 (2026)
+
+- **Problem.** Unplanned finding from the same project. An authorship gate was built to check whether the owner's idiolect is learnable at all; it passed hard (AUC 0.917 with content words masked, 0.828 on function words alone, 0.480 on a shuffled-label control). The by-year breakdown was not part of the hypothesis.
+- **Cause.** Recognisability by era: 2023 = 0.943, 2025 = 0.650, 2026 = 0.452. An era-matched control trained on recent text returned 0.496, which rules out "the model has not seen recent text" - the recent text is objectively different. Independent explanation found in a neighbouring write-up: the corpus is "written from the owner's accounts", not "typed by the owner's hands", and it now overlaps the robot era.
+- **Solution.** No decision taken. The fork - train on the 2023 voice, the current voice, or split the corpus by authorship first - is escalated as a blocker; step 1 does not start until it is answered. Spending order restated: money is the third step, and the reason changed from "the corpus is small" to "we do not know which voice we are learning".
+- **Pattern.** A dataset labelled by account is not labelled by author. Once tooling writes on someone's behalf, provenance inside the corpus stops being free.
+
+### 5. A 30-day-old seed re-asked a closed question and recall confirmed it from a stale copy
+
+- **Problem.** A chip session walked the owner blind through a seven-model comparison and collected his taste vote. The task had been closed six days earlier with that same vote already recorded.
+- **Cause.** Two independent legs. (a) The seed carried the world-picture of its own authoring date - created 08-06, executed 09-05, presenting itself as a current brief for thirty days. (b) The node physically held the 08-03 version of the task card (4949 bytes, `state: wip`); the closed version (7067 bytes, `closed: 2026-08-30`) arrived over sync **after** the show. Recall over the files the seed named therefore confirmed the seed - a closed loop.
+- **Solution.** Three journal lines filed (`stale-seed-reasked-answered-question`, `node-served-month-old-task-card`, plus an originals-vanished line). Candidate cure recorded but not built: a seed carries its birth date, and the first step of a session reconciles state against the registry (`state`/`closed`/`evidence`) rather than against the body of the card. First dated case, so no mechanism under the third-breakage rule.
+- **Pattern.** Recall against sources named by a stale artifact is not recall. The freshness of the source must be established before its content is used.
+
+### 6. The orphan guard stopped trusting the nightly snapshot and now rescans the delta
+
+- **Problem.** A PreToolUse guard blocks writing a vault note with no incoming links. It judged by the nightly reverse index, so a link created today could never satisfy it - the gate was structurally unsatisfiable and produced three dated false blocks.
+- **Cause.** Snapshot age was never part of the decision. Zero-in-snapshot was treated as zero-in-world.
+- **Solution.** On a zero from the snapshot, the guard rescans **only** files with mtime later than the snapshot, newest first, capped, looking for `[[name`. Found - approve; not found - block as before. No `rg` dependency, plain Python; worst case cut from 13.7s to 2.05s by taking mtime from the directory listing. Twin test 3/3 (fresh link approves, real orphan blocks, fast path untouched). Signed parcel applied on 6 of 6 target nodes, DONE markers verified. Field proof on the first night: log shows two prevented false blocks ("found ... checked 2/2329").
+- **Pattern.** The cure for a stale snapshot is a delta read. Cheaper than a rebuild, honest unlike blind trust, and it keeps the safe failure direction.
+
+### 7. A memory write guard logged zero real blocks for six weeks because its path was unquoted
+
+- **Problem.** A hook serialising edits to the memory index was built 07-23 with 11 green offline cases. A recall on 09-05 found zero production log lines in six weeks.
+- **Cause.** The first hypothesis ("the harness does not pass a session id") was false and had already been written into a note. An `sh -c` probe proved the real cause: the hook command stood as a bare Windows path with backslashes, the shell consumed them, and every invocation exited 127 silently. Third dated case of `hook-exe-path-unquoted-bash-mangles`, so the class is systemic.
+- **Solution.** The class was fixed rather than the instance: 20 bare hook paths quoted in settings, including every SessionStart / UserPromptSubmit / Stop hook - all of them were dead under that shell. Live harness proof captured (invoked → hit → auto-declared). Stale-claim threshold raised so 12-hour skill claims cannot block indefinitely; installer and verify subcommands added; rollout registered to 6 nodes.
+- **Pattern.** A guard that has never fired is indistinguishable from a guard that cannot fire. Log on every fail-open, and prove the wiring, not only the logic.
+
+### 8. The breakage journal lost its own writes; an edit-only hook would have caught 7%
+
+- **Problem.** The shared file the fleet writes lessons into was being shredded by sync conflicts. The first fix addressed the physics and 16 conflict copies still appeared within a day.
+- **Cause.** A panel of four sceptics measured the write channel before release: 139 of 149 journal writes over three weeks went through Bash heredocs, so a hook matching only Write/Edit tools would have covered 7%. Additional roots: the self-heal fallback wrote into the shared view, conflict merging ran on every node (N writers), folding rewrote without a lock, and the counter double-counted.
+- **Solution.** Six holes closed together: gate on Write/Edit **and** Bash/PowerShell; fallback writes to a local spool; conflict merge is owner-only and lands in the node shard; fold takes a lock and skips no-op rewrites; counter dedups; the janitor no longer quarantines the journal. Four grids green, nine mutants red, 85 journal lines recovered. Parcel installed on two nodes, registered for the rest.
+- **Pattern.** Before gating a channel, measure which channel the traffic actually uses. A gate sized to the tool you happened to think of is a gate sized to your imagination.
+
+### 9. A voice registry held 4 rows on one node and 15 on another, both believing they were complete
+
+- **Problem.** The registry of processed voice notes was split: hub 4 rows, laptop 15, each treating itself as authoritative.
+- **Cause.** `*.json` is excluded from sync by a shared ignore rule - fifth dated case of that class. A whitelist was not viable because the file has two writers.
+- **Solution.** Migrated to the existing spool pattern: one file per node (`registry-<node>.json`), union on read, whitelist limited to spool files, 15+4 rows merged. Verified with a live cycle - a fresh mark from one node is visible on the other within seconds. A breaker panel found one real defect (a corrupted own file would silently drop that node's rows); fixed with a red test. A node-name fallback was added after one node wrote as `unknown`.
+- **Pattern.** Two writers on one file is a data-loss design, not a race to be tuned. Split by writer and union on read.
+
+### 10. The publisher shipped node-local state and filenames impossible on the target OS
+
+- **Problem.** Two persistent errors on the fleet's shared sync folder.
+- **Cause.** One root, two shapes. (a) The script publisher was shipping node-local maintenance-gate state; on the ext4 anchor three case variants of the node name had accumulated (env-derived, `gethostname`-derived, label-derived) and NTFS can accept none of them. (b) A file whose name is impossible on Windows: a hardcoded Windows fallback path inside a watcher executed on the macOS node and became the file's name.
+- **Solution.** Class-level gate: node state excluded from publication permanently; a WINBAD gate refuses to publish any name impossible on Windows and mirror-deletion sweeps the existing ones; node name normalised to upper case. Red-first test (5 failures RED → 14/14 GREEN). Folder errors 2 → 0 verified through the sync API. A task was sent to the owning node for the hardcoded path itself.
+- **Pattern.** A publisher is a cross-platform boundary. Anything node-specific or OS-specific that crosses it is a bug in the publisher, not in the receiver.
+
+### 11. An underfeed counter only incremented on a round zero, hiding 1-of-12 portions for five days
+
+- **Problem.** A finite "elephant" routine chewing a long backlog was running raggedly: 15 items a day against a target of 84, and the run duration was 3.3 seconds against a 240-second budget.
+- **Cause.** Two layers. Surface: one of two data sources was throttled and aborted the portion **silently** - only the metadata branch reported anything. Structural: the `empty_runs` counter incremented only on a clean zero, and any `ok > 0` reset it, so "1 piece of 12" was invisible by construction for five days rather than by oversight.
+- **Solution.** A `lean_runs` detector was added at the **shared** measurement point (`tick`) rather than per consumer, after computing the class boundary first: two live consumers, one shared measurement point, zero of two protected. Regression step shown red before green. The abort now names itself.
+- **Pattern.** Count the boundary of the class before saying the word "root". A detector placed at the shared point covers consumers that do not exist yet.
+
+### 12. A messaging engine was dead 45 days while its containers stayed green
+
+- **Problem.** The production messaging layer had not ingested since mid-July. Container health was green throughout.
+- **Cause.** A cgroup OOM killed the child processes of all 31 accounts; the health checker marked every account `kicked`; autostart only raises `active`. `kicked` is a terminal status with no self-recovery path, so the system was stable in the wrong state.
+- **Solution.** 26 statuses flipped, engine restarted, two accounts re-authenticated (one-time codes self-fetched from the service channel, second factor from the credential store). Result: 24-26 accounts live, throughput 4132 messages in 8 minutes. A heal watchdog now runs every 15 minutes: restart when memory crosses the threshold **before** the OOM killer acts; retry known-good accounts stuck in `kicked`; re-run processes that are active but 404.
+- **Pattern.** Any status a system can enter and never leave on its own is an outage waiting for a human. Terminal states need an explicit exit path or a scheduled retry.
+
+### 13. Outbound to leads had been silent for seven days and nothing measured it
+
+- **Problem.** A reconciliation pass over the CRM found the send log empty for seven days.
+- **Cause.** Freshness watchdogs covered ingestion and enrichment, not egress. No instrument was attached to the outbound side, so silence produced no signal.
+- **Solution.** Named in the write-up; the same night the owner issued a mandate of three outreaches a day with a call offer, and a builder session was raised against it. 531 dossiers had already been loaded into the production CRM idempotently with a pre-write backup, and a model-free scorer (5 axes over 187k messages) reduced 82 candidates to 14 matches in three clusters for a human judge.
+- **Pattern.** A pipeline gets a mouth at birth. Ingestion without an egress counter measures only half the pipe.
+
+### 14. A laptop ran its GPU at 77 °C for two months from a flag that arrived over sync
+
+- **Problem.** Two months of continuous fan noise on a satellite node. The dGPU never entered its low-power state: 1.6 GB resident, 17 W, 77 °C around the clock.
+- **Cause.** An autostart script in a synced folder carried a `--gpu` flag intended for the hub and arrived on the laptop unchanged - third dated case of "hub config lands on a satellite as is". Separately, the vendor GPU utility **wakes the card** out of its runtime power state, so it cannot be used to measure sleep.
+- **Solution.** The autostart script is now role-aware (`MACHINE_ROLE`); the laptop serves on CPU. Independent measurement moved to motherboard BIOS sensors, which report both temperatures and fan RPM without waking the card and without admin rights. Result: dGPU 77 → 25 °C, CPU 92 → 65-74 °C, fans 4915 → 4312 and 4389 → 3781 RPM, VRAM 1642 → 3 MB. Remaining cause is dust, which needs hands.
+- **Pattern.** A file in a synced folder is fleet code. If its behaviour depends on the node, it must read the node role, not inherit the author's.
+
+### 15. A thermal logger wrote 95 °C every five minutes since September 1 with no reader
+
+- **Problem.** The data proving incident 14 already existed and had been accumulating for days.
+- **Cause.** The logger was built and scheduled; no consumer, threshold or alert was ever attached. It also sampled through the vendor utility, so it woke the card every five minutes.
+- **Solution.** Named as an instrument without a consumer; the logger is being moved onto the BIOS sensor path.
+- **Pattern.** An instrument with no reader is not monitoring. It is a file that grows.
+
+### 16. Three "cannot" claims were false and cost two days of outbound
+
+- **Problem.** A chip session working the paid-pilot funnel declared three blockers: a messenger account dead, a burnt thread closed to further contact, and social/mail belonging to the hub.
+- **Cause.** All three were claims inherited from context rather than measured. The account was alive (proven by a live identity query); "burnt" was an instruction to clean and re-approach, not a prohibition; social and mail are the node's own channels under the peer-autonomy rule.
+- **Solution.** All three refuted by the owner directly. 16 personal touches went out over two days (6 messenger, 8 emails to 7 firms, 2 forms); replies zero at 60 hours on the first. The lesson was recorded verbatim: **"cannot" is the same kind of claim as "done"**. A thread-cleaning door was built to back the rule: a planner with invariants from an adversarial review (minimum age, keep our own last message, live account required, honest "half done" on a dead one) and an executor that acts only on human-approved jobs, both under tests shown red on broken copies. Permanent deletion remains on the prohibited list regardless of approval.
+- **Pattern.** Inherited constraints expire. Re-measure a blocker before building a workaround around it, and before accepting it as a reason not to act.
+
+### 17. Remaining incidents in brief
+
+- **One mail connector per account, proven.** The hypothesis that the hosted mail connector is single-mailbox per account was confirmed with evidence (no second-account control, no switch, adding one requires evicting the other). No eviction was performed; the application pipe was moved onto the local OAuth rail that holds all three mailboxes, and acceptance was live (this night's mail read, token timestamp fresh, negative case fails loudly). A slot race during setup was caught by a read-back step.
+- **Lead rating lost two sources of fake warmth.** Measured on a live queue of 66 rather than on hypotheticals; 2 of 5 findings taken, 3 rejected with numbers. A person identified only by a bare first name with no handle no longer inherits a namesake's history into tier B; an unknown role now scores an honest zero vector instead of a base that warmth could inflate (13 fictitious ties removed). Replay over the same 66 produced identical tiers.
+- **A form that does not persist clicks, third case of a family.** Twelve filled fields were lost twice on a repository submission form; the same illness was previously recorded on two other platforms. Cure: write via `PUT` from the same tab and verify **only** by reading the record back from the server. The draft is complete and unsubmitted; publication is irreversible and is left to the human. A related storage lesson: an artifact left in a session scratchpad expired within a month, so the PDF now lives in the vault with a matching checksum.
+- **Wall reading proven at the consumer.** A profile in professional mode rejects direct post reads (`2069030`, "New Pages Experience Is Not Supported"). The workaround was made class-wide via field expansion rather than patched per call. The "upgrade the profile to a business page" fork was refuted by documentation and live measurement - that conversion no longer exists and professional mode is still a profile - so a separate page was decided. Acceptance was taken at the consumer: 25 metric snapshots nightly for five consecutive nights, unattended.
+- **Links that survived an account rename.** An outbound link was assembled from the live repository list rather than from memory, because the old organisation name no longer resolves. Recorded: redirects are a platform courtesy, not a guarantee - repository URLs survive via 301 while profile and Pages return 404. A blind global replace is forbidden because the old name appears in planning notes as a **quotation** of a broken state; the fixer ships with exclusions. A six-day reconciliation showed the neighbouring reply lane had recovered (21/15/17/2 replies by day).
+- **Cross-contamination refuted deterministically.** A verification workflow died on a weekly model limit, so a deterministic verifier was built instead: it reads store snapshots and does not trust the pipeline. Result: foreign text 0 of 57,736 lines, foreign links 0 of 263, 5 twins removed with proof. The first 24 "foreign" hits were a bug in the verifier itself (an internal id compared against a phone number); the instrument was fixed and proven red 8/8.
+- **39k orphans became 570 of real debt.** A deep relink pass found 38,931 notes with no incoming links, then established that the top of that number is deliberate (raw imports, service files, drafts) and that the curated layers hold about 150. The diagnosis was that our own automatic writers create orphans; the rule that every automatic writer must emit a note already linked was made a contract in the same pass, with a daily lint that caught 3 violations on its first run. Real debt after policy: 570.
+- **A backlog digest with no executor.** A lost-session sweep pulled a digest run from 08-06 that reported 365 open tasks and 17 at top priority. The same registry today: 686 open, 138 at top priority. The digest measures and delivers correctly; nothing consumes it. No duplicate class was filed - the class already exists in the canon.
+- **51 new holes behind one expected red.** A help-flag debt ratchet has been reporting the same single FAIL for a week, read by humans and sessions as pre-existing debt. Reading the lint output directly showed 51 new violations in the 7 days since the baseline was frozen. Filed as a dated case with the number; the class itself was analysed two days earlier.
+- **Two rules silently not executing on a teammate's node.** A backup-before-canon-edit rule names its own liveness check; the check came back red (file grew 6,471 bytes, freshest backup two days older). Stated as measured rather than as accusation. A regional broadcast lane standing idle was **not** declared rotten: by its own spec the teaser is written by a human in batches, so an empty queue is normal and the hopper is what needs filling.
+- **Application engines got their first tests.** The premise was confirmed on disk - zero `_test_*.py` files in the module against seven in its neighbour. A clean core was extracted (no network, no browser), tests were written, and two live bugs were fixed (an option matcher and a confirmation-code regex). Verified today by running rather than by reading: 77/77 OK, and a separate red-first log showing 7 of 7 deliberate breaks caught.
+- **A readiness gate judged by stale filesystem metadata.** The continuous-recording rail lost 2 of 5 nights to a crash: the readiness gate used mtime, and the filesystem returns a stale modification time for a file still being written, so the grinder picked up an unfinished chunk. Cure: judge readiness by a rename-onto-itself probe. Red test shown.
+
+## Counterweight
+
+Four boundaries were recorded as real rather than routed around. Permanent deletion of messages stays on the prohibited list regardless of approval, so the thread-cleaning job sits queued until a human presses it. Publication of the academic mirror is irreversible and is the human's action. The hosted mail connector genuinely allows one mailbox per account, and the second mailbox was not evicted to make a point. The platform genuinely offers no profile-to-page conversion, which is what settled the posting question.
+
+Three conclusions were retracted rather than defended: an entire vendor rail declared dead, a corpus measurement that was 47x too small, and a report declared uncollected that had been collected a day earlier on another node. All three were closed by fields with successors, not by rewriting.
+
+One convenient hypothesis was refuted before it became a finding: a lost-session sweep proposed that the fleet's plan files are an unread dump, and a second instrument killed it - zero verbatim overlap between plan headings across days, and no monotonic size growth. The conclusion was withdrawn as unproven rather than kept because it sounded right.
+
+*Written: machine chapter - Opus 5 · day's facts - Opus 5*
+
+---
+*Machine record for Day 94. Human chapters: [RU](2026-09-05.ru.md) · [EN](2026-09-05.en.md). Full machine book: [llms-full.txt](../../llms-full.txt). Point your coding agent at this file - it will work the rest out itself.*
 
 *Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
