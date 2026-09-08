@@ -74,6 +74,10 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 ### [04 — August: Delegation](04-august-delegation/) · *we stop writing and start choosing what gets written*
 - [Week 10 (Aug 3-9)](04-august-delegation/week-10/) - the week we hand the pen over: a mechanism's blast radius is a design parameter
 - [Week 11 (Aug 10-16)](04-august-delegation/week-11/) - the week we ask which body a name belongs to: identity is proven by the caller
+- [Week 14 (Aug 31 - Sep 6)](04-august-delegation/week-14/) - the week the object stops being one: a counter that counts presences rather than entities inflates by the copy factor
+
+### [05 — September: Verification](05-september-verification/) · *if the machines do the work, what proves the machines*
+- [Week 15 (Sep 7-13)](05-september-verification/week-15/) - the week we go and ask the silent things: a red indicator creates work and a green one closes it, so false greens are structurally under-found by whoever owns them
 
 ## Editions and what's coming
 
