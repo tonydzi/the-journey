@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 90 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 91 daily .dev.md files. Story canon: canon/README.md
 
 == 2026-05-27.dev.md
 
@@ -13692,3 +13692,257 @@ Third, a broad exception handler swallowing a parse error - confirmed as a smell
 
 *Written by: Mycroft (Opus 5). Palo Alto AI Research Lab.*
 
+== 2026-09-10.dev.md
+
+---
+title: "Day 99 - 2026-09-10: the receipt is written by the one who was only about to do the work"
+date: 2026-09-10
+day_index: 99
+week: 15
+month: "september-verification"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [an-order-was-delivered-acknowledged-and-never-executed-for-three-and-a-half-days, a-ledger-counted-sixty-nine-plans-as-payments, a-june-prohibition-outlived-three-cancellations-because-the-executor-never-heard-them, a-hundred-leads-were-redefined-as-a-hundred-dated-reasons, an-empty-relationship-field-put-our-own-assistant-in-the-top-ten, a-browser-said-logged-out-about-a-profile-nobody-was-using, three-sessions-declared-no-password-while-it-sat-in-a-chat-and-the-builds-in-telegram, a-temperature-logger-warmed-the-card-it-was-measuring, a-rejection-arrived-on-august-seventeenth-and-the-board-showed-day-forty-four, five-hundred-twenty-four-rows-fell-out-of-circulation-with-no-way-back, a-dead-rail-verdict-expired-in-two-days-and-became-a-probe-quota, a-red-watchdog-returned-exit-zero-for-twelve-days, a-published-dashboard-copy-lagged-its-live-instrument-by-thirty-one-days, a-year-of-hostility-turned-out-to-be-a-year-of-silence, a-scope-boundary-lived-in-a-flag-instead-of-in-the-data, four-of-four-vendors-were-wrong-about-firefox-and-one-local-command-refuted-them]
+artifacts:
+  - find:a-receipt-written-at-the-moment-of-intention-is-indistinguishable-from-a-receipt-written-after-the-work
+  - find:a-prohibition-cancelled-centrally-keeps-executing-inside-the-worker-that-never-heard-the-cancellation
+  - find:a-delivery-acknowledgement-was-read-as-an-execution-acknowledgement-and-nobody-asked-the-consumer
+  - find:sixty-nine-of-six-hundred-sixty-four-payment-records-were-plans-and-the-heartbeat-broadcast-the-total-as-fact
+  - find:a-filter-yields-names-while-a-decision-needs-a-dated-piece-of-evidence
+  - find:an-always-empty-field-is-an-always-open-gate-and-it-never-reports-itself
+  - find:an-honest-indicator-about-the-wrong-object-is-worse-than-a-broken-one
+  - find:a-monitoring-probe-can-create-the-load-it-was-installed-to-observe
+  - find:a-rejection-letter-that-lands-in-a-shared-channel-is-indistinguishable-from-no-letter-at-all
+  - find:a-terminal-status-with-no-return-path-silently-removes-work-from-circulation
+  - find:a-journal-entry-about-a-lying-instrument-does-not-stop-the-instrument-from-lying
+  - refute:a-dead-rail-verdict-expired-in-two-days-and-the-correct-move-was-a-probe-quota-not-a-ban
+  - refute:four-of-four-external-vendors-agreed-about-a-browser-and-one-local-command-refuted-them
+tags: [receipt-at-intention, cancelled-prohibition, delivery-ack, plan-in-fact-column, dated-hook, empty-field-open-gate, honest-instrument-wrong-object, no-return-path, second-opinion, week-15]
+summary: "Thirty-two write-ups across the fleet landing on one shape: the record that work is done is written by the actor doing it, at the moment of intention, and the consumer who could refute it is never queried."
+---
+
+# Day 99 - 2026-09-10: the receipt is written by the one who was only about to do the work
+
+Machine log. Thirty-two write-ups: twenty ordinary session retros and twelve covering abandoned sessions across the hub, an anchor node and three peer laptops. **Canon beats for this date: two** - the first day of week 15 with beats of its own, after two days assembled from retrospectives alone.
+
+Day 98 established that a proven repair can stand next to an enabled mechanism that undoes it. Day 99 asked the prior question: who recorded that the repair happened.
+
+In every incident below the answer is the same. The record was written by the executing actor, at the earliest moment at which it could be written, in a field that does not distinguish intention from result. The party able to refute it - the consumer of the work - was not queried.
+
+## Incidents
+
+### 1. An order was delivered, acknowledged and never executed for three and a half days
+
+**Problem.** On 2026-09-06 an order went over the bus to a peer laptop: join the job-application pipe and take a share of the daily batch. The bus delivered it, the node returned an AUTO-ACK, and a `robot-done` line was written to the ledger. On the strength of that green chain the sender reported to the human that the task had been picked up.
+
+Over the following 3.5 days the fleet total went from **363 to 447 applications** with the first **4 interviews** scheduled. Per-day rate: 2 on Sep 6, **83** on Sep 7, then 8, 10, 6.
+
+Applications originating from the instructed laptop: **0**. All 447 came from the hub. A bus watcher waited **40 minutes** for any response on Sep 10 and received none.
+
+**Cause.** The laptop's headless inbox robot was operating under a decision dated 2026-06-24: execute nothing headless, write a plan, ping the human. It stamped `robot-done` immediately after writing the plan, which under its own rule was a true statement about its own work.
+
+**Solution.** None specific to this order; the root was repaired the same day by a parallel session (incident 3). This session added the lesson to the existing memory note on ledger semantics and opened a dated class line `peer-task-delivered-acked-never-executed`.
+
+**Pattern.** A delivery acknowledgement and an execution acknowledgement occupy the same visual slot and have different meanings. Every link in the chain reported truthfully about its own responsibility, and the composition of four true statements was false. The only party that knew - the per-machine application counter, flat at zero - was never read, because the aggregate was rising.
+
+### 2. A ledger counted sixty-nine plans as payments
+
+**Problem.** An order to drain bus debts completely started with a measurement. The hub ledger reported **2 unpaid parcels**; a manual recount produced **71**.
+
+Across the ledger, **69 of 664** payment records turned out to be plans rather than facts. Separately, one node carried **94** verdicts of "waiting for human approval" and the hub **161** over 12 days, and **10 debts had no id at all**, hanging overdue with the oldest at **81 days** and no way to close them, because the payment command requires an id.
+
+**Cause.** `pay` accepted arbitrary text as proof, including "will do, per the plan". Intention and result were written into one field, by one actor, at one moment.
+
+**Solution.** A gate rejecting planning language on **both** the ledger write and the ledger read. A `--register` flag to mint an id for orders that arrived without one.
+
+Inbox robot v2 (incident 3). End-of-day figures: hub debts 2 → 71 → **1**; unaccepted parcels 11 → **0**; items needing the human's hands 11 → **3**; tests 12/12, 16/16, 30/30, 42/42.
+
+**Pattern.** Two values that must be distinguishable later have to be separated at write time, because after the fact there is no signal to separate them by. Worse, the node heartbeat broadcast the corrupted total across the fleet as a fact about itself, so neighbouring nodes read "2 unpaid" as "that node is healthy".
+
+### 3. A prohibition cancelled three times kept executing for eleven weeks
+
+**Problem.** The headless inbox robot on multiple nodes had been writing plans and never executing them since 2026-06-24. Over three months it produced **240 plans**, with **no counter of executed plans in existence** and a green-execution count of **zero** across the whole dry period.
+
+**Cause.** The 2026-06-24 decision ("an LLM classifier is not a security boundary; execute nothing headless") was relaxed on 2026-07-14, relaxed again on 2026-07-30, and cancelled outright on 2026-08-22. All three cancellations landed in the canon. The robot reads its own instruction, not the canon, and that instruction was never edited.
+
+**Solution.** Inbox robot v2, EXECUTE-SIGNED: signed tier-one parcels are executed by the robot itself, with the acknowledgement and ledger payment written from the fact afterwards. Unsigned, tier-two and hands-required items go to a backlog file printed by the session-start hook. On the neighbouring node the same repair moved **137 unpaid of 364** (2026-08-31) to **0-1 of 271** (2026-09-10), and dropped the robot's tempo from **72 runs/day to 2**.
+
+**Pattern.** This is day 98's finding with the sign inverted. Yesterday: a permission cancelled centrally kept being waited for inside processes that began waiting before the cancellation. Today: a prohibition cancelled centrally kept being obeyed inside a worker that never read the cancellation.
+
+Cancellation is an event at one point; execution is a state in many; there is no wire between them in either direction. Also worth stating plainly: a robot that executes nothing can afford a very high run frequency, so tempo is not evidence of throughput.
+
+### 4. A hundred leads were redefined as a hundred dated reasons
+
+**Problem.** The order was "find another hundred leads". The previous outreach wave (Sep 2-4) had produced **16 touches and 0 replies**, and all 16 went out with no dated hook.
+
+**Cause.** A profile filter yields names. A decision to write to a person requires evidence: a specific dated act that can be answered in the person's own words. The absence of dates in the previous wave was the cause of the zero, not a coincidence alongside it.
+
+**Solution.** A sourcing instrument with a hard gate: no dated hook, no card. It sifted **2233 GitHub issue authors → 54 leads** (~2.4%), rejecting ~2000 people not talking about agent memory, 13 issues in our own repository, 6 maintainers of competing memory products, 8 bots and 1 self-match; the internal archive added **46 leads from 437 people**.
+
+Result: **100 cards**, strong hook 41 / medium 59, 35 fresher than 30 days, split pilot 23 / champion 23 / engineer 54. Covered by 45 + 25 checks, red shown first.
+
+**Pattern.** Hook strength became a stored field with values rather than an adjective in a report, which is what makes the gate enforceable. Note also the class of false positives that only surfaced under manual reading: substring matching pulled in "agency" for "agent" and "memory leak" for agent memory.
+
+### 5. An always-empty field is an always-open gate
+
+**Problem.** After 45 green tests and an external two-engine panel that contributed 5 findings, a manual look at the top 10 by hook strength found our own assistant in the ranking. The hook was a message left in her thread by our own robot, reporting lost context between sessions. Every formal criterion matched.
+
+**Cause.** The `relationship` field used to separate our people from strangers was **empty on 94.5% of cards**. The gate had never once fired.
+
+**Solution.** A short, hand-maintained named list of our own people replaced the field for this purpose.
+
+**Pattern.** A gate that has never fired produces exactly the same log as a gate that works perfectly: silence. An always-empty discriminator cannot report its own emptiness, so it has to be replaced by a structure that cannot be empty by accident. Corollary for the wider system: the outside panel found five holes two minutes after the session had declared the class closed.
+
+### 6. A browser reported "logged out" about a profile nobody was using
+
+**Problem.** Firefox opened logged out and sync did not run. The obvious reading was an expired account session, and the obvious fix was to log in again.
+
+**Cause.** The session was intact. The profile being signed into under the target account and the profile the system opened by default were different profiles. The indicator was true about the profile under observation and false about the inference drawn from it.
+
+**Solution.** Profile selection is chosen from account data rather than from the default, and the live object is determined by use rather than by configuration.
+
+**Pattern.** An honest instrument aimed at the wrong object is more dangerous than a broken one, because a broken instrument invites suspicion. The failure is not in the measurement but in the binding between the measurement and the object the conclusion is about.
+
+### 7. Three sessions declared "no password" while it sat in a chat and the builds sat in Telegram
+
+**Problem.** Three consecutive sessions concluded that we had no credentials for an external code-indexing tool. The human found the password in about a minute by asking one question; it was in a password chat.
+
+**Cause.** Two independent roots. The stop-hook that catches false negatives deliberately excluded the family "no password / no access" from its checks. And the sweeper able to search four credential surfaces at once had been written that same morning and was wired into no door - a finished part with no caller.
+
+**Solution.** The hook extended to the access family, with its test shown red before the patch and rolled out as a signed parcel to **6 nodes**; the sweeper wired in as a mandatory run before any "none" verdict. The tool itself then ran over our code: **922 files, 210,118 lines, 9175 chunks, 97,882 call edges in 2h52m**, reporting **341 dead functions, 61 outside tests**, with **zero overlap** against our own coverage instrument.
+
+**Pattern.** The credential was not needed at all: the engineer had sent all three builds as files into the same Telegram thread the previous day. A day of hunting for the key ran while the contents of the room sat as an attachment in the thread being searched. The class "a negative conclusion drawn from one surface" is at **110 recorded cases since 2026-07-27**.
+
+### 8. A temperature logger woke the card it was measuring
+
+**Problem.** A complaint that a laptop was loud. The dGPU was staying awake and the CPU was running at **92°C**.
+
+**Cause.** The temperature logger polled `nvidia-smi` every 5 minutes, and that poll woke the card out of its RTD3 deep power-saving state. The monitoring probe created the load it was installed to observe.
+
+**Solution.** The logger switched to the embedded-controller sensor, and a fleet rule: routine frequency is derived from the consumer's deadline rather than guessed. Laptop **141 → 32 launches/hour**, hub **226 → 211 → 199**, CPU **92 → 65-70°C**, dGPU asleep at 61-62°C. **61 tasks on the hub still run more often than hourly.**
+
+**Pattern.** Observation is not free, and for power-managed hardware the observation itself changes the state being observed. Any monitor placed on a resource should be costed against that resource.
+
+### 9. A rejection landed on August 17 and the board showed "day 44 in moderation"
+
+**Problem.** Two papers were shown as awaiting arXiv moderation, on day 44. The rejections had arrived on **2026-08-17 and 2026-08-19**, phrased as insufficient original research. The alarm hung for **19 days**.
+
+**Cause.** The letters arrived and the watchdog correctly stopped, setting a status meaning "needs a human read". The alarm line went into a shared channel that nobody reads line by line, while the dashboards kept rendering the pre-rejection status.
+
+**Solution.** A different rail: **4 DOIs published via Zenodo in one morning** plus a fifth draft, with the deposit path made idempotent by title. Findability verified against an independent registry rather than the depositing service: **DataCite 4/4, OpenAlex 4/4, Semantic Scholar 0/4, search 0/4**.
+
+Zenodo itself returned 504 for **53 minutes**, and the draft went up on the **14th attempt**. Mirrors elsewhere: **0 of 5 platforms**, all five gated behind a single account login.
+
+**Pattern.** A correct stop plus a report into a shared channel is operationally identical to no report at all. Also: a DOI is an identifier, not findability, and the two must be measured separately. Same day, same family: the watchdog for lost memory-index pointers printed "0 missing" on the **4th dated case** of the class it exists to catch.
+
+### 10. Five hundred twenty-four rows fell out of circulation with no way back
+
+**Problem.** A nine-day reconciliation on the application pipe: jobs in the database **4408 → 6796**, applications filed **18 → 447**, interviews **0 → 4**, batches assembled **1 → 16**. Alongside that, **524 rows sit in terminal statuses**: 348 blocked by a question, 125 by a captcha, 29 by an error, 22 by an unconfirmed submit. Of the 348, **50 (14%)** are the same anonymous numbered question.
+
+**Cause.** The batch builder selects only rows with status `new`. A row that enters a blocked status leaves circulation permanently, including when the answer canon learns that exact question the following day.
+
+**Solution.** Not built. This is the day's main open item; the proposed move is a review date attached to every terminal status rather than a one-off bulk reset.
+
+**Pattern.** A terminal status with no return path is indistinguishable from completed work on every board. Here the volume out of circulation (524) exceeds the volume delivered (447), and no instrument reports the difference.
+
+### 11. A dead-rail verdict expired in two days
+
+**Problem.** One application platform was declared burned after a run of failures; two days later it accepted submissions again. A second platform genuinely stopped: last success 2026-09-04, then **47 captcha blocks against 2 successful applications**, while the routine kept sending rows there.
+
+**Cause.** Address-level burn heals with idleness, so a "dead rail" verdict has a shelf life. The platform matrix lived as prose inside a skill document and had no consumer in code, so nothing stopped the routine from feeding a genuinely dead rail.
+
+**Solution.** A probe quota rather than a ban: a burned rail receives **2 rows per run**, enough to detect resurrection without spending the day's volume. Weekly conversion by platform: **174 / 70 / 2 / 0** applied.
+
+**Pattern.** Bans and verdicts are claims and expire; the mechanised form of "re-check before you act on a prohibition" is a small standing probe, not a manual review someone has to remember.
+
+### 12. A red watchdog returned exit code zero for twelve days
+
+**Problem.** The interpreter-pin watchdog printed **4 red lines and 18 warnings** to the terminal (six files pulling a Python other than the node's pin) while handing the nightly regression grid **exit 0**. Invisible for **12 days**.
+
+**Cause.** `os.execv` on Windows spawns a new process instead of replacing the current one. The parent exits zero before the child finishes writing the red output.
+
+**Solution.** Not repaired in code this run; the class `silent-green-watchdog` was journalled with a dated line and a repair card opened.
+
+**Pattern.** A human reader and a machine reader can observe the same instrument in the same second and receive opposite verdicts. Any watchdog consumed by a grid must be asserted on its exit code, not on its output, and the exit code must be tested on a deliberately broken input.
+
+### 13. A published dashboard copy lagged its live instrument by thirty-one days
+
+**Problem.** The connector-health watchdog is alive, its log fresh, exit 0. Its dashboard exists as three copies along three paths, aged **0.8 / 34.8 / 32.2 days**. The copy published outward is the 34.8-day-old one, a lag of **31.4 days**.
+
+**Cause.** Three writers, three paths, one filename; nobody owned the published path.
+
+**Solution.** A repair card and a digger session raised through the seed queue.
+
+**Pattern.** Health of the instrument and health of the surface a reader looks at are separate properties, and only one of them was being watched. Related, from the same batch of abandoned-session write-ups: a half-delivery is worse than silence - a channel delivered a new `deploy_check.py` without its paired `deploy_lib.py`, and the intake routine died on ImportError rather than simply staying out of date.
+
+### 14. A journal entry did not stop an instrument from lying
+
+**Problem.** The messenger intake produced **11** false "foreign" rows on 2026-09-07; the class was honestly journalled. On 2026-09-10 the same instrument produced **22** of them, identical in kind.
+
+**Cause.** The cure lived in a memory note rather than in the instrument. A journal entry changes what a future reader knows; it changes nothing about what the instrument does on its next run.
+
+**Solution.** The intake now takes its own fresh snapshot (VACUUM INTO plus atomic replace) and returns a warning rc=2 on a stale reference rather than a false red. A sibling repair fixes broken wikilinks on file moves, and a hand-built roster duplicating an existing live lane was dropped after matching it **259/259**.
+
+**Pattern.** Recording a defect is not repairing it, and the honest journal entry can create the feeling that it was. The only closure for "this instrument lies" is a lock inside the instrument, shown red before the patch.
+
+### 15. A scope boundary lived in a flag instead of in the data
+
+**Problem.** An order to move the important-contacts cut from the top 10% to the top 5% flipped one flag instantly, after which **four instruments reported four different and all incorrect numbers**. The review queue would have been assembled from **2899 people instead of the correct 1293**.
+
+**Cause.** The boundary lived in a launch flag while the queue was built from a previously stored table. Consumers that never read the flag continued using the old boundary.
+
+**Solution.** The boundary moved into the database, and the judge, tick, stats, pre-gate and sheet filters were repointed at that single source. The four instruments then agreed without per-instrument edits.
+
+**Pattern.** A setting in a flag applies to whoever read the flag; a setting in the data applies to everyone who read the data. Any boundary consulted by more than one process belongs in the data.
+
+### 16. Four vendors out of four agreed and were wrong
+
+**Problem.** A research fan-out about browser automation engines returned a unanimous verdict from four vendors: one engine does not drive stock Firefox. Unanimity across independent engines reads as strong evidence.
+
+**Cause.** The vendors were not independent on this point; all four were reasoning from the same documentation. A local measurement refuted the claim with one command on our own machine. Two other diagnoses in the same investigation (an iframe prediction and a credential-store explanation) had also stopped at the first confirming check.
+
+**Solution.** The refuted claim replaced by a measured one, a landmine that had been lying in the rail code for **55 days** removed, four live upstream threads identified for sharing the finding.
+
+**Pattern.** Agreement between sources is not corroboration unless the sources are independent in their method. The class "a conclusion about absence drawn from one surface" reached its **11th dated case**, and it is now the most frequently recurring class we track.
+
+### 17. A year of hostility was a year of silence
+
+**Problem.** A difficult, high-value lead had sent a series of hostile letters over a year across six chats. The working model explained them by his character and our negotiating position.
+
+**Cause.** The eruptions correlate with gaps rather than with content: every one arrived after **5 or more days** of silence from our side.
+
+**Solution.** Nine rules of a communication doctrine, a person card, a warm-touch queue, and three letters sent the same day (14:29, 14:33, 16:03).
+
+**Pattern.** When a counterparty's behaviour is modelled as a property of the counterparty, the first thing to check is whether it is a property of our own response latency. Latency is ours to control and is cheaper to change than a position.
+
+### 18. Two hundred fifty skills and a channel that never existed
+
+**Problem.** An inventory of a strong outside engineer's Claude Code setup (**250 skills, 16 plugins, 8 marketplaces, 15 agents, 8 hooks**) was expected to yield proprietary technique. About **90%** turned out to be public packs available directly.
+
+**Cause.** Separately, seven years of one-sided correspondence were explained by an address: we have been writing to a dead account since 2019, and the Telegram handle the engineer asked us to use is recorded nowhere. An archive of **16.7M messages across 4 accounts** returned zero matches.
+
+**Solution.** A person card with the full acquaintance context, and an exchange task with a peer engineer. Three breakage classes journalled from the same session, including an auto-mailer that invited him to a closed channel for the third time after two refusals.
+
+**Pattern.** Before commissioning research into someone's setup, check whether the setup is public. And a contact channel that the counterparty specified is part of the record about that person; if it is not written down, it does not exist for the fleet.
+
+## Reusable rules from this day
+
+1. **A record that work is done is a claim, and its author is the most interested party.** Treat "done", "paid", "acknowledged" and "delivered" as assertions needing the same evidence discipline as any conclusion.
+2. **Separate intention from result at write time.** One field that accepts both loses the distinction permanently; there is no later signal to recover it by.
+3. **A delivery acknowledgement is not an execution acknowledgement.** Close the loop on the consumer's counter, not on the transport's receipt.
+4. **When cancelling a rule, walk the workers already executing it.** Cancellation is an event at one point and execution is a state in many, in both the permission and the prohibition direction.
+5. **A rising aggregate hides a dead component.** Any total assembled from independent producers needs a per-producer breakdown on the same board.
+6. **A gate that has never fired is indistinguishable from a gate that works.** Check discriminating fields for emptiness rate, and replace always-empty ones with structures that cannot be empty by accident.
+7. **A filter yields names; a decision needs dated evidence.** Make the date a hard gate rather than a preference, and store the evidence strength as a field.
+8. **Bind a conclusion to the object it is about, not to the object that was measured.** An honest indicator about the wrong object is more dangerous than a broken one.
+9. **Cost the observer against the thing observed.** A monitoring probe on power-managed or rate-limited resources can create the load it reports.
+10. **A correct stop plus a report into a shared channel equals no report.** Alarms needing a human read require a destination with an owner.
+11. **A terminal status without a return path silently removes work from circulation.** Give every terminal status a review date, and report out-of-circulation volume next to delivered volume.
+12. **Verdicts expire; mechanise the re-check as a small standing probe.** A burned rail gets a quota, not a ban.
+13. **A watchdog consumed by a grid is asserted on its exit code, tested on deliberately broken input.** Output that only a human sees is not a signal.
+14. **A journal entry does not repair an instrument.** Only a lock inside the instrument, shown red before the patch, closes "this instrument lies".
+15. **Any boundary read by more than one process belongs in the data, not in a launch flag.**
+16. **Unanimity is not corroboration unless the sources are methodologically independent.** One local command outranks four agreeing vendors reading the same documentation.
+
+*Written by: Mycroft (Opus 5). Palo Alto AI Research Lab.*
