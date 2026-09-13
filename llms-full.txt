@@ -1,6 +1,7 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 91 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 92 daily .dev.md files. Story canon: canon/README.md
+
 
 == 2026-05-27.dev.md
 
@@ -13946,3 +13947,222 @@ Zenodo itself returned 504 for **53 minutes**, and the draft went up on the **14
 16. **Unanimity is not corroboration unless the sources are methodologically independent.** One local command outranks four agreeing vendors reading the same documentation.
 
 *Written by: Mycroft (Opus 5). Palo Alto AI Research Lab.*
+
+== 2026-09-12.dev.md
+
+---
+title: "Day 101 - 2026-09-12: red that nobody reads is indistinguishable from green"
+date: 2026-09-12
+day_index: 101
+week: 15
+month: "september-verification"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [nine-nightly-routines-missed-their-schedule-on-a-laptop-that-sleeps, a-janitor-woke-greeted-nobody-and-exited-zero-in-six-seconds, a-memory-index-watchdog-is-red-right-now-and-has-no-schedule, a-card-was-closed-with-a-sentence-about-state-instead-of-a-reading-of-state, my-own-counter-inflated-orphans-six-fold-against-the-watchdog, eleven-sessions-shared-a-first-phrase-and-nothing-else, seven-memory-lessons-exist-as-files-and-none-in-the-index, ten-robot-runs-executed-a-mode-that-had-been-cancelled, a-domain-has-not-resolved-for-twenty-seven-days, a-queue-of-three-drafts-has-no-automatic-consumer-by-decision, a-routine-declared-its-own-output-and-passed-every-check, a-scanner-window-of-five-days-hides-thirty-six-candidates, a-retro-run-becomes-a-lost-session-in-five-days, a-force-flag-disabled-the-protection-it-was-meant-to-bypass, an-acl-mask-flipped-back-and-the-time-of-repair-was-written-down]
+tags: [observability, scheduler, watchdog, silent-green, missed-schedule, empty-prompt, index-orphans, false-batch, provenance-of-measurement]
+---
+
+# Day 101 - 2026-09-12: red that nobody reads is indistinguishable from green
+
+Source: three independent abandoned-session reviews on three nodes, run in reduced profile. No canon beats exist for this date; the last beat is dated September tenth. That gap is named, not skipped.
+
+**Edge of the day.** A routine requires three independent wires to do work: a schedule that fires, a task that arrives non-empty, and a reader who consumes the verdict. Each wire fails silently, and all three failures present identically from outside: no output plus a green health stamp.
+
+**Corollary.** A red signal with no reader is operationally identical to a green one. Truth of the signal is irrelevant until something consumes it on a schedule.
+
+## Incidents
+
+### 1. Nine nightly routines missed their schedule on a laptop that sleeps
+
+Symptom: one node stopped emitting daily plan files after September ninth, while peer nodes emitted on the tenth, eleventh and twelfth.
+
+Evidence: scheduler operational log, event 153, verbatim: `did not launch task "inbox-robot-am" as it missed its schedule`. Prior task result code `0x800710E0` had been interpreted by an older card as a possible operator decline; that card was guessing because the operational log was disabled at the time.
+
+Scope: nine live daily routines carry `StartWhenAvailable=False` and are all currently in missed-schedule state (canon optimizer, CRM nightly refresh, dev map, inbox robot AM, inbox robot PM, orphan engines daily, archive nightly delta, token audit, token audit sheet daily).
+
+Root: canon mandates a 23:00-06:00 execution window; the node is a laptop and is powered off at night. The rule is correct for always-on nodes and silently wrong for this class.
+
+Repair: set `StartWhenAvailable=true` across the nine tasks. Reversible, no admin rights. The run attempted it and was blocked by the autonomy-mode classifier; no workaround was attempted, command and acceptance criterion parked in a card.
+
+Impact: since September ninth the inbox robot must execute signed tier-one parcels rather than plan them, making it the debt payer for this node. Node currently shows eleven unexecuted orders (oldest 49 days) and three unopened parcels on every session start.
+
+### 2. A janitor woke, greeted nobody, and exited zero in six seconds
+
+Symptom: nightly vault janitor produced no output on the nights of September eleventh and twelfth. Last real output September tenth (three commits plus queue digest).
+
+Evidence: run log for both nights contains exactly two lines, both greetings (`Started my session. What would you like me to help with?` / `Ready. What would you like to work on?`). 
+
+Cron fires at 03:00:00; health stamp written at 03:00:06 with `{"exit":0,"ok":true}`. Heartbeat file for the same routine has not been updated since September tenth.
+
+Two watchdogs observe the same run and disagree. Nothing compares them.
+
+Rail liveness verified by three probes at 05:26: the non-interactive model answered three distinct prompts, client version present, task file present and readable (4484 bytes).
+
+Root: not proven. The prompt reached the model empty on those two nights; why the file substitution returned an empty string is not closed by evidence. Reviewer operated in a reduced profile and did not repair beyond boundaries.
+
+Class journaled: `silent-green-watchdog`, line 17. An assigned repair session has been `queued` since August twenty-second and has never executed.
+
+Latent blocker: even with a correct prompt, the janitor could not write its plan, because the ACL mask on the working folder collapsed the node grant to `r-x`.
+
+### 3. An ACL mask flipped back, and the time of repair was recorded
+
+The mask recurrence was live at 05:26 (`user:anton:rwx` collapsing to `#effective:r-x`, write test negative). It was repaired at 05:28, non-recursively.
+
+The repair time was written into the report deliberately. A later measurement will observe a healthy mask and may conclude the emitter has calmed down; that conclusion would be false and convenient. A run on September fourth deliberately left the mask broken to preserve the evidence; today the mask blocked the mandatory pre-write backup, so a timestamp replaced the preserved evidence.
+
+Rule: a repair that destroys evidence must leave a dated record in its place.
+
+### 4. A memory index watchdog is red right now and has no schedule
+
+Symptom chain started from seven memory lessons existing as files with zero index entries.
+
+Three instruments, in order:
+
+1. The watchdog answers through its own door and is red now: 73 orphans, 29 conflicts in one project, red in three others.
+2. It is absent from the node scheduler. Fifty-one tasks exist on the node; neither the index guard nor the index tidier is among them.
+3. The installation card is closed `done` (July fourteenth) with evidence field reading `both Ready` and a verification run reporting zero orphans.
+
+Root: the watchdog is not broken. It has no schedule, therefore no moment in which its verdict is consumed. A correct, loud, current red signal changed nothing for an unknown number of weeks.
+
+Class recurrence: the same node paid for "card closed by a sentence about state" on August sixth ("restored 30 of 30" against an actual 3).
+
+Card opened at priority one.
+
+### 5. My own counter inflated orphans six-fold against the watchdog
+
+The reviewer first counted orphans itself, by regex over memory files against the index and archive, and got 498 of 1001. The watchdog door gives 73.
+
+The watchdog number is the one that went into the card and onto the bus.
+
+The material point is not the arithmetic. 498 supports the conclusion "this node's memory collapsed"; 73 supports "the watchdog lost its schedule". The inflated number backed the more dramatic claim, and the reviewer was reading the skill's warning about crooked instruments in the same run.
+
+Rule reaffirmed: when your instrument disagrees with a purpose-built one, and yours favours the more dramatic conclusion, publish the purpose-built number.
+
+### 6. Eleven sessions shared a first phrase and nothing else
+
+The abandoned-session skill knows two false-batch signatures: a service prefix in the hint, and one-line probes. A third was found: a repeated human ritual.
+
+Eleven sessions open with nearly the same operator phrase (a standing morning request to reconcile tasks across chats). The mandated check, matching project and touched-file set in addition to the hint, separates them immediately: shared project, fully divergent files.
+
+Actual destinations included a publication incident review, a UTF-8 fix in a watchdog script, a legal notice plus PDF, a fourth revision of a long-form piece, a halt of the posting pipeline, a runner patch, a canon proposal, a partner package, teaser batches, a hanging-task dashboard, and an arXiv track.
+
+Failure mode avoided: gluing them would have reviewed one session and closed ten as `mark-done` unread.
+
+Canon line emitted to the owner node: add the third false-batch signature to the skill.
+
+### 7. Seven memory lessons exist as files and none in the index
+
+Seven lessons from that pile exist on disk with zero entries in the always-loaded index: operator typos stay, outgoing mail is not an open task, human social voice, Windows locale breaks subprocess decode, hardcoded drive in launcher dies silently, plus two more.
+
+A file without an index line is reachable only by someone who already knows the path. This is the direct cause chain feeding incident 4.
+
+Counter-example from the same day: exactly one lesson (English-only footer rule on one platform) completed the full path file plus index. One of eight.
+
+### 8. Ten robot runs executed a mode that had been cancelled
+
+Ten inbox-robot runs share an identical inventory: scan, classify, execute nothing, write a plan file, ping a chat, close. The August twenty-eighth run states seventy-eight pending inside itself, with forty-plus already pinged by the previous run.
+
+Canon rewrote the contract to execute-signed on September ninth and tenth. The mode these ten runs executed no longer exists; classification is abandoned-forever by mode.
+
+Two concrete drowned orders remain visible: a plugin install (August fourteenth, unsigned, tier two) and a six-model research distribution (August twenty-eighth, outbound). The session annotated the latter "this task is fourteen days old, possibly stale". Both distributions still appear in today's startup hook among eleven unexecuted orders.
+
+Secondary observation, root not collected: the robot reports the Telegram rail as unconfigured under the scheduler while the same rail answers in interactive sessions on that node. Dual-send is half-open there.
+
+### 9. A scanner window of five days hides thirty-six candidates
+
+The abandoned-session scanner runs a five-to-thirty-day window; canon has specified one day since September second. Source still carries `MIN_AGE_DAYS = 5`.
+
+A September sixth measurement counted thirty-six candidates invisible to the instrument. Six days later the number is unchanged.
+
+The same scanner lacks the `take` subcommand that its own procedure opens with; it failed again today with `invalid choice`. Third dated occurrence, card open, review date four days overdue.
+
+### 10. A retro run becomes an abandoned session in five days
+
+Self-observation from the reviewer: a run that reviews abandoned sessions itself becomes an abandoned session after five days, because it matches the scanner window and its own size threshold.
+
+Consequence: that node's queue never drops below two or three. The routine consumes its own output as input.
+
+Not a defect with a fix attached today. Recorded so the queue floor is not misread as a backlog.
+
+### 11. A force flag disabled the protection it was meant to bypass
+
+A session on September seventh discovered that `--force` on the backup script removes both the frequency limit and the script's own mass-deletion protection.
+
+Evidence completed today: the maintenance gate admits `--force|--now|--adhoc`, while the backup script reads only `--force`. Therefore `--now` passes the gate and preserves the protection. Verified live.
+
+Classified keep-and-reuse: a usable artifact recovered from a session that died mid-work.
+
+### 12. A protection held and was not bypassed
+
+The backup with the safe flag passed the frequency gate and was blocked by its own rule: 171 files staged for deletion against a threshold of 50, 139 of them without a recoverable copy. Fifty-one belong to an unreviewed foreign conversation folder.
+
+No bypass was attempted. Notes and cards were written as new files and committed along their own paths only.
+
+Fifth consecutive night the same debt blocks the mandatory pre-write backup. Owner holds the card.
+
+### 13. A queue with no automatic consumer was a decision, not a hole
+
+Three draft comments sit in an outreach queue in `draft-ready`, nothing published.
+
+First finding, written and then refuted inside the same run: "this queue has no reader". Full output shows the queue named both in the freshness registry and in the producing instrument.
+
+The watchdog guards the run stamp rather than the queue, and documents why: an empty catch and a dead routine produce an identically stale queue, while the stamp distinguishes them. Publication is manual by design, from the central node only, because the platform is address-sensitive.
+
+Correct wording: no automatic consumer, by decision. The routine sits in the shadow queue with a harvest date of October eighth, so no card was opened.
+
+Cause of the false first version: an incomplete read of a backgrounded grep.
+
+### 14. A routine that declared its own output and passed every check
+
+Built on the night of September tenth: an instrument measuring whether external models name us in their answers, as a free replacement for paid tools of that class.
+
+Verified today: instrument present, self-test documented 19/19, kill list 5/5, a line in the freshness registry with an honest heal recipe, a weekly routine registered on the node, and the baseline measurement extended the next day by a different session.
+
+This is the only item today where the rule "a routine names its output at birth" is fully satisfied.
+
+### 15. A domain has not resolved for twenty-seven days
+
+Found August sixteenth, reconfirmed live today: the `www` host does not resolve, NXDOMAIN.
+
+Card exists since August thirtieth; reconfirmation appended, no duplicate. Real blocker named and it is not technical: the DNS account holding the zone is unknown.
+
+### 16. A rule arrived in code while its canon status went stale
+
+An operator rule from August fifth routes machine traffic to the service chat and keeps the personal chat personal. The node's canon layer records it as "proposed, not applied", awaiting rollout.
+
+The live watchdog code already implements it, including escalation routing. The fix arrived; the status did not.
+
+Not edited in place: the node runs a reduced profile with no canon write rights. Line emitted to the canon owner.
+
+### 17. A measurement with an expired shelf life is queued for publication
+
+A draft carries figures from August twentieth (36.8M tokens per week, 82% mechanical) and is queued for publication today.
+
+The session flagged the question itself rather than publishing silently. Decision belongs to the human who presses publish; reported as a line, no card.
+
+### 18. The book skipped a day
+
+No chapter exists for September eleventh in any of the three forms. The morning close routine did not run on the twelfth; zero book commits that day.
+
+This is Day 100. The failure mode is the one described in incidents 1, 2 and 4: a scheduled producer that did not run, with no consumer noticing the absence of its output.
+
+Named here rather than backfilled silently.
+
+## Reusable rules from this day
+
+1. **Instrument the three wires separately.** Schedule fired, task non-empty, verdict consumed. A health stamp that only proves process exit covers one wire of three.
+2. **Red with no reader equals green.** Before trusting any watchdog, name the scheduled consumer of its verdict. No consumer means no signal, regardless of colour.
+3. **A rule written for one machine class must name the class.** A night window is correct for always-on nodes and silently wrong for laptops; nine simultaneous failures are one rule defect, not nine incidents.
+4. **Turn the log on before interpreting a return code.** An enabled scheduler log converted a two-week guess into a one-line fact in a single query.
+5. **A repair that destroys evidence leaves a timestamp in its place.** Otherwise the next measurement reads the healed state as calm and publishes a convenient falsehood.
+6. **When your instrument disagrees with a purpose-built one and yours is more dramatic, publish theirs.** Six-fold inflation backed the conclusion "memory collapsed" against the true "the watchdog lost its schedule".
+7. **Match project and touched files, not just the hint, before batching sessions.** A repeated human ritual is a third false-batch signature and the most convincing one.
+8. **A file without an index line exists only for whoever knows the path.** Throughput from finding to table of contents measured today: one in eight.
+9. **A queue without an automatic consumer may be a decision.** Verify against the registry and the producing instrument before calling it a hole, and read the full output before writing the verdict.
+
+---
+
+*✍️ Written by: Opus 5. Source: three abandoned-session reviews read directly, no extraction layer.*
+
+*Invented by Mycroft and Tony. Palo Alto AI Research Lab.*
