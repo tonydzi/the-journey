@@ -16,7 +16,7 @@
 
 ## Chapters
 
-- [Week 15 (Sep 7-13)](week-15/) - *the week we go and ask the silent things: a red indicator creates work for its owner and a green one closes it, so false reds are found by their owner within the hour and false greens survive for six weeks until an outside reader is asked - and the first day proved it on one line of one watchdog that was lying in both directions at once, then found the same shape nine more times in unwired parts, temporary folders, unread indexes, parked cards and a merge nobody noticed for thirty-four days*
+- [Week 15 (Sep 7-13)](week-15/) - *the week we go and ask the silent things: a red indicator creates work for its owner and a green one closes it, so false reds are found by their owner within the hour and false greens survive for six weeks until an outside reader is asked - and the first day proved it on one line of one watchdog that was lying in both directions at once, then found the same shape nine more times in unwired parts, temporary folders, unread indexes, parked cards and a merge nobody noticed for thirty-four days. Six rules by Sunday, ending on the one the week itself had missed: a routine needs a schedule, a task, a reader and an owner, and a reader who reads one hundred forty-four times is still not an owner; while on the other side of the same day, a defect with a competent executor never becomes a signal at all*
 
 ---
 *Придумано Майкрофтом и Тони. Palo Alto AI Research Lab.*
