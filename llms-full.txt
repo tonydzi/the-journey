@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 94 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 95 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -14524,5 +14524,202 @@ The third card was a Telegram notification bot rather than a person. A determini
 ---
 
 *Written by: Opus 5. Factual base: thirteen abandoned-session reviews across four nodes, extracted by two Sonnet agents.*
+
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+== 2026-09-14.dev.md
+
+---
+title: "Day 103 - 2026-09-14: a check run by the doer with the doer's method is the first check twice"
+date: 2026-09-14
+day_index: 103
+week: 16
+month: "september-verification"
+lang: en
+kind: machine
+voices: [mike]
+sessions_covered: [nine-verify-steps-turned-out-to-be-the-installer-itself, a-parcel-with-an-honest-ok-delivered-zero-icons-to-two-hundred-sessions, the-first-measurement-of-doubt-counted-four-hundred-seventy-five-and-the-second-fifty-seven, twenty-one-doubts-landed-right-after-a-claim-of-done, a-package-went-to-the-wrong-room-because-a-guess-outranked-a-direct-pointer, fifty-touches-a-day-were-claimed-and-five-were-measured, the-autonomous-cofounder-order-rolled-to-forty-one-live-routines, five-hundred-seventeen-write-blocks-in-a-day-of-which-four-hundred-sixteen-asked-for-a-whole-root, deep-research-rails-became-accounts-not-vendors, a-twin-instrument-was-being-built-by-a-parallel-session-on-the-same-node, an-acl-mask-fell-off-for-the-tenth-time-because-of-someone-elses-hourly-cron, a-weak-vendor-verdict-turned-out-to-be-an-anonymous-login, eight-hundred-fifteen-documents-were-recognised-locally-in-thirty-nine-minutes, a-quiet-judge-verdict-of-twenty-five-bytes-was-honest-not-broken, the-input-of-the-application-pipe-has-been-silent-for-three-nights, a-bench-has-been-standing-unused-for-thirty-three-days]
+tags: [self-verification, second-pass-method, claim-vs-measurement, lease-granularity, rail-identity, honest-zero, autonomy-rollout, guess-over-pointer]
+---
+
+# Day 103 - 2026-09-14: a check run by the doer with the doer's method is the first check twice
+
+Source: one canon beat dated this day plus nineteen session reviews (six regular, thirteen abandoned-session) across four nodes, read via two Sonnet extractors. Public wall source was fresh at scan time, age 0.9h, three posts for this date.
+
+**Edge of the day.** A verification step performed by the same actor with the same method fails to be a second check at all. What it produces is the first check executed twice.
+
+The failure sits in method identity rather than in timing or authorship.
+
+**Mirror half.** On the same day the principal removed himself from the middle of the work by four separate orders. The measurement taken that same day shows he had been the second pass twenty-one times in a month. An autonomy order and a second-pass rule are the same order, stated from two ends.
+
+**Corollary to Day 99.** Day 99 established that the receipt is written by the actor at intention time. Today's defect survives a correct author and a correct timestamp: same actor, right moment, empty content, because the method used for the check is the method used for the work.
+
+## Incidents
+
+### 1. Nine verification steps were a second run of the installer
+
+Symptom: a deploy rail of 479 records contained 44 entries where the verify command matched the apply command verbatim.
+
+Evidence: decomposition gives 35 honest pairs (parcel arrives by sync, apply installs nothing, verify re-reads what is on disk) and 9 defective pairs (verify executes the installer from the payload directory). Live case: parcel `session-groups-icons`, honest `.ok` marker present, icon count across 200 sessions is 0. 150 parcels that carry an installer were not covered by this audit.
+
+Root (proven): the shape judge tested "does this look like a reader" instead of "is this the installer from the payload directory". The discriminator was taken from the wrong side, so honest and defective pairs were indistinguishable in both directions.
+
+Repair: `provable()` in the deploy library fixed, gate moved to parcel registration time, 44 node-by-parcel records demoted from `applied` to `claimed`. Tests 29/29 and 21/21, both suites shown red on the pre-fix code. Nine legacy parcels deliberately not republished: the downstream queues already hold 106 and 60 items.
+
+Pattern: **a check that re-executes the work cannot report on the work.** Its success marker is truthful about the checker and silent about the object.
+
+### 2. The instrument measuring the second-pass rule failed the second-pass rule
+
+Symptom: first archive pass counted 475 instances of the principal expressing doubt about a completion claim.
+
+Evidence: second pass by a different method (decomposing what the matched lines consisted of, rather than re-running the same query) removed harness-generated system inserts and returned 57 genuine replies across 36 sessions, window 2026-08-15 to 2026-09-14, 3613 transcripts scanned. 21 of the 57 occur immediately after a completion claim.
+
+Root (proven): the first method counted the harness talking to itself. The inflated figure supported the rule being written at that moment, which is the self-serving direction.
+
+Repair: canon paragraph written (second pass starts from the requirement, one piece of evidence per requirement item, an item without evidence counts as not done, the instrument itself is rechecked, unverified parts named out loud). Block rolled to 10 routines on this node and 43 hub directories. Parcel applied and proven by fact on 3 nodes of 6; 3 offline, parcel waiting in inbox.
+
+Side findings surfaced by applying the rule to its own delivery: the scripts directory does not sync (the parcel would have travelled empty), re-registration silently skipped the apply-step update, and a new routine appeared after "9 of 9 done" had been announced.
+
+Pattern: **a measurement that supports the conclusion its author is writing requires a second method before it is quoted.**
+
+### 3. A guess outranked a direct pointer and the package went to the wrong room
+
+Symptom: the full onboarding package for a new external peer was delivered to a chat room that was not the one designated by the principal.
+
+Evidence: a group link present in the lead's direct messages was used as the target without corroboration. Detection was human: one line stating that the room contains no messages from the principal. Secondary technical fact: the chat object's last-message field can return content belonging to a neighbouring chat, so it is not a usable signal.
+
+Root (proven): no procedural step existed requiring evidence that the target is the intended target. The pointer from the principal and the inference from context were treated as interchangeable.
+
+Repair: rule written and wired into two skills. Key outbound to a lead goes from the account where the lead has replied, duplicated into every channel the lead has, and under ambiguity into every room. Cost asymmetry recorded: one extra delivery costs one call, the wrong target costs an hour.
+
+Pattern: **an inference and an instruction are not the same input class.** When they conflict, the inference must produce evidence or yield.
+
+### 4. A planning figure that was never measured
+
+Symptom: outbound capacity was specified in a routine brief as 50 touches per day per account.
+
+Evidence: measurement returns 5 per day per account, 15 per day across three accounts. A 1000-touch plan therefore spans 67 days rather than one week. Ten real touches on the day produced zero replies (sample size too small to carry a verdict, recorded as such).
+
+Two related verdicts reversed the same day: one account recorded as "waiting on code" for 9 days had its launch line commented out; one rail recorded as live has had sending dead for 72 days, visible from the last message date in its own store, 107376 messages present.
+
+Root (proven): both verdicts were issued by the actor who last touched the configuration, with no independent read.
+
+Pattern: **a number that entered the plan without a measurement is a claim wearing a fact's formatting.**
+
+### 5. Autonomy order rolled out, and the write-lease layer immediately became the bottleneck
+
+Symptom: after the "routines are autonomous co-founders" order, live work stalled on write-lease denials against shared roots.
+
+Evidence: 517 write blocks in 24 hours. 416 of them (80%) were requests for a wide root, 404 for the entire working directory. Genuine per-file conflicts: 101.
+
+Sessions affected: 60, worst single session took 153 denials. Rollout of the autonomy block: 41 of 41 live routines on this node, of 289 routine directories total; 248 disabled routines intentionally excluded.
+
+Root (proven): intent extraction in the write guard leased the whole current working directory for any mutating command, so a container lease collided with every narrow lease inside it.
+
+Repair: granular lease with an explicit wide-root list, block versioning, Ed25519 signature, rolled to five fleet nodes. Tests 21/21 and 4/4 with a mutant. Peer-side application not confirmed by fact; verification scheduled 2026-09-21 and carried as debt.
+
+Pattern: **an autonomy order converts a coordination cost into a blocking cost.** Removing the human from the middle does not remove the need for arbitration, it moves it into the lock layer.
+
+### 6. Research rails were addressed by vendor while the account was the real unit
+
+Symptom: half of the principal's paid research capacity never participated in fan-out.
+
+Evidence: three paid buckets exist with one vendor and two with another. Rail identity redefined as vendor plus account: live legs 6 to 9, registry holds 11, quorum unchanged at 4 of 6.
+
+One vendor honestly marked `candidate` (the vendor exists, no door found on this node). Latecomer sweeper run on live data found 13 orders and 46 uncollected legs, against 4 orders and 10 legs for the same class one day earlier.
+
+Root (proven): the identity key of the rail was coarser than the billing unit. Legs that had no name could not be ordered, so they could not be missing either.
+
+Pattern: **an unnamed resource cannot be measured as absent.** Renaming the unit is what makes the debt visible, and the debt jump is a visibility artifact, not a regression.
+
+### 7. A twin instrument was under construction on the same node
+
+Symptom: two sessions on one machine were independently building the same teaser-draft instrument.
+
+Evidence: detected by comparing file modification times, not by the routine registry.
+
+Root (not fully proven): no registration step exists for in-progress construction; the registry records routines that exist, not work that is starting.
+
+Repair: twin killed in favour of the existing tool.
+
+Pattern: **a registry of finished things does not prevent duplicate starts.**
+
+### 8. Permissions mask wiped for the tenth time by someone else's hourly job
+
+Symptom: ACL mask on a shared imports directory on the anchor node reverted from full to reduced rights, tenth dated recurrence.
+
+Evidence: `getfacl` shows `mask::r-x` where `rwx` is required. Hourly cron mirrors code with a permission-preserving copy flag.
+
+Backup refusal recorded at 04:25, cron ran at 04:07. Up to 24 wipes per day are possible.
+
+Root (proven this cycle): the mirroring job carries the permission-preserving flag and reapplies the source mask each run.
+
+Repair: tenth manual workaround applied, candidate fix (drop the permission flag) recorded on the card, two month-old cards describing the same file merged.
+
+Secondary finding: recall matches duplicates by wording and does not match kinship between one object filed under two different names. The two cards coexisted for a month.
+
+Pattern: **a recurrence counter that counts names rather than objects never reaches its threshold.**
+
+### 9. A vendor quality verdict was a login-state verdict
+
+Symptom: a research vendor was recorded as weak, returning two sources per query.
+
+Evidence: the same prompt executed under an authenticated account returned 8 and 12 sources.
+
+Root (proven): the measurement was taken through an anonymous session, which serves a reduced product.
+
+Pattern: **measure the product you pay for, from the identity you pay with.**
+
+### 10. Two honest zeros that resembled broken detectors
+
+Symptom A: a judge verdict file displayed as 0.0 KB. Contents: 25 bytes, `QUIET-NOTHING-ACTIONABLE`. The display rounded to one decimal.
+
+Symptom B: one channel-judge batch accepted 18 findings (lane record) and the neighbouring batch accepted 0.
+
+Evidence: delivery for symptom A confirmed by message id; lane digests are continuous across 03-12 September for symptom B.
+
+Root (proven): both are honest outputs. A two-order-of-magnitude spread in an acceptance rate is dispersion; distinguishing it from detector failure requires a second instrument, not a threshold.
+
+Pattern: **zero is a legitimate verdict, and only a second instrument separates a quiet night from a dead detector.**
+
+### 11. The application pipe has received no input for three nights
+
+Symptom: the job-application pipe produced no input reports on 12, 13 and 14 September; the last report is dated 11 September 04:20 and the run log stands at the same date.
+
+Evidence: freshness by modification time is unusable as a judge, because a mass edit of routine files on the twelfth reset it. The shift investigating this was itself cut by a call-budget gate at 80 calls.
+
+Root: not named. Recorded as unnamed rather than guessed. Class deduplicated as `routine-missed-a-day-silently`, top-priority card filed, repair deferred to the third dated case per the third-breakage rule.
+
+Pattern: **an edit that touches every file destroys the only freshness signal those files carried.**
+
+### 12. Standing inventory
+
+- Measurement bench for harness improvements: built 2026-08-11, unused for 33.2 days, review date overdue by 20 days, technically healthy. Health is why nobody returned to it.
+- Connector processes: 147 hanging stdio instances, oldest 3.8 days. 132 were cleaned four days earlier; the count returned. Symptom cleaning without root work.
+- Two tool installations on one machine, the older first in PATH, with planning and execution resolving to different models.
+
+## Deliverables
+
+- Deploy shape judge fixed at the root; gate moved to registration time; 44 records re-labelled honestly.
+- Canon rule: "done" is a claim, proven by a second pass that differs in method; critical work takes a third pass through foreign eyes.
+- Doubt measurement over 3613 transcripts with a published eightfold self-correction (475 to 57).
+- Research rail registry keyed by vendor plus account, with a maximum-thinking-mode proof field; latecomer sweeper covering 13 orders and 46 legs.
+- Outbound-to-lead rule keyed on reply history, with duplication into all known channels.
+- Granular write lease, signed, five nodes, with the 517 / 416 / 101 measurement behind it.
+- Local OCR of a personal document archive: 815 of 850 documents, 5M characters, 39 minutes on a local GPU, zero token cost, acceptance performed with live retrieval queries rather than counters. 35 documents (4%) unprocessed and named.
+
+## Open
+
+- 150 installer-bearing parcels not yet audited for the shape found in nine.
+- Second-pass parcel undelivered to 3 of 6 nodes (offline).
+- Granular lease unconfirmed on peers until 2026-09-21.
+- Nameless fan-out legs: repair session open, seventh dated case of the class.
+- Parcel queues on two other machines: 106 and 60 items.
+- Application pipe input root unnamed, waiting for a third dated case.
+- Touch cap unresolved: rail yields 5 per day per account, plans assumed 50.
+
+---
+
+*Written by: Opus 5. Machine-log voice: Mike. Factual base: one canon beat and nineteen session reviews across four nodes, extracted by two Sonnet agents.*
 
 *Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*

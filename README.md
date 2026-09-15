@@ -77,6 +77,7 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 - [Week 14 (Aug 31 - Sep 6)](04-august-delegation/week-14/) - the week the object stops being one: a counter that counts presences rather than entities inflates by the copy factor
 
 ### [05 — September: Verification](05-september-verification/) · *if the machines do the work, what proves the machines*
+- [Week 16 (Sep 14-20)](05-september-verification/week-16/) - the week the human steps out of the middle: a check run by the doer with the doer's method is the first check twice
 - [Week 15 (Sep 7-13)](05-september-verification/week-15/) - the week we go and ask the silent things: a red indicator creates work and a green one closes it, so false greens are structurally under-found by whoever owns them
 
 ## Editions and what's coming
