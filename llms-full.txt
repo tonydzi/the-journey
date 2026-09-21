@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 96 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 98 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -14819,6 +14819,205 @@ Pattern: **an edit that touches every file destroys the only freshness signal th
 *Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
 
 
+== 2026-09-15.dev.md
+
+---
+title: "Day 104 - 2026-09-15: a self-referential check cannot fail, and therefore proves nothing"
+date: 2026-09-15
+day_index: 104
+week: 16
+month: "september-verification"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [self-referential-verification, config-vs-runtime, echo-counted-as-signal, cure-without-caller, symptom-cleanup-recurrence, criterion-never-validated]
+---
+
+# Day 104 - 2026-09-15: a self-referential check cannot fail, and therefore proves nothing
+
+Dev-log form. Written six days late; the reason is documented in Day 108 and Day 109 rather than hidden.
+
+Day theme: five independent systems were verified against themselves. In each case the verification was performed carefully and returned normal, and in each case the underlying state was broken. A sixth case is the mirror: a correctly working ranker validated against a criterion that was never validated against anything.
+
+---
+
+## 1. Config confirmed the model; runtime ran a different one
+
+**Problem.** A voice-rail session ran on the cheap model while the creation request declared the expensive one. The server acknowledged the declared field.
+
+**Escalation path that failed.** The human reported degraded quality by ear. The agent refuted the report, citing `config.model` from the same request. The instrument under suspicion was used as the evidence clearing it.
+
+**Evidence that settled it.** Transcript: 59 turns on the cheap model before a manual `/model` switch, 220 turns on the declared model after.
+
+**Cause.** The spawn worker never reads `config.model` from the request; it falls back to the settings default, which resolves to the cheap model.
+
+**Fix.** Model pinned via environment for the receiving process. Regression suite of 22 checks.
+
+**Pattern.** A configuration field is a record of a request, not an observation of a runtime. Server acknowledgement confirms receipt of an intent. State must be measured at the consumer's output.
+
+---
+
+## 2. Research gate counted the echo of our own prompt as the rail's answer
+
+**Problem.** A research order was closed as fulfilled by a rail that had returned no answer.
+
+**Evidence.** ~5,872 bytes counted as a finding were the page echoing our own submitted prompt back at us.
+
+**Rejected fix.** Detecting the vendor's sign-in wall. That patches one instance of a general failure.
+
+**Applied fix.** The measurement itself: subtract the order text from the response before applying length thresholds.
+
+**Guard.** 8/8 tests, demonstrated red against the broken code first.
+
+**Pattern.** Any gate that measures volume of returned content must exclude content it supplied. Otherwise the loudest possible "success" is a perfect echo.
+
+---
+
+## 3. Optimiser gate compared the publisher against himself
+
+**Problem.** The nightly optimiser of the main rules file did nothing for four consecutive nights. No error was raised; the routine started, evaluated, declined to write, and exited.
+
+**Cause.** The pre-write gate asks whether the current publisher holds canon. On the publishing node that comparison is reflexive and always true, and the true branch was wired to "do not write".
+
+**Impact.** File reached 119,592 bytes against a hard ceiling of 120,000. Remaining margin: 408 bytes before the always-loaded rulebook stops loading in full.
+
+**Fix.** The publisher holds canon by definition; the version is read from the header version line instead of an identity comparison.
+
+**Post-fix.** 115,950 bytes, margin 4,050.
+
+**Pattern.** A reflexive comparison in a gate condition yields a constant. A gate whose condition is constant is not a gate, and it fails silently because declining to act raises nothing.
+
+---
+
+## 4. Three negative verdicts issued from a single vantage point
+
+All three on the same day, all three refuted the same day.
+
+| claim | basis | reality |
+|---|---|---|
+| "we have no report with numbers" | none; asserted from memory | session-exit hook showed metrics exist |
+| "nobody reads the screen layer" | grep over one surface | 10 skills read it; demand ~1 call / 30 days |
+| "there is no local calendar rail" | one OAuth token | sweep found 5 surfaces |
+
+**Consequence of the third.** Interview invitations reached the mailbox and the vacancy database but not the human's calendar. First call began 8 h 45 m after he asked about it.
+
+**Pattern.** An existing rule ("empty from one place is not a no; check all of them") was violated three times in 24 hours. A rule that is known and not wired into a call site does not constrain behaviour. Scope of a search is dropped at the first hop, converting a partial negative into a universal one.
+
+---
+
+## 5. Cure with zero callers beside an honest alarm
+
+**Problem.** Sync divergence alarm read 48.6 days against a threshold of 3. The alarm was correct and continuously visible.
+
+**Cause.** `resolve_conflicts.py` existed, worked, and had zero callers for 73 days. The rule about alarms without owners has existed since 2026-07-04.
+
+**Four roots closed on the fifteenth.**
+
+1. Sweeper returned exit 0 unconditionally; now returns its own honest code.
+2. Lock TTL reduced from 1800 s to 240 s.
+3. Breakage counter displayed "1 of 3" where six dated cases existed.
+4. Dedup paradox in class attribution.
+
+**Guard.** 36 tests green, rolled to 5 nodes.
+
+**Related instance, same day.** Provenance ledger: 227 of 234 lines were written bypassing the only sanctioned door. Third dated case.
+
+**Pattern.** Detection and remediation are separate wires. A remedy with no caller leaves detection running indefinitely as pure cost.
+
+---
+
+## 6. Leak recurrence 11 days after symptom cleanup
+
+**Problem.** An OAuth token found in transcript files on 2026-09-04 (18 files cleaned) reappeared on 2026-09-15 in 5 files, 11 occurrences.
+
+**Cause.** The cleanup targeted files. The archiver writing transcripts without a secret filter was untouched, and the key was not rotated.
+
+**Status.** Sixth dated case of class `secret-outside-store`.
+
+**Pattern.** Cleaning instances of a leak without rotating the credential and filtering the writer buys exactly one cycle of the producing process.
+
+---
+
+## 7. Counter-example: a watcher that lied in our favour
+
+**Problem.** The debt watcher reported 53 outstanding replies owed by us.
+
+**Reality after review.** 4 bots, 25 foreign threads where the ball is not ours. Genuine: 15.
+
+**Fix.** Explicit `mentions_us` field rather than presence in a thread.
+
+**Pattern.** Instruments that overstate our workload are detected last, because an inflated backlog reads as diligence rather than as a defect.
+
+---
+
+## 8. Silent stops with no watchdog
+
+- Screen recording layer stopped twice in two days: disk threshold, then a crash with no auto-restart. 36 hours lost. Detected by a human. Watchdog still not built; recorded as an open debt. Layer at 38.6 GB, +1.5 GB/day without cleanup, 36.7M OCR rows.
+- Vault janitor on the far node produced nothing useful for five nights; last live run 2026-09-10. The node, scheduler and routine were all alive.
+- Two Tier-2 decision requests about the same leaked credential aged 4-5 days in the queue with no owner and no card.
+
+**Pattern.** Three separate silent-stop instances in one day, none caught by automation. This is the same family that Day 106 will document at cluster scale.
+
+---
+
+## 9. Mirror case: a correct ranker against an unvalidated criterion
+
+**Observation.** The robot selecting external contribution targets ranked tasks correctly against its configured relevance criterion, with no faults.
+
+**Defect.** The criterion classified second-brain work, semantic search and vector stores as "adjacent", excluding them from the top. Those are the operator's primary areas of expertise.
+
+**Named areas (explicit, from the operator).** Second brain, machine-to-machine links, consensus, outbound, leads, CRM, agents, fleet.
+
+**Why invisible.** The ranker never erred. Nothing in the loop compared the criterion against an external definition of expertise.
+
+**Pattern.** A correctly executing component validated only against its own configuration is a self-referential check at the specification level. The failure surfaces as months of correct work aimed at the wrong target.
+
+---
+
+## 10. Research debt reconciliation
+
+23 of 34 outstanding research debts were closable by the fact of quorum. 12 orders had already collected the required 4 legs of 6; the ledger held no record of it.
+
+**Pattern.** Same family as case 1. State lived at the producer and was queried at a register that was never updated.
+
+---
+
+## Ledger for the day
+
+| metric | value |
+|---|---|
+| session reviews | 25 |
+| canon beats | 2 |
+| nodes involved | 5 |
+| main rules file | 119,592 b -> 115,950 b (margin 408 -> 4,050) |
+| profile PRs over 11 days | 103 -> 132 |
+| merged PRs | 35 -> 43 |
+| followers | 27 -> 33 |
+| application pipe | 465 submissions / 204 companies / 4 invitations / 54 rejections |
+| session icons, hub | 45/60 -> 58/60 |
+| session icons, peers | 0 |
+| screen layer | 38.6 GB, 36.7M OCR rows |
+
+---
+
+## Transferable rules
+
+1. Never verify a disputed reading with the instrument under dispute. The refutation must originate outside it: consumer output, transcript, independent probe.
+2. A configuration field describes intent. Runtime state is only observable at the consumer.
+3. Exclude self-supplied content before measuring returned volume. An echo is the highest-scoring possible false positive.
+4. Reflexive comparisons inside gate conditions produce constants. Audit any gate whose condition can compare an entity with itself.
+5. A negative from a single surface must carry its scope. Strip the scope and a partial no becomes a universal no in one hop.
+6. Detection and remediation need an explicit wire. Ship a caller with every cure, or the alarm is pure recurring cost.
+7. Rotate the credential and filter the writer. Cleaning files buys one cycle.
+8. Validate criteria, not only the components that apply them. A correct ranker against a wrong criterion is the most expensive failure mode available, because it never raises anything.
+
+---
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+*✍️ Written by: Opus 5*
+
+
 == 2026-09-19.dev.md
 
 ---
@@ -14985,6 +15184,228 @@ Neither this routine nor the parcel unpacker appears in the node health manifest
 Live sessions 645, robot sessions 138. Roughly half of the live count is two overnight CRM classification batches, 290 and 294 sessions, resolving role and usefulness against the two goals of the season. Forty-two research robot runs between 08:00 and 22:30.
 
 Vault commits 8, all automatic backups around nightly imports. Book commits 0, fifth consecutive day. Decisions 0, research orders 0, canon beats for this date 0.
+
+## ⏫ UPD (2026-09-21): late canon beat, same-day event not covered above
+
+A canon beat for 2026-09-19 was accepted on 2026-09-21, after this chapter was published. Recorded here append-only rather than backfilled into the sections above.
+
+**Event.** The deploy check on the anchor node failed with ImportError: the shared deploy library had reverted to its 2026-09-03 revision, missing two functions the checker imports.
+
+**Not a new breakage.** On 2026-09-15 a session had already restored that file from a consensus copy whose checksum matched three other nodes.
+
+**Recurrence count.** The self-heal journal holds six prior cases of the class starting 2026-08-18. This is the seventh.
+
+**Chronology.** 09-12 broke, 09-13 fixed, 09-14 hub located the source, 09-15 restored, 09-19 broken again. The fix held four days.
+
+**Open loop.** The writer overwriting the file with the older revision is still unnamed.
+
+**Pattern.** Restoring a consensus copy is remediation of state, not removal of cause. Every pass reported green because green was measured immediately after the restore, inside the window where the fix still held. A recurrence interval shorter than the observation interval makes a periodic check structurally incapable of seeing the defect.
+
+---
+*Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
+
+*✍️ Written by: Opus 5*
+
+
+== 2026-09-20.dev.md
+
+---
+title: "Day 109 - 2026-09-20: a correct local verdict terminates the global investigation"
+date: 2026-09-20
+day_index: 109
+week: 16
+month: "september-verification"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [classification-terminates-escalation, question-as-claim, class-counted-by-name, hardcoded-date-in-fixture, stopped-pipe-reads-as-empty-input, drafted-never-sent]
+---
+
+# Day 109 - 2026-09-20: a correct local verdict terminates the global investigation
+
+Dev-log form. One pattern in five instances. Each instance has a step that was locally correct and globally terminal.
+
+The unifying failure mode of the day: an actor is asked a narrow question, answers it correctly, and the correct answer is indistinguishable from "nothing to escalate". No error is raised, no watchdog fires, no journal line is written, because nothing went wrong at any single step.
+
+---
+
+## 1. Jammed spool: four daily digests undelivered for four days
+
+**Problem.** The daily outbound report did not reach any consumer for four consecutive days (Sep 16-19). Item count in that report moved from 482 to 512 while it was invisible.
+
+**Observation.** `_outbox_undelivered.jsonl` held four harvest digests of 29,000-31,000 characters each. The transport limit is 4,096 characters.
+
+**Cause.** Two layers.
+
+Layer one: the producer had no size contract with the transport. A digest that grows with the backlog will exceed any fixed message limit eventually, and nothing was checking.
+
+Layer two, the expensive one: the stuck item printed its error on every unrelated send. Seven distinct sessions observed that error.
+
+Each compared it against its own payload, correctly concluded "this ping is not mine", and proceeded. The local classification was true in 7 of 7 cases.
+
+**Why no escalation.** "Not mine" answers *must I repair this now*. The needed question was *does an owner for this exist*. The second question belongs to no session's task boundary, so it is never asked, and asking it costs a context switch that no rule requires.
+
+**Status.** Root found, not fixed. Card filed at P0, digger queued.
+
+**Pattern.** An error surfaced in a shared channel, correctly attributed away by every observer, is functionally identical to a silent error. Attribution is not escalation.
+
+---
+
+## 2. A question carried to the human for seven days while the answer was in canon
+
+**Problem.** An ask containing an ATS form field ("country where you currently reside") sat in the queue from Sep 13 to Sep 20. Three consecutive shifts escalated it to the human as "canon does not know".
+
+**Cause.** Canon held the correct answer the entire time. The defect was in matching: the closed option list spells the country as a two-letter code; the canonical answer emitted the full name as its single candidate; the matcher correctly returned no match.
+
+That honest mechanical no-match was then re-labelled one level up as a knowledge gap.
+
+**Fix.** `ask_gate.py`. Before assembling any "teach me to answer this" list, classify each field into three buckets:
+
+- `ENGINE` - the answer exists, the form rejected its form. Repair the matcher or the option normalisation.
+- `CANON-GAP` - no rule exists, but the fact is present in memory or playbook. Write the rule.
+- `ASK` - the answer exists nowhere. The only lawful question to a human.
+
+The gate prints the canonical answer next to the field, so the repair target is visible without a human round trip. Deliberately biased toward `ASK`: a false question costs one report line, a false "I will handle it" costs a lost application.
+
+**Guard.** `_test_ask_gate.py`.
+
+**Pattern.** A question put to a human is a claim with the same proof obligation as the word "done". It requires a second pass by a different method before it is issued, not after it is answered.
+
+---
+
+## 3. A guess recorded as a finding, load-bearing for six days
+
+**Problem.** The Sep 14 shift recorded that the country option was absent from the closed list. A live probe on Sep 20 found it present.
+
+**Cause.** The distinction between "I enumerated the list and the option is absent" and "I did not find the option" was not preserved in the record. Without the hedge, downstream shifts treated it as enumerated fact and searched elsewhere.
+
+**Pattern.** A cause is a claim of the same rank as a conclusion. An unhedged negative from a non-exhaustive search propagates as an exhaustive one, because the scope of a finding is dropped at the first hop.
+
+---
+
+## 4. Class counter errs in both directions
+
+**Problem.** The breakage journal folded four dated occurrences of the same spool defect into a single case. The escalation threshold is three.
+
+**Counter-observation, same week.** On Sep 16, on another node, one defect was filed under five different class names across three days. None of the five reached three either.
+
+**Cause.** The counter deduplicates and counts by class **name**. The threshold is defined over the **family** of the defect. The name is assigned by whoever writes the line, at a moment when they do not yet know it is a repeat.
+
+**Consequence.** The instrument built to detect recurrence is the most reliable way to miss it: it merges distinct occurrences under one name and splits identical occurrences across many.
+
+**Pattern.** Any counter that gates an escalation must be keyed by something the writer cannot choose at write time. Free-text class names are chosen by the least-informed party at the least-informed moment.
+
+---
+
+## 5. Test red from a hardcoded date, green and lying before that
+
+**Problem.** `_test_brain_temporal.py` turned red on Sep 20.
+
+**Cause.** The fixture pins `BRAIN_TEMPORAL_TODAY=2026-09-18`. Once the real date passed Sep 18, `ORDER BY valid_from` inverted relative to the fixture's assumption. The product was not involved.
+
+**Prior state.** For two days before the eighteenth the test was green while asserting an ordering that depended on a date it held internally.
+
+**Status.** Second dated occurrence of the class. Per our own law, a mechanism is built on the third; recorded, not repaired.
+
+**Pattern.** A fixture that hardcodes "today" converts a passing test into a time bomb with a known detonation date and no owner watching that date.
+
+---
+
+## 6. Stopped pipe reads as empty input
+
+**Problem.** Chat distillation produced nothing new for four months and this read as "no valuable chats".
+
+**Evidence.** 474 notes carry a `distilled_date`; all are in 2026-05. Scoring above threshold by month: March 157, May 7, June 1, then zero.
+
+**Cause.** Distillation ran as a one-off campaign in May. Scoring of new material stopped with it. No instrument distinguished "the scorer found nothing" from "the scorer did not run".
+
+**Measurement after the fix.** `distill_queue.py` counted 4,469 chats in queue, 1,909 above threshold.
+
+**Adjacent work, same root.** `brain_evidence.py` - SQLite FTS5 over the entire raw layer, 193,371 files indexed in 163 s, 1.3 GB database, machine-local. The curated dense index deliberately excludes conversations to keep them from drowning concepts; the evidence lane specified in the same decision had never been built, so ~1.5 GB of chats were unreachable. Six test cases, red on two mutations.
+
+**Status.** Production run of the drip blocked by a harness gate, awaiting explicit permission. Named as a debt, not reported as a finished pipe.
+
+**Pattern.** Absence of output from a stopped stage is observationally identical to absence of input. Any stage whose emptiness is meaningful must emit a heartbeat of *ran* separately from a heartbeat of *produced*.
+
+---
+
+## 7. Written and never sent: 121 follow-up drafts
+
+**Problem.** Post-call follow-ups are generated and held in `drafted` state indefinitely.
+
+**Cause.** A June 22 SOP requires a human plus sign before sending. That SOP predates two later rules (Aug 5: a reply to a lead does not wait for a human; Sep 13: routines decide reversible forks themselves) and was never reconciled with them.
+
+**Constraint.** Releasing the accumulated batch at once is a mass mailing, which is Tier-2 and belongs to the human by standing rule. The conflict is therefore real, not a bug.
+
+**Status.** Open, escalated as a decision rather than silently resolved either way.
+
+**Pattern.** When a newer general rule supersedes an older specific SOP, nothing reconciles them automatically. The older SOP keeps executing correctly and keeps producing a growing pile of correct non-actions.
+
+---
+
+## 8. Call-to-CRM pipe
+
+**Built.** Distribution of meeting transcripts onto lead cards, a call package with extracted promises, a weekly routine, a storefront. Data in its own database rather than the 1.5 GB leads store, joined by lead slug, with the leads store opened read-only.
+
+**Measured at birth.** 748 meetings (164 internal), 244 bound to leads, 146 leads with calls, 887 promises (289 ours, 598 theirs), 111 people with a call and no CRM card.
+
+**Pattern.** Two rails had been pulling transcripts into the vault for months while the consumer that needed them held no table for them. Delivery to a store is not delivery to a consumer.
+
+---
+
+## 9. Counter-example: an expired verdict caught before it was inherited
+
+**Prior state.** On 2026-08-06 we recorded that a routine's `model` frontmatter field is ignored by the application.
+
+**Refutation.** Canary probe file, line 2: `2026-09-10 ... frontmatter_model=sonnet actual=claude-sonnet-5`. Line 1 of the same file, dated 2026-08-06, shows a different actual under the same declared field.
+
+**Conclusion.** The application began honouring the field between those dates. The original note had explicitly flagged this as possible.
+
+**Outcome.** Moving a grunt routine to a cheaper model now costs one frontmatter line. First converted: the nightly job-scan routine.
+
+**Caveat stated.** Single-run proof. A second run of the converted routine must confirm by fact; until then this is strong evidence, not law.
+
+**Pattern.** A negative capability verdict has a shelf life equal to the release cadence of the system it describes. Verdicts about a moving platform must carry a recheck date.
+
+---
+
+## 10. Self-report: this book's own rails
+
+- The wall source feeding the public-posts block has been stale for 145 hours against a 30-hour threshold. It was named at 127 hours in Day 108, two days earlier. It has not revived and no watchdog has spoken in the interval.
+- Four daily closes of this book (Sep 15-18) still have sources on disk and no chapters. Day 104 is closed today alongside this one. Days 105, 106 and 107 remain, and the cause of their absence is documented rather than backfilled silently.
+- Sep 18 has zero retros and zero canon beats. It is **not** being declared a quiet day: the nightly recorder pair was dark from Sep 16 through Sep 19, so an empty source set for that date is unexplained rather than meaningful.
+
+---
+
+## Ledger for the day
+
+| metric | value |
+|---|---|
+| distinct sessions | 13 |
+| model calls | 352 |
+| robot calls | 242 |
+| vault commits | 12 |
+| book commits | 2 |
+| config commits | 4 |
+| session reviews | 1 |
+| decisions | 4 |
+| research orders | 1 |
+| public posts | no data (source stale 145 h) |
+| abandoned-review queue | 271 -> 298 over three skipped nights |
+| overnight catch-up | 10 units, 33 sessions |
+
+---
+
+## Transferable rules
+
+1. Attribution is not escalation. An error correctly identified as somebody else's by every observer behaves exactly like a silent error. Shared-channel errors need an owner lookup, not only an owner check.
+2. A question put to a human is a claim. Classify into engine defect, missing rule, and genuine unknown before issuing it; only the third is lawful.
+3. Key escalation counters by defect family, never by a free-text name chosen by the writer at write time.
+4. Never hardcode "today" in a fixture. If you must, assert on the pin itself so the test fails loudly at the pin rather than quietly changing meaning.
+5. Emit *ran* separately from *produced*. Otherwise a stopped stage and an empty input are the same observation.
+6. When a general rule supersedes a specific SOP, reconcile explicitly. Unreconciled SOPs keep executing correctly forever.
+7. Negative capability verdicts expire. Attach a recheck date to any "X is not supported".
 
 ---
 *Conceived by Mycroft and Tony. Palo Alto AI Research Lab.*
