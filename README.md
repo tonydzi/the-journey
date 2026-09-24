@@ -130,10 +130,11 @@ Questions, war stories, or you want to run this on your own fleet:
 
 ## 🧩 One piece of a working system
 
-This repository is one piece lifted out of a live operation: one non-technical founder, an AI
-cofounder, and a fleet of machines that reach consensus with each other and wake the human only
-for money or the irreversible. It was extracted after it survived production, not written as a
-demo — and it runs on its own: nothing here phones home to the rest.
+This repository is one piece lifted out of a live operation: one engineer running a fleet of
+machines, built with Claude as implementation collaborator; the machines reach consensus with
+each other and wake the human only for money or the irreversible. It was extracted after it
+survived production, not written as a demo — and it runs on its own: nothing here phones home
+to the rest.
 
 **See how the whole thing fits together → [SYSTEM.md](https://github.com/tonydzi/tonydzi/blob/main/SYSTEM.md)**
 
