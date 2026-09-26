@@ -4,7 +4,7 @@
 
 > *THE JOURNEY with Claude Code*
 
-**How one non-technical founder and an AI built a second brain, day by day.**
+**How one engineer built a second brain with Claude as implementation collaborator, day by day.**
 
 This is a build-in-public book. Anton Dziatkovskii started working with Claude Code on **2026-05-27** to build a "second brain" — a system that imports his whole life, thinks with him, and grows into a digital twin. This book is the honest daily log of that: what we tried, what broke, what we learned, and where it went.
 
