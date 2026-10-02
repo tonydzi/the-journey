@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 100 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 101 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -15866,3 +15866,228 @@ This item belongs to the day's pattern rather than to housekeeping: the routine'
 *Придумано Майкрофтом и Тони. Palo Alto AI Research Lab.*
 
 *✍️ Написано: Opus 5*
+
+
+== 2026-10-01.dev.md
+
+---
+title: "Day 120 - 2026-10-01: a word used for verdicts had no owner, so every instrument defined it at the cheapest layer it could see"
+date: 2026-10-01
+day_index: 120
+week: 18
+month: "september-verification"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [word-without-an-owner, cheapest-observable-layer, liveness-contract, composite-counter-key, hint-as-identity, attribution-in-prompt, unit-of-the-mission]
+---
+
+# Day 120 - 2026-10-01: a word used for verdicts had no owner, so every instrument defined it at the cheapest layer it could see
+
+Dev-log form. One pattern in eight instances, plus one human counter-example.
+
+The unifying failure mode of the day: a verdict was issued over a term that had no single callable definition and no owner. Every component that needed the verdict supplied its own definition, and each one resolved the term at the cheapest layer it could observe. That layer was always transport, never subject.
+
+No instrument in this log measured incorrectly. Every reading was true about the thing it measured. The defect sits one step before the reading, in the vocabulary.
+
+This is the next step on the line of Days 108-111. Day 110: a reading true about one layer, consumed as a claim about the pipe. Day 111: a rule true about one world, executed in another. Day 120: a word with no definition at all, silently forked into N private definitions by N instruments.
+
+Scale of the day: 43 distinct sessions, 197 calls, 95 of them robotic, 28 retrospectives, 27 vault commits, 48 config commits, 4 decisions, 4 research orders, 0 commits to this book.
+
+---
+
+## 1. "Alive" had no callable definition
+
+**Problem.** Four dated cases of the class "liveness judged at the transport layer" (Aug 13, Sep 13, Sep 30, Oct 1). A five-whys session was opened on the class rather than on any single case.
+
+**Finding.** The fleet had no definition of the word. No file, no function, no owner. Each instrument that had to emit a liveness verdict invented a criterion and chose what it could observe most cheaply: an open port, an HTTP 200, a file present in PATH, a process matching a command-line substring.
+
+**Second half of the defect.** Inside the shared judge, ok-evidence was combined with OR. A fresh access timestamp next to a stale output returned `alive`. One live piece of evidence repainted an entire object green.
+
+**Fix.** A single callable contract. Green is emitted only from access AND a fresh output of the subject. The transport layer is removed from the verdict entirely.
+
+**Evidence.** 26/26 tests, plus 5 mutants, each of which must and did go red. Live audit under the new contract: 3 subjects proven alive, 1 acknowledged hole with a named expiry date, 3 real holes that the previous instruments had reported healthy.
+
+**Side finding.** A Telegram-access prober had been standing for 17 days with zero callers. The part was alive and had no consumer.
+
+**Pattern.** A term that gates a verdict is a system component: it needs one home, one owner and a test. Absent that, the cheapest observable proxy wins by default, because measuring what is measurable is the only thing an executor can do when the definition is missing.
+
+---
+
+## 2. "Independent review" meant "how many engines answered"
+
+**Problem.** A gate requires an essay to pass a panel of external-vendor engines before submission. The panel reported "independent families: 4" and the gate went green.
+
+**Cause.** The panel script accepted a `--spec` flag carrying the path to the material; the `panel` branch never read it. Four engine families produced verdicts on a text they were never given.
+
+**Fix.** `panel` now refuses `--spec` instead of accepting-and-ignoring it. Class filed: flag accepted then silently ignored.
+
+**Note.** The real gate did work afterwards: the essay's figures were cross-checked against their source and matched.
+
+**Pattern.** "Independent" was quantified as responders, not as readers-of-the-subject. A gate's definition of its own term must include the subject, or the gate measures attendance.
+
+---
+
+## 3. A composite counter key hid the rail that answered
+
+**Problem.** The rail-plan instrument reported a shortfall: external paid rails were not called.
+
+**Second pass, different method.** The rail had answered. One engine worked for 467 seconds and returned a result.
+
+**Cause.** The writer stored a composite key of the form `all-rails-comma-separated`; the reader treated that whole string as the name of one rail. No lie, no crash: the instrument read its own note in a different alphabet.
+
+**Third finding, same session.** The fan-out held all engine responses in memory until the last rail returned. On a shell break, already-paid responses died silently, one of them 291 seconds of a vendor bucket.
+
+**Pattern.** A conclusion that is convenient to the author (here: "the rails are not being used, so the plan is unmet") needs one independent piece of evidence before it is reported. Composite keys need a reader written against the writer, not against a guess.
+
+---
+
+## 4. "Cancelled" was a heuristic over prose
+
+**Problem.** The memory linter flags tombstones: records superseded by a newer rule that must carry machine-readable closure fields.
+
+**Cause.** Its definition of cancellation was a heuristic - a prohibition sign plus a year in the body text. Live, in-force prohibitions that merely mention a year were matched.
+
+**Fix and evidence.** Three negative controls were red before the fix. After: 32/32 and 12/12 tests, a live run over 1,635 records, and 1,668 memory-file hashes unchanged, which proves the linter now touches only what it must.
+
+**Process note from the same session.** The implementer first diffed against the parent repository's HEAD instead of the separate git root for scripts, producing an empty diff; prior art was not raised before repeated review attempts although two dated precedents existed in the preceding week; the rail plan was declared in prose and never registered.
+
+---
+
+## 5. A hint was asked to do an identity check's job
+
+**Problem.** OAuth trust boundary for a video channel. Trust was accepted before verification, and channel identity was inferred from `login_hint`, a query parameter that is by construction a hint.
+
+**Fix.** Binding of the response to the login attempt, and proof of channel identity, both now precede token storage.
+
+**Evidence.** 52 pre-existing tests pass; 11 new tests pass, 3 of them over a real network socket with a mocked provider. Control mutations: removing the channel guard reddens 4 tests; disabling state comparison reddens 1.
+
+**Not fixed.** Live provider access was not restored. The local tests prove the boundary now sits in the right place; they do not prove the live failure is cured. Browser automation did not respond twice, the built-in browser surfaced an account chooser, and auto-review declined the selection without explicit confirmation.
+
+---
+
+## 6. Model attribution lived in the prompt
+
+**Problem.** A transcription workflow signed its footer with a model name hardcoded in the prompt text. The model on that branch had changed six weeks earlier; the signature kept naming the old one.
+
+**Fix.** Attribution moved from the prompt into code, emitted by the component that knows the actual model name.
+
+**Test finding.** A second occurrence of the signature marker inside a different field was being cut at the last match, leaving a tail. Fixed by cutting at the first marker. The test ran red on a real recorded fixture before the fix.
+
+**Scope correction.** The edit was first rolled out to all chats, then narrowed to a single branch on the owner's clarification. Rollback executed.
+
+**Side defect.** The workflow API began rejecting PUT on one settings field; a new class, handled by an allow-list.
+
+---
+
+## 7. "The head of a pull request" had two meanings
+
+**Problem.** A routine was working down a warehouse of open pull requests under an explicit order to finish existing ones rather than open new ones.
+
+**Observations.** Live count 54 open, not the 56 carried in the seed; 50 of them in third-party repositories. After filtering bot authors, a real human was present in only 10 of the 50 threads.
+
+**Cause.** Rebases were taken from the local clone, that is from our representation of the remote head, rather than from the head itself. In one case the remote head sat on a different commit and a hash was reconstructed from memory instead of read from `headRefOid`.
+
+**Result.** 20 moves, 4 own PRs closed, 6 branches force-pushed, CONFLICTING 4 to 1, two cookbook warehouses halved.
+
+**Instrument defect, same session.** The breakage journal reported "the count is understated, two more cases exist" on a line it had itself classified as a new class, while the prior-art tool answered clean. A falsely inflated counter orders an unnecessary repair session.
+
+**Rail accounting.** The promised external rail for code reading was called zero times, reason `forgot`.
+
+---
+
+## 8. "The routine is running"
+
+**Problem.** The research-teaser lane had been silent since Aug 23, five and a half weeks. 110 September research orders produced no outward line.
+
+**Cause.** The routine was physically absent from the scheduler while its registry status read alive.
+
+**Fix.** Recreated and run in the same session: corpus 227 to 328, 12 teasers, gate 12/12.
+
+**Same class, same day.** The day-ledger routine has been silent since Sep 22 with a live status. Seventh dated case of the family "routine runs, output is stale".
+
+---
+
+## 9. A new node joined, and "fleet-wide" turned out to be local
+
+**Work.** Login items, a 120-second keeper watchdog and a pre-login system service for sync were installed on a newly onboarded Mac Pro node. 3 of 3 verification scenarios green.
+
+**Defect in the keeper.** Its definition of "process is running" failed twice in opposite directions: without one flag it could not see ancestors and called a live app dead; with that flag it matched an unrelated command line and called a dead app live. Fix: exact executable-path match instead of substring search. A regex separator also swallowed half the pattern and was replaced.
+
+**Update-policy audit on the same node.** The package manager stopped building bottles for its architecture in Sep 2026; the main ML framework for it is frozen on last year's release. Four architecture-incompatible applications were removed.
+
+**Transport defect found in passing.** Without its environment variable, the bus engine on non-Windows silently created a directory named after a literal Windows path inside the home directory and wrote there. Two messages from Sep 30 were recovered from it.
+
+**Hygiene.** A sync log on one node had grown to 227 MB over 750,000 lines with no rotation. Rotation installed; the first plist version lost three arguments to a read/write race between two sessions three minutes apart.
+
+**Canon born here.** A skill is a capability, not a program for one operating system. A part written on any node goes to the shared shelf, and "my OS differs" stopped being a reason to keep it local.
+
+---
+
+## 10. Two deterministic routines went live on the new node
+
+**Voice memos to archive chat.** 29 sent, 161 recognised in-chat, 1 empty, 191 of 539 archive items processed. Engine: 15 checks plus 6 kill-list mutants, live run 29/29.
+
+**Photo roll to CRM leads.** 32 frames in manifest, 2 carded (1 new card, 1 touch), 30 skipped. 5 kill-list mutants.
+
+**Defects.** Full-disk access worked only when the scheduler invoked the interpreter directly, which forced two helper launchers into existence. An arming watchdog did not remove itself after arming and killed live scheduled jobs on every pass, returning rc=1 on 13 consecutive checks before the cause was found. Step 0 of the routine did not distinguish "no new items" from "the exporter is not running". A dry-run mode placed images into the inbox without a manifest, which looks exactly like a fault. The instruction named a non-existent transport account.
+
+**Duplicate-detection note.** Voice files duplicated between two nodes sharing one cloud account under different local filenames; only audio comparison caught it.
+
+---
+
+## 11. Self-reported defects of the day
+
+- The approvals channel ear was off since Sep 15. 17 questions to the owner had accumulated in a queue nobody reads.
+- A health report stated "61 routines not in order"; recount showed 277 of 335 in order, 49 failing, 52 silent for more than a week. The counter erred; the sentence sounded like a diagnosis of the fleet.
+- A session-distillation queue was eating its own tail: 763 items, of which 353 were generated by the pipeline itself. After cleanup 257. Root deferred to a dedicated repair session, third-breakage threshold passed.
+- The same chat corpus was cleared of ghost keys: 9,835 to 17,277 entries, failed keys 1,327 to 31, readiness 92.3% to 99.8%.
+- A consensus protocol requires actions signed as head-at-machine; one code path writes a generic self-reference. Acceptance test 3 red of 5, which is an honest red: it shows a gap, not a crash.
+- A background batch of source additions returned exit 0 with two failed jobs, 17 of 18 added. Visible only by counting contents, not by exit code. New class.
+- One voice order reached two executors; both built the same instrument in parallel. The duplicate was collapsed, but three subagents of roughly 184K tokens each burned in both branches. The pre-start check existed and did not help: the other party's memory record was written after this work had started.
+- Registration for a tech-week event series and the acceptance of two new machines were both stopped on the owner's explicit order and did not resume by inertia. Browser control hung three times in that session; the cause is not proven and was recorded as unproven.
+
+---
+
+## 12. The human counter-example: the unit of the mission was replaced
+
+Until Oct 1 the hiring pipeline was measured in applications submitted: 522 submitted, pace 4-10 per day, 597 in a blocked state, 185 of those blocked on an unanswered question.
+
+In the evening the owner replaced the metric with **100 interviews**, and allowed internships and fellowship roles as valid doors.
+
+Arithmetic that follows: 100 interviews at an honest funnel is 2,500-5,000 applications, that is 50-80 per day, which across 7 fleet nodes is 20 per node per day.
+
+Discovery run the same day: 845 of 849 boards reachable, 2,277 lab-door hits, 46 genuine intern roles and 26 fellowship or residency programs identified.
+
+**Why this belongs in this chapter.** An application is counted by the sender. An interview is counted by the other party. The owner did in one sentence what eight instruments failed to do all day: he named the unit so that it cannot be satisfied at the cheapest observable layer.
+
+**Instrument defects inside that same work.** A scheduling call was rejected twice as "in the past" while an existing helper for exactly that case went unused, reason `forgot`. The host's clock skew between shell and scheduler reached hours, third dated case, threshold passed, dedicated session ordered.
+
+---
+
+## 13. Counter-move into the canon
+
+1. **A term that gates a verdict gets one callable definition and one owner.** Alive, done, independent, cancelled, live thread, head of a PR, author of a translation. Without it, N executors produce N definitions and all of them land on transport.
+2. **No OR over ok-evidence in a judge.** Access AND fresh output. Any OR converts a single live signal into a green verdict over the whole object.
+3. **Every instrument report names its blind zone**: "cannot judge N of M, reason". Measured on the day the rule was written: one canon instrument judged 69 objects and could say nothing about 61 of them. Coverage 4%, and not one line about it in the report.
+4. **A hint is not an identity check.** Trust boundaries are crossed before storage, not after.
+5. **Attribution belongs in code, not in prose.** A name written in a prompt keeps being emitted after the thing it names is gone.
+
+---
+
+## 14. The book's own measurement
+
+This chapter was written on Oct 2 for Oct 1. The previous chapter closed Sep 22.
+
+Nine days with no chapter, while the scheduler reported this writer enabled with a fresh last-run stamp and the book's last commit stood at Sep 23. Four firings produced no chapter and no logbook line.
+
+Structural half of it: the writer's schedule fires every two days while its step closed exactly one day, so half the calendar was uncoverable by design even when every run was honestly green. The instruction was corrected in this run: a run now closes every day of the week matrix that has sources.
+
+Same blackout, same nine nights, hit the canon night pair: neither the sensor nor the beat writer reported for duty, with the scheduler alive and two dozen neighbouring tasks green on the same node. Second occurrence of that class in two weeks.
+
+Open debt named: 11 days without chapters. Sep 16, 17, 18 from the previous week, and Sep 23 through 30. Sources on disk are intact, 3 to 37 retrospectives per day, beats for two of them.
+
+**Blocked in this run.** The hub's Python standard library was destroyed mid-run: `Lib/` retains only `site-packages`, and every interpreter-dependent gate stopped working between one call and the next. `llms-full.txt` was rebuilt by a faithful port of the generator's byte contract to another runtime. The showcase index and the leak-scan gate could not be executed as written; what replaced them is named in the run report rather than silently skipped.
+
+*Written by: Opus 5*
