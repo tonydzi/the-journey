@@ -159,7 +159,7 @@ Grok известен выдумыванием цитат, поэтому опо
 
 # ЧЕТВЁРТАЯ РЕЛЬСА: claude.ai — самый содержательный отчёт веера
 
-**Собран 04.08 23:2x.** `Research complete · 256 sources · 9m 53s`. Fable 5 (High) + Research + Web search, организация подтверждена по API (`owner.work@example.com's Organization`), коннекторы Drive/Calendar в ресёрч **не пускались** (Skip). Файл: `_originals/deep-research/DR26-08-04-ZB-07-1621-lebedev-style-claudeai.md`. Чат: `https://claude.ai/chat/e699aded-4552-4c73-bdd9-8534b68e790d`.
+**Собран 04.08 23:2x.** `Research complete · 256 sources · 9m 53s`. Fable 5 (High) + Research + Web search, организация подтверждена по API (`owner.work@example.com's Organization`), коннекторы Drive/Calendar в ресёрч **не пускались** (Skip). Файл: `_originals/deep-research/DR26-08-04-ZB-07-1621-lebedev-style-claudeai.md`. Чат: приватный чат.
 
 ⚠️ **Ловушка при заборе, второй раз за вечер тот же класс.** UI **44 минуты** показывал `Searching for sources…` со спиннером, а панель задачи — только два шага, второй в работе. По этому индикатору напрашивался вердикт «залип». Перезагрузка вкладки открыла давно готовый отчёт: реально ран занял **9 мин 53 с**. То есть UI врал в 4,5 раза. Ровно [[gemini-stall-is-render-not-backend]], только на другом вендоре: **прибор, по которому мы объявляем что-то мёртвым, сам обязан быть проверен** ([[prichina-kak-claim]]).
 
