@@ -82,6 +82,9 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 - [Week 16 (Sep 14-20)](05-september-verification/week-16/) - the week the human steps out of the middle: a check run by the doer with the doer's method is the first check twice
 - [Week 15 (Sep 7-13)](05-september-verification/week-15/) - the week we go and ask the silent things: a red indicator creates work and a green one closes it, so false greens are structurally under-found by whoever owns them
 
+### [06 — October: Enforcement](06-october-enforcement/) · *a rule nobody can fail to obey is a mechanism, everything else is a recommendation*
+- [Week 19 (Oct 5-11)](06-october-enforcement/week-19/) - the week a rule turns out to be a recommendation unless something stands in its way: a prohibition in prose leaks in fifteen to seventeen per cent of attempts, a gatekeeper on the execution path leaks in none
+
 ## Editions and what's coming
 
 A book does not ship like a library, so the unit here is **a completed month, not a commit** —
