@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 103 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 105 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -16472,5 +16472,462 @@ This run closed both days of the current week matrix that have sources, Days 124
 The book's `📣 public posts` section is empty for the seventh consecutive chapter. The input tap stopped on September 15 and still has no freshness watchdog; on October 6 the outbound door into one social platform also refused three times for three different causes, with five finished posts parked under a named reason.
 
 The book itself is the cleanest specimen of this chapter's class. It has a rule saying "close the day" and no door that executes it. A schedule states when to attempt and says nothing about the result, and the card requesting a watchdog over the age of the last chapter has been open since September 20, having by now predicted three holes in a row.
+
+*Written by: Opus 5*
+
+
+== 2026-10-07.dev.md
+
+---
+title: "Day 126 - 2026-10-07: a verdict is only true about the surface that produced it, and the surface was chosen by reachability"
+date: 2026-10-07
+day_index: 126
+week: 19
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [one-surface-conclusion, reachability-bias, wrapper-freshness-vs-content-freshness, traces-vs-launch-fact, hidden-vendor-fallback, unit-of-measure-substitution, family-count-from-one-surface, point-vs-interval-sampling]
+---
+
+# Day 126 - 2026-10-07: a verdict is only true about the surface that produced it, and the surface was chosen by reachability
+
+Dev-log form. One pattern in eight instances, plus one human counter-example.
+
+The unifying failure mode of the day: an instrument produced an affirmative verdict about a subject from the single surface it could reach, and the verdict was consumed as a statement about the subject. In every instance the verdict was literally true about that surface.
+
+Position on the line. Day 124: a record of a thing was accepted as the thing, so existence claims went unprobed. Day 125: a record of required behaviour was accepted as enforcement, so control claims went unprobed.
+
+Day 126: the scope of the probe was accepted as the scope of the world, so **negative** claims went unprobed.
+
+Scale of the day: 35 distinct sessions, 166 calls, 113 of them robotic, 27 retrospectives, 12 vault commits, 45 config commits, 1 commit to this book, 2 decisions, 9 research orders.
+
+The defect family involved, `vyvod-po-odnoy-poverhnosti`, held 168 dated cases as of this day, the first on 2026-07-27. Two of the day's eight instances were new dated cases in it.
+
+---
+
+## 0. The shape of the defect
+
+A probe answers `absent` when it means `not found on the surfaces I walk`. The two differ only when the instrument knows its own coverage, and almost none of them do.
+
+Formally: the instrument computes `f(S)` where `S` is its reachable surface set, and reports `f(U)` where `U` is the universe. The error is silent whenever `f(S)` is non-empty, because a non-empty answer reads as a working instrument.
+
+**Why reachability drives surface choice.** Every one of today's instruments picked the surface that was cheapest to read: a file timestamp instead of a content timestamp, a registry row instead of a mailbox, a heartbeat instead of a scheduler journal, a requested model name instead of the responding model's name. None of these were wrong choices at authoring time; each was the only surface the author had wired.
+
+**Required output contract.** A verdict carries three fields, not one: the verdict, the surface set that produced it, and the surfaces known-but-unreached. The third field is the one that was missing everywhere today, and the one that makes a negative verdict legitimate.
+
+---
+
+## 1. The prior-art probe did not walk the vault
+
+**Problem.** `prior_art.py` answers "have we solved this before" and is consulted before building. Its surface assembly omitted the vault entirely: no retrospectives, no knowledge maps, no decision notes.
+
+**Evidence.** 27 surfaces walked, 0 of them the vault. On this day a pre-build recall nearly missed an existing solution to the same topic.
+
+**Why no check caught it.** The probe returned non-empty results from its other surfaces, which is indistinguishable from full coverage at the call site.
+
+**Fix.** Vault retrospectives and maps added to traversal; the report now prints uncovered surfaces as an explicit line.
+
+**Pattern.** An index whose coverage is not part of its output cannot produce a sound negative. Treat coverage as part of the answer rather than as a diagnostic.
+
+**Adjacent measurement from the same session.** Baseline over 258 live answers: 44.3 per cent clean, mean 17.1 words. A/B after a new directive: engine one 9.5 to 56.7 per cent, engine two 52.0 to 78.9 per cent. Acceptance threshold raised 0.75 to 0.9.
+
+---
+
+## 2. A regex knew one lexical form of an identifier
+
+**Problem.** An event-triage lane matched `lu.ma` only. The corpus of 8996 events contained 2871 links in the form `luma.com`, invisible to the lane.
+
+**Second defect, same lane.** Date selection used the start date only, so a multi-day event in progress at query time never entered the sample.
+
+**Result after fixing the form.** 8 eligible events where 4 had been visible.
+
+**Status.** The point-versus-interval filter is unfixed: one dated case, mechanism threshold not reached. Named rather than left silent.
+
+**Pattern.** When an identifier has more than one published surface form, a single-form matcher reports the universe as the subset that happens to use that form. Breadth of a matcher is a coverage claim and needs a control match on a known positive.
+
+---
+
+## 3. Wrapper freshness was read as content freshness
+
+**Problem.** CRM sensors rolled out to the hub returned 5277 lead mentions, 3909 warm, 5121 candidates, with rc=0 and a fresh report mtime.
+
+**Cause.** The source the sensor reads was stuck at 2026-06-08. The freshness check read the wrapper's timestamp, which neighbouring processes move, rather than the newest record inside the source.
+
+**Fix.** Two of three sensors were given named consumers (coordination chat, heat map). The third has no consumer and is recorded as open.
+
+**Pattern.** `mtime` of a derived artefact is a claim about the writer, not about the data. A pipeline's freshness watchdog must read the newest record inside the source, and a sensor without a named consumer cannot be observed to be stale at all.
+
+---
+
+## 4. A layer looked alive because file times moved
+
+**Problem.** Of 17136 group chats, 2 had ledgers. Group digests stalled 120 days with 15134 rows already written; personal digests held 0 rows; total layer break 128 days. The search index holds 87316 chunks, 0 of them from raw ledgers.
+
+Underlying store: 17283336 messages across 115609 dialogues.
+
+**Why it looked healthy.** File timestamps were fresh, moved by neighbouring processes rather than by new writes.
+
+**Also recorded.** 5 missed pull days across the whole history (June 14, August 8 and 16, September 5 and 12), with 585 pull files accumulated.
+
+**Fix order fixed deliberately.** Pull schedule first, watchdog threshold second. The pull door already existed and was simply not scheduled.
+
+**Pattern.** A watchdog installed before the producer exists reddens honestly every night and repairs nothing. Order matters: producer, then detector.
+
+---
+
+## 5. "The node is silent" was a claim about the transport
+
+**Problem.** A signed parcel went unanswered for 22 hours and the conclusion recorded was "the hub is silent". 21 signed parcels stood without completion receipts for one node; 4 folders unshared; distribution matrix red on 6 of 6 pairs.
+
+**Actual cause.** The hub applies signed parcels normally. Its sync was not pulling the bus folder: 0.00 MB in 25 seconds over a live connection, read timeout every few minutes.
+
+**Also.** Two external review engines returned 16 and 9 findings; 2 of the 9 were refuted by live measurement, the reviewer being confidently wrong about a sync configuration method. Outside eyes answered from documentation memory, which is their own reachable surface.
+
+**Pattern.** "Silent peer" and "undelivered to peer" are distinct diagnoses with distinct cures. Liveness must be read across rails; a single rail's silence is not the node's silence.
+
+---
+
+## 6. Four indicators measured traces of work, not the fact of launch
+
+**Problem.** A nightly pair of routines was declared dead by three consecutive shifts, and the conclusion was written into canon.
+
+**Actual cause.** The runner launched and died on a subscription limit: 2026-10-05T22:15:49Z in 2.7 seconds, 2026-10-03T22:15:46Z in 3 seconds on the weekly limit. The same texts exist on September 23 and 17. A second routine died 2026-10-05T00:11:29Z, exit 1, in 8 seconds.
+
+**Root.** All four indicators in use (heartbeat, journal entry, candidates folder, file mtime) measure traces of work. Death on a provider limit and a no-show produce identical emptiness. The only owner of the launch fact is the scheduler's run journal, which nobody queried.
+
+**Fix.** The rule was written into the shift instruction in the same pass: query the run journal before using the word "dead".
+
+**Structural note recorded alongside.** That pair's cron is every two days while the instruction's step closes one day, so half the calendar is uncovered by design even when all runs are green.
+
+**Pattern.** Separate three questions and never substitute one for another: did it launch, did it finish, did it produce output. Only the launcher owns the first.
+
+---
+
+## 7. A panel printed the requested vendor, not the responding one
+
+**Problem.** A six-engine second-opinion panel printed the name of the requested model regardless of which model answered, hiding fallback substitution. Run: 6/6, 215 s, $0.47.
+
+**Why it matters.** The panel's value is voice independence. A silently substituted roster makes "four of six agree" mean something other than what it says.
+
+**Fix.** The output prints an explicit fallback line naming the responder. Roster v2 pinned as 3 engines from China, 1 from Europe, 2 from the United States.
+
+**Measurements after.** v2 6/6, 181 s, $0.31; review of the fixes 5/6, 490 s, $0.45; retro panel 6/6, 319 s, $0.07. Key limit raised to 15 requests per day (soft 15, hard 20).
+
+**Pattern.** Any component that may substitute a dependency must name the dependency that actually served the request. Otherwise every aggregate computed over it is unfalsifiable.
+
+---
+
+## 8. Unit-of-measure substitution, in a report and in our own breakage count
+
+**Problem A.** A morning report carried the number 17, consumed as a count of applications. It counted companies. Rows of the stated class in the database: 4.
+
+**Alongside.** 158 applications marked submitted without proof (122 newer than 7 days, 36 older). Two technical tests had real durations of 20 to 40 minutes against a recorded "an evening". One test with a 7-day deadline had lain unmarked for 28 days.
+
+A separate claim of "no access" was issued on one empty search; a live probe returned 345 finds.
+
+**Problem B.** A defect family's count showed 24 cases. A red probe of the keys in both directions returned an honest 5.
+
+**Root.** The same reachability bias applied to self-measurement. A family counted by the name it was filed under, rather than by the defect, both inflates and deflates, and the "mechanism after the third case" threshold arrives at the wrong time in both directions.
+
+**Pattern.** A number crossing a process boundary carries its unit or it is not a number. And the count that gates your own repair policy is itself an instrument that needs a red proof.
+
+---
+
+## 9. The rule of the day
+
+**A verdict must carry the surface set that produced it and the surfaces known-but-unreached. A negative verdict without the third field is not a verdict.**
+
+Operational consequences, all paid for on this day:
+
+1. `absent` and `not found on my surfaces` are different outputs. Only the second is derivable without a coverage proof.
+2. Wrapper freshness is not content freshness. Read the newest record inside the source.
+3. Launch fact, completion fact and output fact are three measurements with three owners.
+4. A component that may substitute a dependency must name the dependency that served.
+5. Self-measurement is subject to the same defect, so the counter that gates repair policy needs its own red proof.
+
+---
+
+## 10. Other work that day, compressed
+
+- Opponent-role rule moved from an alias skill file into the shared one loaded by all 7 entrances and by every robot push; keyword occurrences in the shared file had been 0. Guard reddens across 7 files; engine self-test 27/27.
+- Engineer funnel: 2018 cold names, 8 touches, 0 replies, 182 h without movement, 15 routine runs in 2 months; a 68-day-old fork decision taken. One recipient received 8 consecutive outbound messages including one verbatim duplicate; sender has no text-level dedup.
+- Alternative programmes: 18 doors walked, 11 applications, 7 of 18 empty. A stale open-source figure (34 PRs across 20 repos) corrected against a live 139 and 46 before sending. One 7-day reply window expires around October 11.
+- Photo index: UTC emitted as local, offset -25200 s, 14805 photos affected, 185900 index rows total (137148 photos, 42851 screenshots, 5901 videos, 245 foreign). Scheduled run 522 s against 33 s in-session. Fleet routine registry 139 to 209 rows after the collector learned to read another OS's task descriptors.
+- Inbound pipe: alias table held 1 pair; proven rows 414/730 to 451/730; ATS confirmation-code channel 0 to 27 rows across 7 companies (10, 7, 3, 2, 2, 2, 1); orphans 14 to 10; stalled 18 to 15.
+- Date of birth: a narrow grep produced a false "nowhere"; the full sweep found 8 documents with one year and 11 vault locations, 2 carrying another. Owner's decision recorded; door placed in the applications skill so that passport-bearing forms escalate.
+- Foreign-ecosystem review lane: review ratio 0.60 to 1.00; 8 critical findings open (3 round-two, 5 round-one). A "ball is theirs" conclusion was wrong because the bot deleted its own comments after a change request; the public comment was corrected with a second paragraph.
+- Cleanup that deleted the parent of a foreign-function path: safe implementation 17/17 with the naive version reddening 14/15; call-site linter 20/20 with the blind version reddening 18/20. Parcel signed for 6 nodes. External engine spend about $0.81.
+- Hub repair: orphaned-search CPU 82.3 to 3.31 per cent; question server from 2 processes and about 10.85 GiB to one exclusive-bind listener; backup moved to base-plus-delta, delta 1572786170 bytes, minus 91.11 per cent of 17.685 GiB; a 44-hour process tree with about 8 h 30 m CPU and about 326 GiB I/O, caused by a timeout that killed only the parent.
+- Female co-founder persona: spec 21 KB to 72 KB across 6 research runs; the class "built it and never wired it" reached its third dated case and became systemic; the on-air declaration door was registered on a hook that day.
+- Shared skill root on a laptop: 84 directories moved, 40 links created, 291/291 mounted, 0 missing, 0 collisions, 3 sync-conflict directories preserved with hashes.
+- Nineteen teaching podcasts: two writer runs died on a limit because agents read 150 to 250 KB of corpus per write instead of a 26 KB digest; the third run produced 19/19 and 38 audio files. 25 episodes had been falsely marked failed because an expired provider login was read as defective content.
+
+---
+
+## 11. The human counter-example
+
+Twice that day the owner asked a single-line question that opened a second surface.
+
+"And mission THREE?" exposed an entire mission absent from the goal registry, where the registry was a day behind the spoken canon. The registry's own numbers at that moment: 718 applications and 3 interviews against a target of 100, an engineer pool of 143, 32 investors and 0 paying.
+
+"How does the purchasing chat work, how often do we add them to the vault" exposed 2 ledgers out of 17136.
+
+Both are the same move, and it is the move none of the day's instruments could make: asking about the coverage rather than about the result.
+
+---
+
+## 12. The book's own measurement
+
+The watchdog requested since September 20 was built on October 7 by the shift that closed Days 124 and 125, as a line in the output-freshness instrument reading the age of the newest chapter file with a 72-hour limit.
+
+On October 9 it fired for the first time: `journey-book-chapter STALE -- newest 2026-10-06.dev.md -- age 3.2d > limit 72h`. It was proven red against real data rather than a fixture: the same mask over the September section, that is the state before that run, gives 150 h against the 72 h limit.
+
+Open debt: fourteen days without chapters. September 16, 17, 18; September 23 through 30; October 2, 3, 4. Sources intact, between 3 and 38 retrospectives per day.
+
+This run closed the two days of the current week matrix that had sources, Days 126 and 127. The fourteen-day debt is unchanged by it, because the two days closed were new holes rather than old ones, and the freshness instrument by construction reports only the age of the newest chapter and not the count of holes behind it.
+
+The book's `📣 public posts` section is empty for the eighth consecutive chapter. The input tap stopped on September 15 and still has no freshness watchdog.
+
+*Written by: Opus 5*
+
+
+== 2026-10-08.dev.md
+
+---
+title: "Day 127 - 2026-10-08: a verdict type without an unknown value prints blindness as fact, and a family counted by name never reaches three"
+date: 2026-10-08
+day_index: 127
+week: 19
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [missing-unknown-value, silent-cap, cannot-judge-line, denominator-contract, unfinished-search-as-absence, fail-open-identity, door-on-generated-layer-only, family-counted-by-name]
+---
+
+# Day 127 - 2026-10-08: a verdict type without an unknown value prints blindness as fact, and a family counted by name never reaches three
+
+Dev-log form. One pattern in eight instances, plus one human counter-example.
+
+The unifying failure mode of the day: the verdict's type system had no representation for ignorance, so an absence of evidence resolved to a default and was emitted as an established value. In every instance the default was the convenient one.
+
+Position on the line. Day 125: a record of required behaviour was accepted as enforcement. Day 126: the scope of the probe was accepted as the scope of the world.
+
+Day 127: the instrument had no way to *report* its own scope, because its output type did not admit it.
+
+Scale of the day: 31 distinct sessions, 111 calls, 112 robotic, 23 retrospectives, 17 vault commits, 48 config commits, 0 commits to this book, 7 decisions, 3 research orders.
+
+---
+
+## 0. The shape of the defect, and its enabling second layer
+
+**Layer one, the output type.** A verdict enumerated as `{core, adjacent, off}`, `{TAKEN, FREE}`, `{clean, dirty}` has no member meaning "insufficient evidence". The absence therefore maps onto whichever member the code reaches by default, and callers cannot distinguish a measured verdict from a default one.
+
+**Layer two, the self-measurement.** The policy "build a mechanism after the third dated case" depends on a counter. Today that counter failed in both directions in the same day: understated where one family lived under three or four class names, and overstated where a check read `len()` of a two-element tuple and therefore saw 3 on every first case.
+
+Consequence: layer one is a defect that layer two cannot escalate. Both must be fixed together, and the fix to layer two is the one that compounds.
+
+**Required output contract.** Every instrument report prints `cannot judge N of M, reason`. An instrument whose reports never contain that line is not careful; it is blind and unaware.
+
+---
+
+## 1. A verdict with three values and no fourth
+
+**Problem.** A foreign-repository selector judged domain fit from a one-line description, emitting `core | adjacent | off`. Empty description and no topics produced an affirmative `off`.
+
+**Evidence.** 53 universe rows had an empty description: 43 marked `off`, 6 `core`, 4 `adjacent`. Drift check over 1850 universe rows after the fix: 0 divergences. 77 rows had nearly moved to `adjacent` silently.
+
+**Root.** The verdict was typed as levels of interest, with no axis for input sufficiency, so no-evidence fell to the default.
+
+**Fix.** Fourth value `unknown` added; input declared as an explicit evidence-field list; evidence fetch moved inside the door rather than the caller.
+
+**Counter-defect in the first fix.** The first revision gave a deciding vote to the thread title, which we select ourselves. The thread now occupies its own axis and may only confirm, never assign.
+
+**Measurements.** Test 57/57, 11 failing before. Mutants 9/9 killed, M8 surviving initially.
+
+**Family.** 7 dated cases (September 8 ×4, September 14, September 21, October 5). The §5.10 threshold was crossed on September 14, three weeks before this fix.
+
+---
+
+## 2. A silent cap read as the size of the world
+
+**Problem.** An instrument's sample ceiling was an argparse default. It stopped at the ceiling and emitted no line about it, so the count read as the population.
+
+**Root and why it survived.** The default's blind spot swallowed the founding cases of its own class. The breakage lived under four class names, so the threshold arrived under none. Honest family size: 6 cases since September 3, against 1 to 2 visible.
+
+**Second, independent finding.** 64 verification instruments were outside version control: an ignore rule on the lint file prefix hid the linters themselves from git. In git there were 0.
+
+**Fix.** A dedicated silent-cap linter, a family-to-door map in the breakage counter, and the ignore rule corrected.
+
+**Measurements.** 182 finds across four classes (32, 32, 25, 93), coverage 99.9 per cent, test grid 34 checks and 16 mutants. Rollout to the hub failed that day: ssh dead. Recorded rather than swallowed.
+
+**Pattern.** A limit that is not in the output is indistinguishable from the absence of a limit. Emit the cap on every run, reached or not.
+
+---
+
+## 3. The `cannot judge` line, measured for the first time
+
+**Problem.** "This test is isolated from production data" was an unverified claim treated as a property.
+
+**Evidence.** Of 93 foreign tests: 16 write to production, 57 clean, **20 cannot be judged**. The first edition of this measurement produced a different, understated number because three holes in the measuring instrument were still open.
+
+**Root.** The number of ways to substitute a write path is unbounded: environment variables, home directory, a module constant, a default argument. The instrument enumerated methods instead of asserting the consequence.
+
+**Fix.** The guard now judges the fact of a write outside the temp directory, default mode `block`. Parcel for 8 nodes. A wrapper-function-as-descriptor bug that broke `Path.mkdir` was fixed along the way.
+
+**Not fixed.** 16 guilty tests remain, named individually.
+
+**Measurements.** Guard 61/61, self-test 18/18, mutants 18/18 killed. The family lived under 3 class names, so §5.10 was understated.
+
+**Pattern.** Catch the consequence, not the method. A method enumeration is open-ended and its coverage is unknowable; a consequence assertion has a finite surface.
+
+---
+
+## 4. A denominator containing the impossible
+
+**Problem.** Several instruments computed ratios over denominators that included forbidden or unreachable members, producing flattering values.
+
+**Evidence.** 63 requesting repositories, 5 of them with 0 foreign open pull requests, so nothing there is reviewable. The batch version of the instrument had 13 per cent coverage (60 of 69 answers were "don't know") against 100 per cent on a per-repository probe.
+
+**Root.** No shared contract existed stating that a denominator contains only the permitted and the possible. Each author held the boundaries in memory and omitted one.
+
+**Fix.** `_shared/denominator_guard.py`: the contract plus a ratcheted sweeper that scans for division by a name. Three of four cases closed; parcel for 8 nodes.
+
+**About the detector.** The first revision returned 2780 places across 642 of 954 files, 67 per cent of the codebase. That is a flooder, not a finding. Narrowed to 174 places in 102 files.
+
+**Measurements.** 17 checks, 26 mutations red. Fourth dated case of the family, caught during the repair itself.
+
+---
+
+## 5. An unfinished search reported to a human as an absence
+
+**Problem.** Asked about a conference, a session launched a background vault search and reported "zero mentions in the vault". The search had not finished. The mentions existed.
+
+**Why this instance is the most expensive.** In the other seven cases an instrument misled an instrument. Here an instrument misled the human, and a decision was made on it.
+
+**Same family, same day, second session.** The machine timezone (GMT) skewed an entire calendar triage, and a background search over a folder of 9412 markdown files produced a false "nothing found". 88 events in the window, 31 on Thursday, 1 surviving.
+
+**Third instance, not about instruments.** A redundant geography question was put to the human whose answer was already in the vault. Declaring your own ignorance without checking it is the same defect.
+
+**Fix.** A live-rail reminder placed as a pre-tool hook on search calls, and a second guard on relative time inside long-lived artefacts, because "today" in a note expires silently. Both doors stand on one node; the counterpart for the other operating system is not written.
+
+**Operational rule.** A background search has finished only when its output file has been closed with an exit marker. Until then the only legitimate output is "I have not found it yet".
+
+---
+
+## 6. A fail-open accepted an invented identity as lawful
+
+**Problem.** The order of the day extended machine stamping from Claude Code sessions to any agent and any write. The measurement found the stamp on 4 of 20 fresh artefacts; a full pass of 33 files gave 3 lawful, 29 unstamped, and 1 **lying**, with an invented node name.
+
+**Root.** The exception handler was fail-open: on any verification error the name was accepted. The instrument did not know the fleet node registry and could not emit "not in the registry".
+
+**Second defect, same instrument.** A regex without multiline mode read the field as empty, producing 4 false positives.
+
+**Fix.** `machine_stamp.py` with `line` / `apply` / `lint` over the canon key; an unknown node prints as not-in-registry; editing another agent's stamp requires an explicit force flag. A competing custom key was rejected by external review in favour of the canon one.
+
+**Measurements.** Guard 29 checks, 15 breakages red, probe 12/12, parcel for 8 nodes, hub applied. The rollout gates rebuffed four attempts in a row, recorded.
+
+**Pattern.** Identity verification must fail closed. A fail-open identity check converts every error path into an authentication bypass.
+
+---
+
+## 7. A door on the generated layer only
+
+**Problem.** A stop-word door guarded the layer assembled by the CV generator: 20/20 clean. The live violations sat in handwritten files of the public profile, which the generator never touches.
+
+**Root.** The door guarded the exact file name the stamp happened to know, rather than every surface where the text lives (support, citation, robots, methodology, localised readme).
+
+**The pattern was blind twice.** It missed the forbidden word in bare form and fired falsely on a lawful compound. The false positive is worse than the miss: it trains the author to route around the door with a bypass marker instead of fixing it. An 18-case edge table found 3 template defects.
+
+**Narrow versus honest fan-out.** Narrow (6 file names): 157 hits. Honest (all text files): 2767 files read, 0 cannot-judge, **823 hits across 20 repositories** - 5× the narrow fan-out and 20× the hosting platform's code search.
+
+**Distribution.** 406 in this book and a neighbouring repository (the owner's product decision, untouched), 183 in research, 120 in dashboards, 55 fixed in the starter kit, 10 in the public profile (3 fixed, 3 left deliberately).
+
+**Corroborating number from a neighbouring session.** Hosting-platform code search returned 11 hits where 54 exist, an undercount of 5×.
+
+**Pattern.** A foreign index's recall over your own text is between 5 and 20 per cent on two independent measurements this day. Never use it as a coverage instrument.
+
+---
+
+## 8. The family counter read the length of a tuple
+
+**Problem.** `_warn_if_family_is_older` computed `len(prior_art.scan_class(...))`, but `scan_class` returns `(hits, n_lines)`. The length is always 2, so `BREAKAGE_STRIKE=3` was crossed on every first case.
+
+**Why it compounds.** This is the instrument that gates mechanism-building. It lied in both directions on the same day: overstating here, understating in sections 2 and 3.
+
+**Fix.** `split_class_hits(top=None)` and `family_prior_count` replace `len()`. The round-trip test runs against a copy of the vault, not the live one.
+
+**Surfaced during the repair.** The final recheck found 5 new failures inside its own just-closed test. 6 rows of 715 had polluted the live journal. A sender invoked without flags sent a task twice in the wrong form.
+
+**The day's worst number.** A copy sweep found 23 copies of one sender file with 9 distinct checksums. The class "a flag leaks into the message body" holds 5 dated cases since August 17; the fix has existed since September 23 and has reached **zero** nodes.
+
+**Also recorded.** A follower node ran 962 commits and 731 changed files ahead of the front. The always-loaded canon file is 124467 bytes against a red cap of 120000.
+
+**Pattern.** The arity of a return value is not evidence of seriality. And "we already understood this" is not "this is deployed": a fix with a registered parcel and no applied node is a fix that does not exist.
+
+---
+
+## 9. The rule of the day
+
+**A verdict type must admit `unknown`, and every instrument report must print `cannot judge N of M, reason`. A breakage family is counted by defect, not by the name the case was filed under.**
+
+Operational consequences:
+
+1. Enumerate verdicts with an explicit insufficiency member. Never let no-evidence resolve to a convenient default.
+2. Emit the sample cap on every run, reached or not.
+3. Denominators contain only the permitted and the possible.
+4. Identity checks fail closed; a fail-open `except` is an authentication bypass.
+5. Catch consequences, not methods, when the method surface is open-ended.
+6. A foreign index is not a coverage instrument. Measure your own text yourself.
+7. The counter that gates repair policy needs its own red proof, in both directions.
+
+---
+
+## 10. Other work that day, compressed
+
+- Application status was painted by a text LIKE over the role title rather than the employer: 1 row and 12 roles at one company mispainted. Selection and write happened in one physical pass. Now two-phase (propose/commit), 10 refusal codes, update predicate carrying rowid, url, company and status. Live base 27341 rows, 22 columns, WAL; SQLite online-backup API replaced file copying, which had been losing uncheckpointed rows. Red proof 52/52 on two nodes. Family count by name 1/3 against an honest 4 by description.
+- Pre-gate second axis: the gate knew only the registry of target companies, so letters from humans (referrals, introductions) carrying none of the search terms were invisible. Narrowing the registry (27341 to 2001 rows, 5641 to 552 tokens) fixed 0 of 4 misses. New axis: from:me, recipients from To/Cc, discard robots, then search by those addresses. Replay over 37 letters: 17 wake, 20 silent. Test 90/90, 14/14 mutations red. The interview invitation that lay 12 days belongs to this class.
+- Research synthesis was reading its own prior output: `flip_registry` appended the path of its own note into the same registry field `files_for()` reads as material, a self-confirmation loop. Live legs 93 to 108, junk rejections 27 to 12, research orders with legs actually read 36/40 to 39/40. One 26265-byte report was falsely junked because `MIN_BODY_CHARS=800` admitted a long order file. A red test for this class was written on October 6 and abandoned unfixed.
+- On-air hook blocked shell writes only; Write/Edit/MultiEdit were advisory **by design**, and its own green test enshrined that as the norm. 3 dated cases (September 9, September 21, October 1). Test 63/63 after, 16/40 red before, 10 mutants killed. 5 of 9 redirect forms passed through; now 0. Write and shell tool sets are now declared inside the hook file rather than in the matcher config.
+- Stand-sanity contract: five instruments had independently invented "the stand did not fire" protection, each staying with one consumer. The brief's premise of 3 cases was refuted upward to 5 live. The shared contract emits `NO-CONTROL` as a verdict distinct from `FIRED`; mandatory at a named step of the build gate. The door's own first revision repeated the class and was caught by the panel. Applied on 2 of 5 live nodes, one refusing with port 22 closed. On-air cleared 108 of 110 active declarations.
+- Browser profile living in a cloud-synced folder, where the filesystem does not support the required mmap/SQLite access. A prohibition in the brief went unread; the code took the path from an environment variable without checking. Copy moved 881 of 939 files, 58 failing on timeout; the old 637 MB profile remains in the cloud. Applied on 1 node of 8. The actual root (an unchecked reason function plus a relative path bypassing the guard) was found by the panel, by 3 of 6 models.
+- Red team against the CV: 100 per cent refusal across 49 provocations, but 14 of the 49 reached the human by the default "don't know, ask" rather than by rule. Over-refusal 50 per cent across 42; rule coverage 71.4 per cent. The cargo gate was blind to a path of the form `"${VAR:-default}/.../x.py"`, parsing to empty: 3 parcels of 673. The claim "rolled out to 8 nodes" was retracted; 1 proven. Live gate history: 2879 firings over 90 days, 2166 uncategorised, 146 cut by a cap, 0 expired.
+- Showcase and handwritten CV: PR +575/-13; 57 public repositories reviewed, 0 forbidden phrasings, 55 new; the generator's nightly run was erasing a handwritten edit because the copy had no divergence instrument; footer re-laid across 54 repositories; guarded copying not built, debt named.
+- Bus junk, two distinct causes: the watchdog read the marks file once per three-minute tick and wrote its own stale snapshot over the whole file at the end, erasing marks made by the door in between; separately the duplicate-proof builder crashed inside a live asyncio loop and the "awaiting proof" state had no expiry (now 2 hours plus a tombstone). 110 firings on October 8 against 6 unique voice notes, one repeating 29 times; 247 on October 7. Expected volume after the fix is about 18 plus 12 rather than about 140.
+- One voice note spawned 25 expensive-model sessions in 8 hours: the dedup key and the recheck needle were derived from the note text, whose tail held the downloaded attachment path, and the platform appended " (N)" on each re-download, so every tick produced a new key. The recheck honestly searched for "0 of 196" while 24 sessions were live. 93 door attempts: 86 rc=0, 5 verify-timeout, 1 focus-fail, 1 landed-in-existing. The owner's own hypothesis (special characters such as @) was tested and not confirmed.
+- Lighthouse node: the upgrade plan was already executed, version in place since September 27 on 6 independent pieces of evidence. What failed was summary delivery, 5 failures of 7 attempts across 8 threads, rooted in a prompt without an absolute path picking up a stale shadow copy of the sender. Fixed with an absolute path, a find prohibition, a delivery marker with message id and a freshness gate; concurrency capped at 4 on 16 cores at load average 13.
+- An exchange with one external person was recomputed from an abstract framing to his actual assets: 15 reports, edition 4, around 26 pages of answers, 68 per cent of 151 naming access as the problem, 37 per cent of 110 holding a budget, 22 of 75 running 20 or more agents in production. The decision was rewritten to exchange data rather than a title.
+- Shadow experiment, week one: 236 answers, 231 objects, 1026 questions, coverage by known labels 60/1026 = 5.85 per cent, 24 unknown, 56/60 matches, 4 divergences, cost $0.019246542 of a $1 limit. API success had been taken for quality. Extended to October 30 with an independent review of the 4 divergences scheduled.
+
+---
+
+## 11. The human counter-example
+
+The owner sent six of the bot's messages into the chat and wrote "WHY??".
+
+He refused to accept the count of junk messages as an answer and demanded the cause. The cause turned out to be two distinct defects with different cures: a snapshot write destroying a neighbour's marks, and a proof builder crashing inside a live loop with no expiry on the waiting state.
+
+The same move appears in his stamping order the same day: he did not ask for more stamps, he named the invariant ("any agent, any write, state the machine") that makes the absence of a stamp detectable.
+
+Both are the move none of the day's instruments could make: asking what the number is evidence *of*.
+
+---
+
+## 12. The book's own measurement
+
+The watchdog requested since September 20 and built on October 7 fired for the first time on October 9: `journey-book-chapter STALE -- newest 2026-10-06.dev.md -- age 3.2d > limit 72h`. This run began from that line rather than from the shift journal or the scheduler receipt.
+
+It was proven red against real data rather than a fixture: the same mask over the September section, the state before the previous run, yields 150 h against the 72 h limit.
+
+Declared blind spot: the instrument reads the age of the newest chapter and knows nothing about the number of holes behind it. That line is still written by hand, in every chapter.
+
+Open debt: fourteen days without chapters. September 16, 17, 18; September 23 through 30; October 2, 3, 4. Sources intact, between 3 and 38 retrospectives per day.
+
+This run closed Days 126 and 127, which were new holes, so the fourteen is unchanged.
+
+The book's `📣 public posts` section is empty for the ninth consecutive chapter. The input tap stopped on September 15 and still has no freshness watchdog; on the output side, the post-retrospective lane holds 65 unclosed parkings and 1 receipt across its whole existence, with 62 of the parkings held by a single external cause.
 
 *Written by: Opus 5*
