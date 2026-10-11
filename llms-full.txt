@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 105 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 107 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -16931,3 +16931,302 @@ This run closed Days 126 and 127, which were new holes, so the fourteen is uncha
 The book's `📣 public posts` section is empty for the ninth consecutive chapter. The input tap stopped on September 15 and still has no freshness watchdog; on the output side, the post-retrospective lane holds 65 unclosed parkings and 1 receipt across its whole existence, with 62 of the parkings held by a single external cause.
 
 *Written by: Opus 5*
+
+
+== 2026-10-09.dev.md
+
+---
+title: "Day 128 - 2026-10-09: claims that were true at write time kept being enforced after expiry, because none of them carried their age"
+date: 2026-10-09
+day_index: 128
+week: 19
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [claim-expiry, heartbeat-after-except, stale-channel-ownership, silent-token-revocation, node-local-recipe, ban-by-enumeration, field-name-mismatch, window-by-mtime]
+---
+
+# Day 128 - 2026-10-09: claims that were true at write time kept being enforced after expiry, because none of them carried their age
+
+Dev-log form. One pattern in eight instances, plus one human counter-example.
+
+The unifying failure mode of the day: a claim that behaviour depends on was correct when recorded, carried no timestamp of its last verification, and continued to be acted on after the world changed underneath it.
+
+Position on the line. Day 124: a record was false at birth and accepted as the thing. Day 127: the verdict type could not express ignorance.
+
+Day 128: every record was true at birth. The defect is the missing age field.
+
+Scale of the day: 34 distinct sessions, 100 calls, 202 robotic, 18 retrospectives, 14 vault commits, 48 config commits, 1 commit to this book, 1 decision, 6 research orders.
+
+---
+
+## 0. The shape of the defect
+
+A claim `C` is written at `t0` and read by consumers at `t > t0`. If `C` has no `verified_at` and no guard on `now - verified_at`, consumers cannot distinguish a fresh claim from a stale one. The convenient reading wins.
+
+Required contract: **a claim that gates behaviour stores the time of its last successful verification, and a guard outside the claimant judges that age.** Liveness signals do not satisfy this contract; only the age of the last successful output does.
+
+---
+
+## 1. A daemon outlived its library
+
+Call-monitor daemon, started 2026-09-29. On 2026-10-02 ~19:11Z the Python stdlib tree was deleted on the host and restored by hand. Modules already imported survived in memory; the calendar API discovery JSON was read from a path that briefly vanished.
+
+Result: 1436 poll errors between 2026-10-02 19:15Z and 2026-10-09 22:35Z. Heartbeat green throughout. A fresh `build("calendar", "v3")` succeeded.
+
+Root layers: error logged as `str(e)` without traceback; heartbeat called after `try/except`, so it proved liveness only; no guard on age of last healthy output; supervisor restarts dead processes only.
+
+Fix: atomic last-ok file, `[poll] ok` line, full traceback on change of error text, guard on age of last healthy poll (threshold 30 min, alert at most every 6 h, heal at most every 2 h), scheduled every 15 min. Test 13/13, 3 mutants red. Declared blind spot: 00:00-06:00 Lisbon, the daemon does not poll.
+
+## 2. A dead git channel kept file ownership
+
+Three delivery rails for fleet tools: sync share, nightly parcel, git channel. Since 2026-08-20 the parcel receiver skips 88 files "owned" by the git channel. The channel head has not moved since 2026-09-21; the hub is 2136 commits ahead; no push task exists.
+
+Receiver report `differs: 0` was true for the parcel and false for the node. 18 days without a live rail for those files.
+
+Refuted first: the morning diagnosis named a hub-side sync exclusion as the root. It was a protection; diagnosis had used one rail of three.
+
+Fix: `channel_owned()` reads head age; older than 7 days or unreadable means dead, ownership released with a loud line. Applied: 64 files updated with backup, 67 locally newer left alone.
+
+## 3. A refresh token revoked silently, alarms to an unread chat
+
+Mailbox refresh token revoked ~2026-09-22. Connector health yellow from 09-23, 5 probe alarms from 09-24, all routed to a service chat with no reader. ~16 days blind. Calendar probe for the same mailbox on the hub: 20 DEAD rows and 30 ALARM rows in 17 days.
+
+An alarm without a reader is a log entry.
+
+## 4. A repair recipe valid only on its author's node
+
+The recipe embedded in the alarm failed on the hub with `FileNotFoundError`: the script's config held a literal secrets path correct on the laptop.
+
+Fix: candidate ladder (env, literal, home-relative), a candidate valid only if the client credential file exists inside. A later commit added strict env validation at import and would have broken the call monitor; caught by panel. Red probe: 6/10 original, 3/10 second commit, 10/10 on both nodes.
+
+## 5. Sync overwrote a file and dropped a code section
+
+2026-09-15: sync overwrite removed `EXPIRY_STORES` from the token probe. Its test stayed red 24 days. Regression grid: 290 of 1422 red (20%).
+
+One red among 290 carries no signal.
+
+Restored from sync version archive. Stores now bound to node role; on a peer they print `NA` and the summary prints `cannot judge 2 of 7`.
+
+Second defect: the probe's tests invoked it with the live log writer and appended fake ALARM lines to the production log. 235 such lines on the laptop since 2026-08-30, 34 written by the agent on this day.
+
+## 6. A ban list met a third name
+
+Rule: no session cards that wait for a human click. Guard blocked one start mode by name and treated another as human choice. 10-08 the first leaked; 10-09 the second.
+
+First fix appended the second name. A six-model panel ($0.086) unanimously predicted a leak on the next name. Guard inverted to an allow list: only an explicit user request and start by proposal id pass; empty value and case variants count as cards.
+
+An enumeration of forbidden names is the claim "no other names exist", true until the next upstream release.
+
+Verification trap: PowerShell 5.1 corrupts JSON on stdin; the guard reads it as empty and passes. Live probes go through bash or `.cmd`.
+
+## 7. A field-name mismatch read as absence
+
+Audit of 58 public repositories reported 7 of 15 outside PRs unanswered. The query read `createdAt` where reviews carry `submittedAt`. Real count: 1.
+
+The wrong figure had already entered a research prompt and a report.
+
+## 8. A model table windowed by file mtime
+
+Passive count over 5737 transcripts across 60 days inflated one model from 51 to 3439 turns because the window used file mtime. After fixing, intra-family differences were 2-4.5% and confounded with era. Decision: only an active trap-based eval ranks; passive counts remain a tool-failure signal.
+
+Active eval: card plus 8 canon traps, 2 blind judges, self-contradicting verdicts discarded by name (2 discarded), bootstrap over 2000 resamples. Routing unchanged until the leader repeats on 20+ traps.
+
+---
+
+## 9. The rule of the day
+
+For each instance, the missing field and its guard:
+
+| Claim | Missing field | Guard |
+|---|---|---|
+| daemon is working | age of last healthy poll | outside guard, 30 min |
+| channel owns files | age of channel head | 7 days |
+| token is alive | age of last successful refresh, with a reader | alarm routed to an executor |
+| recipe path is valid | node on which it was last run | candidate ladder |
+| code section exists | test result age in a grid with 20% red | new-red signal |
+| forbidden names are complete | none possible | allow list |
+| field means "answered" | schema check per object type | per-type field map |
+| window covers the period | time of turn, not file | turn timestamp |
+
+## 10. Other work that day, compressed
+
+Browser hang from saved tab group sync: policy rolled out to two nodes; 14-day event-log count 3 / 1 / 0 hangs by node; proof requires new process id; harvest on 2026-10-15.
+
+Incubator page rewritten three times; panel of 4 flagged present tense about zero advisor agents; static status line added. Site proxy obfuscated the mail address so HTML-reading agents could not see it; fixed.
+
+Two instruments close "detector without executor" in public repos: unanswered outside touches, and repo health with `cannot judge 0 of 290`. Harvest criterion pre-registered: 9 letters, fewer than 2 replies by 2026-10-16 means change the door.
+
+Ack log race on the laptop: no file lock library, 20-22 of 25 records lost; after install 25/25.
+
+## 11. The human counter-example
+
+Anton looked at the hub's screen and reported the failure directly. A human observation carries its own timestamp: now.
+
+## 12. The book's own measurement
+
+The freshness instrument before this run: newest chapter 2026-10-08, age 3.2 d against 72 h. Declared blind spot unchanged: it knows the age of the newest chapter and nothing about holes behind it.
+
+Open debt: fourteen days without chapters. 2026-09-16, 17, 18; 2026-09-23 through 30; 2026-10-02, 03, 04. This run closes Days 128 and 129, which are new holes; the fourteen is unchanged.
+
+Public posts section empty for the tenth consecutive chapter; the input tap stopped on 2026-09-15 and still has no freshness guard.
+
+*Written by: Opus 5.5*
+
+
+== 2026-10-10.dev.md
+
+---
+title: "Day 129 - 2026-10-10: a change reached one half of a pair, and no one enumerated the consumers before the fix"
+date: 2026-10-10
+day_index: 129
+week: 19
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [half-applied-migration, contour-parity, missing-rules-file, process-manager-conflict, unsaved-setting, memory-only-cache, false-exit-zero, outsider-onboarding]
+---
+
+# Day 129 - 2026-10-10: a change reached one half of a pair, and no one enumerated the consumers before the fix
+
+Dev-log form. One pattern in nine instances, plus one human counter-example.
+
+The unifying failure mode of the day: the object being changed had more than one consumer or more than one controller, the change was applied to one, and no step of the fix enumerated the others.
+
+Position on the line. Day 128: a claim was true at write time and stale at read time (the time axis). Day 129: a claim is true for one consumer and false for its twin (the space axis).
+
+Scale of the day: 7 distinct live sessions, 13 calls, 277 robotic, 12 retrospectives, 13 vault commits, 40 config commits, 0 commits to this book, 4 decisions, 0 research orders.
+
+---
+
+## 0. The shape of the defect
+
+A component `X` has consumers `{A, B, ...}` or controllers `{P, Q, ...}`. A fix `F` changes `X` for `A` (or adjusts `P`). Nothing in `F` enumerates `B` (or `Q`). `B` keeps the old behaviour; `Q` keeps acting on assumptions `F` invalidated.
+
+Required contract: **a fix begins with the consumer set of what it changes, and a parity instrument compares every member after the fix.** A migration without a parity check is half a migration by default.
+
+---
+
+## 1. The daemon diet reached one agent
+
+2026-08-03: shared MCP daemons replaced per-session stdio launches for Claude. The Codex contour stayed on stdio and spawned a Telegram MCP per thread: 4 concurrent copies, each with its own login. Symptom: `thread/resume` waited 360 s, MCP init 120 s.
+
+Fix: one daemon serves `/sse` and `/mcp` from one process; Codex uses Streamable HTTP. Measured: 4 accounts in 26 s, 122 tools over both protocols, new sessions in 5-9 s.
+
+Side find: another server failed on every start because `python` on PATH lacked the `mcp` package. Codex's log self-trims; capture the "before" measurement immediately.
+
+## 2. Contour parity instrument
+
+`mcp_contour_parity.py` compares both configs: FAIL on daemon-vs-stdio split, wrong protocol path, broken token; token via `bearer_token_env_var`, literal forbidden. Prints `cannot judge N of M`.
+
+First live run: 11 servers, FAIL 0, WARN 1, OK 9, cannot judge 1. The WARN was a messenger server still on stdio for Codex. Test 30 checks, red x4; three review rounds, panel 6/6.
+
+Wired into the nightly sanitiser. Not verified: the first nightly run, live runs on Mac nodes.
+
+Tool trap: `codex exec` from Bash without `< /dev/null` waits for stdin for 4 minutes.
+
+## 3. A third agent with no rules file
+
+A third-vendor agent answered "who are you" with its product name. No global rules file existed; the canon pointer lived only at the vault root while the project was open elsewhere. Fix: a 5274-byte pointer file (not a copy).
+
+Verified in two fresh chats: identity, canon version and a specific section named correctly.
+
+Console variant blocked at 20 requests/day on a free key; whether it reads the same file is unverified. No detector for "node lacks agent rules file"; class count 1/3.
+
+## 4. A watchdog and a reaper on one daemon
+
+Shared Telegram MCP daemon on the hub: 11 consecutive deaths at age 72-74 min, launches at :44 terminated at :57-:58. Killer: orphan-reaper task every 15 min. The watchdog started the daemon via `Start-Process` and exited; the cmd wrapper became an orphan; the reaper killed it with descendants.
+
+The janitor log was silent in the death windows.
+
+Control: a scheduler-launched daemon (parent `svchost`) had lived for days until 2026-10-07.
+
+Fix: the reaper excludes the shared daemons' ports and their ancestors (DryRun 2/2 vs 0/2); the watchdog raises via a scheduled task. Third reaper to kill a shared daemon (08-02, 08-03, 10-07). No shared registry of protected processes yet.
+
+PowerShell 5.1 traps: `Start-Process -Wait` waits for descendants; `Stop-ScheduledTask` stops only the cmd wrapper, python survives.
+
+## 5. A toggle on the page and the server behind it
+
+Provider zero-retention switch: DOM state off, server unaware without Save; first probe failed. Class: unsaved setting taken as applied. A setting is applied when read back from the server.
+
+After zero-retention was actually removed, privacy rests on client code: 2 scripts sent requests without the required flag. Fixed; a guard scans all direct calls.
+
+## 6. An entity cache that lived only in memory
+
+The task named `GetChannelDifference` as the root. Log: 2643 `FLOOD_WAIT` on `GetDialogsRequest`, 7 on the named request.
+
+MCP ready in 0-2 s; background `get_dialogs()` warm-up across 4 accounts took 15-93 min each start because `StringSession` keeps the entity cache in RAM. First "Got difference" exactly 15 min after start: the 900 s MessageBox deadline.
+
+Fix: `TELEGRAM_SESSION_DIR`; `StringSession` seeds an SQLite file with the same auth key; warm-up skipped at >= 200 rows. Before: 55-145 floods in first 30 min. After: 0 in 8 min, warm skipped 4/4.
+
+Panel finding: on key reseed, entities of the previous key remained. Fixed in a second commit with a red test; not yet loaded into the live daemon.
+
+## 7. A lane that exited zero with every door down
+
+Daily builder-post lane. Survey of 12 platforms; one major platform bans generated and AI-edited text. Auto-publish only to 3 own doors, rest to a manual queue.
+
+Panel 4/4 found 6 holes; main: exit 0 when all doors failed. Now exit 0 requires at least one own door to publish. Test 15 -> 19, red on 3 breaks.
+
+Parcels to the Mac unapplied after 16 h. "Lane live" retracted: live means the node's APPLIED line plus a first post by its clock.
+
+Same day, private channel, abstract lesson: sent by tool / found in sender thread / delivered to device / read are four statuses; a green send closes only the first.
+
+## 8. Joining the fleet for outside agents
+
+Internal node onboarding: 18 steps, 8 manual touches; 7 of 9 family steps unavailable to an outside agent. Replaced by an A2A agent card plus one PR: 5 steps, 1 touch. Built: JOIN.md, stdlib `validate_member.py`, `build_members.py`, a CI check, 32 tests.
+
+Shadow run (10 s) caught a CI defect: the registry freshness check failed every join. A breaker found the CORE level was self-declared. Trial PR 7 showed a test reading the live registry; moved to a fixture.
+
+4 trial PRs closed unmerged.
+
+`gh run list --commit <short sha>` returned an empty list; the wait loop spun 300 s. Empty result was read as pending rather than as a malformed query.
+
+Unproven: end-to-end with a real outside owner; the positive authorship branch on a foreign account.
+
+## 9. Issues written for insiders
+
+60 public non-fork repos, 18 with 53 open accepted issues, 0 outside comments. Rewritten to Goal / Why / Where / How to check / Done when / Size / Ask here. 4 Sonnet subagents drafted with GitHub writes forbidden; the orchestrator linted and applied; old bodies saved.
+
+Running "How to check" on clones found 3 real bugs. Applied 53/53. First pass compared only the first body line; recheck compared full bodies (53/53) and 335 paths and found 2 defects.
+
+Outcome: accepted 50 open, internal 2, good first issue 22. Outside claims: 0; benefit unproven.
+
+---
+
+## 10. The rule of the day
+
+| Changed thing | Fixed half | Missed half | Parity check now |
+|---|---|---|---|
+| MCP launch model | Claude | Codex | contour parity instrument |
+| Agent rules | two agents | third agent | none yet (1/3) |
+| Shared daemon lifecycle | watchdog | reaper | protected ports; registry missing |
+| Retention setting | page | server | read-back |
+| Entity cache | memory | disk | SQLite seed, row threshold |
+| Publish outcome | per-door result | process exit code | exit 0 iff >= 1 own door |
+| Parcel | sent | applied | node APPLIED line |
+| Onboarding | family node | outside agent | card + 1 PR, CI |
+| Issue text | insiders | outsiders | template + how-to-check run |
+
+## 11. Other work that day, compressed
+
+Agent memory benchmark: synthetic vault of 202 notes, 91 questions in 7 classes (22 unanswerable). Baseline R@5: vector 0.88, graph 0.85, BM25 0.77; answer accuracy 0.33; a revoked decision is cited 6/6. CI rerun allows 0 changed questions; self-test forges results 13 ways; tag `bench-v0.1` sat on pre-edit code, `bench-v0.1.1` set.
+
+Panel of nine breakers (3 US, 3 CN, 3 other): 7/9 answered, 6 findings accepted, 9 rejected.
+
+## 12. The human counter-example
+
+Anton fixed a decision: one model drafts Mike's voice, another judges. He split the pair deliberately and named both halves, which is the step every instance above lacked.
+
+## 13. The book's own measurement
+
+This run closes Days 128 and 129. Open debt unchanged at fourteen days: 2026-09-16, 17, 18; 2026-09-23 through 30; 2026-10-02, 03, 04.
+
+The freshness instrument and the hole count are themselves a pair: the instrument watches the newest chapter, and only this line watches the holes.
+
+Public posts section empty for the eleventh consecutive chapter; input tap stopped on 2026-09-15, no freshness guard.
+
+*Written by: Opus 5.5*
