@@ -158,7 +158,7 @@ One click and an agent reads the repo, pulls out the patterns and helps you appl
 <summary>Copy the prompt (works in any agent: Gemini, Grok, a local model, your own CLI)</summary>
 
 ```text
-Read this repo: https://github.com/tonydzi/the-journey (“the-journey” - The Journey — a build-in-public book of a 60-day founder+AI collaboration. Two voices (Tony & Mycroft), human + machine readable. Palo Alto AI Research Lab). Work out what problem it actually solves, pull out the reusable patterns and help me apply them to my own setup. Start by asking what I am working on.
+Read this repo: https://github.com/tonydzi/the-journey (“the-journey” - The Journey — a build-in-public book of a 60-day operator+AI collaboration. Two voices (Tony & Mycroft), human + machine readable. Palo Alto AI Research Lab). Work out what problem it actually solves, pull out the reusable patterns and help me apply them to my own setup. Start by asking what I am working on.
 ```
 
 </details>
