@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 107 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 109 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -17228,5 +17228,261 @@ This run closes Days 128 and 129. Open debt unchanged at fourteen days: 2026-09-
 The freshness instrument and the hole count are themselves a pair: the instrument watches the newest chapter, and only this line watches the holes.
 
 Public posts section empty for the eleventh consecutive chapter; input tap stopped on 2026-09-15, no freshness guard.
+
+*Written by: Opus 5.5*
+
+
+== 2026-10-11.dev.md
+
+---
+title: "Day 130 - 2026-10-11: findings were correct and repeated, but no actor held write authority for the fix"
+date: 2026-10-11
+day_index: 130
+week: 19
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [diagnosis-without-authority, unowned-consumer, read-only-profile, forced-collision-missing, share-vs-read-watchdog, blocker-burial, week-19-closed]
+---
+
+# Day 130 - 2026-10-11: findings were correct and repeated, but no actor held write authority for the fix
+
+Dev-log form. One pattern in three instances, plus one human counter-example.
+
+The unifying failure mode of the day: a detector produced an accurate, repeatable finding with a concrete fix address, and the set of actors able to apply the fix was empty (by profile), unnamed (by convention), or reached too late (by message layout).
+
+Position on the line. Day 128: true at write time, stale at read time (time axis). Day 129: true for one consumer, false for its twin (space axis).
+
+Day 130: known and located, but unowned (authority axis). Not a repeat of "instrument lies green" (Days 108-111): the instruments were truthful.
+
+Scale of the day: 14 distinct live sessions, 15 calls, 256 robotic, 3 retrospectives, 22 vault commits, 47 config commits, 1 commit to this book, 4 decisions, 6 research orders.
+
+---
+
+## 0. The shape of the defect
+
+A finding `F` with fix address `L` is emitted by actor `D`. The owner set `O(L)` = actors with write authority on `L` and a trigger to act. Observed: `O(L) = {}` (profile forbids writes), or `O(L) = {"first live session"}` (no identity, no counter), or `O(L) = {human}` with the blocker placed last in a long message.
+
+Required contract: **a finding is emitted with a named owner who holds write authority on its fix address; a queue of fixes without an appointed unloader is accounted as debt.** If the owner is a human, the blocker is line one.
+
+---
+
+## 1. Cloud anchor node (light-peer profile): night janitor lost 7 of 9
+
+Nightly `vault-janitor` runs as single-turn `claude -p`. The session arms Monitor plus a fallback wakeup, then waits in background; single-turn mode has no wakeup, so the process exits and the session dies. Since 10-02: survived 2 (10-02, 10-08), lost 7 (6 on background wait, 1 on subscription limit: log line 482, night of 10-09, verbatim `You've hit your weekly limit · resets 3am (UTC)`; 10-10 and 10-11 back on wait).
+
+The 10-08 survivor waited inside the turn (34 consecutive `still-waiting` echoes) but took a scoped snapshot of 33 parents instead of a full `vault_backup.py`, then edited (13 orphans, 17 links). Task file `mayak_tasks/vault-janitor.md`, rule 3 and step D, require a full backup before `--apply`. File unchanged since 07-05.
+
+Fix address named for the third time; not applied, because the light-peer profile may not write to the shared rail. Missing: one owner with a one-line mandate.
+
+Inbox robot: root of the self-confirmation loop fixed (`inbox_ack.py` truncated the ID list after alphabetical sort). New defect: `inbox_ack.py --selftest` is red and can be green only while unprocessed work exists on the bus.
+
+Deploy-unpack: 5 parcels DONE, 5 red. Sync runs as root; `_probe_identity_guard.py` looks up identity in the current user's home and prints FAIL; one parcel hanging 5 days.
+
+Refuted: "the 10-07 chown rolled back". Measured ACL `user:anton:rwx`, `test -w` -> WRITABLE. Not verified: `mayak_imports_code_sync.sh` itself.
+
+## 2. Laptop (light-peer): 39/39 runs, seed queue dead since 10-07
+
+Input queue 89, 10 units, 39 runs, `taken_ok=39/39`, zero aborts.
+
+`spawn_queue` state dir: done 56 (newest 10-07 17:49), pending 13 (newest 10-10 15:52), dropped 6, taking 0. Four days: 13 seeds in, 0 out. Producers: 34.
+
+Cause by construction: the app requires approval for `mcp__scheduled-tasks__*` from unattended sessions, so unloading is assigned to "the first live session". A SessionStart hook prints the instruction in every session; no session executes it. The consumer has no identity and no counter.
+
+Loop: one of the 13 stuck seeds fixes the reply counter and false "done". `spawn_queue` closed that seed falsely on 10-07: `spawned_as` points to another slot; target file untouched since 09-15.
+
+🤔 Hypothesis: the false close and the zero-unload period are one defect. Test: reconcile 56 done files against the slot registry. Not run.
+
+Delivered != applied: parcel `onair-guard-transport-symmetry-20261008` in `_transit`; `onair_guard*.py` absent from disk for 3 days.
+
+Tails from 10-09 moved 0/4 in two days: `retro-lost` queue without a closure axis 84 -> 89; external issue `cognee#4725` open on us, overdue; PyPI page `sqlite-graph-memory` returns 404; disk-colour card untouched.
+
+Units U1-U10 healthy. One unit had false "ball on our side" at 81% (27 items vs 5 real). A Mac memory index compressed 15160 B / 84 lines -> 10141 B / 59 lines.
+
+New cards: seed-queue consumer dead (P0), onair-guard parcel not installed (P1).
+
+🤔 Top hypothesis: no forced collision with the door. Four human prompts by Anton from 10-08 are in the queue; titles: "комп тормозит!", "ДЕЙСТВУЙ!", "Трафик к нашему примитиву", "ЦЕЛЬ: наше собственное измерение". The only real consumer of the door is the human the system agreed not to interrupt.
+
+## 3. A Mac node: share watchdog and a blind stitch (work 10-06/07, retro 10-11)
+
+After the hub's sync device ID changed (10-02), the hub shared 2 of 6 folders with peers (`remoteState=notSharing` for 4). The hub's robot reported "SYNC OK" from connection state. The node's vault was frozen from 10-02 19:19Z.
+
+By 10-11: 4 folders back, `st_share_watch` GREEN, coverage 100%.
+
+The share watchdog measures sharing, not consumer reads. Third capture of "green on a dead channel".
+
+Probable culprit of the 10-02 hub `AppData\Local` cleanup: `dr_ff_collect.py`, `rmtree(prof.parent)` during in-place `copy_profile`. Status probable; two outside agents ACCEPT after 3 rounds.
+
+Failures confirmed by 4 critics:
+- blocker on human hands (4 checkboxes in hub sync settings) delivered after 2 h, as the last paragraph;
+- ~10 messages sent into a hung inbox robot;
+- a weak guard broadcast to 4 nodes as URGENT before review, recalled after a day;
+- 18 Opus subagents on groundwork, 67 min with no visible output;
+- `voice_stitch.py` shipped blind (hub format not visible, no torch), not confirmed by the hub;
+- one reply timestamp not taken from the clock.
+
+Numbers: 57 event snapshots, 12 photo anchors, 10 lead cards, 679-line snapshot, $112.65 main cycle on 10-06, 4.67M subagent tokens. Panel 5/6 for $0.07; one vendor excluded on privacy.
+
+Refuted by the panel: "100% coverage at 4 of 6" (the watchdog judges 7 pairs); "snapshot without atomic write" (tmp + `os.replace`, test T10).
+
+---
+
+## 4. The rule of the day
+
+| Finding | Fix address | Owner set | Why empty / late | Contract now |
+|---|---|---|---|---|
+| Janitor dies on background wait | task file, 1 line | {} | light-peer profile forbids shared-rail writes | named owner with 1-line mandate |
+| Seed queue not unloaded | consumer role | {"first live session"} | no identity, no counter, 34 producers | named unloader, counter |
+| Queue fix stuck in queue | spawn_queue close logic | same as above | false done on 10-07 | reconcile done vs slots |
+| Share green, data unread | watchdog metric | watchdog author | metric = sharing | measure consumer read |
+| Hub sync checkboxes | hub UI | {human} | blocker placed last after 2 h | blocker is line one |
+
+## 5. The human counter-example
+
+The one fix whose owner set was non-empty and correct was a human action on the hub. It failed on delivery layout, not on authority. Inverse of cases 1-2: owner present, signal buried.
+
+## 6. The book's own measurement
+
+This run closes week 19 (2026-10-05 to 10-11). Open debt unchanged at fourteen days: Days 105-107, 112-119, 121-123 (README of week 19).
+
+No bits for 10-11: the nightly canon pair writes with lag; the last bit for 10-08 and two for 10-09 landed on 10-13 01:13.
+
+Public posts section empty for the twelfth consecutive chapter; the tap returns no data, and it has no owner either.
+
+*Written by: Opus 5.5*
+
+
+== 2026-10-12.dev.md
+
+---
+title: "Day 131 - 2026-10-12: a first verdict read off one surface was accepted as evidence until a second pass by another method refuted it"
+date: 2026-10-12
+day_index: 131
+week: 20
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [single-surface-verdict, second-pass-other-method, file-size-as-evidence, tool-reply-as-state, permission-error-as-absence, size-gate-vs-meaning, non-idempotent-migration, blind-ab-blind-spot, fixture-in-live-ledger]
+---
+
+# Day 131 - 2026-10-12: a first verdict read off one surface was accepted as evidence until a second pass by another method refuted it
+
+Dev-log form. One pattern in ten instances, plus one human counter-example in both directions.
+
+Failure mode: a verdict about state `S` is derived from a proxy surface `P` (file size, tool reply, exception branch, gate status, aggregate score, a human's statement). `P` is correlated with `S` but not identical. The verdict is reported before any second method reads `S` directly.
+
+Position on the line. Day 129: a fix reached one consumer of a pair. Day 130: a correct diagnosis had no owner.
+
+Day 131: the first diagnosis itself was wrong.
+
+Scale: 9 distinct live sessions, 18 calls, 216 robotic, 27 retrospectives, 17 vault commits, 48 config commits, 0 commits to this book, 3 decisions, 6 research orders.
+
+---
+
+## 0. Contract
+
+A first verdict is a hypothesis. It becomes a claim only after a second pass using a different method that reads the target state directly. Proxy surfaces print what they are, not what was asked.
+
+## 1. Cookies by file size (laptop node)
+
+Verdict: "cookies intact, Google server issue", based on file size. Human: "this is WRONG". Default profile: 1662 cookies (10-05) -> 105 (10-06).
+
+Merge of 1582 from backup was a false fix: on 10-07 07:08 Chrome dropped all restored rows (v20, app-bound key mismatch); 112 new rows survived; total 134.
+
+Trigger candidate: 10-06 05:04 PDT a neighbouring session added `--profile-directory="Default"` to the shortcut; mechanism unproven. Backup now stores `Local State` + `Cookies` as a pair.
+
+## 2. Tool reply as state (mac node)
+
+Swap: load 465 / 16 cores, 57 MB free, 4.8 GB swap. stdio MCP `agent-chrome`: 84 procs / 2012 MB at 26 sessions, 83 calls in 14 days. Hub concurrently: 55 GB free of 128, CPU 4%; stdio screenpipe 176 procs / 6955 MB.
+
+Grep by name overcounts calls ~40x; count only `type":"tool_use"` blocks. After: load 7, 8888 MB free.
+
+Human correction after "+++": stop, not archive. 29 `archive_session` calls returned "Archived session"; disk cards kept `isArchived: false`. Sweep claim "no archiving routines on nodes" false: account setting `auto_archive_on_pr_close` (now off).
+
+Process faults: canon edited bypassing `canon_write_gate.py`; no rail plan declared.
+
+## 3. Permission error as absence (canon parity)
+
+7/12 canon docs differ on the laptop; per-machine `.stignore` does not sync. Coverage 50% -> 38% (blind 60/96 pairs). Seed hypothesis (stuck escalated hash) refuted by code: `publish_canon.py:831` is a dedup key.
+
+`canon_parity.py` printed MISSING for CLAUDE.md on lighthouse node: file present, 82014 B, mode 640 root:root, probe ran as non-root. `PermissionError` fell into `except Exception: continue`. 29 checks and 5 mutations never broke permissions.
+
+Agent's own claim "lied on seven docs" overstated; exactly one false, caught by panel 6/6 in 68 s. Class `instrument-vrjot-zelyonym`: 167 cases since 08-10.
+
+## 4. Size gate vs meaning (CLAUDE.md v6)
+
+Compressing section 0 to cap dropped 8 caveats (items 3, 4, 5, 7, 9, 13, 14, 16) with size, stamp and anchor gates green. Caught only by a Codex breaker; 8/8 restored. `llm_ask --class second_opinion` returned rc=0 with Gemini "cannot read the files".
+
+Parity judges 3/8 nodes (blind 62%).
+
+## 5. Non-idempotent migration (routines)
+
+Hub 7 days: 250 runs, 123 Opus 5 [1m], 24 Fable 5.1, 0 Haiku. Moved 48 enabled (29 sonnet + 19 haiku); 308 disabled pinned; 33 launchers. Price simulation $3817 -> $994/week (-74%), simulation only.
+
+Faults: rerun lowered tiers again (journal rollback 3 min); effort-based marker false-skipped (now `tier_migrated:`); header effort ignored, only global `CLAUDE_CODE_EFFORT_LEVEL=medium` applied. Mac16 decision 10-12..10-19: Opus -> Sonnet 5.5, Sonnet -> Haiku 5.5, 29 enabled; reference agent gave 3 wrong answers, all refuted by live probes.
+
+## 6. Live, not dead, processes (one kitchen)
+
+Hypothesis "dead processes" refuted: 5 of 12 Codex plugins raise an MCP per thread; 79 procs / 3480 MB / 11 sets at zero live threads. "Old sets leave only on restart" refuted (104 procs / 7 sets / 77 C, no restart). The investigation inflated the tree 79 -> 182 in 6 min.
+
+Disabled two plugins (0 calls / 392 rollouts / 14 days); `max_concurrent_threads_per_session = 1`. Morning lazy-MCP edit cleaned `[mcp_servers]` only and missed plugins.
+
+## 7. Moved, not lost (originals)
+
+232 photo-leads originals gone; Syncthing REST `modifiedBy` = hub, 10-11 22:43:31, nightly `originals_reconcile.py`; SHA256 248/248 match. Sixth false alarm of the class. New `vault_recoverable.py --where` -> LIVE / MOVED-TO-HUB / SYNC-TWIN / LOST; alarm only on LOST.
+
+## 8. A human statement as state (arXiv)
+
+Order 10-06. "Paper not ready" stale after ~10 h: routine produced v2 (9 pages) and `ARXIV-SUBMIT.md`; notification to the human unconfirmed. Human said "logged in" on 10-07 and 10-12; both times the extension tab (MCP Chrome group, hidden window) showed the login form; 5 login checks; still logged out 10-12 20:58.
+
+October submissions 0/2. Adopted wording: "said he logged in". Login check = `arxiv.org/user` text in the extension tab.
+
+Agent does not type passwords (harness restriction).
+
+## 9. Blind A/B blind spot (ASR)
+
+Blind A/B, judges Gemini + Grok: gpt-4o-transcribe 7.3, whisper-1 6.2, local large-v3 5.3, 4o-diarize 4.8, 4o-mini 2.2. Local hallucinated a subtitle credit on silence. Chunk-level cross-check vs local: 4o silently drops 15% of chunks, sometimes writes Russian over English.
+
+350 retries: losses 60 -> 38 of 405. Result: hybrid. pyannote PixIT on attempt 5: separated tracks worse than mix (1700 vs 3350 chars), overlap 61%.
+
+Cost ~$15; 18 recordings, 1626 min, 125602 words.
+
+## 10. Fixture in live ledger (handshake score)
+
+`handshake_score.py calibrate` reported 12 live estimates; all were "Fixture Person" from daily regression. Test moved the card to tempdir but wrote the journal to the live path (3144 -> 3668 B). Relabelled `probe:true` atomically; 6 real measurements.
+
+Class `test-fixtures-write-into-live-secrets`: case 3. Contract: tests keep the live journal byte-identical.
+
+---
+
+## 11. Table
+
+| Proxy surface | Wrong verdict | Second method |
+|---|---|---|
+| file size | cookies intact | row count before/after |
+| tool reply | archived | `isArchived` on disk |
+| grep by name | MCP heavily used | `tool_use` blocks |
+| exception branch | file missing | stat as owner |
+| size/stamp gates | compression safe | breaker reading meaning |
+| rc=0 of rail | second opinion done | reading the reply |
+| simulation | -74% spend | next week's actuals |
+| "files gone" | originals lost | `modifiedBy` + SHA256 |
+| human "logged in" | ready to submit | page text in agent tab |
+| blind A/B score | winner | chunk-level diff |
+| calibrate output | 12 live points | provenance of rows |
+
+## 12. Other work, compressed
+
+22 podcast files on disk 10-07, delivered to chat 10-12, listened 0/22. One Google session ID in 5 NotebookLM profiles. Firefox Default = robot1 since 10-06 (names read from `profiles.ini`, menu reads `Profile Groups/*.sqlite`).
+
+Recall staged: 141 -> 32 s, `--fast` 6 s. Token usage ledger on 7 nodes; agent broke hub sync link for 32 min by rewriting `config.xml` via a PowerShell serializer. `workspace_write_guard` treated `2>$null` as a write.
+
+## 13. Human counter-example
+
+Anton was right in words three times before instruments ("this is WRONG", stop not archive, find the culprit), and wrong once ("logged in"), refuted by the agent's tab. Human statements are a surface too; they get the same second pass.
 
 *Written by: Opus 5.5*
