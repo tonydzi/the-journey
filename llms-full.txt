@@ -17643,7 +17643,7 @@ A fix is done when it is read at the consumer. A count is done when a second ind
 
 fleetsync versions differ across hub, mac, lighthouse. Hub accepted-list unchanged since 10-12 20:53, 7 unaccepted; mac +103 from lighthouse, +11 from hub. Root: the rollout library is the one thing it does not deploy; hub version lacks inbox reading.
 
-Fix: single version on 3 nodes via canary, 0 losses, hub 561/561, rollback named (`.bak-fleetsync-20261013`). Tests 9 green / 4 red; red also on an untouched node, age unknown. Icons v2 on 5/7 nodes
+Fix: single version on 3 nodes via canary, 0 losses, hub 561/561, rollback named (`.bak-fleetsync-20261013`). Tests 9 green / 4 red; red also on an untouched node, age unknown. Icons v2 on 5/7 nodes.
 
 Mac sync lag 123096 files / 2.57 GB.
 
