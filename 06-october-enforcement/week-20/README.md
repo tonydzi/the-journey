@@ -6,6 +6,8 @@ The week opens with Day 131 (October 12): cookies judged healthy by file size, t
 
 Day 132 (October 13) is the quiet-signal day: a Chrome mitigation described from a stale log, a repair routine that overwrote a healthy login with a near-dead foreign one, a recording sync that failed silently for five days, and a memory scanner nobody owned. Day 133 (October 14) is the delivery day: a rollout library that never rolled itself out, a canon rule published without changing its door, bus packages held for broken signatures, and an interview count taken from one status field when the table said otherwise.
 
+Day 134 (October 15) is the day the guard turns out to be made of the same stuff as what it guards: a check task on the same exhausted subscription bucket as the manager it checked, a "7/7 acceptance" that was seven substring searches, and receipts timestamped in three different local clocks. Day 135 (October 16) is the day nobody had ever measured the judges: of 64 verdict-issuing instruments none had a measured accuracy, trees of decisions sat in 50 of 50 routines with zero fork calls in seven runs, and the first version of the new test stand exited green with a false negative in it.
+
 Following days are added as they are closed.
 
 ## Chapters
@@ -13,7 +15,9 @@ Following days are added as they are closed.
 - [День 131 - 12 октября: первый вердикт прочитали с одной поверхности, а правду принёс второй заход](2026-10-12.ru.md) · [EN](2026-10-12.en.md) · [🤖 machine](2026-10-12.dev.md)
 - [День 132 - 13 октября: сигнал молчал или устарел, а его прочитали как «всё в порядке»](2026-10-13.ru.md) · [EN](2026-10-13.en.md) · [🤖 machine](2026-10-13.dev.md)
 - [День 133 - 14 октября: починка не доехала до потребителя, а счёт вели по одному срезу](2026-10-14.ru.md) · [EN](2026-10-14.en.md) · [🤖 machine](2026-10-14.dev.md)
+- [День 134 - 15 октября: сторож и проверка живут в том же веществе, что проверяемое](2026-10-15.ru.md) · [EN](2026-10-15.en.md) · [🤖 machine](2026-10-15.dev.md)
+- [День 135 - 16 октября: точность судьи никто не мерил](2026-10-16.ru.md) · [EN](2026-10-16.en.md) · [🤖 machine](2026-10-16.dev.md)
 
 ---
 
-*Week 20 is open. Days after October 14 are not written yet.*
+*Week 20 is open. Days after October 16 are not written yet.*

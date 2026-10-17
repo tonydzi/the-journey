@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 111 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 113 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -17767,5 +17767,261 @@ Hang cause unproven (1/3). CLI banned since 10-03. Operator got a model-memory a
 Cause of hub cursor jerks. Chrome-MCP hang. Age of 4 red fleetsync tests.
 
 Live share of 111 OVERDUE. Whether "read by server" items were seen.
+
+*Written by: Opus 5.5*
+
+
+== 2026-10-15.dev.md
+
+---
+title: "Day 134 - 2026-10-15: guards and checks built from the same substance as their subject"
+date: 2026-10-15
+day_index: 134
+week: 20
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [shared-failure-mode, guard-shares-bucket, guard-outside-bucket, substring-acceptance, local-time-receipts, claim-done-without-tool-call, inference-as-measurement, observer-load, clean-env-install, adversarial-skeptics]
+---
+
+# Day 134 - 2026-10-15: guards and checks built from the same substance as their subject
+
+Dev-log form. One defect class, 15 retrospectives.
+
+Shape: check `C` guards subject `S`, and `C` depends on a resource, method, clock or author shared with `S`. When that shared thing fails, `C` fails with `S`, or `C` agrees with `S` by construction.
+
+Position on the line. 131: first verdict from one surface. 132: silent or stale signal read as "fine".
+
+133: fix did not reach the consumer, count from one slice.
+
+134: the check existed, was fresh and delivered, and still could not see, because it shared the failure mode.
+
+---
+
+## 0. Contract
+
+A guard must not share an exhaustible resource (subscription bucket, vendor quota, account, token) with its subject. A behavioural claim needs a behavioural test. Cross-node time is UTC.
+
+"Done" requires a write call in the transcript. Hardware facts come from the host.
+
+## 1. Guard on the same bucket (bb-guard-shared-bucket)
+
+Bucket a2 weekly limit exhausted 10-08 ~05:50Z. Manager runs 06:30:05 / 06:30:45 / 06:31:56 got 429. bb retried at 30/60 s, spent its 3-attempt budget on one transient error, paused: `enabled=0`, `consecutive_failures=3`. Limit reset 10-10; bb does not auto-resume.
+
+7 mornings lost.
+
+Check task scheduled 10-08 06:48Z for exactly this failure fired on time and failed `out of usage credits` (also 05:57Z). Same bucket. Class opened, 1st case, 0 family matches.
+
+Revival: `resume` -> manual run -> delivery line `tg-03:OK`; DB after resume `consecutive_failures=0`, `last_run_status=succeeded`.
+
+Fix: `/root/bb_automation_guard.py`, root-cron `50 6 * * *` UTC, 0 LLM. Closed WATCH list, immediate catch-up run, hand-brake file honoured, expected-off collector logged only, unknown paused automation reported not touched, 3 resumes / 7 d -> "not transient".
+
+Guard born crashing: `data.get()` on `--json`, which is a list in bb 0.44 -> `AttributeError` on first live run, caught before cron. Class `forma-vyvoda-cli-ugadana-a-ne-probovana` (CLI output shape guessed, not probed), 1st case.
+
+Red probes (live):
+
+| branch | break | result |
+|---|---|---|
+| ok | none | rc 0, silent |
+| paused | `pause` | resumed + catch-up, rc 1 |
+| bb dead | `BB_BIN=/bin/false` | "NOT checked", rc 2 |
+| hand-brake | `pause` + file | not resumed, rc 0 |
+| collector off | normal | log only |
+
+Probe log archived; 4 probe resumes would have inflated the 3/7 d counter. Panel 6/6, 83 s, 5/8 accepted. Collector shard 20:17:01Z: 103 routines (was 102).
+
+Shard proves existence, not health.
+
+Open: scheduled run 10-16 06:30Z unverified. Manager still on the same `claude-code` bucket; provider change is an operator decision.
+
+## 2. Text checks text (H15263)
+
+Historical ACCEPTANCE 7/7 = 7 substring hits. No behavioural test.
+
+Evidence re-scoped: `git show` = saved; SHA256 = bytes read; `diff --check` = formatting; `machine_stamp lint` = label. `routine_discipline_apply.py --verify`: 50 targets, 1 missing block, 0 old; local Claude scope only; block presence != execution.
+
+Panel usage line carries `host=unknown`. Class `substring-check-is-not-behavioral-acceptance` 1/3. Try (not done): one bounded copy-based example with negative control and consumer-side result.
+
+## 3. Clocks check clocks (fleet-ssh-receipts)
+
+`fleet_ssh.py run` writes a receipt per request, `who` tabulates. Same minute: lighthouse 00:05, Mac16 17:06, hub 01:05 (local zones). Fix 1.1.1: UTC with `Z`; red on 3 mutants; canaries lighthouse / Mac16 / ZBook.
+
+First non-author use: Mac16 23 `run` calls in one evening (8 own command-form errors). "Unknown key" on lighthouse (12 logins) = ZBook key; no breach. Open: no fsync; `who` silently drops a partial line.
+
+## 4. Head checks head
+
+Memo session: reported "memo updated with two edits"; no write call followed; file unchanged since 10-08. Written during retro. Class `claim-done-without-tool-call`.
+
+Side errors: `llm_ask.py --file` (correct `--prompt-file`), `--help` not read first; "measurement" was a vault cross-check.
+
+Mac Studio: prior "36 GB / M4 Max" was an inference. Live read-only SSH via MacBook hop, `system_profiler` exit 0: M4 Max, 16 cores (12P + 4E), 128 GB, 4 TB/USB4 buses "up to 120 Gb/s", macOS 27.0.1, root APFS 494.4 GB. Enclosure is 80 Gb/s; host bus speed != SSD throughput.
+
+No benchmark. Direct `.local` resolution from hub failed.
+
+## 5. Observer load (mac-heat)
+
+Component fixes accepted (name index, strict NOTFORME reader: 21 tests x 4 nodes rc 0); heat not accepted. 11:38 PDT: residual 8 W, battery draining, CPU limit 40%, fans near max. Retro backup started 11:33 during power measurement -> no clean A/B.
+
+Idle reaper dropped: process age + zero CPU != idle.
+
+## 6. Background
+
+- LocalWhisper cleanup: operator "yes" (Tier-2); 55 fixed IDs deleted 20:49:11Z (list prepared 00:16:52Z). Server check: old 0, OpenAI 55, voice 51, links 51/51. Red control: corrupted snapshot -> `AssertionError "Backup changed"`, no client created. `machine_stamp.py apply` appended a raw comment after JSON and broke the parser (class `strict-json-corrupted-by-text-stamp` 2/3); removed before deletion. ASR quality unchecked.
+- Decision trees: `decision_tree.py`, 26/26, red on 2 mutations; canon §5.12; v1 flaws (unknown read as fail, loops, detours not logged, no shadow) fixed in v2. Trees 3/300; forks 0, stops 0 in 7 d (absence of records != absence of forks). Shadow to 10-29.
+- PyPI: `sqlite-graph-memory` 0.3.0; clean-env install found Intel Mac crash (transformers 5 needs torch 2.6); platform constraint; PR #27 (MCP registry `server.json`, OIDC, 0.3.1), 94 tests green. Earlier synthesis searched one node only; skeptics refuted 5/6.
+- GitHub audit: 185 PR (156 external), 151 issues, 750 threads; 107 agents, 32 min; 13/49 attacked conclusions refuted (selective denominator). fix/docs 63-69%, feat 30%; 52.2% of resolved, 37.8% of all. `keep_hand_blocks` fix with test.
+- share-fix: lives on Mac16; failed 10-01 on weekly limit (same bucket class). Yield after dedup 226 / 82 / ~17 / 11 / 6. No second node (shared queue race).
+- Raise: 25 people / 0 in S-A-B; 1659 warm investors, 33 CISO-level; verdict before DR quorum (2/6).
+- Call recording found by body grep after 5 doors said no; title names one chunk.
+- Distillation podcasts: 2 episodes x RU+EN, 4 audio. Office hours: idea only.
+
+---
+
+## 7. Table
+
+| Subject | Check | Shared substance | Fix |
+|---|---|---|---|
+| bb manager | check task | subscription bucket | root-cron guard, 0 LLM |
+| routine self-improvement | ACCEPTANCE 7/7 | the text itself | behavioural example (pending) |
+| SSH receipts | cross-node compare | local clock | UTC `Z` |
+| memo edit | "updated" report | author's own claim | write call in transcript |
+| Mac Studio spec | prior note | author's inference | live `system_profiler` |
+| Mac heat | power snapshot | same machine load | none yet; open |
+| JSON evidence | provenance stamp | same file | stamp removed |
+| PyPI package | own env tests | own environment | clean-env install |
+
+## 8. Not proven
+
+Scheduled manager run 10-16. Guard health by run outcome. Behavioural effect of routine self-improvement.
+
+SSD throughput. Cause of residual 8 W. ASR word-level quality.
+
+*✍️ Written by: Opus 5.5*
+
+
+== 2026-10-16.dev.md
+
+---
+title: "Day 135 - 2026-10-16: verdict-issuing instruments had never been measured on their own errors"
+date: 2026-10-16
+day_index: 135
+week: 20
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [judge-accuracy, eval-stand, false-positive, marked-set, kill-list, installation-vs-adherence, self-reported-verdict, guard-wrong-root, review-scope, single-grader, delivery-in-transit, rail-without-a-caller]
+---
+
+# Day 135 - 2026-10-16: verdict-issuing instruments had never been measured on their own errors
+
+Dev-log form. 21 retrospectives.
+
+Defect: instrument `J` emits PASS/FAIL (or done/not-done) on input `x`. `J` has a unit test proving it runs. No marked set `{x, gold}` exists, so `P(J(x) != gold)` was never computed and no mistake of `J` could ever surface as red.
+
+Position on the line. 131: verdict from one surface. 133: fix did not arrive; single-slice count.
+
+134: guard shares substance with the guarded.
+
+135: the judge itself never had an exam.
+
+---
+
+## 0. Contract
+
+Accuracy of a judge is proven by a marked set, not by its test. A false positive costs more than a false negative. The set is rerun on every rule change.
+
+The instrument prints the fact and both hypotheses; a human assigns blame from the rule diff.
+
+## 1. eval_scan (hub, H97728)
+
+64 judges (`*_gate.py`, `*_lint.py`, `*_guard.py`), each with `_test_*.py`, 0 with measured accuracy. Session 10-09 02:43 UTC -> 10-16 20:34 UTC, two passes; order: operator "что такое эвал проверка" -> "может соберём наш постоянный сканер эвала?".
+
+Built: `eval_scan.py` list/run/freeze/status `--alert`; example schema `id, gold, input, why` (no `why` = set rejected); matrix TP/FP/FN/TN. Guard 55 checks; kill-list 16/16 red; breaker probe 4 checks. Sets: retro-x-post-lint 17, paragraph-lint 11.
+
+Nightly 04:50, `LastTaskResult=0`. `/tt` step added.
+
+Defects found in the stand itself:
+
+- v1 computed FN=1, accuracy 0.5, exited rc 0 (red only on regression vs baseline).
+- CLI check in guard executed the live file, not the mutant.
+- red probe wrote into the live trend journal (output paths bound to script dir).
+- "REGRESSION" printed on a healthy gate; first fix blamed labels by mtime; panel 6/6 (75.5 s), 4 rails independently: a broken gate also bumps mtime. Fix: print fact + both hypotheses, `freeze` pins `gate_sha`, 2 mutations added.
+
+First live run after one week: `retro_x_post` accuracy 1.0 -> 0.8, FP 0 -> 3, incl. reference healthy post. Cause: rule F6 (10-15, operator order: outward first person only) vs labels of 10-09. Set rewritten, 17 examples, accuracy 1.0 FP 0.
+
+Same mechanism caught stale label in stand's breaker control text.
+
+Scheduler audit: 4/9 nightly `.cmd` had no task; `output_freshness` printed `recall-eval-nightly STALE` for 11 days with no listener. `recall_eval` actually silent since 09-30 (16 d); restored, goldset 380 -> 390; 9/9 now wired.
+
+`memory_inject_lint`: 5 new findings, 5 false (2 Sheet IDs, scrubbed password by var name, ATS AI-trap description). Neighbour session: again 5/5 false. Candidate third set.
+
+Open: outside code review 0/6 (codex, grok timeout 300 s x2; gemini 429); journal without file lock; accuracy 1.0 on 28 author-written examples is not a quality claim; coverage 2/64; tasks `LogonType=Interactive`; 8/67 fleet outputs stale. `selfheal.py journal` logged `rail-without-a-caller` as 1/3 with 3 documented cases (08-06, 09-02, 10-16): no legal retro entry path.
+
+## 2. Routine trees (hub, Codex continuing H57427)
+
+Snapshot 10-16 11:48:39 UTC: full v2 + topic Mermaid in 50/50 active Claude routines. Installer: 11 new tests, 5 behavioural mutants caught, Claude Opus max ACCEPT. Codex prompts: 1 ACTIVE, 2 PAUSED (who paused: unknown).
+
+7 regular runs post-install: v2 present in initial USER 7/7; tree verdict in final 4/7; real fork/stop calls 0. Three runs with visible forks:
+
+- `lead-thread-reply`: UNKNOWN/ValueError, no fork record.
+- `pipe-a-apply-daily`: post-Submit unconfirmed, no resubmit (correct), final "no forks" (false).
+- X routine: `machine_bus pay` on dfb69e37 with "NOT PUBLISHED" -> PAID; admitted; final again "no forks".
+
+The routine is the sole judge of "had a fork". No undo in `machine_bus`; ledger untouched; debt restoration in open task. Class `routine-tree-opportunity-not-recorded` 1/3, cause UNKNOWN.
+
+59 tree-less sources found on other nodes; not the full remainder.
+
+## 3. Firefox reaper (hub, H39631)
+
+10-12: 15 orphan automation trees, 161 procs, 8.98 GB, age <= 192.6 h (Selenium ATS). Fail-closed reaper, tests S1-S24, review ACCEPT with scope = patch only, no live activation. `FF Profile Sweep` still calls without `--reap-orphan-processes`.
+
+10-16: 1 tree / 11 procs / 0.56 GB, nothing stopped. Chrome diagnosis from one 5 s idle slice dropped. `rail_plan verdict` picked a ~90 h old plan (4th case of class); in Multica session a 370 h old plan.
+
+## 4. Grant guard (laptop)
+
+Guard: "package not built, 19 days to deadline". Package existed since 10-12; guard searched wrong root; only reference missing. Submitted 10-15 (screen + confirmation email).
+
+Panel 6/6 rejected "alarm was right"; referee consent was from another programme, confirmed retroactively 10-16. Root fix task opened.
+
+## 5. Capability exam (laptop, Antigravity)
+
+cap-20261014, 11 tasks A-K, key extracted before handout. Opus 5.5 10/11; Gemini Astra 10/11 (best breaker); Gemini 3.8 Flash 7/11 (invented fleet signature, "100% sure" on errors). Single grader = Claude Opus (same vendor as one examinee); blind second grading required.
+
+GPT-OSS retake: not held (not "failed").
+
+"sig absent on laptop" -> `copy_sweep.py`: 21 copies; sig copy (30409 B) in transit since 10-14 16:46, arrived 07:17, 7 min after exam; lag ~38 h. Repairs: exam_kit 34/34 -> 55/55 locally, other 7 nodes unchecked. Hypothesis: `fleet_tools_sync.py` on the laptop runs without `--apply` since 07-31.
+
+## 6. Background
+
+Model locks in routine prompts: 9 on 3 nodes removed by `routine_model_lock_off.py` (47 checks); facts from 6 nodes. Canon candidate 98280 -> 93210 B, bans 46 -> 2, REQUEST_CHANGES; lighthouse CLAUDE.md root:root 640, ACL fix. Multica canary blocked by tool policy, 0 exchanges.
+
+Codex titles 258/258. `.claude` = keyring (89 transcripts with key-like strings). Antigravity launcher. AppData canary rc=2 saturated by one old path.
+
+Weave TRIAL (rc 0 with traced=False is ambiguous). Photo tape 93 paths != 55 new leads. run_tree 11 sites, 50/50, red 11/50 on backups. One DR closed on 3/6 legs.
+
+---
+
+## 7. Table
+
+| Judge | Verdict | Checked against gold |
+|---|---|---|
+| 64 gates | PASS/FAIL daily | 2/64 now |
+| eval_scan v1 | rc 0 at FN=1 | caught by kill-list |
+| routine final | "no forks" | 0/7 matched |
+| code review | ACCEPT patch | user result unmeasured |
+| grant guard | "no package" | false |
+| Flash self-rating | "100% sure" | errors present |
+| exam grader | Opus on Opus | blind second grading pending |
+| selfheal counter | 1/3 | 3 documented |
+
+## 8. Not proven
+
+Accuracy of 62/64 judges. Stand code under outside review. Routine adherence to trees. sig lag root beyond one node.
+
+Reaper user-side result. Google logout cause.
 
 *Written by: Opus 5.5*
