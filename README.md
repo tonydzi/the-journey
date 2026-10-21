@@ -85,6 +85,7 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 ### [06 — October: Enforcement](06-october-enforcement/) · *a rule nobody can fail to obey is a mechanism, everything else is a recommendation*
 - [Week 19 (Oct 5-11)](06-october-enforcement/week-19/) - the week a rule turns out to be a recommendation unless something stands in its way: a prohibition in prose leaks in fifteen to seventeen per cent of attempts, a gatekeeper on the execution path leaks in none
 - [Week 20 (Oct 12-18)](06-october-enforcement/week-20/) - the week the first verdict is read from one surface and corrected only by a second pass with a different method
+- [Week 21 (Oct 19-25)](06-october-enforcement/week-21/) - the week a rule in words stops holding the hand and only a door at the point of action does
 
 ## Editions and what's coming
 

@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 115 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 117 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -18273,3 +18273,227 @@ Distillation error rate.
 Calendar fix on the laptop. 3/4 doorbell agents. Installed screenpipe.
 
 *Written by: Opus 5.5*
+
+
+== 2026-10-19.dev.md
+
+---
+title: "Day 138 - 2026-10-19: rules in words do not hold the hand, doors at the point of action priced by false-block rate"
+date: 2026-10-19
+day_index: 138
+week: 21
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [rule-in-words, door-at-point-of-action, false-block-rate, turn-exit, second-bump, dead-doors, built-not-wired, false-green-door, proven-by-call, dedup-by-url]
+---
+
+# Day 138 - 2026-10-19: rules in words do not hold the hand, doors at the point of action priced by false-block rate
+
+Dev-log form.
+
+Defect: rule `R` exists as text and is loaded every turn. Action `A` that violates `R` is born at point `P`.
+
+No door sits at `P` (door absent, door at another point, or door not wired). `A` happens while `R` is known and agreed.
+
+Position on the line. 135: judge accuracy never measured. 136: instrument reads the wrong carrier.
+
+137: lock one layer above the harm. 138: no lock, only text; once a door is placed, its cost is the false-block rate.
+
+---
+
+## 0. Contract
+
+Place the door at the point where the action is born. Prove it by a call that goes red (mutants, BLOCK cases), not by file presence. Measure it by false-block rate on a labelled set before wide wiring.
+
+## 1. RECALL door (ask-what-is-in-memory)
+
+Class: 4 cases / 5 weeks. All doors at turn entry; the question is born at turn exit.
+
+Door moved to exit. v1 blocked 62/76 (82%); working version 13/76 (17%); 23 tests.
+
+Open: precision of the 13 blocks not labelled; out-of-sample behaviour unknown.
+
+## 2. Second bump in foreign PR
+
+Rule in canon. Observed: 5 consecutive own moves into silence until maintainer closed the PR.
+
+Open PRs past threshold: 9/27. Bots with `type: User` broke last-mover count.
+
+Built: `silence` instrument, 8 cases, 3 mutations. Hook registration rejected by harness classifier: instrument exists, door at point of action does not.
+
+## 3. Built, not wired
+
+Hook tested manually, absent from settings.json. Catalogue: 185 files, 45 wired, 8 dead. Class count: 42.
+
+Built: `dead_doors.py`, 22/22, daily run. Mass wiring deferred to operator decision (combined false-block rate unmeasured).
+
+ON AIR board: 90 declarations, 23 alive, 65 archived. 31 sync-conflicts held the skills gate, nothing to merge. `--` in XML comment broke plist: 4/87; guard `plist_comment_lint.py`.
+
+## 4. Doors that did not close
+
+Retry runner after rate limit: 45 days without schedule, 270 pending.
+
+Heredoc gate since 10-06: 6 BLOCK cases passed with rc=0. False-green door family: 77.
+
+Force-push gate proven by call: 41 cases, 10 mutants red. `hook_doctor`: 68 hooks, 3 dead. Panel: gate judged foreign repo, harm is rewriting foreign review.
+
+## 5. Application dedup
+
+Key = url; ATS posts one role per city. 57 groups, 74 extra applications. Three doors would block 293/1209 (24%); window 90 days; test 17/17.
+
+Yield: 497 applications, 2 conversations; 96 to one lab in 9 days. Ceiling: 4 per company per 180 days, `position_check.py`.
+
+## 6. Positive case
+
+PR planned to Qwen-Agent (RAG citations issue). Scan of open issues in 10 ecosystems: 2 open requests, deterministic verbatim gate fits 1. Shipped as complement, blind PR not sent.
+
+## 7. Background
+
+Deploy registry: "frozen since 09-22" false (ls by name). Root: `deploy_apply.py` resolved in cargo folder, exit 127.
+
+Threshold 600 s home-made vs sync tick 3600 s. DONE on 5 nodes.
+
+Packages: CHECK OK judged cargo, not delivery; apply=prose never re-wakes (browser hung 6 weeks). Bus 11 DONE + 3 NOTFORME, debts 36 -> 31. Old-over-new: T36 old code DONE applied, new 19/19, robot 43/43; 41 unique applied, 19 ghosts on 7 nodes; `supersedes` handed off.
+
+Quarantine registry: 198 records under pre-rotation key, re-signed 42/42; own script first broke 42 (marker after signature), caught on re-read 0/42.
+
+797 P0 = one dedup bug (date in card name, unconditional priority); 731 robot-made, 3.2x duplicates, 39 days in journal.
+
+Deep Research: "done 4/6" with 2 empty snapshots; 97/312 orders hold a gate-failed file; 5 roots fixed; duplicate ID 1118 -> 0742; 656 B preamble counted as success; synthesis invented issue substance.
+
+Empty waiting checks: 2,462,591 tokens (267-286k input/step); zero event to script, no LLM.
+
+App routine: ~44 empty sessions after 10-14. Worktrees: 1704 cards, 9 missing, 0 after fix. Titles: 100 renamed, 89 exact, 11 truncated, root open.
+
+OSS: src/ lacked PPR+RRF (grep 0), link removed; starter-kit 104 tests + 3 mutants, panel 7 holes, race at 40 processes; conformance board 7/7 merged, PyYAML on 232 skills, 2 PR numbers from memory. Closed PR: per-call tests vs asyncio.gather caller; comment into closed PR (checks read, state not). Axis: 164 PRs, 63 merged, 26 open, 75 closed.
+
+Hub disk: C free 6,023,798,784 -> 18,884,788,224 B, moved 12,913,955,548 B, SHA256 match; report first written from stale failed build.
+
+---
+
+## 8. Table
+
+| Rule | Door point | Door state | Measured |
+|---|---|---|---|
+| RECALL before asking | turn exit | wired | 82% -> 17% false blocks |
+| second bump only with value | none (hook rejected) | instrument only | 9/27 past threshold |
+| hooks must be wired | daily audit | `dead_doors.py` | 45/185 wired, 8 dead |
+| retry after limit | none | unscheduled 45 d | 270 pending |
+| no forbidden heredoc | gate | false green | 6 BLOCK rc=0 |
+| no force-push on foreign | gate | proven by call | 41 cases, 10 mutants |
+| no duplicate application | submit | 3 doors | 293/1209 |
+
+## 9. Not proven
+
+Precision of 13 RECALL blocks. Combined behaviour of dead doors wired together.
+
+Honest share inside 24%. Title truncation root. `supersedes` on all nodes.
+
+✍️ Написано: Opus
+
+
+== 2026-10-20.dev.md
+
+---
+title: "Day 139 - 2026-10-20: missing input swallowed as normal, silence read as green"
+date: 2026-10-20
+day_index: 139
+week: 21
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [blind-instrument, swallowed-exception, cannot-judge, foreign-model-panel, two-logins, lazy-index, synthetic-as-hardware, update-freeze, contributor-mode]
+---
+
+# Day 139 - 2026-10-20: missing input swallowed as normal, silence read as green
+
+Dev-log form.
+
+Defect: instrument `I` lacks its input `X` (config, login, event stream, index). `I` has no output state for "cannot judge". Absence of `X` is swallowed, `I` stays silent, silence is read as PASS.
+
+Position on the line. 136: wrong carrier of evidence. 137: lock one layer above the harm.
+
+138: rule in words loses to a door at the point of action. 139: instrument with empty input reports nothing, nothing reads as green.
+
+---
+
+## 0. Contract
+
+Every instrument has three outputs: PASS, FAIL, CANNOT JUDGE. Any path where input is missing must emit CANNOT JUDGE. An external panel of foreign models is cheap enough to run on every "done" ($0.04 to $0.091 per run, accepted fixes in 7/7 retros).
+
+## 1. Home folder guard (laptop)
+
+Silent 6 weeks. Local config missing; code had `except BaseException: pass`. Conclusion "folder is native" was false.
+
+Rejected root: "registry knows 2 of 8 nodes" (registry is incomplete but not lying).
+
+Fix: "CANNOT JUDGE" on 5 blindness paths; config ships as courier next to the hook.
+
+Evidence: `_test_home_dir_guard.py` 15/15, then 18/18; old version red 4/15; 16/18 after panel. External review 2 rounds: 4 + 1 findings, closed. Panel 6/6, $0.091, all COUNTER.
+
+Open: canary `--check` OK, other node type not proven; 5 nodes outside registry silent by design (root session raised). `llm_ask` wrapper lost the answer twice, bypassed with direct `codex exec`.
+
+Near miss: `ls | tail` sorts by name, not freshness; corrected by `ls -dt`.
+
+## 2. Remote Control
+
+Toggle `remoteControlState: on`; `claude rc` -> "You must be logged in". App login and CLI login are separate. `claude auth status`: `loggedIn:false`, exit 1.
+
+Human did login and "y" (layout produced "н"). After: `loggedIn:true`, exit 0, Connected, Capacity 1/32. Panel 6/6, $0.04, rejected the claim "did it all myself".
+
+Open: phone, other three computers, persistence after tab close.
+
+## 3. Borrowed audience
+
+Repo submitted to a third party catalogue (#881). Scanner 73/80; after hygiene (#37) 94 locally.
+
+Roots: threshold ≥10★ at `qualify.py:60`; GitHub code search indexes lazily (4/63 repos indexed). Logged-in web search triggers indexing (causality 🤔, no control). Triggered 59/59; 2 not indexed after 40 min.
+
+#881 merged 10-20, first external link, 1/1 submitted. Panel 6/6, $0.09. Recheck 10-21 and 10-26.
+
+## 4. Modifier keys (`/kbd-fix`, laptop)
+
+Symptom: Caps Lock, Shift, Alt+Shift. Active recordings 90 s and 120 s: 0 events, instrument listened to modifiers only. One LShift event came from own test (no synthetic vs hardware distinction).
+
+`_test_kbd_fix.py` 5/5, red proven; code panels 5/5, 4/5, 4/5. Passive 10 min: LShift=3, ordinary keys 4. Cause not proven; cross-LLM skill exam not run.
+
+## 5. Background
+
+Hiring positioning: marketing plugin methods applied from descriptions (plugin not installable, fidelity unverified). `gh`: 50 merged PRs in 29 third party repos, 17 docs only.
+
+Advice: one spine instead of 22 CV variants. Error class asked-anton-a-fact-that-memory-already-held at 6/3. Panel 6/6, $0.059.
+
+Intel Mac freeze: macOS and App Store do not self-install; holes: brew unpinned, ban in `~/.zprofile` invisible to agent shells; pin does not protect Python 3.13.
+
+`brew list --pinned` exit 0 (2 formulae); `zsh -c` sees brew=1; TLS 200; pip freeze 21 packages. 29 formulae await "yes" (≥10 objects).
+
+bash and launchd do not read zshenv. Panel 6/6, $0.07.
+
+Muse Code rail: default Contributor mode (vendor trains on data), disabled in `settings.json`. Bare PATH routine could not find `muse`; lookup patch verified on 5 nodes.
+
+DR probe 4 min 24 s, 33 web calls, 14 primary sources; browser probe 22 links, 4/4 agreement, secondary sources. Panel 6/6, $0.061. No consuming routine.
+
+---
+
+## 6. Table
+
+| Instrument | Missing input | Read as | Fix |
+|---|---|---|---|
+| home folder guard | local config | "native" | CANNOT JUDGE on 5 paths |
+| RC toggle | CLI login | "connected" | `claude auth status` |
+| key recorder | non-modifier keys | "keys dead" | passive full recording |
+| code search | index | "no repos" | indexing trigger 59/59 |
+| `ls \| tail` | mtime | "freshest" | `ls -dt` |
+
+## 7. Not proven
+
+Guard on other node type. RC on phone, other computers, after tab close.
+
+Key symptom cause. Indexing causality.
+
+✍️ Написано: Opus
