@@ -6,13 +6,19 @@ The week opens with Day 138 (October 19): a recall door that blocked 62 of 76 qu
 
 Day 139 (October 20) is the day an instrument was allowed to say "cannot judge": a home-folder guard that stayed silent for six weeks because it swallowed the absence of its own config, a keyboard watcher that listened to the wrong keys, and an outside panel that found an overstated "done" in seven retros out of seven.
 
+Day 140 (October 21) is the day two correct guards added up to the failure each exists to prevent: a mass-delete tripwire refused the backup and the once-per-day gate counted the refusal as the day's run, leaving 24 days without a full backup and nobody owning the sum.
+
+Day 141 (October 22) is the day receipts were green and outputs dead: hooks that exited 127 for twelve days, a verify that read someone else's feature, a session cap nobody asked, and a skeptic panel that refuted the author's own "class closed".
+
 The remaining days of the week are not written yet; the day gate keeps today's day closed until it ends.
 
 ## Days
 
 - [День 138 - 19 октября: правило словами не держит руку, держит дверь в точке действия](2026-10-19.ru.md) · [EN](2026-10-19.en.md) · [🤖 machine](2026-10-19.dev.md)
-- [День 139 - 20 октября: отсутствие входа проглотили как норму, а прибор не имел права сказать «не могу судить»](2026-10-20.ru.md) · [EN](2026-10-20.en.md) · [🤖 machine](2026-10-20.dev.md)
+- [День 139 - 20 октября: отсутствие входа проглотили как норму, а прибор не имел права сказать «не могу судить»](2026-10-20.ru.md) · [EN](2026-10-20.en.md) · [🤖 machine](2026-10-20.dev.md)- [День 140 - 21 октября: два правых сторожа и ничья сумма](2026-10-21.ru.md) · [EN](2026-10-21.en.md) · [🤖 machine](2026-10-21.dev.md)
+- [День 140 - 21 октября: два правых сторожа и ничья сумма](2026-10-21.ru.md) · [EN](2026-10-21.en.md) · [🤖 machine](2026-10-21.dev.md)
+- [День 141 - 22 октября: квитанция зелёная, выход мёртв](2026-10-22.ru.md) · [EN](2026-10-22.en.md) · [🤖 machine](2026-10-22.dev.md)
 
 ---
 
-*Week 21 is open: two of seven days (October 19-20) are written.*
+*Week 21 is open: four of seven days (October 19-22) are written.*
