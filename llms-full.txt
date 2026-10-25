@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 119 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 121 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -18797,5 +18797,317 @@ Night wave with new reserve; scheduled 09:40 run. Follower definition (reading o
 Screenpipe PLT/STT UNKNOWN; 'no internal gaps'; native Quit and reboot. Latest bundle full SHA256 restore; cloud.
 
 17.80 GiB free-space drop unattributed. Real speaker payouts UNKNOWN.
+
+✍️ Написано: Opus
+
+
+== 2026-10-23.dev.md
+
+---
+title: "Day 142 - 2026-10-23: a true reading expires between the check and the irreversible click"
+date: 2026-10-23
+day_index: 142
+week: 21
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [lagging-mirror, application-cap, parallel-submissions, stale-disclosure, duplicate-outbound, free-slot, unsynced-tree, sync-watchdog, receipt-from-request, disk-ate-the-calls]
+---
+
+# Day 142 - 2026-10-23: a true reading expires between the check and the irreversible click
+
+Dev-log form.
+
+Defect: value `V` is read at time `t0` from copy `C`; irreversible action `A` fires at `t1`. `C` lags ledger `L`, and no claim on `A`'s slot is held over `[t0, t1]`. `V` was true at `t0` and false at `t1`.
+
+Variants: mirror table instead of registry; per-session disclosure under parallel writers; free outbound slot with two executors; stale ask counted as free; fix deployed to a tree that is not the one that runs.
+
+Position on the line. 138: rule in words loses to a door. 139: empty input reads as green.
+
+140: two correct guards sum to failure, sum unowned. 141: green receipt over a dead output. 142: true reading expires before the click.
+
+---
+
+## 0. Contract
+
+Before an irreversible action: read the count from the ledger, not a mirror; hold a claim on the slot; re-read live state at the last moment before the act.
+
+A consent token must outlive the polling period of its reader. A fix is deployed only when the running tree carries it.
+
+## 1. Application cap from a lagging mirror
+
+Seed: "1 submitted, 3 left" (local DB). Fleet registry: 6. Gate union count: 9.
+
+Limit: 4 per 180 days.
+
+Cause: gate counted only a mirror table that lags the fleet ledger.
+
+Solution: neighbour session had already fixed the gate (red proof FAIL E10/E10b on old code). Gate computed capped until 2027-04-17. Submitted 0.
+
+Own error: window-open date counted by eye twice, wrong twice; panel caught it.
+
+Open: rollout to other nodes unverified; seed generator may keep stale counts; Syncthing stall blinds the gate again.
+
+Pattern: the gate counts the ledger, and computes dates itself.
+
+## 2. Parallel submissions, stale disclosure
+
+Five parallel sessions submitted overlapping applications, ~11:35-12:39 UTC. Each session's "other applications" disclosure was stale within an hour.
+
+Solution: shared submissions ledger (10 rows). Not atomic, no door before the click.
+
+Side finding: status comes from the confirmation email, not the card field (one card wrongly closed as done).
+
+Pattern: a disclosure written at turn start is a snapshot; with parallel writers it needs a shared, claimed ledger.
+
+## 3. Vendor cap unknown before the wave
+
+Two roles at one vendor rejected by a banner "limiting applications within the last 90 days"; recorded as validation error (banner needle too narrow). Submitted 0.
+
+Solution: needle fixed in 2 files; `VENDOR_CAPS=(1,90)`; regression red on old code. Class vendor-cap-unknown-before-wave: 3/3.
+
+Open: cap per company or per domain (unknown).
+
+## 4. Duplicate after-call order
+
+Two sessions executed the same after-call order. The other session (Codex) had already sent intros and follow-up.
+
+Stopped only by re-reading the live thread before Send. Class parallel-sessions-same-outward-slot-no-claim: 2/3 (first case 10-12).
+
+Pattern: outbound slot needs a claim; last-second re-read is the backstop, not the mechanism.
+
+## 5. Thread-clean: 17 asks from a stale slot
+
+17 asks issued instead of 5 (12 revoked). Cause: a stale ask counted as a free slot. A bare "+" in the approval chat expires in 15 min; the ear ticks every 2 h.
+
+CRM deletion: 1655 messages in 4 batches (306+38+593+718), verified by re-read. 8 messages silently kept by Telegram, caught by `delete_verified`. Tally: 2499 deleted, 9 not; intents 365 = results 365.
+
+Batch 04 hung 3 times (8, 25, 23 min). Cause: second connection on the same session key as the always-on Telegram MCP; not FloodWait.
+
+Pattern: consent TTL >= reader poll period; one client per session key.
+
+## 6. Due-fix in a non-synced tree
+
+10-02 fix for the `due` field never reached production. Live indexer runs in a different tree (cron 03:30), not synced between nodes; live audit had no `overdue` key.
+
+After manual deploy: 11 overdue, oldest 87 days; 534 of 1,295 undone rotting. Applied on 2/8 nodes.
+
+Open: root "trees don't sync" unsolved.
+
+Pattern: verify the fix in the tree the scheduler actually runs.
+
+## 7. Supporting
+
+Syncthing watchdog: Mac lag blamed on Codex (59 processes). Cause: watchdog restarted Syncthing every 10 min, forcing full vault rescans. 1-min load 374 -> 43.
+
+Applied on 3 nodes, 4 offline; source = session final replies only.
+
+Forward receipt: in basic groups message ids differ per account; forward delivered an unrelated 2021 message while the tool printed "6 messages forwarded" (count = request length). Door in telegram-mcp: refuse on missing id, verify text at destination; 11 tests red on old code.
+
+Own `uv run` rebuilt the live venv, daemon down ~5 min. Bot-review comments on the PR unanswered 8.5 days, one a real bug in the receipt.
+
+Screenpipe lost calls (hub): recording gaps 29 h and 38 h. Screenpipe stops capture under 20 GiB free. Nightly test `git clone --no-hardlinks` of 35.8 GiB + 29.8 GiB `tmp_pack` garbage into Temp, killed at 180 s timeout, left 60 folders (largest 73 GB).
+
+Fix: watchdog sees disk (DISK_LOW); runner gives a TMP sandbox; clone uses `--shared`. Free 17.4 -> 64.7 GB. Deleting 120+ GB = Tier-2.
+
+## 8. Background
+
+WhatsApp -> CRM: 10-21 nightly task retargeted to collect-only; downstream half (notes, CRM links, leads, verify) lost its schedule; gap 10-20..10-23. `wa_verify` rc=18 for 12 nights (10-09..10-20) over 4 sync-conflict files.
+
+New downstream task (manual run 75 s). Counters 137650 / 104340 msgs, 371 links. Task is Interactive, not S4U.
+
+Author deleted own task by mistake, restored.
+
+CRM sensors: listener/analyzer consumed by nobody for 102 days; hub task result=0, no output. Added to laptop nightly; live run exit 0/0 (5,503 hits). Panel: chat digests stale (snapshots ~06-08, 06-20); Connect = handed over, waiting.
+
+0/102 hub deploy nights executed.
+
+Promise watchdog trusted the card, not the thread: false alarm 23 nights. Fix `check_threads()`, tests 14/14 -> 19/19, mutant per fix. Telethon 1.44.0 (one node) vs 1.45.0 (hub).
+
+Watchdog now prints last thread event. Nightly run drifted 04:10 -> 12:10, unexplained.
+
+Tailnet dropout (hub, ~5 h, 06:41Z-11:39Z): Start-menu reboot disconnected Tailscale (WantRunning=false, NeedsLogin); reboot aborted 06:42:42Z; 6 bypass routes failed. Fix: ForceDaemon=true, tailnet_guard v2 self-heal, 5-min task; ssh 6/6, then 20/20.
+
+Hub fleet audit ~5 h: 10-02 AppData cleanup destroyed sync and signing service files, explaining silent nodes. E->F mirror failed 17 nights (Syncthing version move -> false 52k deletions; robocopy multithread parse bug). Debts 297 -> 254.
+
+Session overload gate: wrong matcher name, counted processes (62 claude, 5 active) while overload was Python workers. Replaced by `session_cap.py`: min(load1, load5) >= 8x cores or memory critical; threshold from 2739 samples (p50 6.3, p95 61). Swap-only leg gave false CRITICAL on calm Mac (swap 13.4 GB, 43% available) -> v3.1.
+
+4 nodes rolled, 4 waiting.
+
+Bus debts 108 (10-19) -> 64 -> 72 -> 52 (10-23). Roots: "hub" in ALL broadcast made every node a debtor; catch-up message created a second debt; `debt_autopay.py` duplicated `debt_sweep.py`. 14 auto + 7 manual = 21 closed; 17 tests red on old code.
+
+Police chat 02: robot messages unsigned (signature only in `bus_send`; ~26 robots use `post_to`). `ensure_sig` + `police_sig_patch` v3, 18/18. Panel: v1 silently CRLF -> LF in 566 lines of `machine_stamp.py` on 3 nodes; restored 595/595.
+
+Muse rail existed since 10-14/10-20, not called by panel or OpenRouter; `_muse_turn` added. Windows test faked HOME (`expanduser` uses USERPROFILE), wrote muse into live routing of 2 nodes; fixed with `MUSE_PATCH_HOME`. Panel 6/6.
+
+Keyboard Alt+Shift (one laptop): 15 h 52 min; 6 key windows, 0 modifiers; vendor cleaner blamed, removed, refuted; ctfmon alive but deaf; `/kbd-fix` 1.2.0. Console window from own LLM rail stole focus.
+
+T5 form-cost: 18 seeds x 3 arms = 54/54. H1 +22.58 pp, CI [18.96; 26.20]; fixed 12.43%, permuted 13.80% below 16.25% majority baseline; only variable 35.70% above. 34 separate sleep calls; `vault_backup.py --help` ran a real backup (95 changes).
+
+Pipe A: fleet 56 -> 3-12 applications/night; wave reserve tagged the tail of any wave, 98 of ~130 rows idle. Stuck application held by 3 locks (jobs.db, fleet log, Sheets registry); `apply_retry` removed one.
+
+Ask-recall Stop-hook: 1 of 12 live blocks in 3 days correct. v6, test 41, red on each of 8 layers.
+
+Goblin audit: 47 findings, 46 confirmed; ~19% of "author voice" corpus was reprinted press. v3 result unread 20 days (announced only on the bus).
+
+Signal Desktop held writes in memory 13 h while export and watchdog logged ok; Quit flushed (10 -> 20 chats); watchdog v3 adds log-content wire.
+
+---
+
+## 9. Table
+
+| Reading | Read from | Truth lived in | Fix |
+|---|---|---|---|
+| "1 submitted, 3 left" | mirror table | fleet registry (6) | gate counts ledger |
+| other-applications disclosure | session start snapshot | 5 parallel writers | shared ledger (not atomic) |
+| form validation error | narrow banner needle | vendor 90-day cap | wider needle, `VENDOR_CAPS` |
+| outbound slot free | own session view | other executor already sent | re-read before Send (no claim yet) |
+| ask slot free | stale ask | live asks | 12 revoked |
+| `due` fixed | repo tree | non-synced live tree | manual deploy, 2/8 |
+| "6 forwarded" | request length | destination text | verify at destination |
+| Codex causes lag | process count | watchdog restarts | watchdog fix, 3 nodes |
+
+## 10. Not proven
+
+Gate rollout to other nodes; seed generator freshness. Submissions ledger atomicity; door before the click.
+
+Vendor cap scope (company vs domain). `due` fix beyond 2/8 nodes; root "trees don't sync".
+
+Syncthing watchdog fix on 4 offline nodes. Deletion of 120+ GB on hub (Tier-2). Promise watchdog drift 04:10 -> 12:10.
+
+✍️ Написано: Opus
+
+
+== 2026-10-24.dev.md
+
+---
+title: "Day 143 - 2026-10-24: lost/closed/blind declared from the live layer, truth one layer down"
+date: 2026-10-24
+day_index: 143
+week: 21
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [false-loss, memory-archive, backup-history, stale-launcher, blind-reviewer, empty-corpus, dotted-i, one-message-two-numbers, one-layer-down]
+---
+
+# Day 143 - 2026-10-24: lost/closed/blind declared from the live layer, truth one layer down
+
+Dev-log form.
+
+Defect: verdict `V` ("lost", "closed", "complete", "reviewed") is computed from live layer `L0`. The fact sits in `L1`: archive file, backup version history, a scheduler entry, another account's ID space. `V` is true about `L0` and false about the system.
+
+Position on the line. 139: empty input reads as green. 140: two correct guards sum to a failure nobody owns.
+
+141: green receipt over a dead output. 142: a true reading expires before the irreversible click (cap from a lagging copy, parallel sessions, disclosure stale within an hour). 143: verdict from one layer.
+
+---
+
+## 0. Contract
+
+Before "lost": sweep all surfaces (archive, history, peers), report N read of M. Before a union of a fleet-distributed file: read every version in backup history, not the live copy.
+
+Before blaming a service: check what launches it (scheduler, startup tasks). A reviewer verdict requires proof of file reads (a verifiable quote). An ID is valid only together with the account that issued it.
+
+## 1. False loss in memory index
+
+Problem: previous retro claimed "pointer lost from memory index"; next session spent 37 min restoring it.
+
+Cause: pointer in `MEMORY-archive.md` line 573; root closed 09-10 (26 days earlier). Same retro: "D2 closes with one measurement"; real 2 of 19 doors, 17 need other numbers.
+
+Solution: step in `/retro`; door `surface_sweep.py` (surfaces 21, read 21). Family "conclusion from one surface" 151 -> 173 cases; backtest caught 1 of 15 past verdicts.
+
+Open: sub-family "what an observation proves" has no door; `constitution_guard` fails 710/2108; no roster for D7.
+
+Pattern: "lost" is a claim about the layer read; denominator belongs to the registry of surfaces.
+
+## 2. prior_art.py union lost 5 families
+
+Problem: `prior_art.py` travelled the bus in 10 versions across 8 nodes; live file on one node was an ancient copy (17 families). Union v1: 67 families, lost 5 families + 2 doors.
+
+Cause: parcels of 10-08..10-12 overwrote entries; v1 read live copies only.
+
+Solution: second pass over backups (52 unique versions) -> v2 (72 families / 22 doors); panel -> v3 (78 / 24), atomic write, installer refuses to erase node keys.
+
+Open: v3 on 1 node, v2 on 1, 6 unconfirmed; red `_test_have.py` (6/21), `_test_deploy_cargo.py`. Class cli-door-writes-row-on-help-flag 3/3.
+
+Pattern: merge from version history; installer must be additive over node-local keys.
+
+## 3. audiodg handles
+
+Problem: audio-service handles 729718 (~8.35/s).
+
+Cause: stale startup task directly launched an old screenpipe version with PT72H.
+
+Solution: launch pinned; audio service restarted without reboot. Handles 729718 -> 404 (11 probes 604 -> 584 over 300 s); private bytes ~550 -> 20.7 MB; history 85 -> 85; backup 26639 files, integrity ok.
+
+Open: guilty DLL/APO not found; slow multi-day leak not excluded; vendor support: 1 email since 10-18.
+
+Pattern: on a leak, enumerate launchers before profiling the leaking process.
+
+## 4. Codex reviewing blind
+
+Problem: in a drill, Codex found doors in 1.2 min but read no file.
+
+Cause: `codex exec -s read-only` fails on the sandbox; ACL on `node_repl.exe` held by ~34 processes; errors daily since 10-13, none before. Reviews were verdicts without reads (4th dated case of the class).
+
+Solution: `windows.sandbox="unelevated"`; red SHELL_FAILED, green = quote of line 292 (494 s). Blind detector BLIND = exit 4. Timeout 300 -> 900 s.
+
+Open: invented quote without reading passes; `codex_bridge` e2e unchecked; scripts dir has no git; workaround not rolled out; root handed to `/five-whys`.
+
+Pattern: a review verdict without a verifiable file quote = BLIND, not PASS.
+
+## 5. Supporting
+
+**tg_doorbell dotted-I bypass.** Pinning of topic 001 bypassed in REV34/35. Panel 6/6: `casefold("İ")` yields U+0307 after invisible chars are stripped; `VOİCE001:` reached the pinned door.
+
+REV36: red test, fix, green (110 OK, rc 1 -> 0), rolled to 3 nodes. Live DB 427 mails, 35 topic 001, via helper 0.
+
+Open: Codex review NO_QUORUM; test pinned to Python 3.12; confusables table partial; 2 nodes lack REV34-36. Pattern: normalize (casefold/NFKC) first, strip invisibles after.
+
+**DR publish pipeline, empty corpus.** 40 h 18 min: `dr_history.py`, `dr_publish.py`, launchd on one node; corpus 350 pages, 335 ready DRs of 795, dev.to 1. First run pushed an EMPTY corpus through a blind gate; revert 3 min.
+
+Stop-valves: floor 100 pages, stop on drop >20%. Late rails blocked 101 DRs; now mark only.
+
+Open: live digest 10-29; skill exam on other LLMs; second opinion not ordered; X/FB announcements not wired.
+
+**Account numbering.** Rail 001 canary passed; basic-group room gives one message two IDs (2283968 vs 1979876, shift ~304092). Cause: author skipped `/llms`, random Telegram account; doorbell missed 3 messages.
+
+Fix: `/llms`, `/llm-pact` edited; MCP patch TELEGRAM_CHAT_ACCOUNT_PIN v2 (40/40, closed 3 v1 holes from review); family in `prior_art` (6 cases since 08-25). Open: patch not in live code; global read fan-out returns foreign IDs.
+
+## 6. Background
+
+Lab hand lane: after 26 days 5767 roles, 430 submissions, 0 interviews; 0 submissions to two hand-labs in 27 days. Roots: lane unaware of rail `hand` (one lab 0 -> 73 rows, list 146 -> 390); watchdog red a month; `lab_hand.run()` held shared DB over the network phase (lock 25 s, run 24.7 s).
+
+Panel 6/6, 9 mutations red. Open: 430 submissions / 0 interviews; 11 unused skills (~1166 tokens/session) await owner.
+
+Voice001 pair: room 12 h 50 min, 17 topics; Codex opened 17/17, Claude answered 3/17, late. Root 1: context read as advice -> Stop hook (block once, second Stop passes; test 12/12, live 7/7).
+
+Root 2 (Codex side): topic closes after 120 s, late answer unread. Answer-share rise = hypothesis until 10-31; send counted by attempt, not delivery.
+
+---
+
+## 7. Table
+
+| Verdict | Layer read | Layer holding the fact | Fix |
+|---|---|---|---|
+| pointer lost | memory index | `MEMORY-archive.md` l.573 | `surface_sweep.py` 21/21 |
+| D2 closed by one measurement | one door | 19 doors | per-door numbers |
+| union complete (v1, 67) | live copies | 52 backup versions | v3 78/24, atomic |
+| service leaks | the service | stale startup task | launch pinned |
+| review PASS | Codex output | no file reads | BLIND = exit 4 |
+| doorbell missed 3 | one account IDs | other account IDs | ACCOUNT_PIN v2 |
+
+## 8. Not proven
+
+v3 on 6 nodes. Guilty DLL/APO; slow leak.
+
+Codex workaround rollout; invented-quote detection; `codex_bridge` e2e. REV36 review.
+
+ACCOUNT_PIN v2 in live code. Cause of 0 interviews from 430 submissions. Voice001 answer-share rise.
 
 ✍️ Написано: Opus
