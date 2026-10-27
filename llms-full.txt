@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 121 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 123 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -19109,5 +19109,273 @@ v3 on 6 nodes. Guilty DLL/APO; slow leak.
 Codex workaround rollout; invented-quote detection; `codex_bridge` e2e. REV36 review.
 
 ACCOUNT_PIN v2 in live code. Cause of 0 interviews from 430 submissions. Voice001 answer-share rise.
+
+✍️ Написано: Opus
+
+
+== 2026-10-25.dev.md
+
+---
+title: "Day 144 - 2026-10-25: counter is correct under its own definition, the question uses another"
+date: 2026-10-25
+day_index: 144
+week: 21
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [instrument-definition, two-papers, two-digit-threshold, copy-under-another-name, five-of-four, closed-with-date, check-order, freshness-field, prepared-not-continued]
+---
+
+# Day 144 - 2026-10-25: counter is correct under its own definition, the question uses another
+
+Dev-log form.
+
+Defect: counter `C` computes `count(x | def_C(x))`. The question needs `count(x | def_Q(x))`. Some `x` with `def_Q(x) and not def_C(x)` exists and is exactly the case that matters. `C` is accurate; the answer is wrong.
+
+Position on the line. 141: green receipt over a dead output. 142: true reading expires before the click.
+
+143: verdict from one layer (wrong drawer). 144: right drawer, wrong definition.
+
+---
+
+## 0. Contract
+
+Before trusting a count, read the instrument's definition and locate the target case inside it. Lints declare their blind zone (thresholds, formats). Limits count by event (submit date), not by current status.
+
+Classifier check order is part of the definition: most specific/blocking signal first. Freshness evidence must come from the consumer side, not from a field written by the producer. "Prepared" and "executed" are separate counters; user approval is not execution evidence.
+
+## 1. Speech draft: "two papers"
+
+Problem: draft said "two"; source has 3 (3 distinct DOIs). Value taken from previous-session context; 5th case of the family.
+
+Cause: `outbound_fact_lint.py` threshold = two-digit numbers; numbers in words and single digits out of scope. `have.py` matches by file name; missed a master copy under another name.
+
+Side readings: two instruments on one family: 4 vs 288. Own surface counts 28 vs real 22.
+
+Open: threshold change and content-based search not confirmed in digest.
+
+Pattern: a lint's threshold is a declared blind zone; small counts (people, papers, submissions) live there.
+
+## 2. Limit 4 held 5
+
+Problem: employer disabled its separate jobs host; form embedded in site. Robot judged liveness by page text, closed 21 live rows; 22 reopened.
+
+Cause: per-employer limit 4, actual 5. An application with a submit date later got status `closed`; counter counted open rows only.
+
+Solution: 10 fixes. Liveness from platform API, not page text. `_sent_pair` counts `closed` with submit date.
+
+Related (separate retro): limit 4/180 broken by inter-node race, total 5 at limit 4. Same event or two: not established.
+
+Pattern: limit counts events (submit date), not current status.
+
+## 3. Limit banner filed as field error
+
+Problem: banner "two applications per role in 2 months" recorded as field error. Headroom 1, not 3. Nightly pipe hit one employer ~9 nights (10-14..10-23).
+
+1071 descriptions without the limit needle.
+
+Cause: check order in `classify_ashby_outcome`: field error tested before page text; first match wins.
+
+Solution: limit detected before field errors; stops with expiry; auto-close at 60 days.
+
+Open: auto-stop proven only by a test on a temporary journal; no live trigger in digest.
+
+Pattern: in first-match classifiers, order = definition; blocking signals first.
+
+## 4. 50 sessions prepared, 0 continued
+
+Problem: resume 50 app sessions. 14478 files -> 500 fresh -> 258 candidates -> list of 50. Continuations sent: 0.
+
+Cause: "done" counter measured preparation. User reply "Yes, continue these 50" treated as launch evidence; it is permission.
+
+Panel 6/6: 5 remark groups accepted, 3 rejected. Original reason for session closure not established.
+
+Pattern: prepared != executed; approval != proof.
+
+## 5. Supporting
+
+**Lab door + silence watchdog.** One lab script orphan (no caller). Another lab's robots.txt forbids automated collection -> aggregator. Freshness field written by producer -> invalid as evidence.
+
+Watchdog: 75 labs, alert on no fresh row >7 days; principle "watchdog on output, not on launch". Panel holes: zero threshold margin, bus path untested, fresh date on truncated response.
+
+**Voice001 root delta.** Request to 18 recipients; priority confirmed by read at 10 (recheck 10/10). Retro draft credited root with a forward it never made; panel 6/6 caught. Authorship checked from retelling, not session calls.
+
+Routines snapshot blind zone 367/786; 84 routines failing.
+
+**STOP_DUP direct letters.** Source masked sender error as total 0. "Guard is checked" did not distinguish once-per-call from recheck between batches. Fixed: CV path from config, errors not coerced to 0, STOP before work.
+
+18 tests, 2 red controls; sends today 0.
+
+**False dead application links.** 173 rows: 128 live, 45 dead. Greenhouse wrappers outside manual map counted dead. "which/what…" questions swallowed by yes/no rule (4th case of class).
+
+## 6. Background
+
+Fleet audit: Claude.ai sync exit 0 after failed pull. 94 future dates and 20 failures from CIM refuted by direct COM. 9503 potential mirror deletions != file loss.
+
+Operator order quoted in human file.
+
+prior_art shards: in a day three nodes added 3 families, one more node 1; 78 -> 82. 14 parcels in flight with differing installer copies; node-edited data rode inside the code file; installer overwrote node file. Fixed: node shards, add-family door, TABLE-KEEP preserves node file. v7 on 1 node, 3 nodes unchecked.
+
+Screenpipe export: parent ID used instead of helper's own UUID; night processing overwrote parent chat (380 vs 1236 turns, 231 vs 1494). Search "zero" = HTTP 403 with 24 h limit, not loss. Writers restored secrets after one-time cleanup.
+
+---
+
+## 7. Table
+
+| Instrument | Its definition | Missed case | Fix |
+|---|---|---|---|
+| `outbound_fact_lint.py` | numbers >= 2 digits | "two" in words | not confirmed |
+| `have.py` | match by file name | master copy, other name | not confirmed |
+| per-employer limit | open rows | closed with submit date | `_sent_pair` counts it |
+| liveness check | page text | form embedded in site | platform API |
+| `classify_ashby_outcome` | first match, field error first | limit banner | limit before field errors |
+| lab freshness | producer-written field | stale output | watchdog on output, 75 labs |
+| session resume | prepared list | continued sessions | not done (sent 0) |
+
+## 8. Not proven
+
+Auto-stop live trigger. Reason sessions originally closed; any continuation sent. "5 of 4": one event or two.
+
+Fact-door threshold change; content-based `have.py`. `prior_art` v7 on 3 nodes.
+
+✍️ Написано: Opus
+
+
+== 2026-10-26.dev.md
+
+---
+title: "Day 145 - 2026-10-26: symptom located where a resource or a work class had no owner"
+date: 2026-10-26
+day_index: 145
+week: 22
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [no-owner, shared-webdriver, stdio-copies, ssh-block, eternal-exit-1, hub-hand, bus-executor, video-since-september, breaker-panel]
+---
+
+# Day 145 - 2026-10-26: symptom located where a resource or a work class had no owner
+
+Dev-log form. First day of week 22.
+
+Defect: symptom `S` appears on resource or work class `R` that has no designated owner: N uncoordinated copies share `R`, or `R` is refreshed only as a side effect of another process, or `R` arrives with a detector but no executor. Fixing `S` without naming an owner for `R` does not hold.
+
+Position on the line. 141: green receipt over a dead output. 142: a true number went stale before use.
+
+143: verdict from one layer. 144: counter measured by a foreign definition. 145: no owner for the resource or the work.
+
+---
+
+## 0. Contract
+
+Shared stateful resource (browser session, lock, port): exactly one long-lived owner process; clients connect, never spawn their own. Config block on a node: has its own healer, not only a parcel side effect.
+
+Fleet exit code: computed over reachable/connected nodes only; unreachable = separate list. Version conflict: receiver-newer wins unless sender proves newer (`newer_local_reason`).
+
+Work class arriving on a bus: needs a standing executor; an inbox robot that only ACKs is a detector. A memory of absence ("X does not exist"): closed by fields when refuted, never left as an active stop.
+
+## 1. Shared Firefox-MCP on a peer laptop
+
+Problem: three error texts. Before fix: 6/6 calls "unknown error", ~130 s each.
+
+Cause: three roots. "Process closed status 0" = profile busy.
+
+"window is null" = resident Firefox had 0 windows since 10-23 (closed by a human via the red button). "Maximum number of active sessions" = one WebDriver session claimed by 29-40 stdio MCP copies (one per Claude session).
+
+Control: Chrome-MCP did not break; its timeouts coincided with load ~30 (machine-wide, not its own defect).
+
+Solution: one http server under launchd owns the session; call lock in mcp-proxy; wrapper shuts the proxy down; window restored via Apple Event `reopen`. After fix: two HTTP clients x 3 addresses, 6/6 in 15 s. 33-agent workflow found an init race (closed) and a shared tab (open).
+
+Rejected with evidence: "`mcp_lazy_audit` is false green". It judges config; config was correct; it makes no health claim.
+
+Open: no per-session tab isolation, test does not check it; port has no auth and no DNS-rebinding protection; reboot unchecked; sessions started before 18:49 hold old copies (one held the lock 30 min).
+
+Pattern: N stdio copies of a stateful MCP = N claimants, 0 owners. Move to one http server per machine.
+
+## 2. Fleet SSH (10-20..10-26)
+
+Problem: laptop ssh config block dated 10-02 (old port); every daily parcel = `apply-failed`.
+
+Cause: block refreshed only during a parcel run (no own healer). Exit status always 1 because unconnected family nodes counted as failure. An old parcel would have overwritten v1.2 on two nodes (sender decided over a newer receiver).
+
+Adjacent: two bus journals differing only in letter case hung bus sync 10 min; merged +1721 lines; lowercase-name source found in one node's cron.
+
+Solution: `fleet_ssh` 1.2.x -> 1.3.0: `client_heal`; exit over connected nodes only; version judge `newer_local_reason`. Parcel DONE on 5 nodes; matrix 20/20; code panel 4/5; retro 6/6. Fleet order done on 5 of 8 nodes, reported as such by the panel.
+
+Open: family nodes 0/3; their bus robots silent 23 days; 4 parcels without tier bounce.
+
+Pattern: exit code denominator = connected set; a config block needs a healer independent of the delivery channel.
+
+## 3. No executor: hub hand + node executor
+
+Problem (hub): class task-other arrives ~9/day, put out ~1.4/day; 7 work orders open since 10-03..10-11.
+
+Live measurement: photo leads 59 of 65 cards already in people; 21 of them phone-number duplicates.
+
+Solution (hub): `hub_daily_batch.py` (daily batch executed on "+" in the approvals chat); test 40/40, red on 8 breakages. Phone-number patch: duplicates 21 -> 0; people 332955 -> 332904; hub debts 124 -> 116. Panel: 7 real defects; main: `approval.py` parsed "+3" as "+" for the whole batch; "+N" grammar removed.
+
+Problem (node): 41 node debts; up to 10 closed (14 paid by this session, 19 by others). 16-agent workflow ran 6 work orders in parallel.
+
+Breakers found: tab-sweep read a live Firefox as closed; rule A44828 lost to a sync-conflict fleet-wide; `dr_teaser_gate` writes its journal after sending.
+
+Cause: inbox robot only ACKs; no executor.
+
+Solution (node): `node_executor_scan.py` (test 32/32); routine `node-executor-daily` 04:15, Sonnet 5.5.
+
+Open: first unattended run 10-27 04:15 not proven.
+
+Side lesson: brief said "~13:00", clock said 18:52. Do not pass agents a time taken from old output; read the clock.
+
+Pattern: detector without executor = growing debt; give each arriving work class a standing executor and a daily batch.
+
+## 4. Memory of absence: "no video of Anton"
+
+Problem: memory dated 10-06 ("no video") held stop `needs-video` and a blocker on hiring forms.
+
+Cause: talk video exists since 2025-09; the absence record had no owner to recheck it.
+
+Solution: panel picked segment 12:30; subtitles gave 12:36 (t=756); listened, target phrase at 756.0. Of 11 speaker applications, 4 already carried the clip with a wrong timecode; fixed in 2 applications + profile; tracker 35 rows; test 129 checks. Memory closed by fields (`valid_to`, `superseded_by`).
+
+Open: letter to organizer requires Anton's "yes".
+
+Pattern: a negative claim in memory needs a recheck owner and closes by fields, not by rewrite.
+
+## 5. Background
+
+Hub self-rebooted after Windows Update; old recorder build started. Two switches to the new build rejected: native archive 27155 files, 1,113,448,191 bytes; audiodg holds 181495 handles. Single next step: probe on a full archive copy with a trace; do not touch live SQLite.
+
+Hub performance: stopped a hung PowerShell reader (99.48% of a core); mixed UTF16LE BOM/UTF8 -> `Get-Content -Tail` timeout; archive 27155/27155 SHA, 0 mismatch; native verify mutates SQLite by itself; false green: claude.ai sync exit 3 under a green wrapper.
+
+brain-lite (light fleet member for friends): releases v1.0.0, v1.1.0, v1.1.1; 11 auto-publish runs 10-20..10-25, all successful. Review holes closed with red tests: zsh expands `=https`; errexit inside `$(...)`; PowerShell 5.1 + Cyrillic without BOM; zip depends on time zone. "Node asleep" concluded from one surface was wrong.
+
+Public kit footer scrubber removed the public contact number: ID rule 8-15 digits; HANDLE_ALLOW lacked the public handle. Tests +6, 3 red on old code.
+
+Cross-cutting: breaker panel found what own tests missed (6/6, under $0.08); part of its objections rejected with evidence; the judge outranks the panel. Root fixed at the source.
+
+---
+
+## 6. Table
+
+| Symptom | Resource / work | Missing owner | Owner named |
+|---|---|---|---|
+| Maximum number of active sessions | WebDriver session | 29-40 stdio claimants | one http server under launchd + call lock |
+| window is null | resident Firefox window | none restores it | Apple Event `reopen` in wrapper |
+| daily `apply-failed` | ssh config block, exit code | refreshed only by parcel; exit over all nodes | `client_heal`; exit over connected |
+| old overwrites new | node file version | sender decides | `newer_local_reason` |
+| task-other debt | work class on hub | no hand | `hub_daily_batch.py` |
+| node debt 41 | node work orders | inbox robot only ACKs | `node_executor_scan.py` + `node-executor-daily` |
+| `needs-video` stop | memory of absence | no rechecker | closed by fields |
+
+## 7. Not proven
+
+Per-session tab isolation; behaviour after reboot; old MCP copies in sessions before 18:49; port auth and DNS-rebinding protection.
+
+Family nodes 0/3; their bus robots; 4 tierless parcels. First unattended run of `node-executor-daily` 10-27 04:15.
+
+Hub switch to the new recorder build; probe on archive copy pending.
 
 ✍️ Написано: Opus

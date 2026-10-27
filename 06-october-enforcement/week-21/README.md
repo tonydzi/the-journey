@@ -14,7 +14,7 @@ Day 142 (October 23) is the day a true number expired before the click: an appli
 
 Day 143 (October 24) is the day the lost thing lay one layer down: a pointer filed in the archive, a union of current copies that dropped five families the backups still held, a leak fed by an old launcher, and a reviewer that read no file.
 
-The remaining day of the week is not written yet; the day gate keeps today's day closed until it ends.
+Day 144 (October 25) closes the week with the instrument that counts by its own definition: a fact gate blind to a small count written in words, a limit of four that did not count a closed application with a filing date and so stood at five, a classifier that read the field error before the page text, and fifty sessions prepared and none resumed.
 
 ## Days
 
@@ -24,7 +24,8 @@ The remaining day of the week is not written yet; the day gate keeps today's day
 - [День 141 - 22 октября: квитанция зелёная, выход мёртв](2026-10-22.ru.md) · [EN](2026-10-22.en.md) · [🤖 machine](2026-10-22.dev.md)
 - [День 142 - 23 октября: верное число протухло до клика](2026-10-23.ru.md) · [EN](2026-10-23.en.md) · [🤖 machine](2026-10-23.dev.md)
 - [День 143 - 24 октября: потерянное лежало слоем ниже](2026-10-24.ru.md) · [EN](2026-10-24.en.md) · [🤖 machine](2026-10-24.dev.md)
+- [День 144 - 25 октября: прибор считал по своему определению](2026-10-25.ru.md) · [EN](2026-10-25.en.md) · [🤖 machine](2026-10-25.dev.md)
 
 ---
 
-*Week 21 is open: six of seven days (October 19-24) are written.*
+*Week 21 is closed: all seven days (October 19-25) are written.*
