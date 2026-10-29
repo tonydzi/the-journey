@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 123 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 125 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -19377,5 +19377,394 @@ Per-session tab isolation; behaviour after reboot; old MCP copies in sessions be
 Family nodes 0/3; their bus robots; 4 tierless parcels. First unattended run of `node-executor-daily` 10-27 04:15.
 
 Hub switch to the new recorder build; probe on archive copy pending.
+
+✍️ Написано: Opus
+
+
+== 2026-10-27.dev.md
+
+---
+title: "Day 146 - 2026-10-27: a share or a spec reported as the whole; a merge reported as a reply"
+date: 2026-10-27
+day_index: 146
+week: 22
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [share-is-not-whole, merge-is-not-reply, github-gifts, session-multiplication, leak-21-not-7, spec-fake, fleet-parcels, seed-queue, frozen-copy, timeout-traps]
+---
+
+# Day 146 - 2026-10-27: a share or a spec reported as the whole; a merge reported as a reply
+
+Dev-log form. Second day of week 22. No canon beats for the day; assembled from session retros.
+
+Defect: a metric `M` is taken from a slice `S` (a sample, a spec-based fake, one machine's journal, a frozen copy) and reported as the state of the whole `W`. Separately: an outreach outcome is counted at the repository (merge) instead of at the person (reply).
+
+Position on the line. 144: counter measured by a foreign definition. 145: no owner for the resource or the work.
+
+146: share reported as whole; merge reported as reply.
+
+---
+
+## 0. Contract
+
+Any count reported as scale names its denominator and source; a sample gives a lower bound. A fake built from a spec is a unit stub; a behavioural claim needs a live-engine harness.
+
+Outreach success = a reply from the addressee, not a merge; merges by the project's own agent pipeline count separately. Dedup keys on (roster, person), never on prompt text.
+
+Status claims ("0 posted", "not written", "debt N") are read from the owner of the queue or the live source, not from a copy on another machine.
+
+## 1. GitHub gift tactic (10-19..10-27)
+
+Problem: tactic = open a useful PR in a person's repo as first touch.
+
+Slice: 28 touches, 20 people; merged 6 of 23 PRs; 5 of 6 merges by the project's own agent pipeline, not the addressee; addressee replied 1 of 20; gift turned into a conversation 0 times. Control: warm messenger DMs 8 of 11.
+
+Full set, 41 people: merged 3; PR open for 23 (24 PRs); 2 issues; 1 closed; 10 "nothing to fix in the code"; 10 sessions self-reported "duplicate".
+
+Breaker panel found 3 defects in one PR; the maintainer wrote exactly those 3 and merged.
+
+Decision: Anton agreed to pause the tactic until 10-30.
+
+Pattern: merge rate measures the repo's pipeline; reply rate measures the person. Report both, decide on the second.
+
+## 2. Session multiplication
+
+Problem: parent in a worktree called `start_session` with a foreign cwd. 30 calls: 16 rejected by hook, rest pending confirmation. 37 sessions raised.
+
+Cause 1: `stop_session` does not cancel already queued requests; parent later raised 23 more. Total >= 60 sessions for 41 people; 20 people with two sessions; ~20 extra Opus sessions; 6 failed on the weekly limit.
+
+Cause 2 (prior, 10-23..10-24): two dispatchers walked the same 41-person roster, 56+ sessions. Dedup compared prompt text; each prompt was unique.
+
+Solution: claim (roster, person) via O_EXCL file create. Test 21/21; old code 82 wins for 41 people. Class at journal line 7.
+
+Rolled out to 5 of 8 nodes.
+
+Pattern: idempotency key = business identity, not request body.
+
+## 3. Closed-meeting leak in public PR/issue
+
+Problem: first count 7 spots.
+
+Cause: 7 = share from a sample of 15 bodies.
+
+Solution: full scan 128 PR/issue + 319 threads = 21 spots (3x undercount). All 21 rewritten; rescan 0.
+
+Pattern: a sample count is a floor; for leaks, scan the full set before reporting.
+
+## 4. Spec fake of a browser API
+
+Problem: fake built from the spec: 9/9 green.
+
+Cause: live Chromium ignores `resume()` after `cancel()` on an empty queue; spec fake did not model it.
+
+Solution: harness on live browser: old code 6/9 red, new 9/9 green.
+
+Pattern: spec fake = assumption; behaviour is proven on the live engine.
+
+## 5. Tests and gates
+
+`check_frozen` hashed raw bytes; git on Windows returns CRLF. 1/41 fail -> 42 green.
+
+"0 commits behind" bug in two places: 2/19 fail -> 19 green.
+
+Editing tests via heredoc turned `\n` and `\b` into control bytes: escape-accident class, 10th case (threshold 3).
+
+Game benchmark: engine awarded wolves the win while a different player was dead; 18/18.
+
+Gate "repo alive" (21 days) rejected a repo aged 123 days; deliberate bypass.
+
+## 6. Hub broom: eternal rollback
+
+Cause: hub took foreign posix parcels; a multi-node record got flag fleetwide; every ~20 h the broom restarted the old version and overwrote the fix. A signed supersedes did not stop the loop.
+
+Solution: bench 24/24, then 30/30.
+
+## 7. Fleet parcels census
+
+1072 unaccepted across 8 nodes; 798 on three bus-less nodes. `--check OK` with 66 unaccepted = false green. Audit: 24 roots.
+
+Empty-apply gate: 442 records without tier; 103 hanging (39 ids); test 57/0; false blocks 0 of 446 over 14 days.
+
+## 8. Seed queue
+
+Problem: sessions hidden in scheduler slots (hidden section).
+
+10-23: 28 seeds closed; 21 runs died at start (`bun_cwd_eperm`, cwd on Google Drive); 1 of 16 revival attempts alive; one mac hook called a non-existent python.
+
+Solution: done only on a live card with a finished turn; test 44/44; 20 seeds waiting.
+
+## 9. False "did not write"
+
+Narrow grep over Signal -> "did not write"; live export -> wrote. Instrument read a frozen DB copy (MSIX APPDATA redirection; copy from 10-26 18:34).
+
+Audit: 32 outbound to 17 people; 11 replied; 3 factual errors; false correction not sent.
+
+Pattern: "file not changing" != "program hung"; check which copy the instrument reads.
+
+## 10. X API
+
+Order: daily_cap 10 -> 200. Coordinator reported "debt 71 posts" from one machine's journal; queue owner: queued 6, posted 132, parked 2.
+
+Report "zero posts went out" = false: read a bus copy on another machine; robot live since 10-23; store 126 posted, all with tweet_id. Test 17/17 (old code FAIL 16). Spend at the new cap stays within the monthly limit.
+
+## 11. Timeout traps
+
+Snapshot task limit 5 min vs real run ~9 min -> `index.lock` blocked commits since 10-26 11:08 (~2 days).
+
+SQLite pool: acquire_timeout 5 s == busy_timeout 5 s -> PoolTimedOut instead of SQLiteBusy. busy_timeout 2 s: on copy 5031 ms rc=1 -> 2257 ms rc=0; FD leak +70 -> +1.
+
+Pattern: outer timeout must exceed inner timeout with margin.
+
+## 12. Syncthing whitelist
+
+Peer whitelist pulled a script without its imports: 3 cases (10-19, 10-20, 10-26). Instrument missed subprocess calls; 4 holes found (one in RECALL). Node 432/432; test 26/26 mutants RED.
+
+## 13. Case-split journal and POSIX courier
+
+Lowercase node journal beside the uppercase one diverged (node name not by key). Counter 7845 -> 7846; test 10/10 (old 6 FAIL).
+
+`deploy_apply` on POSIX: rc=5 for any parcel containing `~`; courier printed CHECK OK for files it did not install.
+
+## 14. Budget
+
+App file 26%; `get_usage` 26 min later 84%. Limit reaper blind on macs. `plan_budget.py`: thresholds 5h >= 85%, week >= 90%; test 20/20, 6 mutants; Codex found 5 defects.
+
+## 15. Memory: current vs superseded
+
+Leaderboard system 10/10 on "current vs superseded decision"; mem0 6/10; our library cites superseded 6/6. Paraphrases: dense R@5 1.00/0.90, keyword 0.00.
+
+Candidate recall_tiers v2: 13 cases, 6 baseline failures, 67 PASS. Not installed in production.
+
+## 16. Domain mail
+
+Lab domain mail goes to a dead mailbox since 10-01 (foreign MX). Cloudflare login blocked by Turnstile 4 days. nslookup returned a foreign SOA (network intercepts DNS); verify via DoH. Move not done.
+
+## 17. GPU indexer and NotebookLM intake
+
+Indexer: 502 388 chunks, 17 717 files, 4338.8 s; nightly publish failed on WinError 32 (`.npy.tmp` locked).
+
+NotebookLM: 558 audio, ~10 new/day, no vault intake before. Hub GPU 25-30x realtime; mac CPU 0.6-0.9x. Overnight 40 episodes downloaded, 4 essences.
+
+Copying the Google session to the mac killed the hub's session; Codex review: 8 holes.
+
+## 18. Background
+
+Airbnb seaside house search: 266 listings, 40+ candidates, 20 final, 30 rows. False filter amenities=671 returned country houses, dropped. Usage limit hit: 16 of 20 delivered, rest after reset.
+
+No booking.
+
+AI-task autostart review: median bug, red example [1,9]: old 1, new 5.
+
+Ctrl+C on laptop, pass 4: all keypresses arrived over 600 s; guilty window not caught.
+
+Mac move: 3670/3670 files, 5 752 025 484 bytes, 0 SHA errors.
+
+Hub hand: 5 open questions = full cap. Syncthing version-trash cleanup interval 3600 -> 86400 s.
+
+---
+
+## 19. Table
+
+| Claim | Slice it came from | Whole / live source | Result |
+|---|---|---|---|
+| 6 merges = success | merge column | addressee reply | 1 of 20 replied; 5 of 6 merges by agent pipeline |
+| 7 leak spots | sample of 15 bodies | 128 PR/issue + 319 threads | 21 |
+| browser API 9/9 | spec fake | live Chromium | old 6/9 red |
+| one session per person | prompt-text dedup | (roster, person) O_EXCL | >= 60 for 41 -> claim |
+| zero X posts | bus copy on another machine | queue owner | posted 132; 126 with tweet_id |
+| debt 71 posts | one machine's journal | queue owner | queued 6 |
+| did not write | frozen DB copy | live export | wrote |
+| budget 26% | app file | `get_usage` | 84% |
+| parcels OK | `--check` | census | 66 unaccepted; 1072 fleet-wide |
+
+## 20. Not proven
+
+O_EXCL claim on 3 of 8 nodes. recall_tiers v2 in production. Domain mail move.
+
+Nightly index publish (WinError 32). Guilty Ctrl+C window. 20 waiting seeds; 103 hanging tierless records.
+
+✍️ Написано: Opus
+
+
+== 2026-10-28.dev.md
+
+---
+title: "Day 147 - 2026-10-28: verdict drawn from one surface; one silent instrument taken as fact"
+date: 2026-10-28
+day_index: 147
+week: 22
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [one-surface, ssh-closed, userspace-networking, cookie-clone, ask-recall-gate, panel-without-a-door, github-funnel, silence-is-not-an-incident, retraction]
+---
+
+# Day 147 - 2026-10-28: verdict drawn from one surface; one silent instrument taken as fact
+
+Dev-log form. No canon beats for the day; assembled from session retros (32).
+
+Defect: instrument `I` returns silence or a single reading over surface `S` (one network stack, one node, one hypothesis, one sample), and the verdict is generalized to the whole object. Family "verdict from one surface": 134 earlier cases.
+
+Position on the line. 145: no owner for the resource or the work. 146: sample and spec understated the scale.
+
+147: verdict from one surface.
+
+---
+
+## 0. Contract
+
+Silence from one probe path = hypothesis. Fact requires a second, independent surface (another transport, another node, another sample, a clone check).
+
+A gate validated on one node is validated on one node. "0 false" requires the full fleet read.
+
+Confirmed empty input is a success exit, not an incident. A rule without a door fires only when remembered.
+
+## 1. "ssh closed" for two days
+
+Problem: ping / `nc` / `ssh` to the mac's bare tailnet IP silent from every node, including toward the live hub. Verdict "closed" held for two days.
+
+Cause: tailscaled on the mac in userspace-networking mode; the OS does not route the tailnet range (100.64/10). Any tool on the ordinary OS stack gets silence.
+
+Solution: ProxyCommand via `tailscale nc` (goes through the daemon, not the OS stack); login immediate. `fleet_ssh.py` 1.4.1: 64 templates, 60 checks.
+
+Pattern: before "port closed", try a transport that does not share the failing layer.
+
+## 2. Browser logouts (5 d 12 h)
+
+Problem: four earlier investigations produced four different roots; none searched for an existing clone.
+
+Cause found by instrument: 3 Firefox profiles carried the same Google / claude.ai session cookies; robot profile = byte-for-byte copy of the human cookie file; identical microsecond birth time on 3 profiles. Clone created by our own routine on 10-03 ("copy the cookies" recipe).
+
+Panel cut half the verdict: after re-login on 10-14 token values diverged; creationTime match without value match is not evidence.
+
+Solution: second door of the class closed in `pull_rail_c.py`; lint 10/10 tests, 5 mutants.
+
+Open: remaining Chrome logouts unexplained.
+
+## 3. ask_recall_gate v7 -> v13
+
+Problem: retro on one node claimed 0 false blocks; full fleet read refuted it.
+
+Fixes, one root per newly read node: v7 note polarity; v8 quotes; v9 script lost; v10 manual probe wrote into the live counter; v11 phrase "do NOT ask again" mis-parsed; v12 substring "key" matched inside the word for "including"; v13 unreadable counter with exit 0.
+
+Result: 12/12 live cases correct; test 56; sample 149 questions -> 2 blocks, both correct; panel 6/6 in 67 s.
+
+Pattern: each additional surface (node) exposed a distinct root; stop declaring zero before every surface is read.
+
+## 4. Breaker panel without a door
+
+Problem: question "do we always run the panel before a PR?". Measured: 66 PRs over 35 days; panel called 2x on 10-19..20 (16 PRs) and 2x on 10-23..24 (29 PRs); 0 calls tied to a PR.
+
+Trigger: PR to a large outside repo (10 shellcheck errors, behaviour byte-for-byte, 52 output comparisons) merged without comments 10-28 05:20 UTC.
+
+Solution: breaker-panel door in `gh_pr_discipline_gate.py`; 89 green tests; red proven with 4 breakages; panel on the door found 3 real holes. Duplicate hook had drifted from the live copy; replaced with a stub.
+
+## 5. Merge -> conversation funnel
+
+Measured: since July 88 external merges from 59 maintainers; funnel merge -> contact -> intro -> meeting = 0/0/0.
+
+Defects: `pr_watch.py` treated a mention as a question (11 of 13 false). `cta_signature_watch.py` inverted against the rule; after fix found 3 promo leaks in large repos, all removed.
+
+Solution: hook `gh_comment_gate.py` (16 tests); A/B/C ladder. Advice to freeze repos rejected by Anton: "No, we keep the width".
+
+Metric: 8 merges into 10k+ star repos in 30 days (target 6/month); wave of 28 PRs: after 3 days 4 merged, 22 with no human reply.
+
+## 6. Audio Inbox: confirmed silence as failure
+
+Problem: 4 consecutive nights (10-25..28) task ended rc 2; confirmed silence raised as an incident.
+
+Solution: `test_confirmed_empty_does_not_fail_run` red on old code; 68 OK. Re-run 10-28 23:33Z: Last Result 0, 68 min.
+
+Side defect: tests wrote into the live journal; removed 46 junk lines on hub, 12 on another node.
+
+## 7. tab_sweep
+
+Daily close of agent tabs: 36 checks, red on 12 mutants. Live run found 3 bugs missed by 33 tests.
+
+Manual quit by name closed the agent Chrome instead of the human one; now close by PID. 3 nightly attempts; panel 6/6, $0.078.
+
+## 8. Fleet model audit
+
+Opus (before 10-12) vs Sonnet/Haiku (after): 6.63 vs 6.31, 6.33 vs 5.62, 8.17 vs 7.42 on three nodes. Small model -0.3..-0.7 points at 4-10x lower routine cost; significance not proven.
+
+Instrument v1 lied twice: regex miscounted failures; no dedup (11 card copies per session). 812 sessions / 45 days; 10587 hub cards. 6 routines raised to Opus, 2 paused; panel $0.049.
+
+## 9. naive-now minus aware-ts
+
+5 cases (08-18, 09-15, 09-28, 10-01, 10-22); `lead_radar.py` down for 27 morning runs.
+
+Solution: door `ts_age.py` + AST lint; red on 4 breakages. Panel bug: string 202610221200 parsed as epoch-ms -> year 1976. Shared counter file in a synced share -> 5 sync-conflict copies.
+
+Lint: 122 findings in 6839 files; rolled out to 5 of 8 nodes.
+
+Own error: "script not on node" claimed wrongly; `find /` does not enter /root (drwx--x---). Caught by Stop hook `false_no_guard`.
+
+## 10. Python probe (Vul4Py) retraction
+
+Headline "loses validity, 9 of 10" sent to authors at n=1. Retraction in README, FOR-ROBOTS, issue comment.
+
+Advisory-identifier leakage in fix tests: 13 of 100 (panel claimed "90%"). 45 assertions; 22/22 mutations red.
+
+`rail_nudge` door lived in 3 places; 2 fixed on 10-20; counted as done for 8 days. Session age 27 days.
+
+## 11. rail-nudge blocked every prompt
+
+Symptom: `A hook blocked your prompt` on every message. Cause: nudge returned exit 2; snapshot removed the handler, UserPromptSubmit registration remained.
+
+Solution: restored from previous commit; 5 tests exit 0. Who removed it: not established.
+
+## 12. Background
+
+screenpipe: after GetMixFormat, audiodg handles 556 -> 556 over 170.6 s (max 571). Backup 1029.8 s, restore 1255.3 s, verify 1591.1 s, rc 0; watchdog 92 tests. FAIL: 10-27 main DB 0 audio chunks (10-26: 1698).
+
+Microphone speech meaningfulness unconfirmed (5 noise lines).
+
+Windows sandbox: could not update protection on `.agents`; needed WRITE_DAC. Anton granted one right to the current user; icacls rc 0. First helper failed on encoding (UTF8 without BOM, PS 5.1).
+
+CRM WhatsApp robot: LLM no longer sends; `wa_robot.py` (enqueue/run/refresh/reconcile). Shadow 4 days: 460 empty runs, 0 errors; 10-28 mode live. Panel 6/6 found 3 defects (queue head, mute unknown, budget written after send).
+
+Test 14/14, red on 10 mutations.
+
+X reply: script printed wrong tweet id (author id instead of reply id); HTTP 200 with GraphQL errors = false success; fix not run on a live post. X-depot collector: single page -> next_token (ceiling 10 pages), test 15/15. Panel: ceiling hit wrote ok and lost the tail; now partial.
+
+Chrome root audit: paused 15 days; Chrome 156.0.8078.48. Windows: 58 entries 1000/1001/1002 over 14 days, 0 exact chrome.exe. Retraction: prior symbolization scanned stack words instead of unwinding. `chrome_fix.py` ignored wevtutil rc, could print zero on refusal; replacement 11/11 tests vs baseline 8 failures + 1 error.
+
+Duplicate work: Signal audit assigned to two sessions; neighbour built the skill minutes earlier. Our replies 43-58 h, their reactions 0.0-1.3 h for 8 of 11. Batch 10-26: 6 messages in 2 min 21 s; 20-min pause did not fire.
+
+Neighbour's "11 in 11 minutes" = 9 in 10 min 13 s and 3 in 3 min 49 s. Two gifts to one person: issue and PR.
+
+Small: sklearn 1.8 deprecated `penalty="l2"`: 4 failed -> 6 passed. Another project: Tests red since 2026-02-04; 2-line fix; fork green on 3 OSes x 44 tests; repo-alive gate bypassed deliberately.
+
+Backup: upload of 3 artifacts (22.58 GiB) failed on file 1 after 1.47 GiB (SSL EOF). Local: 14 full bundles (142.14 GiB), 21 deltas (81.88 GiB). Cloud set unconfirmed.
+
+DR "GitHub as a channel for meeting people": fan-out ~25 min, collection ~2 h, quorum 4/6; Gemini hung >24 h -> missing; one source misnamed 3 of 5 mergers.
+
+---
+
+## 13. Table
+
+| Claim | Surface used | Second surface | Result |
+|---|---|---|---|
+| ssh to mac closed | OS network stack | `tailscale nc` ProxyCommand | open; userspace-networking |
+| logouts have 4 roots | per-incident logs | cookie-file clone scan | 3 profiles share one file (half cut by panel) |
+| ask_recall_gate 0 false | one node | full fleet read | 6 more roots, v13 |
+| panel runs before PR | rule text | call count vs PR list | 4 calls / 66 PRs, 0 per PR |
+| Audio Inbox failed | rc 2 | confirmed-empty test | silence, Last Result 0 |
+| probe "9 of 10" | n=1 | n=100 | 13 of 100 |
+| script absent on node | `find /` | permissions of /root | wrong claim, caught by hook |
+| Chrome crash symbols | stack word scan | real unwind | retracted |
+
+## 14. Not proven
+
+X reply fix on a live post. Root of remaining Chrome logouts. Who removed the rail-nudge handler.
+
+Cloud backup set. screenpipe audio chunks on 10-27 and microphone speech. Significance of the model-quality gap.
+
+`ts_age.py` on 3 remaining nodes. Merge funnel off 0/0/0.
 
 ✍️ Написано: Opus
