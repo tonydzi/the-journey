@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 125 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 127 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -19768,3 +19768,347 @@ Cloud backup set. screenpipe audio chunks on 10-27 and microphone speech. Signif
 `ts_age.py` on 3 remaining nodes. Merge funnel off 0/0/0.
 
 ✍️ Написано: Opus
+
+
+== 2026-10-29.dev.md
+
+---
+title: "Day 148 - 2026-10-29: green status reported the process step; consumer state unread"
+date: 2026-10-29
+day_index: 148
+week: 22
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [green-status, process-instead-of-result, handed-off-not-done, delivered-not-applied, silent-mechanism, watchdog, confident-voice, invented-statistics, retraction]
+---
+
+# Day 148 - 2026-10-29: green status reported the process step; consumer state unread
+
+Dev-log form. No canon beats for the day; assembled from session retros (35).
+
+Defect A: status label `L` (queued, PID alive, ready, CI green, "handed off", HTTP 200, "0 messages", machine-accepted) is true for producer step `P` and is reported as consumer outcome `C`. `C` was never read.
+
+Defect B: mechanism `M` stops producing output; no watchdog outside `M` checks output age.
+
+Defect C: a confident voice (podcast host, own tone, panel majority, the word "root") is taken as a source.
+
+Position on the line. 146: sample understated scale. 147: verdict from one surface.
+
+148: status from the producer side.
+
+---
+
+## 0. Contract
+
+`done(X)` requires a read at the consumer: person, node, working workflow, live channel. Producer-side labels are progress, not completion.
+
+"Delivered" = present in mailbox. "Applied" = consumer runs new code. Report both separately with counts.
+
+Every mechanism declares an output and an age threshold; the watchdog runs outside the mechanism. A watchdog comparing two lists must detect absence from both.
+
+A number heard in audio or tone is a claim; verify against an instrument or cut it.
+
+## 1. "Handed to the hub" (podcast order)
+
+Context: lab application. Vacancy DB 5354 + 23417 rows; 21 matches, all false; no application existed. Entry path = contribution (4 merged PRs).
+
+Failure: order for 2 podcasts sent as peer request; receiving robot has no browser, bounced it; request expired in 4 h. Next morning reported to Anton as "handed to the hub".
+
+Fix: `/hubrun`, 6 jobs queued. RECALL found the company podcast already made; no duplicate.
+
+Environment: NotebookLM dead in 6/6 laptop profiles. Panel 0/6, daily limit $15.14 of $15.
+
+Pattern: a handoff claim requires an ACK from the executor that can actually execute.
+
+## 2. "CI 3/3 green"
+
+Report 10-24: CI 3/3 green for a gift to an outside repo (Go test fix: 10/10 FAIL -> 20/20 ok; card since 10-23).
+
+Check: 9 working workflows in action_required (awaiting maintainer approval); green = service workflows only.
+
+Side: at least 8 gift duplicates in the shared folder. Panel $0.057.
+
+Pattern: read per-workflow status; count only workflows that exercise the change.
+
+## 3. Mail bus: delivered != applied
+
+13 fixture tests green. Live parcel had a third file unknown to fixtures.
+
+New 2-file parcel installed on 4/8 nodes; one node held a copy older than the hub's and required a merge.
+
+Pattern: fixtures model the parcel; acceptance reads the live parcel and the consumer's installed state.
+
+## 4. "0 messages" (X DMs)
+
+CRM M07 frozen: 78 tests, 8 red controls; local 94 mentions, 0 DMs. Old 403 receipt aged 120.22 h used as access diagnosis.
+
+One SSH attempt from another node: 10.032 s, rc 255. Panel $0.0636. Two release-session calls failed: "database is locked".
+
+X audit: 330 own posts, median 264 views, max 634; 172 mentions, 99 authors. Publisher: 166 sent, 148 queued, nominal 24/day (~6 days to drain). Outbound DMs 0.
+
+Pattern: empty result + unverified access = unknown, not zero.
+
+## 5. Machine-accepted != listened
+
+9 podcasts from chat history since 10-01: 483 records, 422 human messages -> 9 chapters, 9 notebooks, 9 audio, 149.7 min. 9 checks passed, 27 language samples.
+
+Links delivered 57 min 40 s after machine confirmation (cleanup time).
+
+Recording acceptance: 20 checks, PASS 12 / UNKNOWN 4 / FAIL 4; ~52 s lost of 41 min during update (~97.9% coverage); 10-27 history not restored. "Done" for source review != "done" for live acceptance.
+
+## 6. "Handing the fix to another session"
+
+Recall judged session age by birth date: of 2608 live sessions in 14 days, 67 born earlier (lived 15-29 days) were invisible.
+
+10-28 agent replied "handing the fix to another session"; neighbour had already fixed the root in 4 min (17:12-17:16). Anton: "Корни починены? Почему нет??"
+
+Pattern: before handing off, read current state; the fix may already exist.
+
+## 7. Silent mechanisms (defect B)
+
+Skill-hint hook: dropped from settings between 09-24 and 09-29; absent from hook manifest; ~35 days with no skill hints on the hub. Trigger: everyday request "near the hotel" parsed as a place name; real hotel ~60 km away; fact was in memory and 2 earlier sessions.
+
+Fix: hook added to manifest; test 9/9; panel 6/6; bad 0/16. Open: parity watchdog cannot see a hook absent from both settings and manifest. A parallel session overwrote the memory edit; restored.
+
+DR fan-out: robot set collected on any single leg and synthesized from the order text. Synthesis version 10-24 lost reading of results/; full version stored as misleading `.bak-pre-v37`. Robot saw 24-47% of each leg, almost no links.
+
+After fix: quorum 10/10, reconcile 4/4, slop_gate 26/26; quorum topped up to 4/6. Session 23 h 28 min; idle 02:00-10:21 on DNS outage, no alarm. Same outage stalled antislop DR session 6-8 h.
+
+Vault relink: orphans 91 229 of 278 129; curated layers 20 629 (17 491 in one Inbox); after work 19 012 (panel rejected "zero orphans"). Auto-MOC not written 4 days (10-25..29): writer on a switched-off machine. Abandoned git lock broke backups 176 min; backup test red 17/22.
+
+Canon write lock: required idle on 4 folders simultaneously; with 1 s delay they are nearly always scanning. 12 false BLOCK on 10-27; Anton's rule queued 2 days. Syncthing hypothesis stale (4/4 pairs green).
+
+Fix: 90 s window; test 54 PASS, old code 7 FAIL. One edit flipped a file to CRLF: diff 1033 lines vs 169.
+
+## 8. Confident voice (defect C)
+
+Interview rehearsal (Codex): 7 modes, 21 questions, 14 counter-questions; 6 recordings, 3 notebooks, up to 44.8 min. Hosts invented stats ("9 of 10", 90%, 99%) and nonexistent sources. 3 recordings flagged "listen with correction"; panel 6/6, $0.031.
+
+Regeneration does not fix; review of rendered audio does.
+
+Teaching recipe: 1 recipe, 5 consumers; 2 of 8 accepted (RU), both EN rejected; simple version announced exercises without questions; student answers 0.
+
+Essay-author research: podcast 16.4 min, 13 sources, probe 12/12, ASR 418 segments, 2 CRM cards; hosts stated hypotheses as facts. Raise size not established (investment statement != money). External panel 0/6: auto-review blocked sending internal context to 6 external models.
+
+Transcription: diarization OOM 24/24; disabled -> 60/60 overnight in 231 min, 112 queued. Semantic index saw 0 essences -> 1771 essence chunks + 937 Plaud. "×30" was measured under load; real 2.6-5×.
+
+Anton corrected agent theses 3 times, right 3/3.
+
+Closed PR: test fix (wait 5 s instead of 100 ms); maintainer called it wordy; a neighbour session without the runtime answered "didn't reproduce"; closed. Next day maintainer merged the same change with 30 s wait. Adopted: gifts pass the 6-breaker panel; answers about what was done only after reading own PR body.
+
+"Root" in the PR text exceeded the evidence.
+
+Non-gift: PR open since 10-16, 13 days silent; red check awaits the single maintainer; live activity = release mirror, 238 bot commits. Suspicion (flake.lock since 07-13, `|| true`) checked against source: not proven, not sent. Panel 5/6 said send; rejected as assumption.
+
+## 9. Background
+
+Antislop `--mode dm`: rules D1-D11; DR quorum 4/6 (sources 50, 35, 231, 82); Anton chose length ladder 15/25/40 over cap 10; tests 27/27; panel found 4 bypasses, closed.
+
+Call reminder services DR: 5 reports, 3 on the old task, 2 on the new; result 5/6; working GitHub call found; real calls 0. Panel 6/6, $0.0525; 30 remarks: 4 accepted, 18 considered, 8 rejected. 3 nightly hub tasks non-zero rc, causes unknown.
+
+GitHub gift + model chat: no code gift (last merge 2024-07-26, 7 open outside PRs, 334 stars); chat needed tagged link with key (found in browser history; key not stored in vault). Duplicate of a colleague's closed task; root: fan-out coordinator takes no person-lock before session start (case 1).
+
+CRM M03: isolated packs 103 tests (28 mutation processes, 31 triggers) + 116 tests. Checker defects: one blocked standard socketpair, one loaded old module. Test now prints path + SHA256 of checked bytes.
+
+Panel 6/6, $0.0564, 29 remarks: 21 accepted, 8 rejected. Consumer CRM: not proven.
+
+CRM Listener accepted (15 134 inputs, 214 results, 1 real call). Touchbase proposal only (17+6 tests, 0 real runs; cold import masked by preload). Panel $0.0889, 7 of 26 accepted.
+
+Clone tails: scan blind to 44 outside-repo clones in Windows scratchpads; 21 closed clones removed (≈2.06 GB), 23 with open PR kept. Token in remote URL in 6 clones (source: line in skill text); URLs cleaned; rotation = Anton's decision. First delete 19/19 failures (read-only git files); mutations 9/9.
+
+Signal: no code gift (no commits since 2026-05-04, ~1400 open PRs); word-gift article on API model-substitution audit; Anton sent at 20:13, reply in 22 s. Screen access denied 3x (user_denied): access hook unregistered, searched wrong folder; scan 2003 files 7.51 s -> 0.88 s; app logs dead since 08-28.
+
+Gifts alpha + Mycroft article: ~69 gift sessions -> 31 PRs (7 merged, 23 open, 1 closed). False draft claim "character not measured" fixed. Published GitHub, dev.to, X (8), FB; not: Reddit (ban), LessWrong, Telegram, Bluesky (no keys).
+
+Rules: personal data in OpenRouter allowed; per-platform language (FB post went EN; language check added). Benchmark rerun 10-30: 18 models, 89/90 cells, more reasoning != more character; mass run burned key daily limit, stopped judge; `tail` hid X depot refusal (rc=2).
+
+Four social profiles: "no LessWrong account" from password store only; account existed. 3 created by Anton (CAPTCHA). Mastodon verified; collector check 18/18; panel 4/6, $0.017.
+
+Class "verdict from one surface": 189+ cases.
+
+Pre-meeting robot call: shadow 4/4 correct; trial call rc 3 (no service keys, login Anton-only). Panels: 13 holes, 9 closed, 4 with Codex. 40-branch test: patch inserter fired twice, mutants passed green.
+
+Lesson: human step first.
+
+Transcripts outward: weekly routine; repo 20 sessions, 187 863 words; dataset 349 rows; DOI. 100-subagent workflow: 21 confirmed holes, 11 refuted. Unquoted secrets passed the gate; live host name in public commits.
+
+Two concurrent red probes left broken code on hub (found by md5). History rewrite forbidden by Anton.
+
+Worktree: "workspace isn't trusted"; engine walks parent folders, no stop at non-git folders. One key on worktree base trusts all copies; hook sets it; mutant without call red. Parcel to 8 nodes, applied on 1.
+
+Panel hit $15.14/$15.
+
+Hub perf: own changes 0; mic 149 files in ~74 min; archive 235/235; 4 gaps ~52 s; descriptors 2291 -> 2291 over 62 s. Lock "FREE" status does not test SQLite lock; "database is locked" unexplained. Panel $0.0643.
+
+Selection prep for an acquaintance: neighbour session owned the order; switched to reviewer after ~20 min; cheat sheet, 30 questions, 8-day plan, 6 episodes; not delivered (recipient lacks notebook access).
+
+Events poster: Nov 60 -> 67 program groups, Oct 23 -> 24, horizon 45 dates / 76 IDs; renderer skill package missing, cause unknown; old patch blocked by hash mismatch; status degraded.
+
+Remote desktop: physical floor ≈150 ms; Apollo + Moonlight direct path 14 ms; Sunshine via brew on Intel mac dead; awaits Anton's login.
+
+VIP hosts / meetups: rule -> regulation; speaker application filed (201). One-off task 04:13 fired 08:02 (session cron blind while laptop sleeps). Machine count in letters "six" vs "eight"; registry 8.
+
+Hypothesis "recipient's fresh post as hook": no evidence.
+
+---
+
+## 10. Table
+
+| Label reported | Producer fact | Consumer read | Result |
+|---|---|---|---|
+| "handed to the hub" | request sent | executor bounced, expired 4 h | not done; 6 jobs after `/hubrun` |
+| "CI 3/3 green" | service workflows green | 9 working workflows action_required | overstated |
+| "delivered" | parcel in mailbox | applied 4/8; third file missed by fixtures | partial |
+| "0 messages" | empty local history | access unverified (403 aged 120.22 h) | unknown |
+| machine-accepted podcasts | 9/9 checks | nobody listened | unconfirmed |
+| "handing the fix off" | handoff intent | root fixed 4 min earlier | stale answer |
+| "no LessWrong account" | one password store | account existed | refuted |
+| "×30" | load-time measurement | real 2.6-5× | refuted |
+| skill hints | parity watchdog green | hook absent ~35 days | silent failure |
+| DR collected | any one leg | 24-47% read per leg | fixed |
+
+## 11. Not proven
+
+M03 in the working CRM. Current X DM access. Causes of 3 non-zero nightly hub tasks and "database is locked".
+
+Renderer skill package loss. 6 podcast jobs -> links. Mail-bus parcel on 4 remaining nodes; worktree key on 7 nodes.
+
+Parity watchdog coverage for double absence.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-10-30.dev.md
+
+---
+title: "Day 149 - 2026-10-30: final status written once and last; tool exit code taken for app success"
+date: 2026-10-30
+day_index: 149
+week: 22
+month: "october-enforcement"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [final-status, exit-code, small-run, large-mode, byte-for-byte, fearless-cleanup, dropped-channel, profiler, receipts]
+---
+
+# Day 149 - 2026-10-30: final status written once and last; tool exit code taken for app success
+
+Dev-log form. No canon beats for the day; assembled from session retros (6). Night tails of 10-29 included.
+
+Defect: a status is emitted before all steps finish, or by a layer other than the one it claims to describe (wrapper vs app, shell vs child, small mode vs large mode), and the consumer reads it as the final verdict.
+
+Position on the line. 147: verdict from one surface. 149: status from the wrong layer or the wrong moment.
+
+---
+
+## 0. Contract
+
+Final status is written exactly once, after every step, and names the process and the mode it covers. A later "ok" must not overwrite an earlier "partial".
+
+Wrapper exit code != app exit code. Shell exit 0 != acceptance.
+
+Green small run proves the small run. Large mode needs its own run.
+
+Delete only after a full-file hash match; then cleanup needs no fear. A dropped control channel (SSH) is not evidence that the job stopped.
+
+## 1. X reader, CRM M07 (from source)
+
+Owner answer: 190 mentions, 0 direct messages, 32 receipts. DMs blocked by auth (HTTP 403). Mentions do not mask empty DMs.
+
+Two copies of the reader byte-identical (20968 bytes): one defect, two places.
+
+Defect: after a late HTTP error the collector writes "partial", then also "ok"; last receipt falsely reports success. Overall exit 0 does not prove DM success either.
+
+Panel $0.129: 3 refinements accepted, 5 assumption groups rejected. Tests and source requests not run.
+
+## 2. Touchbase: large stopped, small passed
+
+Large run (check 400 records): hit limit 300.407 s, timeout, no new queue. Small run with profile (20 records): 124.594 s, queue of 10 rows.
+
+Profile: build 121.5 s; within it fact collection 81.6 s, card index 73.6 s; calculations 39.2 s. Main suspect: 19 853 file reads.
+
+Metrics: 82 physical copies vs 41 logical events; metric records carry no session PID.
+
+Profiler returned exit 0 while the app exit code was not captured: wrapper swallows SystemExit.
+
+Panel $0.081: 5 accepted, 18 rejected. Cause of the earlier timeout not proven.
+
+## 3. Bus ACK and delivery, stand V2
+
+Independent review: request changes; 6 findings (2 medium, 4 low). Exit codes: child 0, broker 3, outer PowerShell 1.
+
+Fixes written, not verified by new tests. Tests 12/14; 2 failures from a stand bug (expected argument list, got command string).
+
+Mutation checks: 3; broken code fails, healthy controls 3/3 pass. First "mutation" false: stand read the non-mutant source.
+
+Panel of 6 models $0.0738: 6 accepted, 21 rejected. Retro turn: shell exit 0 may not be presented as acceptance.
+
+## 4. Podcast local audio cleanup
+
+Policy: text and transcripts stay; local audio deleted. Cleanup no longer waits on YouTube upload: two processes use separate temp copies.
+
+Large pass 10-29 23:52 -> 10-30 02:33 UTC: 410 paths; 177 deletions, 9 648 134 606 bytes; 224 copies kept; 9 original-lookup errors. Earlier probe deleted 1 copy, 31 415 398 bytes. Remaining: 186 of 364 old audio files.
+
+Gate: delete only after full-file SHA256 match. Post-delete: note and transcript hashes matched for all 177.
+
+Backup timeout 300 s -> 1800 s. SSH drop was read as job failure; job continued.
+
+YouTube uploads 0; Google sign-in not completed. Panel $0.062.
+
+## 5. Touchbase live equivalence test
+
+New calculation vs old on a real dialogue: 5/5 checks green; 1 logical metric event (duplicate by ID across two file copies); 17 pins. Coordinator accepted within narrow bounds.
+
+Retro turn: launch preparation may not be reported as a launch. SHM service file timestamp changed anyway; author not established.
+
+Panel $0.095: 14 accepted, 12 rejected. Memory search silent for minutes, interrupted.
+
+---
+
+## 6. Table
+
+| Claim | Layer that emitted it | Layer it should describe | Result |
+|---|---|---|---|
+| collector "ok" | last write after late error | whole pass incl. DMs | false; "partial" stands |
+| exit 0 (X reader) | process | DM delivery | not proof |
+| profiler exit 0 | wrapper | app (SystemExit swallowed) | app code unknown |
+| stand passed | child 0 | broker 3, shell 1 | not acceptance |
+| first mutation red | stand reading source | mutant file | false mutation |
+| small run green | 20 records | 400 records | large timed out at 300.407 s |
+| job failed | SSH channel | remote job | job kept running |
+| launch | preparation | launch | not reported as launch |
+
+## 7. Patterns
+
+P1. Receipt ordering: a run emits one terminal record. Any "partial" seen earlier in the pass pins the terminal status to "partial"; a later success line may not overwrite it.
+
+Consumers that read only the last line must be able to trust it.
+
+P2. Exit code ownership: a wrapper (profiler, shell, broker) reports its own exit. Capture the child/app exit separately, and do not catch SystemExit without re-raising or recording its code.
+
+P3. Multi-process codes: when child, broker and outer shell disagree (0 / 3 / 1), the run is not green. Acceptance is a review verdict, never a shell exit.
+
+P4. Mutation sanity: before trusting a red mutant, assert that the stand loaded the mutated file (path + hash). A red run on the wrong file is a false mutation.
+
+P5. Mode scaling: a passing small mode is evidence for that size only. Profile it, name the suspect (here file reads), then run the large mode before claiming it.
+
+P6. Metric identity: without a session PID, physical copies and logical events cannot be separated (82 vs 41). Add the PID to the record.
+
+P7. Fearless delete: full-file SHA256 equality before delete; keep on mismatch or missing original; verify dependent hashes after delete (177/177).
+
+P8. Channel vs job: a dropped SSH session or a 300 s client timeout says nothing about the remote job. Check the job directly; widen the wait (1800 s) when the job is known to be long.
+
+P9. Launch vs preparation: a prepared launch is reported as prepared. Side effects seen without a launch (SHM timestamp) are logged with "author not established".
+
+## 8. Not proven
+
+Cause of the large Touchbase timeout. Author of the SHM timestamp change.
+
+Stand V2 fixes under new tests. X reader tests and live source requests. Google sign-in and YouTube uploads.
+
+✍️ Написано: Opus 5.5
