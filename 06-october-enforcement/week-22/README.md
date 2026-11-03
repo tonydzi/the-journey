@@ -12,7 +12,8 @@ The week opens with Day 145 (October 26): one browser session shared by dozens o
 - [День 148 - 29 октября: зелёный статус описывал процесс](2026-10-29.ru.md) · [EN](2026-10-29.en.md) · [🤖 machine](2026-10-29.dev.md)
 - [День 149 - 30 октября: итог пишется один раз и последним](2026-10-30.ru.md) · [EN](2026-10-30.en.md) · [🤖 machine](2026-10-30.dev.md)
 - [День 150 - 31 октября: сторож читает поверхность, а не смысл](2026-10-31.ru.md) · [EN](2026-10-31.en.md) · [🤖 machine](2026-10-31.dev.md)
+- [День 151 - 1 ноября: новее не значит правильнее](2026-11-01.ru.md) · [EN](2026-11-01.en.md) · [🤖 machine](2026-11-01.dev.md)
 
 ---
 
-*Week 22 is open: six of seven days (October 26-31) are written.*
+*Week 22 is closed: all seven days (October 26 - November 1) are written.*
