@@ -9,7 +9,11 @@ The smaller items keep the same shape: a journal row left open after its fix kep
 ## Days
 
 - [День 152 - 2 ноября: условие заказа протухло по дороге](2026-11-02.ru.md) · [EN](2026-11-02.en.md) · [🤖 machine](2026-11-02.dev.md)
+- [День 153 - 3 ноября: отказ, которого не было, и пустота, которой не было](2026-11-03.ru.md) · [EN](2026-11-03.en.md) · [🤖 machine](2026-11-03.dev.md)
+- [День 154 - 4 ноября: зелёный, который мерил не то](2026-11-04.ru.md) · [EN](2026-11-04.en.md) · [🤖 machine](2026-11-04.dev.md)
 
 ---
 
-*Week 23 is open: one of seven days (November 2) is written.*
+*Week 23 is open: three of seven days (November 2-4) are written.*
+
+Day 153 (November 3): an instrument's negative reading taken for a fact of the world, found wrong by a second pass. Day 154 (November 4), its mirror: a green that measured the neighbouring quantity.
