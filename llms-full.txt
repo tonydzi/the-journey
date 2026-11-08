@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 132 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 135 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -20773,5 +20773,326 @@ Hooks fact unread on three nodes; forks unresolved; hub Syncthing watcher missed
 Junction culprit unknown; parcel to hub not arrived by 20:51Z. Door 001 canary failed; live NEW-NOT-SWITCHED unreproduced.
 
 Lifter on one node: no lift since 11-02. Rail 001 parcel to laptop unapplied. Application waits for a human-written essay.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-05.dev.md
+
+---
+title: "Day 155 - 2026-11-05: a process reads a trace it left itself and restarts; fix the source of the trace, not its visibility"
+date: 2026-11-05
+day_index: 155
+week: 23
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [loop, own-output, alarm, codex, windows, focus, source, input, collector, judge, lifter, bus, overload, fleet]
+---
+
+# Day 155 - 2026-11-05: a process reads a trace it left itself and restarts; fix the source of the trace, not its visibility
+
+Dev-log form. Assembled from about 38 retros of the day; no canon beats.
+
+Defect: a system emits an artifact (letter, charge, deletion, load) and later consumes it as an external trigger for new work. Secondary: an instrument consumes a truncated or wrong slice of input and works correctly on it.
+
+Position on the line: 152 order condition stale; 153 negative signal read as world fact; 154 positive signal about the wrong quantity; 155 own output consumed as input.
+
+---
+
+## 0. Contract
+
+Before acting on a trigger, check whether its author is the actor itself. Fix the emitter; keep the symptom visible as evidence.
+
+## 1. Hub console flashes
+
+Problem: a black console window every few seconds on the hub, stealing input focus.
+
+Diagnosis: 90 s poll (`psutil` + `EnumWindows`/`GetForegroundWindow`) named `codex_rewake.py __run`, the Codex session alarm.
+
+Cause A (window): DETACHED runner spawned `codex.exe --version / debug models / exec resume` without CREATE_NO_WINDOW; each child got a Windows Terminal window.
+
+Cause B (rate): `finally` saw the runner's own unread letter in pending and spawned a new runner. Counters for 11-05 pre-fix: `respawn-late-pending` 2833, `no-turn-started` 2830, `turn-entered` 7.
+
+Solution: `failed` flag, respawn only on new letters; CREATE_NO_WINDOW on children.
+
+4 more sources and 3 scheduled tasks fixed (`run_hidden_wait.vbs`, `pythonw`). Test 20/20, 2 FAIL on old code. Window count: dozens per 60 s before, 0 from the alarm in 3 min after.
+
+Rejected: global window hider. It removes evidence and leaves the loop.
+
+Gotcha: `conhost --headless` from Task Scheduler does not hide (Windows Terminal intercepts); works only from a GUI parent.
+
+Side: event journal `console_flash_log.py`, 4/4; Codex blocked twice for raw argv and window titles; now exe/pid/ppid/basename only.
+
+Open: parcel to 9 nodes, 8 not applied. No lint for the class; third dated case. Pre-anonymisation log rows remain locally, owner decides.
+
+## 2. Wrong input slice
+
+Agent sleep collector: no lower mtime bound; files untouched since day start consumed the 200-file / 100 MB budget. Live 11-03: 2 replies vs rough 61; 26 unit tests green.
+
+Fix: skip untouched-since-day-start (2 h clock margin) and subagent dirs; limits 1000 / 1 GB. Result: 103 replies, 0 truncated; 213 read, 3366 + 1556 skipped.
+
+Search judge: cross-encoder and results view used `title + snippet[:240]` with 1500-char chunks (16%).
+
+Fix: full chunk to judge, match window to view, secrets cut before windowing. Fact visible 9/60 → 27/60.
+
+Judge on 240 chars worse than none (36 vs 40 files); hub 184 questions, all four judges below "none", CI below zero. Default: window, no judge; class router deferred to shadow harvest 11-12 (fitted on the same 41 questions).
+
+Test defects: a module shifted `sys.path` and replaced the module under test; C7 secret check green from truncation, not cleaning.
+
+## 3. Echoes
+
+Lifter: refused charge stayed in composer, fired 11 h later (51 `fire_fail`), revived a returned request.
+
+Roots: dropped seed forgot markers; foreign node could claim `returned`. Markers kept 7 days; claim restricted to requester. 74/74, old 72/74.
+
+Bus guard: removed empty dirs every run, producing "delete dir: not empty" (30 and 48 errors). Files evacuated with inventory (387, 101); cleanup removed; 0 errors.
+
+Door 001: raising 10 owed sessions at once gave 52 Claude processes vs 15 after restart, recreating the overload behind the debt. Regular tick raises 2.
+
+`launchctl submit` = KeepAlive: one-shot script ran 12 times.
+
+Duplicate build: agent key built while `fleet_dispatch.py` 1.2.0 existed; namesake test overwrote the real one. Hook now blocks new script Write without fresh prior-art search, 11/11, mutant 4 FAIL.
+
+Repeat of 154's class: panel 0/6 all day (HTTP 402, empty account) while the start meter read `/key` instead of `/credits`.
+
+## 4. Table
+
+| Emitter | Trace | Consumer reaction | Fix |
+|---|---|---|---|
+| alarm runner | own unread letter | new runner | flag, new letters only |
+| lifter | charged composer | late revive | keep markers, claim rule |
+| bus guard | deleted dirs | sync error loop | no cleanup in synced dirs |
+| bulk revive | process load | door timeouts | tick of 2 |
+| launchctl submit | KeepAlive | reruns | one-shot launcher |
+
+## 5. Patterns
+
+P1. A trigger authored by the actor itself is not work.
+
+P2. Fix the emitter; a hider deletes evidence and keeps the cost.
+
+P3. Child processes of consoleless parents need CREATE_NO_WINDOW.
+
+P4. Bound collector input by the window of interest before applying budgets.
+
+P5. Judges and tests must see the same text the decision depends on.
+
+P6. Recovery batch size must not recreate the failure condition.
+
+## 6. Not fixed
+
+8 nodes without the flash parcel; no class lint. Nightly agent sleep off; DR pending.
+
+Lifter `fire_fail` root untouched. Who returned 387 files to the hub: unknown. Panel account empty.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-06.dev.md
+
+---
+title: "Day 156 - 2026-11-06: a cure removed the pain in one place and moved it to another; only checking the cure's neighbours found it"
+date: 2026-11-06
+day_index: 156
+week: 23
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [cure, moved-pain, backup, lock, frequency, retention, hooks, dispatcher, syncthing, marker, sample-size, reranker, skill-shelf, reader, panel]
+---
+
+# Day 156 - 2026-11-06: a cure removed the pain in one place and moved it to another; only checking the cure's neighbours found it
+
+Dev-log form. Assembled from 32 retros, personal retros excluded; no canon beats for the day.
+
+Defect: a fix is verified at the spot it treated. Its side effect lands on a neighbour (another reader, another event, another dataset) that nobody remeasures.
+
+Position on the line: 152 order condition stale; 153 negative signal read as world fact; 154 positive signal measured a neighbouring quantity; 156 the instrument is right, the cure itself relocates the defect.
+
+---
+
+## 0. Contract
+
+After any fix, enumerate neighbours: readers of changed output, other events through the changed path, other datasets for the changed ranking. Acceptance requires a measurement at each.
+
+## 1. Vault backup: dead, not frequent
+
+Problem: order "no point backing up the vault 5 times a day". Voice note missed the session (inject hook used another machine's user path; fixed by Codex by 11:14).
+
+Cause: abandoned `.git/index.lock` (0 B, 11-02 11:01) blocked git snapshots 4 days; cloud re-uploaded the same 6.41 GB delta nightly. Schedule 28-32/day, actual 0.
+
+Class `stale-git-index-lock` case 3 (10-27, 10-29, 11-06). Test T11s (10-29) required lock moving; code absent.
+
+Solution: move lock > 30 min, re-check inside own lock; T11s, T22 green, red on old. Throttle 168 h, `--now` forces. Cloud on Sundays.
+
+Retention: keep=14 promised, deletion disabled, warning in unread log → keep week + month copy. Tests 9/9 and 5/5, red on 3 sabotages each. Laptop free 83.3 → 347.3 GB, hub +293 GB, 421 GB to cloud trash.
+
+Moved pain: new output token `THROTTLED`. Hub nightly podcast job parses output by regex (`committed|NO_CHANGES`); producer in synced folder, reader in unsynced scripts folder → would fail "did not confirm HEAD".
+
+Fixed remotely; old copy fails on probe. Side: edit tool converted `.cmd` CRLF → LF; restored.
+
+Open: Macs unapplied; hub second copy rc=2 / rc=267014; two machines prune the same cloud; age-only lock moving. Panel 6/6, then 3/6.
+
+## 2. Hub: dispatcher fix slowed the prompt
+
+Problem: hub lag; cursor lag over AnyDesk 00:45 UTC.
+
+Cause A: Syncthing uplink 6.8 MB/s. Solution: cap 1500/3000 KB/s → 1.6 MB/s; operator "Yes, it's alive". Latency not instrument-measured.
+
+Cause B: dispatcher log 2121 calls, Bash p50 96 ms, prompt p50 1.9 s / p90 14 s / max 68 s. In-process guards sequential, no timeout; Windows subprocess timeout waited on grandchildren pipes (199 s).
+
+Solution v3: temp files, wait guards only, `taskkill /T`, keep exited guard refusal. Red/green: 27 s → 0.6-3.2 s; Bash p50 23 ms, p90 233 ms (n=1262). Memory hook cache 12.9 → 1.9 s, parity on 5 nodes.
+
+Moved pain: after isolating `clone_gate`, prompt p50 6.8 s, p90 21 s, 109 × 20 s timeouts overnight. Marker "session checked" written after the long search; killed gate never wrote it, re-searched every prompt.
+
+Caught by retro panel 6/6, not by author. Fix: claim + marker before search; `os.scandir` 14942 files 3.2 s (was 8.4); first prompt 1.1 s, repeat 85 ms.
+
+Moved pain 2: 23 tasks to 00-05 UTC table; night 1: 14 OK, 5 failed (all pre-existing), 2 weekly off-schedule; two overran to 05:09 and 06:04; operator worked inside the window.
+
+Open: session start p50 6.6 s; in-process PreToolUse guards without timeout; grandchild leak; Mac dispatcher not installed.
+
+## 3. Reranker add-on, small sample
+
+Problem: compare memory with Mem0/Zep. Mem0 23/24 vs ours 21/24, recount matched.
+
+Cause: our cross-encoder; dense without it = Mem0 19/23/24.
+
+Self-defect: "RRF best 24/24" on 24 questions. bench-v0.1 (69): dense 0.928 > RRF 0.906 > CE 0.884. Corrected same evening; CE off by default, rollback one env var.
+
+## 4. Smaller units
+
+Skill shelf: first report "update erased block" false. Healer since 10-06, no caller on 4/5 nodes, lag up to 309/470.
+
+First fix (link whole shelf) exposed delete path (CLI uninstall = rm -rf folder); found by panel, probe on copy. Fix: per-skill links, bridge 1.1.0, rc=0 on 5 nodes.
+
+Canon: general ban overrode a narrow approved permission; request idle 6.5 days; fixed v6.14.0. Retro called sync "delivery"; only manifest publish counts.
+
+Codex mirror: cap 98304 left 922 B; mirror 113003 B; cap 131072; selftest 14/14.
+
+Parcel gate: `_expand()` skipped file without bus env var; replay 672; test 3/8 → 8/8.
+
+Lifter: hidden MSIX queue since 09-03, 49 seeds; shadow 206 vs 17. Mac launchd robot never raised a session (no Accessibility), 186 vs 31.
+
+Payments for agents: 23/23 mutants, no consumer, parked.
+
+## 5. Table
+
+| Cure | Treated spot | Where pain moved | Found by |
+|---|---|---|---|
+| backup throttle | frequency | hub regex reader | reader search on other node |
+| retention keep=14 | disk | deletion disabled, unread log | measurement |
+| dispatcher v3 | Bash latency | prompt via `clone_gate` | retro panel |
+| night table | day load | operator hours, 05:00 ceiling | first-night history |
+| CE reranker | ranking on 24 | ranking on 69 | second set |
+| whole-shelf link | missing skills | delete path | three-lens panel |
+
+## 6. Patterns
+
+P1. A fix is accepted after neighbours are measured, not the treated spot.
+
+P2. Changing a shared producer's output requires finding readers on every node; synced producer + unsynced reader = version skew.
+
+P3. A test without the code it tests is not a fix; check the test was red on old code.
+
+P4. Marker/claim before long work; a killed worker must not repeat it forever.
+
+P5. Remeasure all hook events after dispatcher changes, not the one you optimized.
+
+P6. A favourable ranking on n=24 waits for a larger set.
+
+P7. Linking a whole directory widens the blast radius of foreign delete commands.
+
+## 7. Not fixed
+
+Macs without backup rule; hub second copy unconfirmed; two cloud writers; age-only lock move. Night tasks overrun 05:00 and don't yield to operator; session start 6.6 s; cursor root by testimony only. Graphiti on a schema-holding model unmeasured.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-07.dev.md
+
+---
+title: "Day 157 - 2026-11-07: literal execution of a request would open a hole the request did not see; an action with a deferred end had no owner for that end"
+date: 2026-11-07
+day_index: 157
+week: 23
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [literal-execution, flag, leak, store, maintainer, panel, measurement, pause, guard, exam, lock, fleet]
+---
+
+# Day 157 - 2026-11-07: literal execution of a request would open a hole the request did not see; an action with a deferred end had no owner for that end
+
+Dev-log form. Assembled from 5 retros; no canon beats; no night-writer entry for the night (section 5).
+
+Defect: an action is judged only against its requester. Other readers of its result (code paths, maintainers, schedulers) are not enumerated before acting.
+
+Position on the line: 152 stale order condition; 153 negative signal read as world fact; 154 green measured neighbouring quantity; 157 literal action without enumerating its readers.
+
+## 1. Flag wired to three rooms
+
+Problem: issue #1878 (`mcp-memory-service`) asks to enable `get_by_hash_is_store_scoped` for Cloudflare.
+
+Cause: the same flag unlocks `memory_search`/`memory_list` per store (`server_impl.py:1635-1640`); 9 Cloudflare read methods ignore `store`. Literal execution = cross-store leak.
+
+Solution: `store` column in D1, filters on `get_by_hash`/`update_memory_metadata`/`delete`; flag stays False; PR "Part of", two options to maintainer. 8 new tests, 8 red on main; 319 passed, 18 skipped; 4-model panel added 2 tests.
+
+After the day (11-08): merged 07:46 UTC, CI 24 green, 1 skipped; maintainer confirmed False. Missed by us and panel: `storage/hybrid.py` calls secondary without `store`; enabling the flag would break sync.
+
+## 2. Build time read as query time
+
+Problem: public comment claimed every query times out on the laptop.
+
+Cause: inferred from 18.3 s per index-build embed call (load 14).
+
+Solution: panel 6/6 ($0.047) rejected; measured 0.6 s warm, 2.9 s cold; both comments edited. Second opinion now required before outbound comments with numbers (door change not re-verified).
+
+Context: PPR head 1 failed the pre-registered rollback rule: recall@10 0.286 → 0.250, MRR 0.128 → 0.124, 28 questions; keyword unchanged (`search()` skips fusion for one-word queries; all 12 are one word). Raw 24 + 24 rows published.
+
+## 3. Pause without owner
+
+Problem: night exam at 01:30 UTC 11-07 did not run.
+
+Cause: run frozen by `kill -STOP` at 11:32 UTC 11-06 (180/184); pausing session ended at 11:39:54 on a limit before installing a guard. Lock "1" cannot tell live from stopped.
+
+Solution: `night_jobs_guard` every 300 s, SIGCONT in night window; tests 7/7, STOP/CONT mock. Threads 4 → 6; cron 5 1 */2 (live list had 5 16 */2). Status: exam NOT finished; live SIGCONT unverified; 6-thread effect unmeasured.
+
+## 4. Smaller units
+
+Request to a node with no inbox consumer waited 1562 min. Delivered via hub: 64 files, 194 847 328 bytes, sums match.
+
+Red probes: bad address rc=1, bad date rc=1. Root in `peer_help.py ask` untouched.
+
+Routine moved to 00:20 UTC; order carried stale 09:00Z vs real 01:00Z; no hub receipt.
+
+## 5. Night writer
+
+`content-miner-nightly` RUNLOG last entry 2026-11-05 23:17 (file mtime same). No entries for 11-06, 11-07; no beats.
+
+Cadence every other day (11-01, 11-03, 11-05): 11-06 consistent with schedule, 11-07 missing. Label: "no night-writer entry", not "quiet". Cause unknown; "dead" unproven.
+
+## 6. Patterns
+
+P1. Before flipping a permission flag, grep every reader of it, then check layers that depend on gated calls (sync).
+
+P2. Literal request + unseen reader = do everything but the risky step, hand the choice to the owner, title "Part of".
+
+P3. Never derive latency of operation A from timings of operation B; measure A.
+
+P4. A pause is shipped together with its resumer; a lock records process state, not only presence.
+
+## 7. Not fixed
+
+Exam frozen at 180/184; live SIGCONT and guard ticks after the first unseen. Lock still blind to STOP.
+
+Keyword non-movement unexplained. Consumer-less routing root untouched. Hub receipt missing. #1878 open; #1915 awaits assignment.
 
 ✍️ Написано: Opus 5.5
