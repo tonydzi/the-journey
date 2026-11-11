@@ -21450,7 +21450,7 @@ Pattern: admission reads the current value, not the more optimistic of two avera
 | DR Web Summit / nuclear | sources: ChatGPT 114, Claude.ai 37, Gemini 133, Grok 70; hub Firefox profiles 0 of 11 cookies for ChatGPT, Claude.ai, Google |
 | Hook gatekeeper | no shared MCP gateway (35 sessions on Mac16, 0 child MCP); `hook_dispatch.py` since 05.11; main cost = dead watchdogs |
 | Web Summit CRM | +337 hosts, +597 links; duplicate session did the same; `.ics` for 32 events sent as file (readonly tokens) |
-| palo-alto.ai mailbox | single blocker Cloudflare login; 4th attempt since 02.10; ask unanswered 2 days |
+| lab mailbox | single blocker Cloudflare login; 4th attempt since 02.10; ask unanswered 2 days |
 
 ## 7. Patterns
 
