@@ -90,6 +90,7 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 
 ### [07 - November: Delivery](07-november-delivery/) · *it is not enough that a fix was written: it has to arrive where it is consumed*
 - [Week 23 (Nov 2-8)](07-november-delivery/week-23/) - the week an order is read in a world that has already moved on
+- [Week 24 (Nov 9-15)](07-november-delivery/week-24/) - the week a thing is asked where it came from and who signed that it arrived
 
 ## Editions and what's coming
 
