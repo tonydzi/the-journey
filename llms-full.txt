@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 138 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 140 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -21473,5 +21473,267 @@ X remains at 402; 179 cards open. ZBook gap 5 971 files, index skipped on CPU.
 Session door v3 in shadow until 13.11. Nine-node brain acceptance not reached. Cloudflare login for the mailbox pending.
 
 Source note: no canon beats for 10.11; `content-miner-nightly` wrote a beat for 09.11 only; day classified "without beats", not "quiet"; 67 retros read.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-11.dev.md
+
+---
+title: "Day 161 - 2026-11-11: a verdict hangs on one line; the honesty of a benchmark claim, a stop hook, an exit-code check and a health watchdog each reduced to a single setting"
+date: 2026-11-11
+day_index: 161
+week: 24
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [threshold, abstention, benchmark, mem0, allowlist, denylist, exit-code, cmd, set, health-check, red-by-guess, eval, cpu, cuda, rollout, consumer, fleet]
+---
+
+# Day 161 - 2026-11-11: a verdict hangs on one line; the honesty of a benchmark claim, a stop hook, an exit-code check and a health watchdog each reduced to a single setting
+
+Dev-log form. Assembled from 29 retros (1 personal not retold; names from the Plaud review omitted) and one canon beat, `beat-2026-11-11-threshold-honesty`.
+
+Defect: a verdict (claim, block, green, red) is determined by one parameter that is not displayed next to the verdict. Change the parameter and the same code yields the opposite verdict.
+
+Position on the line: 158 count without denominator; 159 foreign bytes at home; 160 receipt before the fact; 161 verdict hangs on one hidden setting.
+
+## 1. "Three times more honest than Mem0" = one threshold line
+
+Problem: memory benchmark claim. Honest refusal 0.45 vs Mem0 0.14; table: correct refusals 10/22 vs 3/22 (Mem0) and 4/22 (third entrant). Recall@5 0.88 vs Mem0 0.87, Fidelis 0.86, BM25 0.77.
+
+Cause: replay over 91 saved answers: with the refusal threshold 10/22, without it 3/22 (Mem0 also 3). Cost of the threshold: +12 false refusals of 69.
+
+Solution: claim restated as threshold + effect + cost. "Three times" holds only as the refusal share on unanswerable questions.
+
+Pattern: a comparative claim carries the parameter it depends on and the parameter's cost; replay with the parameter removed before publishing.
+
+## 2. Stop hook opened by an unknown word
+
+Problem: stop hook against false "no" read any "no" about another object as "file does not exist".
+
+Cause: fixed earlier with an allowlist of harmless words; any word outside the list opened the door.
+
+Solution: denylist; the block lifts only on a positive marker of a different object. Test 19/19, opponent corpus 60/60.
+
+Pattern: a guard defaults closed; an exemption requires a positive signal, never absence of a known one.
+
+## 3. `set` between a command and its exit code
+
+Problem: nightly sync reported exit=0 since 04.11 while the profile was logged out.
+
+Cause: any line between a command and the read of its return code resets or masks it. Here: `set` in a `.cmd`; the hook did not handle `.cmd` or substitution.
+
+Solution: the existing door was widened; no new robot. 14 mutations red; class family 14 cases since 03.09; sweep of 27 thousand commands, 35 new refusals.
+
+Pattern: capture the return code on the line immediately after the command; a check that reads it later must prove nothing sits in between.
+
+## 4. Red by guess
+
+Problem: browser-rail watchdog marked the rail red.
+
+Cause: red was set on restart plus silence, with zero attempts ("idle != down").
+
+Solution: red only at >=3 failures after the last success. Test 35/35; 5 nodes on the new version.
+
+Pattern: a failure verdict requires attempts; silence is "unknown".
+
+## 5. Mac16 morning slowdown: root elsewhere
+
+Problem: Mac16 slow in the mornings. Nightly brain eval on CPU 6-8 h; window lock gated start only. agents-python 492% night, 320% morning, 28% day; 140/184 questions at SIGSTOP.
+
+Cause: the hub already runs the same eval on CUDA (370-942 s per run) on a fresher index (108116 chunks vs Mac16 107131).
+
+Solution: patch first (end cap 05:00 UTC), then root: eval on hub only; Mac16 launchd job disabled, not deleted. Hub: title 0.95, body 0.85, bridge 0.43, temporal 1.0.
+
+Pattern: before optimising a slow job, check whether another node already produces the same output.
+
+## 6. Fix not applied at the consumer
+
+Problem A: rail-plan lock lost its stop at move 8. Cause: on 04.11 a tool intake replaced the file with the hub's same-name version. Declared plans: 13/32 before lock, 32/35 with it, 32/67 after the swap.
+
+Solution: stop branch restored, 57 checks.
+
+Problem B: MacStudio lacked the browser counter hook; rollout never reached it. Solution: 4 files + watchdog agent; Write/Edit/Agent were not routed through the dispatcher before.
+
+Problem C: class "script delivery without an applier": Studio 221 files vs hub 3309; live node without mirror counted as "unknown". Solution: live without mirror = red; detector fixed on one node only. Class open.
+
+Problem D: rollback reported "file was not there". Cause: unreadable hash read as absence; literal `%USERPROFILE%` in path. Solution: separate EXISTS/ABSENT probe.
+
+Old 53/56, new 56/56, then 59/59; applied 4 of 8 nodes, 3 offline.
+
+Pattern: a fix is done when read back at the consumer on each node; a same-name file from another node is not proof of the same content.
+
+## 7. Other items
+
+| Item | Fact |
+|---|---|
+| X queue | API credits out, 402; TG works; store 900 cards, posted 407, void 126, no receipt 367, queued 488; X down 3 days; ask to Anton, no new robot |
+| Session 0 Firefox storm | OAuth CLI and IDE language server spawned browser; session guard + Job Object CREATE_SUSPENDED; 105 firefox + 105 crashhelper roots -> 0; 69 launches refused; Popen->Assign race fixed in rev3.1 |
+| stale-memory-blocker | two classes merged by key `resume` matching `resume.json`; 537 seeds, 9 matched; test 22/22 |
+| conclusion from one surface | failure 43; seed got lines before last closing; date cutoff; 4/6 already handled; test 5/5 (2 red on old code) |
+| Three debts | `--retire`, small-count lint branch, "ours" = git + parcels + send log; log 457 -> 421; lint 134 of 3253 letters |
+| Mac16 routines | LLM routines to 1/day in 00-05 UTC after Anton's yes; 4 changed; substring grep does not prove an LLM wake |
+| Hub tasks disabled by other agent | 4 tasks off without reason; silent wrapper instead; class 1st case |
+| Hot memory MacPro192 | live sources 2 -> 3; tick 15 min |
+| Object history T1 | 93 fact rows, 0 errors, verdict ✅ |
+| Paper mailcheck | trigger by `event: mailcheck` evidence, 3-day threshold; triggers 6 -> 0 |
+| No worktree | app restored checkbox in 1 h 47 min; 43 branches with work outside main; lock on 6 nodes |
+| chat0000 writer | moved to MacPro192; test 38 PASS; test caught a secret in a header |
+| HF dataset | Markdown render, 2.6-18.1% of source bytes for 5/5 sessions; pipeline untouched, Anton decides |
+| DR new niches | 3 strong legs, Grok leg without sources, quorum 3/4, synthesis provisional |
+| Conference lunch | two letters to the restaurant on the same matter; "yes only in my chat" made Anton a courier |
+| Plaud day review | coverage counted by folder, not cloud; cloud 33, folder 7 |
+
+## 8. Patterns
+
+P1. A verdict prints the parameter it depends on and that parameter's cost.
+
+P2. Replay with the parameter removed before a comparative claim leaves the house.
+
+P3. Guards default closed; exemptions need a positive marker.
+
+P4. Return code is captured adjacent to the command.
+
+P5. Failure verdicts require attempts; silence is unknown.
+
+P6. Check whether another node already produces the output before tuning a slow job.
+
+P7. A fix counts only when read back at each consumer.
+
+## 9. Open
+
+X at 402. Mirror detector fixed on one node; class "delivery without applier" open. Fleet brain acceptance not reached.
+
+Rollout D applied on 4 of 8 nodes.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-12.dev.md
+
+---
+title: "Day 162 - 2026-11-12: a cure with a knife; two of my own repairs carried a destructive step that could erase foreign work, caught by a test and a second panel, then closed by a door in code"
+date: 2026-11-12
+day_index: 162
+week: 24
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [repair, destructive-op, reindex, force, worktree, git-hook, panel, red-test, instrument, coverage, stdout-stderr, seed, fleet-delivery, parcel]
+---
+
+# Day 162 - 2026-11-12: a cure with a knife; two of my own repairs carried a destructive step that could erase foreign work, caught by a test and a second panel, then closed by a door in code
+
+Dev-log form. Assembled from retros (15 files); no canon beats for 12.11 (section 8). Names of contacts from the recordings review and third parties omitted.
+
+Defect: a repair contains a destructive step (drop-then-rebuild, delete-on-heuristic) whose safety rests on a guess (age, "hung", "stale") instead of a proof that the target is empty or owned by the repair.
+
+Position on the line: 158 count without denominator; 159 foreign bytes at home; 160 receipt before the fact; 161 verdict on one line; 162 the fix itself is the hazard.
+
+## 1. `reindex --force` wiped a live code index
+
+Problem: on ZBOOK, ~88k chunks -> 0 after `reindex claude-scripts --force`. Rebuild on CPU ~5 files/min, ~15 h.
+
+Context: 0 calls to `mcp__codeindexer__*` in 14 days with the server alive. Roots: the "index first" hint lived in skill references the agent never reads; the watchdog checked the port, not search; the index was 519 commits behind.
+
+Cause: `--force` drops the existing index before rebuilding. Also: the "hung" server was killed twice during the night while it was slowly processing a 2000-file batch without a checkpoint; liveness was read from the `jobs` percentage.
+
+Solution: hook `codeindexer_nudge.py` refuses `reindex --force` on live projects (test 17/17, red proven). `parse_batch_files = 200` gives checkpoints. Liveness is measured by process CPU and CHUNKS in `status`. Panel 6/6 (65 s) accepted "the --force rule exists only on paper".
+
+Open: GPU for the indexer waits for the owner's decision.
+
+Pattern: no full rebuild over a live index; incremental reindex or rebuild into a copy.
+
+## 2. Worktree-ban hook could delete a copy with foreign work
+
+Problem: the ban on worktree copies relied on a shim in front of git, bypassed by windowed apps and full-path calls.
+
+Solution path: a git hook that fires at the end of `worktree add`, installed per repository, no admin rights.
+
+Cause (v1): the "just created" heuristic was wrong; v1 would delete an old copy holding foreign work. Caught by the session's own test before install.
+
+Cause (v2): v2 was live on five nodes for ~25 min. The second panel (Codex, Mistral) showed it could still delete a copy holding a foreign file if the copy was born around the hook.
+
+Solution (v3): delete only if the copy is younger than 10 min, HEAD log has at most 2 lines, and `git status --porcelain --ignored` is empty; otherwise refuse and touch nothing. Hook 13/13 on 6 nodes; installed in 17 repositories on 5 nodes.
+
+Counts: copies MacPro192 108, Mac16 60, hub 45. ZBook audit pass 413 s against a 900 s cap. No real stuck work found on five nodes.
+
+Pattern: a lock that deletes proves emptiness; it does not infer it from age.
+
+## 3. Instruments not verified at the consumer
+
+| Instrument | Defect | Fact | Fix |
+|---|---|---|---|
+| outbound_watch | "0 debts" at 16% coverage | 6 red; 5 of 6 needed no reply | 1 draft PR (ready after green CI): 5 files, 2 commits, +5 tests, CI 1303 and 1299 passed; MemOS fix sent as seed |
+| x_outbox image | diagnosis read from stderr, refusal in stdout | 10 wrong diagnoses; 11 class lines since 03.11 | image failure -> `image_pending` queue, hub draws; watchdog 36/36 (old code 31/35); queue 28 -> 29; hub application not confirmed; Codex bucket on MacPro192 empty until 18.11 |
+| seed, MacPro192 routines | 2 of 3 premises false | script was on node; "Where is Anton" not stale | `session_cards_node.py`; 185 cards + 4 short + 3 missed of 192; test 17/17; autostart waits for owner |
+| lifter, DR synth | re-synth of already synthesized DR (registry not checked) | 2 sessions | delta only; new fact: Reddit RSS off 13.11 |
+| codeindexer watchdog | checked port, not search | DirectML "Embedding failed" undetected | `ci_probe.py --heal`: rc 0 only if search returns hits > 0 |
+
+Pattern: an instrument states its coverage and is checked against the consumer's output, not against its own channel.
+
+## 4. Fixed on one node, not delivered to another
+
+Problem: ZBOOK indexer doors never reached the hub; 9 calls in 14 days before repair.
+
+Cause: project names differ per node; hook and probe hardcoded ZBOOK; Codex and Cursor had no indexer.
+
+Solution: per-node map `codeindexer_projects.json`; hook takes the longest root; MCP over http, search-only, for all agents on the node. Panel 6/6. Cursor and Claude user-scope downgraded to Try.
+
+Problem: parcels arrive hours late; time to receipt from 28 min (hub) to 15 h 52 min (Lighthouse, MacBook).
+
+Cause: Lighthouse under root lacked shim PATH and ONAIR; robot tick on Macs cut on purpose.
+
+Solution: PATH in shim and cron; r4 receipts by hand. Canon not applied (door admits only live owner): queue 36 waiting, oldest 132 days; 6 parcels RETRY-WAIT, 8 REJECT.
+
+Pattern: a fix is done when the neighbouring node's consumer reads it, not when the author's node passes.
+
+## 5. Other items
+
+| Item | Fact |
+|---|---|
+| Connector gaps | 10 000 of 17 664 transcripts scanned; Luma 66 sessions, Facebook 59 (closed by vendor policy); WhatsApp 18% errors, scheduled-tasks 15%, Drive 7 of 7; X 49 of 83 receipts via API; chrome 12 582 calls; no new connectors; X API kept for posting, reading deferred until DR price |
+| DR connectors | "Official door" block in 7 skills; closed applied; legs 5/6; panel 6/6, 2 accepted, 1 rejected; X top-up waits for ask |
+| DR Apify | legs 4/6; panel 6/6, 3 accepted; pilot waits for owner (money) |
+| meals.py / Reddit | source silently lost; 4 "Meals" tasks Disabled since 04.11; rail-dead / partial alarm in collector and first line of digest; 8 subs in MENU; live run 1/2; panel 6/6, 3 accepted; source replacement waits for owner |
+| Recorder review 11.11 | 3 of 16 on disk -> 16/16; rail summary attributed others' lines to Anton; manual quote check; CRM untouched; rails glm 9, grok 7, muse 0 of 16; 17 recordings 09-10.11 waiting_vendor |
+| Mac Studio | redundant operator question; rule lived as a chat promise; removed from 2 instruction files; 26/26 checks rc=0 (04.11); gap 7 d 13 h; acceptance partial |
+| Screen recording | re-enabled by server after sync; 7545 -> 7550 frames in 31 s; off for now; system block needs human password; panel not run |
+| 1000-stars goal | t09, t05 closed; t06 blocked by claude.ai login; plugin pinned 0.3.7 vs live 0.3.8, caught before merge; pytest 299 passed; CI 8/8; stars 15; [lite] 155 MB vs [embeddings] 879 MB |
+
+## 6. Patterns
+
+P1. A destructive step inside a repair gets a door in code before first run; a written rule is not a door.
+
+P2. Delete only what is proven empty or proven own; never on an age or "looks hung" heuristic.
+
+P3. Liveness of a long job is CPU plus output count, not a progress percentage; checkpoint before you can be killed.
+
+P4. A test that goes red on the wrong deletion and a second panel from another vendor are the two catches that worked today; neither alone caught both versions.
+
+P5. Instruments print coverage; "0" at 16% coverage is a statement about 16%.
+
+P6. Read the channel where the tool writes its refusal; verify against the consumer.
+
+P7. Seeds are checked against the node and the registry before work starts.
+
+P8. A fix is fleet-done when the neighbour's consumer reads it.
+
+## 7. Open
+
+ZBOOK index rebuilding on CPU (~15 h); GPU waits for owner. Hub application of image_pending not confirmed. Canon queue 36 waiting.
+
+Window-app worktree shot not yet fired.
+
+Waiting for owner decisions: GPU, autostart, canon, Reddit replacement, money for Apify and X.
+
+## 8. Source note
+
+No canon beats for 12.11; the chapter is built from 15 retros only. No beat exists for this day, and the record says so.
 
 ✍️ Написано: Opus 5.5
