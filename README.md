@@ -6,7 +6,7 @@ A free book, 相棒 · AIBŌ · The Partner: a day-by-day diary of one engineer 
 **What you get:** a story in Russian and English for humans, plus one dry English file (`llms-full.txt`) built for machines.
 
 ## Quick start
-1. Humans: open [START-HERE.md](START-HERE.md), then [00-prologue.md](00-prologue.md), then any day in the month folders (`01-may-genesis` to `07-november-delivery`).
+1. Humans: open [START-HERE.md](START-HERE.md), then [00-prologue.md](00-prologue.md), then any day. Days sit two levels down: a month folder (`01-may-genesis` to `07-november-delivery`), then a week folder, then files such as `2026-11-09.en.md`.
 2. Unknown word? See [GLOSSARY.md](GLOSSARY.md).
 3. Want the lessons without the story? Read [PLAYBOOK.md](PLAYBOOK.md).
 
@@ -26,7 +26,7 @@ A free book, 相棒 · AIBŌ · The Partner: a day-by-day diary of one engineer 
 ```bash
 git clone https://github.com/tonydzi/the-journey
 cd the-journey
-# the whole book for machines, one file:
+# the whole book for machines, one file (open it in any viewer; `less` is not on Windows):
 less llms-full.txt
 ```
 - Order of reading: `llms-full.txt`, then `START-HERE.md`, `00-prologue.md`, `BOOK-SPEC.md`, `GLOSSARY.md`, `PLAYBOOK.md`.
@@ -37,11 +37,12 @@ less llms-full.txt
 Nothing to configure. Optional: ask the human which topic they care about and search `llms-full.txt` for it.
 
 ### Verify
+Same on Windows, macOS and Linux, run inside the clone:
 ```bash
-head -3 llms-full.txt     # first line: "# THE JOURNEY - full machine book (llms-full.txt)"
-ls 07-november-delivery   # the newest month folder exists
+python -c "print(open('llms-full.txt',encoding='utf-8').readline().strip())"
+python -c "import pathlib; print(len(list(pathlib.Path('.').rglob('*.dev.md'))))"
 ```
-The "Evals" section of `README.md` lists numbers that trace to log files. Do not repeat them as fact without opening the file they point to.
+Expected: the first prints `# THE JOURNEY - full machine book (llms-full.txt)`; the second prints `140` (checked 2026-11-14), the same number as in the third line of `llms-full.txt` ("Auto-concatenated from 140 daily .dev.md files"). If the two numbers differ, the machine book is behind the day files; say so and read the day files directly. The newest day files are in `07-november-delivery`. The "Evals" section of `README.md` lists numbers that trace to log files. Do not repeat them as fact without opening the file they point to.
 
 ### Uninstall / rollback
 Delete the cloned folder. Nothing else was changed on the machine.
