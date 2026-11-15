@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 140 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 142 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -21735,5 +21735,291 @@ Waiting for owner decisions: GPU, autostart, canon, Reddit replacement, money fo
 ## 8. Source note
 
 No canon beats for 12.11; the chapter is built from 15 retros only. No beat exists for this day, and the record says so.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-13.dev.md
+
+---
+title: "Day 163 - 2026-11-13: switch off your own; every loud claim of the day rested on our own addition (threshold, reranker, CUDA flag, a re-enable) and shrank to the truth once that addition was switched off"
+date: 2026-11-13
+day_index: 163
+week: 24
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [ablation, headline, reranker, recall-at-5, benchmark, gpu, nvidia-smi, cpu-fallback, disabled-task, release-gate, seed-model, hot-memory, fleet]
+---
+
+# Day 163 - 2026-11-13: switch off your own; every loud claim of the day rested on our own addition (threshold, reranker, CUDA flag, a re-enable) and shrank to the truth once that addition was switched off
+
+Dev-log form. Assembled from retros (18 of 21 files; 3 personal/lead retros omitted); no canon beats for 13.11 (section 8). A health-topic DR retro is used for process lessons only.
+
+Defect: a claim ("threefold", "better", "8x on GPU", "safe to enable") is stated with our own component switched on and never re-run with that component switched off, so the claim's size is attributed to the system when it belongs to one knob, or to nothing.
+
+Position on the line: 158 count without denominator; 159 foreign bytes at home; 160 receipt before the fact; 161 verdict on one line; 162 the fix itself is the hazard; 163 the claim that survives switching off your own.
+
+## 1. Headline written before ablation (P25885)
+
+Problem: headline "says 'I don't know' three times more often than Mem0" drafted before ablating our refusal threshold.
+
+Context: live re-measure showed local LEADERBOARD copy stale; public table has plain-rag R@5 0.93 above our 0.88. Correct refusals 10/22 (ours), 3/22 (Mem0), 4/22 (Fidelis); false refusals 18/69, 9/69, 11/69; refusal precision 10/28 = 36% vs 3/12 = 25%.
+
+Cause: the knob under test was ours and was not switched off before writing.
+
+Fix: ablation; threshold on 10/22, 18/69, 23/69 missed; off 3/22, 6/69, 25/69; replay 91/91.
+
+Headline restated as a single-threshold claim: "about as many as Mem0, and three times more often says 'I don't know'".
+
+Proof: 7 ledger lines; published GitHub EN+RU, dev.to, Hugging Face (daily limit, auto-retry), 2 Telegram channels, Bluesky. Not done: X (402 since 08.11, 506 queued), Mastodon (empty token), FB RU, Threads, Habr, vc.ru, Medium (hands), HackerNoon (separate original), LessWrong, HN.
+
+Classes: vyvod-po-odnoy-poverhnosti case 71 (stale local copy); headline-claim-not-ablated 1st; HF published before registry entry (root closed by hub registry v1.3.0). Seven Codex proofreading passes, three avoidable by an earlier ablation.
+
+## 2. Own reranker hurt own search (H61533, H76870)
+
+Problem: DolphinBench (Apache-2.0; 3 characters x ~500K tokens, 600 tasks, all-or-nothing, judge gpt-5.6-sol; official Mem0 70.7%, Zep absent) compared against our search.
+
+Context: retrieval layer only, Recall@5.
+
+| Set | Anima | Our hybrid | BM25 | Graphiti | Mem0 |
+|---|---|---|---|---|---|
+| 200 sessions | 0.883 | 0.883 | 0.883 | 0.767 | 0.567 |
+| 1000 sessions | 0.757 | 0.717 | 0.76 | n/a | 0.647 |
+
+Cause: our published reranker cost 12-18 points. Second set: 24 real vault questions, cross-encoder 23/24 -> 21/24; without it equal to Mem0 local. Public bench SGM-vector 0.884 vs Mem0 local 0.870, tolerance 0.02 = tie (reproduced 0.8841).
+
+Fix: reranker off by default in sqlite-graph-memory 0.3.7 (PR #98, PyPI 0.3.7). Claims cut: "better than Mem0", "Zep worse". Zep (Graphiti) on public set: UNKNOWN; "done" was too strong (2 of 3 systems).
+
+Proof: panel accepted "Zep = Graphiti" caveat and "Recall@5 not comparable to 70.7%"; rejected "tie 0.883 is a bug" (top-5 differ in all 20 tasks). Mem0: 28-min call, 3 letters; 12.11 invite to technical talk with CTO; reply "Mon 16.11 15:00 PT" sent 13.11; seed `interview-pack-mem0-cto-20261116` queued P0.
+
+Side defects: "no recording" said twice while the Plaud file arrived later (one list snapshot, no retry; `plaud_call_catch.py`); 40 min on Docker Desktop, WSL was the path.
+
+## 3. "Faster" came from the CPU (Z54546)
+
+Problem: "GPU 8x faster" announced from timing after enabling GPU for CodeIndexer 0.11.0 (CUDA_VISIBLE_DEVICES=0, global lock -1 kept; CUDA build; CUDA 12 DLLs copied).
+
+Cause: log said "Using CUDA", self-check silently fell to CPU. nvidia-smi on all 4 paths: 0%.
+
+| Path | Failure |
+|---|---|
+| candle CUDA | PTX .target sm_89 vs card sm_86 |
+| ort-cuda | provider DLL init 1114 |
+| DirectML | segfault 3/3 on NVIDIA (27% / 568 MiB then crash) |
+| burn-wgpu | hang 230 s |
+
+Fact: speedup from multi-threaded ORT CPU, ~10 files/min vs ~2 candle CPU; 25-file bench 44-65 s vs 526 s.
+
+Second claim: "83% of corpus is junk" from 4050 files in a folder; indexer takes 428 (~12%).
+
+Proof: hook test 28/28 -> 30/30 after panel, red shown; first red probe did not go red (did not touch the quote check). Codex review 8 findings, 6 accepted; panel 6/6 in 79 s, 3 accepted.
+
+Side: heavy bench with live indexer choked hooks (onair_fleet_guard 22 s > 15 s).
+
+Classes: log-claims-gpu-silent-cpu-fallback 1/3; corpus-share-counted-by-folder-not-indexer-rules 1/3. Vendor report written by GLM (Grok timed out 2x at 300 s); not sent, needs owner "yes".
+
+## 4. Re-enabled what a gate had disabled (Z77222)
+
+Problem: 09.11 two publishing tasks enabled over ssh from a real owner quote ("Yes, enable") without reading who disabled them.
+
+Context: 13.11 both Disabled again. Since 07.11 `tx_release_gate.py` held them: release dirty (11 full-size tokens: 10 dummy, 1 live-looking), stale by 140 h.
+
+Cause: the only publishing lock was scheduler task state, mute (empty Description). A second task (password logon) ran the same cmd unguarded.
+
+Fix: data gate in every sender (cmd and python); reason signature in Description; exit code 10 in signal map; content fingerprint; `session_code find` prints address.
+
+Proof: tests 43/0 hub, red_proof 8/8; 5/5 dirty -> rc=10, publisher not started; clean -> started. Panel accepted: direct python bypassed the gate (5 of 6); block with code 0 hid itself (4 of 6).
+
+Classes: enable-disabled-task-without-reading-who-disabled 1st; kanon-zapisan-mimo-svoey-dveri 8/3; rail-plan-verdict-judges-wrong-session-key 7/3.
+
+## 5. Other items
+
+| Item | Fact |
+|---|---|
+| Seed model (H88816) | `spawn_queue.py add` had no model flag; 168/168 hub seeds in 7 d on Opus. `--model` (full id, default claude-sonnet-5-5, alias = exit 2), lifter 1.6.0; "Sonnet 5.5" selected 118 times rc 0, 26 confirmed by transcript; tests 69/69, 71/71, 16/16 (red on 6 mutants). Codex: model set after start; GLM: retry without model after Send; fixed r3. 6 of 9 nodes. Windows test fired real GUI door; 14.11 IDE agent overwrote test, junk session; git restore + `_no_real_door` |
+| Hot memory (Z71515) | 14/14 calls since 11.11 = no-db, unread; ingest exit 0, 1119.9 s, DB 207 MB; search 0.85 s; nightly 03:30 UTC (manual 3.5 s, scheduler 1153.7 s). App transcript search sees own machine only |
+| Raw archive (H57358) | two human/robot judges disagree; archiver fixed; 418 human, 530 robots, refused 0; missing 89 -> 0. 14.11: meter counted `*.sync-conflict-*` (69 of 71 non-zeros); real missing 2. `_session-md` has two writers |
+| Distill (H45781) | fails 12 -> 0-3/day; queue 26,582 -> 30,678 in a week (~585/day); 2964/2964 fresh Grok rows born in rail sandbox (~40% inflow); tests 30/30; class 3rd case |
+| TX Daily Core (H24274) | scheduler PT3H < internal 4 h, code 267014; adapter row cache; cold >7200 s, warm checksum 671 s; 14.11 exit=1 honest, second root: inventory read of 72,565 files |
+| Teach queue (P31520) | stood 41 h; task never existed on hub; `notebooklm.exe` 0xC0000142; S4U task; night 12.11: 19 episodes, queue 0 |
+| DR voice-LoRA (H60096) | API legs 0 URLs; browser legs ChatGPT 177, claude.ai 79, Mistral 112, Gemini 111 sources; ~25 URLs curl 200; panel 6/6; paper numbers first checked by heading only, then Table 4: correct, sample 5 x 5 |
+| DR MCP (Z40090) | OpenAlex MCP "invented" from one WebSearch; live probe: exists (OAuth). Beacon receipts in `inbox-<me>__from-<node>.md`, 31 h searched elsewhere; false Ed25519 refusal (header signed), test 5/5 (old 2 FAIL); `rail_plan_gate.py` 0 runs ever, wired |
+
+## 6. Patterns
+
+P1. Any "we beat X" first runs with our own addition switched off; the claim's size is what survives.
+
+P2. A threshold-driven headline is a statement about the threshold; say so in the headline.
+
+P3. Publish the comparison where we lose; it is the asset that earned the next stage.
+
+P4. GPU use is proven by nvidia-smi utilisation and VRAM, never by a log word; "faster" and "on GPU" are separate claims.
+
+P5. Count a corpus by the indexer's own rules.
+
+P6. Before enabling a disabled task, read who disabled it; a lock signs its reason where the operator looks.
+
+P7. A counter excludes conflict copies; a detector without an executor is a blind node.
+
+## 7. Open
+
+Zep (Graphiti) unmeasured on the public set. Publishing venues open: X, Mastodon, FB RU, Threads, Habr, vc.ru, Medium, HackerNoon, LessWrong, HN.
+
+Seed-model rollout 6 of 9; pair-voice fix verified on 5 of 9. TX inventory cache awaiting a clean night. `_session-md` second writer queued.
+
+Waiting for owner: indexer vendor report, science daemon placement (each node vs beacon with tunnel).
+
+## 8. Source note
+
+No canon beats for 13.11; the chapter is built from 18 of 21 retros. Many retros were written on 13.11 about sessions that ran 2 to 26 days earlier; several carry a 14.11 delta.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-14.dev.md
+
+---
+title: "Day 164 - 2026-11-14: a zero without a map; 'nothing found' reports without a named scope were read as facts about the world, from harness contribution verdicts to antivirus detection, RECALL coverage and subscription metering"
+date: 2026-11-14
+day_index: 164
+week: 24
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [scope, zero-report, stop-hook, brief, harness-contrib, broadcast, send-cap, push_local, memory-leak, antivirus, interpreter-startup, pusher, forensics, recall, coverage, reviewer-delivery, subscriptions]
+---
+
+# Day 164 - 2026-11-14: a zero without a map; 'nothing found' reports without a named scope were read as facts about the world, from harness contribution verdicts to antivirus detection, RECALL coverage and subscription metering
+
+Dev-log form. Assembled from retros (42 files, 9 personal omitted, 1 used in part); no canon beats for 14.11 (section 8). Items marked 🤔 are unmeasured in the retros themselves.
+
+Defect: a negative or exhaustive result ("nothing to bring", "not found", "all sessions", "N broken") is emitted without the search surface that produced it, and the consumer reads it as a statement about the whole domain.
+
+Position on the line: 159 foreign bytes at home; 160 receipt before the fact; 161 verdict on one line; 162 the fix itself is the hazard; 164 a zero without a named scope.
+
+## 1. Ten harness slots, five scope-less zeros
+
+Problem: series "10 harnesses: what to contribute", slots 22:25-22:44 UTC 13.11. Result: 3 outward comments (deepseek disc6989, claude-code #90712, codex #28361), 0 PRs, 6 "nothing to bring".
+
+Context: target ranking by composite score (stars + outside authors) got BLOCK from Codex ("dictation = stars"); 6 slots reloaded.
+
+Cause: the brief did not require a scope line. First verdicts named no surface; Stop hook caught it in opencode, open-webui, orca, pi, openclaw.
+
+Fix: "Scope" line added to `BRIEF-2026-11-13.md` (`grep -c Охват` = 1); rule "keyword search over issues before verdict".
+
+Proof: second pass per repo.
+
+| Repo | Second-pass fact | Outcome |
+|---|---|---|
+| opencode | bug 9/9, perf 5/5, help-wanted 0, good first issue 0, 300 merged PRs (~1% from forks); PR #62602 already closes the leak | zero confirmed, now checkable |
+| orca | #42236: any allow in PermissionRequest closes a foreign ask guard | comment on main code, no PR |
+| pi | 221 open issues; #10798 race in `npm install --prefix .pi/npm`, no PR | panel REQUEST_CHANGES on scope |
+| open-webui | PR template forbids unrequested code PRs, CLA needed; Function filter is the invited path; docs repo merged 6+ outside PRs that day | zero true, alternative door named |
+| hermes-agent | MCP topic closed by others' PRs (#152943, #121552); "candidate is honest" without plugin catalog listing; RECALL hook named a note not opened | claim without evidence |
+| deepseek-harness | PRs closed by policy, issues off; comment on 3 agent-approval-gate pitfalls; 21 min later an outside author's test: 2 actions vs 1 on crash between action and write | our crash claim came from reasoning with no run; repro broken (Git Bash `mktemp` path invisible to Windows python) |
+
+Review corrections: "none reaped" softened (unproven); "Mycroft here" opener removed (rule 06.11). Classes: `scope-less-zero-report` 1/3; `outward-body-file-in-git-bash-tmp-unreadable` 1/3. Family `vyvod-po-odnoy-poverhnosti` 295 in journal, 112 in open-webui.
+
+## 2. Broadcast to 71 hub sessions and the stalling hub
+
+Problem: order 00:10, send "recall + fix roots + retro" to every hub session, one per 5 min. `SendMessage` + cron stalled at 11/71 until morning.
+
+Context: the app allows 10 cross-session sends per owner message; mid-turn messages do not reset the counter. Owner: "you should have done all of this without me".
+
+Cause: three killers. (a) send cap; (b) `session_reaper.py` branch forgotten_h reaped pushes as forgotten RC sessions, reaped:2 at 06:41; (c) `chain.cmd` from a session tool died 08:58:54 with a session restart, cause 🤔. Retro timeout 900 s cut retros.
+
+Fix: `push_local.py` (headless the headless resume call, no cap) for >10 sessions; robots filtered by scheduledTaskId; push a busy session only after 4 min silence; long chains as one-shot schtask; timeout 2700 s. Codex audit corrected timeline (08:34/08:35 = start).
+
+Problem (memory): five Python copies of `push_local.py` held 74 859 MiB RSS (~73.1 GiB).
+
+Cause: `app_registry_rows()` kept all full app cards incl. MCP config snapshots.
+
+Fix and proof: real push_local with children 21-22 MiB. `_test_push_local_memory.py` 8 PASS, 4/8 failed on original (rc=1); `_test_push_local.py` 45/0; 4 real cards read in 8.265 s, tracemalloc peak 5.582 MiB, sends 0. Owner: "works noticeably better", window `Responding=true`.
+
+Problem (interpreter): open()/stat() 10-70 ms; `import torch` 266-347 s; `python -I -c pass` 9 s; CPU idle; Pool Nonpaged 8.7 GB 3.5 h after reboot; 1294 processes. Downstream: ruler night timeouts, 20 guard preload failures, vault writes blocked 8 times overnight (guards over 10 s).
+
+Cause: hypothesis "54 sessions storm the machine" refuted by measurement (empty python 4090-7912 ms vs 50-200 norm; hook guard 7185 ms). Defender real-time + Kaspersky double-scanned every launch. Kaspersky "not found" as product; 4 orphaned registrations remained.
+
+Fix: orphaned registrations removed; Defender exclusions for 17 working roots (first 9, later a self-found miss of two more); receipt `UncoveredDirectories=[]`; global protection not disabled. Hook dispatcher change (8 nodes) moved to a separate card.
+
+
+Classes: `hook-timeout-eaten-by-interpreter-startup` 1/3; family `hook-timeout-under-real-cost` 54 since 26.08.
+
+## 3. Pusher: stopped without a recorded reason
+
+Problem: 06.10 owner stopped all pushers ("they don't work the way I like"); reason not recorded. 07.10 stop lifted, 01.11 re-enabled unchanged.
+
+Context: forensics 14.11, workflow wf_110a7887, 29 agents, 21 confirmed findings, 4 refuted.
+
+Cause: 4 of 5 ticks on 06.10 ended "pusher NOT born"; birth typed Ctrl+N + seed into the window while owner typed (idle_sec 0/1); one seed into his old session; answered reference questions pushed 3 times. Owner requirements: external (n8n), no AI/tokens, only sessions untouched today; >8 h idle not worth continuing.
+
+Fix: third door the headless resume call with a session id (no GUI).
+
+Cost: push 1 `cache_creation 93348 / cache_read 0`, push 2 `cache_read 25778`; "20x cheaper" from price list 🤔.
+
+Roots: A (reservation without TTL: 10.11 claim 128 / facts 0 / 80 orphans; 13.11 claim 30 / mark 0 / 21 orphans) closed, 141 cap returned. Root B (liveness 1020 min at tick 120; queue 21 at 479 min) -> 240.
+
+Proof: panel 6/6, 4 models flagged first root-A fix as worse than the disease (guard watched target silence; target is silent until pushed); second guard added, test 21/21. `red_proof` caught a fake test (isMeta unchecked).
+
+
+Own error: first commit credited a Grok review; Grok had crashed. A rail name in a report is a claim.
+
+## 4. RECALL coverage: "all" = exported
+
+Problem: 741 sessions / 10 days: 9 topics restarted in >=3 sessions; start-page template used by 0 sessions by 13.11. On 910 hub sessions: past-session search before first edit 10.9%, with brain_ask 40.3%, `/recall` 0, hot_memory 4.3%.
+
+Fix: `recall_tiers.py` lane "ALL past sessions" (ceiling 3500 chars, `chat_search.py --all`); `rail_plan.py declare --goal --done --recall --budget` + `rail_plan_gate.py` (RAIL_PLAN_PAGE=enforce). CLAUDE.md draft 96 973 -> 33 272 bytes, waits for owner.
+
+Adjacent: search ruler silent six nights on body 0.967 -> 0.85 (compared only to yesterday); graph audit 749 404 unmatched occurrences voiced in a podcast as "749k broken" (wrong; correction source added).
+
+Proof: "sneakers" 5/5 (18 sessions, 48 ms); tests 19/19, 72/72, red proof present; old test timed out (⚠️). Panel 6/6 COUNTER: lock checks a digit in `--recall`, not that search happened; "all sessions" covers exported only. Fleet rollout after harvest 21.11.
+
+
+
+## 5. Reviewer BLOCK not delivered to author
+
+Problem: `subscription_burn.py` (registry 14 accounts, snapshot, plan, burner, dashboard, task every 30 min). Codex BLOCK after 11 min (stale snapshot, UNKNOWN with number, billing date as reset -> burn=true), task disabled.
+
+Cause: BLOCK not delivered (TG lock busy); a2 remaining 22% burned 14.11 03:00Z. Morning misdiagnosis: reboot / Interactive logon, S4U attempt (Access denied); scheduler log had event 142 Disabled.
+
+Fix: quota read via headers `anthropic-ratelimit-unified-7d-utilization/-reset/-overage-status` on a 1-token Haiku request. Coverage 3 of 14 accounts machine-measured. Class `reviewer-stop-not-delivered-to-author` first dated case.
+
+Pattern: a task that did not tick -> scheduler log first, hypotheses second.
+
+## 6. Other items
+
+| Item | Fact |
+|---|---|
+| README-63 | 68 public repos, 0 with agent section; `readme_lint.py` red 67/67; random 8 check 8/8 defects; second pass 59/59; 63/63 pass live gh api |
+| x-outbox | 407 posts unreceipted, oldest 362 h, robot silent 133 h; X API 402 since 09.11; fresh void receipt read as live robot; fresh-first in `x_publisher.run_once`, `publish_health` in status; 38/38; credits wait for owner |
+| DR fan-out seed recheck | `dr_registry.py status <ID> --for fanout` exit 10; `running` set at DR birth, caught by code read; tests 14a-14h; rollout 5 of 8 nodes |
+| Web Summit Friday | ~45 events, 5 route, 4 fallback; "08:45" computed at 08:40 (`time-claim-computed-not-observed` 1/3); `grep -ril` 5.9 GB timeout 120 s (3/3) |
+| Handoff | "Codex checked" before verdict (`claim-before-review` 1/3) |
+| Vendor doors | 30 -> 42; watchdog changed-noise fixed (K12); forms watchdog fail-open vs live "Applications are now closed" |
+| Copied rule | cache-name rule copied into 5 modules, 3 consumers stale; routine rc=0 for 12 nights over silent breakage |
+
+## 7. Patterns
+
+P1. A zero report carries its scope: surface, method, read count of total. No scope, no acceptance.
+
+P2. The brief is the root when N independent sessions share one gap.
+
+P3. "Not found" from a single-location probe is evidence about that location; check registrations, exports, other roots.
+
+P4. Refute the natural hypothesis by measurement before acting on it (54 sessions vs two antivirus scans).
+
+P5. A pause by complaint records the quote and the reason in the task; lifting it names what was fixed.
+
+P6. A reviewer's stop counts when the author receives it; delivery is part of the review.
+
+P7. A rail or reviewer name in a report is a claim with the same burden as the conclusion.
+
+## 8. Source note
+
+No canon beats for 14.11; the chapter is built from 42 retros via one fact sheet. Nine personal retros omitted; one used only for the copied-rule lesson.
 
 ✍️ Написано: Opus 5.5
