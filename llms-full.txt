@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 142 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 144 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -22021,5 +22021,319 @@ P7. A rail or reviewer name in a report is a claim with the same burden as the c
 ## 8. Source note
 
 No canon beats for 14.11; the chapter is built from 42 retros via one fact sheet. Nine personal retros omitted; one used only for the copied-rule lesson.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-15.dev.md
+
+---
+title: "Day 165 - 2026-11-15: the fix never reached its own test; repairs edited one place while tests, mutants, installer parsers and family counters stayed anchored to the old code"
+date: 2026-11-15
+day_index: 165
+week: 24
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [red-proof, anchor, mutant, msys-guard, selfheal, canon-witness, unsynced-path, outbound-fact-lint, podcast-pack, signal-gaps, output-truncation, hook-entry, git-bash, hooks-parity, tx-pipeline, cache-key, wait-lock, ssh-mesh, scheduler-load]
+---
+
+# Day 165 - 2026-11-15: the fix never reached its own test; repairs edited one place while tests, mutants, installer parsers and family counters stayed anchored to the old code
+
+Dev-log form. Assembled from 12 retros, none personal; no canon beats for 15.11 (section 9). Items marked 🤔 are unproven in the retros themselves.
+
+Defect: a repair changes the code under check, but the artifact that proves the repair (test, mutant file, installer parity parser, class counter, detector input path) keeps pointing at the previous code or location. The check stays green or stays red for reasons unrelated to the fix.
+
+Position on the line: 159 foreign bytes; 160 receipt before fact; 161 verdict on one line; 162 cure with a knife; 163 switch off your own; 164 zero without a map; 165 fix without a re-anchored red proof. Carry-over from 164: signal-gaps and SILENT are scope-less zeros.
+
+## 1. bash grep -r guard on heavy roots
+
+Problem: `grep -r` over vault, `_imports` or 5.9 GB working folder outlived the 120 s ceiling; empty output read as "no". Class bash-grep, 7 journal lines since 13.09.
+
+Cause: `msys_find_guard.py` knew only home and `.claude`; `judge()` returned None on 5 heavy roots. After the 05.11 fix, 15/22 guard tests red for 10 days. `selfheal.py journal` reopened a closed class when "починено:" appeared in `--what`.
+
+Fix: roots from `machine.env`; drive root on Windows only; selfheal patched. Rollout package `bash-grep-heavy-roots-20261115`.
+
+Proof: tests 27/27, red with `heavy = set()`; selfheal 12/12; panel 6/6; live hook on hub and Mac Studio; Mac Studio caught my own test.
+
+Gap: ssh refused by key on 2 nodes, port closed on the rest; package delivered, application not observed.
+
+## 2. Canon witness, case 7
+
+Problem: detector SILENT on MEMORY.md 13.11 and 14.11 with the witness hook installed.
+
+Cause: witness wrote to local `scripts/` (not synced); hub detector read only its own counter. First hypothesis "hook only on hub" false. First request to nodes sent on the bus without payload.
+
+Fix: witness duplicates lines to `_canon_witness_<node>.jsonl` next to the canon; detector reads those files. Package `witness-shared-20261115`.
+
+Proof: test 0 failures; old detector 1 failure. Not verified on nodes.
+
+## 3. Number without method, case 8
+
+Problem: "749404 broken links" voiced in a NotebookLM podcast. Number from a scanner; label false, 92% of targets are copies outside the vault.
+
+Cause: `outbound_fact_lint.py` not called on the podcast-pack path.
+
+Fix: kind `defect` cleared only by `--src` containing "метод:"; door wired into `teach_nb_setup.sh`, exit 5 before notebook create.
+
+Proof: 48/0 tests; red_proof twice; live pack rc=5. Open: `material-to-audio` wired by hand; not rolled out to nodes.
+
+## 4. pipeline-eats-own-prompt, breakage 3
+
+Problem: root closed 14.11; mutant file failed on its anchor after the gate edit; red proof D2 not pinned to mutants.
+
+Fix: anchor and expected cases updated.
+
+Proof: 6/6 mutants red on their own set; main test 30/30.
+
+Residual: manual mutation "drop `not force_eligible and`" -> 30/30 green; no case for 11 Codex with `driver: robot`. Side finding: `brain_ask.py` indexes session-card robot prompts as conversations; moved to a new session.
+
+## 5. Hook entry dead under Git Bash
+
+Problem: SessionStart p50 32 s (68 starts), UserPromptSubmit p50 6.6 s, Stop p50 7.2 s.
+
+Cause: `install_hooks.py` re-added 20 guards directly because `hooks_parity` knew `hook_dispatch.py` only, not `hook_client`. Entry `cmd.exe /d /c ...hook_client.cmd` under Git Bash: MSYS mangles `/d /c`, cmd parses hook JSON as a command, rc=0. Dispatcher silently not executed since 14.11.
+
+Own error: duplicate removal left sessions without guards for 15 min.
+
+Fix: entry = `hook_client.exe EV`; 6 rules moved into the dispatcher.
+
+Proof: SessionStart 18-29 s -> 1.4-2.1 s; after edits p50 1.33 s.
+
+Post-hoc: 2 dispatchers on one port (SO_REUSEADDR), fixed by a neighbour session. Force-push guard broken by its test, not code: 0/43, red probe 26/43. Author of 12 disabled rules not identified.
+
+## 6. TX Daily Core, breakage 5 in 5 nights
+
+Cause: 120 min budget counted from the row-loop start; inventory, adapters, 7 GB write ran outside it. Two regex gates ~3.5 h each. Lock held up to 4 h after a killed process.
+
+Fix: regex gates -> pool of 12 processes (14 and 17 min); lock checks pid liveness.
+
+Own error: edit to `tx_publish.py` changed whole-file hash used in `scrub_hash` cache key; ~4 h of runs lost; rolled back from backup.
+
+Proof: tail 48.5 min rc=0; release 58048 rows; tests 3/3 and 10/10. Not proven: full night run (night 16.11). Open: pid-reuse race.
+
+## 7. Zero-scope instruments (carry-over from 164)
+
+| Item | Fact |
+|---|---|
+| signal-gaps, recurrence 3 | audit scanned only tasks with non-zero today; map hole is permanent; `selfheal._run` truncated to 400 chars, 568 tasks -> 9 lines. Fix: `--static` (4 s vs 18+ min), `_run(limit=None)`, 4 robots got map entry + crash-guard; `_test_crash_guard` red on CRM-Backup-Pull, then ALL PASS; static yields 61 candidates; panel 6/6 forced "FIXED" -> "partial" |
+| Coverage Map Nightly (dead-task) | watchdog colored by LastTaskResult; robot alive (rc=0, 3 min 22 s). Red nights explained only by 11.11 reboot; root not proven 🤔. RECALL late: neighbour session already disabled task as duplicate of Housekeeping Daily; manual watchdog run without `-NoHeal` added 11 escalate lines |
+
+## 8. Other items
+
+| Item | Fact |
+|---|---|
+| SSH mesh | 29/48 green; 18 red edges to 3 colleague machines (2 offline ~1041 h, 1 never answered); Studio hub Permission denied; old hands ask expired unread (8054 min); root non-technical: UAC needs a human, TG ask delivery off since 27.10; new class D ask filed; five-whys candidate |
+| tg-workroom wait lock | >=6 distinct pids held lock within ~60 s, no queue, budget 120 s -> 300 s; FAIL prints holder; queue deferred to case 4 (AK-47); test red at 120, green at 300 (3/3); panel 6/6: root (no FIFO) not cured, test checks constant only |
+| Hub python task load | 160 python tasks, 44 more than hourly; scheduler log 61 h, 40 093 events. Wave 1: 3 redundant cmd steps removed, Coverage Map Nightly disabled, `x_post_image.py` usage-limit pause + mkstemp; Codex+GLM BLOCK, 1 real bug accepted (shared `.tmp`), test 6/6. Watchdog merge refuted: psutil for AppWatch 31.7 s vs 1.7 s (18x). Wave 2: AppWatch tick 10.57 s -> 0.35-1.17 s without PowerShell, 54/54, red 8/8, Codex review fixed (pid-reuse, cp1251). Not done: `reindex_frequent.py`, `file_rail_wake.py` (wave 3), robots-llm cluster |
+| cofounder-canon returned request | §1.2, §5.4 already in canon; `canon_write_gate --dry` = GO; answered no-op. Gap: no CLAUDE.CHANGELOG.md line, no Codex receipt; class `canon-bump-without-changelog-line` 2/3; line authorship not invented |
+
+## 9. Patterns
+
+P1. A fix includes its proof: test, mutant, parser and counter move with the code, and red is shown on the new anchor.
+
+P2. A guard counted as fixed without a run of its tests is unverified; date the last green run.
+
+P3. A writer and a reader of a signal must share a path; a local unsynced folder is invisible to a remote detector.
+
+P4. A lint door counts only on the paths that actually emit; enumerate emit paths, not doors.
+
+P5. An installer's parity parser must know every legitimate entry form, or it re-adds what it cannot see.
+
+P6. rc=0 from a wrapper says the wrapper exited; check that the inner dispatcher ran.
+
+P7. A hash of a whole file in a cache key turns any edit into a cache miss; key on the content that matters.
+
+P8. A truncated instrument output is a scope-less zero; print lines seen out of total.
+
+## 10. Source note
+
+No canon beats for 15.11; the chapter is built from 12 retros via one fact sheet. No personal retros that day.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-16.dev.md
+
+---
+title: "Day 166 - 2026-11-16: lock the resource, not the call; every call-level guard on worktree creation (git wrapper, hook, skill rule) was bypassed by a full path, another harness or another PATH, and only a stub file and mode 0555 on the target folder held under live fire"
+date: 2026-11-16
+day_index: 166
+week: 25
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [worktree, resource-lock, call-lock, live-shot, harness-parity, git-wrapper, hookspath, gitoxide, mode-0555, session-cards, x-links, rail-001, accessibility, principles-block, crlf, skill-rename, verify, hook-latency, cron-timezone, runner-missing, citations, oss]
+---
+
+# Day 166 - 2026-11-16: lock the resource, not the call; every call-level guard on worktree creation (git wrapper, hook, skill rule) was bypassed by a full path, another harness or another PATH, and only a stub file and mode 0555 on the target folder held under live fire
+
+Dev-log form. Assembled from retros (36 files, 4 personal omitted); no canon beats for 16.11 (section 10). Numbers only from the fact sheet.
+
+Defect: a guard attached to one invocation path (PATH-resolved wrapper, repo hook, event hook, skill text, one publisher module, one config file) is reported as closing the resource; consumers reach the resource through another path.
+
+Position on the line: 159 foreign bytes; 160 receipt before fact; 161 verdict on one line; 162 the fix is the hazard; 163 switch off your own; 164 zero without a map; 165 fix never reached its own test; 166 lock on the call vs lock on the resource.
+
+## 1. Worktree ban
+
+Order (owner): merge all worktree work into main; no further work in worktrees.
+
+### 1.1 Audit and first cleanup
+
+| Step | Fact |
+|---|---|
+| `wt_audit.py` | 6 nodes; unmerged work only on hub |
+| Cleanup | 112 copies removed, 46 stale prune, 37 fixtures moved out |
+| Ban | CLAUDE.md v6.16.0 §7.7; `agent_worktree.py new` -> exit 2 |
+
+Audit defects (found by six independent checkers): fixed roots only, drive root and Temp not scanned; timeout mapped to "dirty 0". Apply flag passed as env before ssh did not reach the remote; first "apply" on one node was dry-run.
+
+### 1.2 Mac node
+
+| Metric | Value |
+|---|---|
+| Copies removed | 107 |
+| Branches intact | 102/102 |
+| Copies folder | 406 MB -> 4 MB |
+| Session cards rewritten | 138/140 |
+| Cards moved (cwd transfer) | 129; total 746 -> 746, lost 0 |
+
+Cause of return: an old session on resume recreates its worktree from the path stored in its card; a WorktreeCreate lock does not see it (app-initiated git).
+
+Error: a folder of another person entered the move list; card restored from backup. App recreated 4 copies past the hook. Treatment: launchd watchdog after-relaunch, not battle-tested.
+
+### 1.3 Live shots, 9 harnesses
+
+| Harness / path | Bypass |
+|---|---|
+| Muse (Meta) | creates copy with own code, `core.hooksPath=/dev/null` |
+| App, launchd | call `/usr/bin/git`; PATH wrapper never invoked |
+| Desktop Claude | created 6 copies; preset `worktree: true`; my "Claude closed" was from a probe of a different flag, refuted by other eyes |
+| Cursor (Studio) | git by full path |
+| Codex (Studio) | own gitoxide |
+| post-checkout hook | installed in 0 of 22 repos |
+
+### 1.4 Resource locks
+
+Fix A: stub file in place of the copies folder; git -> "Not a directory" regardless of invocation path. Wrapper test 49/49; original version 13 red.
+
+Fix B: `worktree_dir_lock.py` sets mode 0555 on `~/.codex/worktrees` and `~/.cursor/worktrees`, installs hook in 22 repos. Live shots: `cursor-agent -w` -> EACCES; `codex exec --worktree` -> Permission denied. Test 11/11; broken copy 5 red.
+
+Rollout: package to 9 nodes; application on 8 not verified. Side defect: package registrar masked ImportError as UnboundLocalError.
+
+## 2. X: no links in body
+
+Cause: a reply with a link is billed as a link post, ~13x; moving the link to the first reply saved nothing (skill text already said so). 59 link replies plus reading foreign accounts consumed almost the whole balance.
+
+Decision (owner): no links on X at all; link in bio only.
+
+Fix: `url_in_body` lock in `x_publisher.py`, test 29/29, 28/29 with lock disabled on a copy. Rule block in 12 SKILL.md; skills package bounced by 5 gates in a row.
+
+Residual: link posts appeared past the robot, source not found. Neighbour session locked side doors `x_post.py`, `x_thread_post.py`, `x_outbox` store, test 9/9.
+
+`rail_transition` alarm was erased by whole-file overwrite of `x_publisher.py`; restored, test 37/37. Edits in a whole-file-uploaded module live until the next upload.
+
+## 3. Rail 001 on Mac Studio
+
+| Item | Fact |
+|---|---|
+| Codex half | `codex app-server` from launchd blocked in `open()` on Vault |
+| Claude failures | 195 consecutive NEW-NOT-SWITCHED, all stop at AX node 82 inside Sidebar |
+| `mac_ax_view` 1.1.0 | skips Sidebar, writes `ax_errors`; walk 1175 -> 572 nodes |
+| Debts | 26/27 raised, duplicates 0 |
+| Permission | Accessibility granted to `/bin/sh`, not bare python3 (risk: UI to any sh script) |
+| Model pick | `mac_ax_pick.py` sets Opus Medium |
+| Masking outcome | ok-codex-rescue read as success, hid 31 Claude failures |
+| After fix | 3/3 live launches (small sample) |
+| Watchdog | `voice001_door_watch.py`: 3 failures in a row, share >=50%, or journal silence 2 h; test 14 checks |
+| Acceptance | 21 targets, 6 accepted (first count 7, corrected) |
+
+RECALL miss: searched by DB, not by the phrase "session table"; built a duplicate of an existing tab.
+
+## 4. Principles block in skills
+
+History: 02.11 order = pointer; 14.11 full block to 496 files, folded back same day; "deferred" record from 01.11 never closed, now closed by fields. 16.11 owner: not rejected, full text verbatim into skills as an experiment.
+
+Live probe `--no-principles`: Codex 5/5, Grok 0/5, GLM 5/5 only with substitution.
+
+Cause (Grok): generator labelled `~/AGENTS.md` "Grok always takes"; Grok reads `~/.grok/`. Instrument reported CURRENT for a door the model does not read.
+
+Write: full block into 333 skills. Own defect: `newline=""` converted 310 CRLF skills to LF; diff 48K lines vs 3.6K expected; reverted; selftest did not check CRLF.
+
+`~/.grok` per machine: applied and proven 1/9. Experiment start 17.11.
+
+Cofounder: 60 ms Skill interceptor hook removed by order. `COFOUNDER.md` missing from `.stignore` whitelist, persona links dangling on one node; `/cofounder` restored, exam 6 rails 100%.
+
+## 5. Skill rename (175)
+
+Decision: keep the rename, fix references. Harness rejects Skill by old name before any hook.
+
+Rewritten 2632 + 45 + 424 files; 30 wrong replacements reverted; CRLF restored in 1425 files. Review 47 agents: 35 findings, 14 live breakages in robots. Rollout 6 nodes, 3 offline.
+
+Five whys: `--verify` called the same `plan()` as the fixer, blind to bypasses. Evidence: `push_local` with `PUSH_TEXT="/continue"` under green verify.
+
+Fix: `--verify` enumerates consumers, test 22/22. Variant v5 dropped: +0.40 pp, CI [-0.50, +1.36].
+
+## 6. Hook latency and rechecks
+
+| Item | Fact |
+|---|---|
+| `onair_auto` | start 1100 ms, write 10 ms; moved back to write + reply |
+| `mcp_lazy_gate` | cached verdict 58 ms vs 2786 ms |
+| Recheck holes | reaper could cut pinned and RC chats; two dispatchers on one port (SO_EXCLUSIVEADDRUSE); `have.py` false "no" |
+| `memory_recall_hook` | on; UserPromptSubmit p90 4.3 s; tests 24/24 |
+| `session_codes` | 8 codes now map to a different session (answer substitution, not "0 lost") |
+| Start caches | 12.3 s -> 13.5 s at load 50-220; no gain; green cache would hide a file rollback |
+| Recall 0.729 -> 0.624 | measurement error: reindex swapped DB mid-run; lexical search failed 171/184; exam accepted run |
+
+Own errors: SIGSTOP without a resume path (lost night 07.11); estimate 40-90 min, actual 3 h 42 min.
+
+## 7. Routines and fleet
+
+Cause: app scheduler evaluates cron in start timezone (PST); node in Lisbon; 28/30 routines started outside 00-05 UTC.
+
+Fix: `routine_utc_window.py` + `routine_window_gate.py`; 3 real refusals; 33/33 in window (by schedule classification; actual starts verified for 4). Red branch not fired live.
+
+Wrong-file md5 named; 3 of 4 nodes refused. File edited on hub, not published to bus; nodes pulled stale copy.
+
+Sleep agent: step "5 manual nights" had no runner; 8 nights `manual_nights=0`, no alarm; family built-pipe-has-no-runner 7 cases. Manual night failed on `first_json` (`raw_decode`), then on 316 of 387 "corrections" that were call-robot messages. Alarm delivery to 03 tested by mock only.
+
+Bitemporal cards: 2816 vacancies shared one key; rollbacks 31 and 15/day -> 0-1. Canon 86 256 events over 20 041 cards. Fact-writer shadow moved to 23.11.
+
+## 8. Research and OSS
+
+| Item | Fact |
+|---|---|
+| DR Apple Photos | 6 legs, quorum 6/6; Gemini tied a constant to VNCreateFaceprintRequest; source live, number and "faceprint" absent (grep 0); marked unconfirmed; class live-url-is-not-a-verified-citation 1/3 |
+| LangChain | not core, integrations showcase; `langchain-sqlite-graph-memory` 0.1.0 -> 0.1.1; wrapper == native matched 2/48 (core rerank off by default, wrapper always on); after 0.1.1 48/48, 24 tests; review 14 agents: 11 confirmed, 0 refuted |
+| Memory neighbours | 37 questions, copy of 300 notes, top-5: basic-memory 36, sgm lite 32, mcp-memory-service 13; uv silently downgraded, first conclusion described a bug fixed in July; bm 1.0 rewrites frontmatter of all copies |
+| Downloads | 1000 threshold held by release days (117-131 vs 10-26 weekdays); stars 15; week forecast 222-232 < 300; note patch without assert silently skipped 2/3 edits |
+| Citation gate | 4 panel rounds; >1/3 of 26 claims refuted or downgraded to limitation |
+| Public CI | red 7 days: ubuntu-latest -> 26.04, no Python 3.9; pinned ubuntu-24.04 |
+| HF data | frozen at 30.10; night core dead since 07.11 (timeout 14400 s) |
+
+## 9. Patterns
+
+P1. A guard on an invocation path closes that path only. Lock the resource (folder stub, file mode, permission) when the consumer set is open.
+
+P2. A door is closed after a live shot from each consumer, not after reading config, `--help` or a green instrument.
+
+P3. An instrument that verifies "written" must be paired with one that verifies "read" by the actual consumer (`~/.grok/` vs `~/AGENTS.md`).
+
+P4. A verifier that shares the fixer's planner inherits the fixer's blind spots; enumerate consumers independently.
+
+P5. Timeout and dry-run are "unknown", never "0" or "applied".
+
+P6. Whole-file uploads overwrite local edits; the edit belongs in the source of the upload.
+
+P7. A rescue outcome labelled ok can mask the primary path's failures; count failures per path.
+
+## 10. Source note
+
+No canon beats for 16.11; the chapter is built from 36 retros via one fact sheet. Four personal retros omitted.
 
 ✍️ Написано: Opus 5.5
