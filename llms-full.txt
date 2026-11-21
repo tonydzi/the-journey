@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 144 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 148 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -22335,5 +22335,742 @@ P7. A rescue outcome labelled ok can mask the primary path's failures; count fai
 ## 10. Source note
 
 No canon beats for 16.11; the chapter is built from 36 retros via one fact sheet. Four personal retros omitted.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-17.dev.md
+
+---
+title: "Day 167 - 2026-11-17: reconnaissance outran the ability to act; 237 PRs, 99 people, 26 cards, 16 agents and 8 briefs produced 0 launched sessions and 0 walked doors, while hand-walked doors merged 4 of 4"
+date: 2026-11-17
+day_index: 167
+week: 25
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [reconnaissance, action-gap, maintainers, briefs, batch-start-session, adversarial-critic, unproven-claim, single-channel-measure, zero-in-own-lane, cv-gate, needs-auth, healer-kills-server, one-surface-conclusion, ack-vs-measure, published-not-delivered, stignore, canon-witness, worktree, x-tariff, receipt-lock, grok-timeout, canon-draft, agents-md]
+---
+
+# Day 167 - 2026-11-17: reconnaissance outran the ability to act; 237 PRs, 99 people, 26 cards, 16 agents and 8 briefs produced 0 launched sessions and 0 walked doors, while hand-walked doors merged 4 of 4
+
+Dev-log form. Assembled from retros (22 files, 1 personal omitted); no canon beats for 17.11 (section 13). Numbers only from the retros.
+
+Defect: preparation work (cards, briefs, publications, parcels, gates, collectors) is reported as progress while the step to the consumer (session start, walked door, receiver, login, apply) is unchecked; zeros in our own lanes are read as market or demand signals instead of our breakage.
+
+Position on the line: 160 receipt before fact; 161 verdict on one line; 162 the fix is the hazard; 163 switch off your own; 164 zero without a map; 165 fix never reached its own test; 166 lock on the resource, not the call; 167 reconnaissance outran the hands.
+
+## 1. Maintainer reference hunt
+
+Order (owner, 23.10, voice): thank one reference maintainer; find more people like him.
+
+### 1.1 Measurement
+
+| Step | Fact |
+|---|---|
+| Axis | people who reviewed our code, not repos |
+| Source | `gh search prs --author <us>` -> 237 PRs in 126 repos |
+| Per PR | reviews, line comments, thread comments, merged_by |
+| Result | 99 live people -> 26 cards in vault (27 files) |
+| Merge rights | 18 with, 8 without |
+
+### 1.2 Selection rule
+
+Problem: first filter "line comments with file:line" would reject the reference (0 line comments; reviews as bodies pinned to head hash).
+
+Solution: 5 signs, any 3 (reproduces before accept; defect with mechanism; finishes himself; credits; distance >=2 weeks).
+
+Limit (panel 3/6): only 1 of 5 signs checked on the reference; "passes 3 of 5" unverified.
+
+### 1.3 Briefs and launch
+
+| Item | Fact |
+|---|---|
+| Workflow | 16 agents, scout + adversarial critic per door |
+| Cost | 2.2M subagent tokens |
+| Output | 8 briefs; critic: 3 no-go, 2 weak, 3 go |
+| Motive break | target file outside maintainer's CODEOWNERS paths; maintainer silent 17 days |
+| Launch | 4 `start_session` in one message on an event-triggered turn: 2 refused ("this turn runs an automated event"), 2 died with the session |
+| Started | 0 of 8 |
+| Report | "launching" instead of "0 started" |
+| Gap | 596 h until recheck |
+
+### 1.4 Recheck 17.11
+
+Three independent surfaces: linked sessions 0; our PRs after 23.10 absent in 5 of 6 door repos (sixth: 2, both closed); thread comments in 6 doors 0 (one in an old thread outside the doors).
+
+Coverage printed with the zero: 6 of 6 door repos, thread comments only, window 23.10-17.11, GitHub search index. Not walked: line review comments, 20 of 26 card repos, email, messengers, index lag.
+
+### 1.5 Withdrawn claim
+
+Claim: "adversarial critic pays for itself". Panel 6/6: 3 no-go + 2 weak measure rejection volume, not accuracy; no walked door, no ground truth, FP/FN undefined; critic not independent (same run, same `gh` data).
+
+Kept: critic surfaced checkable facts the scout lacked (CODEOWNERS, last comment date, CLA line, PR ban for non-collaborators). Evidence of reading, not of correctness. Closure: walk one no-go and one surviving door to a human answer.
+
+### 1.6 Single-channel distance
+
+GitHub `last_contact` 09.09 -> "no correspondence"; email thread ran to 19.10, the person twice waited for a call. Causal link (ask cap -> missed call) marked hypothesis by panel.
+
+### 1.7 Breakage family
+
+`batch-start-session` 3/3 -> systemic; repair task opened. Hypothesis: two bans (batch, event-triggered turn) from one case; requires two control runs (single call on event turn; batch on normal turn).
+
+Knife: launch ONE session from a ready brief and walk ONE door to merge (candidate issue carries accepted label).
+
+## 2. Zero in own lane
+
+| Lane | Cause (ours) | After fix |
+|---|---|---|
+| Ambassador applications | CV gate: CVs not rebuilt; wins list refreshed only by switched-off hub; 0 submissions in 15 nights | gate refreshes list, no cancel; night 17.11: 6 of 12 filed (ATS screens) |
+| Channel language | tag from source, not text; 163 EN posts in RU queue | 0; cap 15 posts/day/channel |
+| share-fix | queue fed by retro only | nightly harvest, cap 12/night; personal reply rate ~11.5% |
+| rep-reply | matcher never launched | fixed |
+| small-repo lane | repos without entry | retargeted to fixes in repos >=10k stars |
+
+Count: 4 of 4 "dead" lanes plus the application lane were our gates and empty queues.
+
+Hand vs cold: hand sessions 4 of 4 merges; cold PRs 0 of 5. Recipe written into routines: plan in thread before code -> maintainer "you can start" -> Part k of N -> ready flag last.
+
+Live proof (memory service repo PR): 7-agent write-path trace + refuters found 3 holes (foreign vector overwrite, foreign tombstone capture, REST delete without store). 8 new tests: main 6 red, branch 8 green, 5 mutations red. Approved by maintainer within the hour.
+
+Surface staleness: hand-written "selected upstream fixes" block 13 days old next to fresh auto counters.
+
+Own defect: JSON edit script CRLF -> LF; caught by `git diff --stat` (451 lines vs 2); reverted.
+
+## 3. Connectors and healer
+
+### 3.1 Zero calls
+
+Measure: real `tool_use` over 9125 sessions. Telegram 2898, Gmail 2726, three social connectors 0.
+
+Error: deleted the three by "0 calls". Cause: connectors in needs_auth expose no tools in session; zero calls cannot express demand. Owner reverted.
+
+Class `zero-calls-read-as-unneeded` 1/3. needs_auth count: 9.
+
+Pattern: check login status before removing a "dead" rail.
+
+### 3.2 Healer kills live server
+
+Problem: nightly `ci_probe.py --heal` killed a live slow code-search server on 15.11 and 17.11 and did not raise a new one; nightly log ended after first error (no rc, no alarm).
+
+Solution: wait for port release up to 90 s; up to 2 raise attempts; `alive_but_slow()` server answering initialize is not killed. Test red on old code. Raise-after-kill branch not run live (next night).
+
+Residual: hung search with live initialize no longer healed. Class 1/3.
+
+Side: CV attachment left as hashed cache filename; now a named copy; test 14/14.
+
+## 4. Conclusion from one surface
+
+Problem: DR synthesis seed stated "no links to rail chats"; 4 URLs present in order registry.
+
+Cause: `dr_queue.py chat_links()` read 2 of 3 homes (fan-out drafts, results headers), not the registry; the relay wrote "found no links" itself on empty.
+
+Solution: third source (registry order line); URL tail `;` `,` trimmed; "not found" message lists 3 of 3 homes checked; `surface_sweep.py` view `dr-chats`. Test case without fix FAIL rc=1, with fix OK rc=0; live call = 4 links. 70th case of the class.
+
+Pattern: a "not found" message without the list of walked homes is an instrument lying in words.
+
+Open: rollout via Syncthing, copy freshness unverified.
+
+## 5. Watchdog retime
+
+Orders (owner): LLM routines <=1/day (08.11); watchdogs less often (11.11): doorbell 1 -> 10 min, app/sync 60 min, pulse 12 h.
+
+UAC launcher split a path with a space into arguments; v2 from a spaceless path ran 6/6. Laptop: 2892 -> 636 runs/day.
+
+Rollout 17.11: ACK for 11.11 parcel 0 of 9 in 6 days. RECALL: hub had applied it itself (14.11, 16.11). Built `watchdog_retime.py` (Win/mac/linux, dry by default); over ssh on 5 live nodes: measure -> apply -> dry second pass.
+
+| Node | Before | After |
+|---|---|---|
+| Laptop | 2892 | 636 |
+| Hub | 6286 | 5248 |
+| Anchor | 1932 | 1560 |
+| Mac A | 4560 | 4160 |
+| Mac B | 8604 | 7608 |
+| Mac C | 3052 | 2788 |
+
+Second pass: empty plan except one DENIED task on hub (UAC). launchd interval 3600 confirmed by `launchctl print` on 3 macs. 3 nodes not checked (no ssh).
+
+Out of table: Telegram peek 1440/day on 3 macs, others 1440 and 720. Open: CPU before/after not measured.
+
+Pattern: drop ACK as proof of apply; prove apply by measurement on the node.
+
+## 6. Hot memory: published, not delivered
+
+| Item | Fact |
+|---|---|
+| Publisher | `hot_publish.py` after successful ingest, every 15 min, 0 LLM |
+| Night | 69 publications, 69 ok |
+| First-prompt hook | 102 calls, all with hits (proves calls, not coverage) |
+| Snapshot | ~595 MB, ~24 s per publish |
+| Root | Syncthing folder of `~/.claude` shares 13 canon files only (`.stignore` ends with `*`) |
+| Receivers | 0 |
+| False receipt | another node claimed delivery; corrected via bus |
+| Fix | separate send-only folder to owner's nodes = owner decision (topology) |
+
+Tests green with broken delivery; receiver-side test after transport required. Class `publish-target-outside-synced-folder` 1/3.
+
+## 7. Canon witness shares GO
+
+Problem: 10th SILENT case on MEMORY.md. Root 1: witness hook log empty ~2 days while hook dispatcher was silent. Root 2: `canon_write_witness.py` wrote a mark next to canon only on BYPASS; GO stayed in a node-local counter; peer edit synced to hub looked SILENT.
+
+Solution: `permitted` writes `verdict: GO` next to the canon. Live probe left a GO line.
+
+Panel hole: GO by filename in a 30 h window covered a foreign edit of the same name fleet-wide. Fixed: GO counts only from 60 min before to 5 min after the edit mtime. Test red without the check, 26 green with it.
+
+Pattern: a permission judged by another node lives in the synced place next to the object.
+
+## 8. Worktree audit, laptop
+
+10 git copies in 4 repos: `git cherry` 0, `status --porcelain` 0. 125 folders without git: 114 empty, 11 files, 9 unique rescued. Copies 10 -> 0, folders 125 -> 0.
+
+Copies already removed by a neighbouring session; RECALL via hot memory done only at retro, so the answer said "who deleted: not found". Audit scan timed out at 300 s (blind on this node), class 1/3. Live shot at retro: `git worktree add` refused by PreToolUse hook; `post-checkout` not shot.
+
+## 9. X stock and robot
+
+| Item | Fact |
+|---|---|
+| Robot status 17.11 | posted 425, queued 552, void 1, interval 60 min, fresh first |
+| Tariff | 0.015 per post without link, 0.20 with link |
+| Assumption error | "link gate forbids, so 0.015" held for body only; replies with link billed at link tariff |
+| Defect | post requeued by DB edit; stale `unknown` receipt; robot voided silently |
+| Fix | `resolve --requeue` + `receipt_blocks()`; test red-proven |
+| Backup rail | Typefully free plan, key in secrets; no live post; robot does not fail over on 402 |
+| Divergence | neighbour session wrote "no key" into skill the same day; line updated |
+
+Patterns: price a channel by all robot calls per post; a receipt is a lock, requeue only through the door that rewrites it.
+
+## 10. Grok timeout by prompt size
+
+| Prompt | Effort | Time |
+|---|---|---|
+| 4 KB | xhigh | 95 s |
+| 56 KB | high | 974 s |
+| 56 KB | xhigh | 1307 s (~23 s/KB) |
+
+600 s ceiling fits ~25 KB. Fix: `grok_timeout_floor` = 120 s + 30 s/KB, cap 2400 s, kill switch env. Linearity hypothesis (2 points, 1 run each).
+
+Own errors (panel): v1 stretched every rail in `main()` (hung Codex would wait ~2000 s); moved to `rail_timeout(name)` for grok only, outer pool timeout = max per rail. Test v1 was fake (found the call in the `def` line); replaced by behavioural cases through `_one()`, `ask_all`, `ask_race`.
+
+Stop guard `dead_claim_guard.py` blocked "grok was not dead": pattern vendor + death word ignored negation; `is_negated()` added, then `is_quoted()`. Superclass noted: guard reads the word, not the claim.
+
+## 11. Canon draft and home AGENTS.md
+
+| Item | Fact |
+|---|---|
+| Draft v7.1 | 102,356 -> 92,682 bytes; 125 headings kept + 1 |
+| Moved | 27 sections into 21 skills (54 markers), 0 pointers lost |
+| Live canon | unchanged, md5 before = after |
+| Evening | draft back to 100,200 bytes (skill map, AK-47 recipe, autonomy lines) |
+| AK-47 exam | old text "rule silent" 2/4 models; new 0; panel 6/6: exam weak (old principles block in both prompts, author-made situations) |
+| Home AGENTS.md | 117,634 -> 4,982 bytes; root: mirror publish wrote full copy; now short door; self-test 15th check red-proven |
+
+Own error: reported a post "in stock" from output tail; gate had rejected it for "we" instead of "I".
+
+## 12. Patterns
+
+P1. Reconnaissance is measured by a walked door. Before a fan-out of N, walk one unit end to end to a human answer.
+
+P2. A launch is not a start. After `start_session`, verify linked sessions exist before reporting.
+
+P3. A selection ruler taken from a reference must be run on the reference.
+
+P4. A gate's rejection count measures volume, not accuracy; without ground truth, do not claim the gate pays for itself.
+
+P5. A zero in our own lane is first searched for in our gates and queues.
+
+P6. Zero calls from a connector without login is not a demand signal.
+
+P7. A healer must raise what it kills, or it must not kill.
+
+P8. "Not found" must print the homes walked (N of N).
+
+P9. ACK absence is not apply absence; prove apply by measurement on the node.
+
+P10. Published is not delivered; check the share config and the file at the receiver.
+
+P11. A permission another node judges must be written next to the object, in the synced place, bounded in time.
+
+## 13. Source note
+
+No canon beats for 17.11; the chapter is built from 22 retros. 1 personal retro not used.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-18.dev.md
+
+---
+title: "Day 168 - 2026-11-18: one door built next to an existing door is one more door; a social publishing door bypassed the shared registry and its cap, a hub schedule lived as inserts in 22 scripts beside the Scheduler, branch cleanup was scripted while delete_branch_on_merge was off in 77 of 77 repos, and agent canon mirrors were hand-built per node"
+date: 2026-11-18
+day_index: 168
+week: 25
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [one-door, second-source-of-truth, recall-before-build, publication-registry, daily-cap, scheduler, schedule-in-code, endboundary, delete-branch-on-merge, squash-merge, identity-not-counter, canon-mirror, byte-identical-body, watchdog-blind-to-layout, exam, judge-agreement, syncthing, receiveonly, ssh-lifetime, latched-trip, fleet-rollout]
+---
+
+# Day 168 - 2026-11-18: one door built next to an existing door is one more door
+
+Dev-log form. Assembled from retros (16 files, 1 personal omitted); no canon beats for 18.11 (section 9). Numbers only from the retros.
+
+Defect: a "single entrance" (door, gate, switch, cleanup tool, mirror) is built without first enumerating the entrances that already exist; the result is a second source of truth that bypasses the first one's invariants.
+
+Position on the line: 160 receipt before fact; 161 verdict on one line; 162 the fix is the hazard; 163 switch off your own; 164 zero without a map; 165 fix never reached its own test; 166 lock on the resource, not the call; 168 one door built beside the existing door.
+
+## 1. Social publishing door
+
+Order (owner, 17.11): no links in X posts, link in bio only; one door and one guard. Built 17.11: `x_outbox` + robot, rules in `post_rules.py`; then `social_outbox.py` with per-platform folder funnel (inbox, approved, sent, rejected) for Bluesky, Mastodon, Telegram; manual take/done handout invented for Threads and Facebook. Live tick: 1 post each to Bluesky and Mastodon.
+
+Order (owner, 18.11): reread against AK-47, rebuild if it fails; then "finish all".
+
+| Find | Cause | Fix |
+|---|---|---|
+| Threads/FB queue | copy of live `social_next_pending.py` (bank, tracker, browser routines), 0 consumers | removed; shared guard `post_rules.check` added to the old queue |
+| Telegram sender | outcome judged by Russian words in stdout | return codes: 1-4 refused before send, 5 failed on send |
+| Test side effect | wrote to live usage counter (153 lines, mostly test) | temp file |
+| Registry bypass | door did not call `pub_gate`; cap "English channel <= 1/day" invisible; robot could post every 2 h | `can-post` before release, `posted` after (same as X door) |
+| MCP bypass | `public_tg_post_gate` existed | rule added: new text post to our channel refused with funnel pointer; replies, edits, images, files pass |
+
+Evidence:
+
+| Item | Value |
+|---|---|
+| `social_outbox.py` | 496 -> 445 lines, then + registry call |
+| Door test | 32 checks, rc 0; red x3: 3 breakages -> 4 red; registry check removed -> 1 red; lock rule removed -> 1 red |
+| Telegram lock | 15 checks |
+| FB/Threads queue test | 45/45 |
+| Fleet | verified by probe + test on 6 of 9; 3 without ssh, package in inbox |
+| Diff panel | 5/6 answered, 0 confirmed breakage; registry hole not in diff, not found |
+| Retro panel | 6/6 in 62 s; MCP lock real stdin input: new post rc 2, reply rc 0; live registry pass: 2 mirror cards with `ledger: ok`; hub installer refused (hub has newer own test), not forced |
+
+Known limits: image caption passes the lock; failed `posted` write after release not retried; node registry mirror lags hub, 2 posts in the lag window possible. Not verified: live Telegram release through the door.
+
+Breakage class: `new-door-built-beside-existing-door-no-recall` 1/3; `test-writes-live-usage-counter` 1/3.
+
+## 2. X certifier blind to the funnel
+
+Context: X credits topped up (owner: paid); X posts hourly; latest tweet CERTIFIED by external oEmbed check.
+
+Cause: 17.11 the X store was split into `2-approved` / `3-sent` / `4-rejected`; `x_cert` read only the root; saw queue 1 instead of 421; rc 0.
+
+Fix: layout declared once, `FUNNEL` in `load()`; card in `3-sent` with url = posted receipt; `4-rejected` = robot verdict, counted, no alarm. Funnel test with proven red; `_test_x_cert.py` 35 checks. Panel 6/6: 8 more holes closed, 4 rejected with reason.
+
+Residual: queue 421, robot LIFO (`ORDER BY enqueued DESC`) at 1 post/h, tail since 30.10; owner decides. Class `watchdog-blind-to-data-move` 1st case.
+
+## 3. Hub tasks: schedule in code vs the Scheduler
+
+| Step | Fact |
+|---|---|
+| 16.11 hunt | 23 of 62 frequent tasks ran idle + meeting reminder; 15 off without admin |
+| 16.11 frequency | 18 routines cut; for admin/password tasks `.off` switches and `.every` gates inserted into 22 scripts |
+| 18.11 owner | "not AK-47" |
+| Rework | one file `retime_tasks.ps1`; password tasks re-registered without admin: Export XML -> Interval -> InteractiveToken -> Register -Xml; rest in one UAC window (owner clicked Yes) |
+| Inserts | removed; `cmp` vs pre-insert copies matched for all |
+| Shadows | mature standard: trigger EndBoundary instead of homemade switch robot; robot reduced to nightly reporter; `_test_shadow_expiry.py` 8/8, any->all mutant 7/8 |
+| Panel 6/6 | hole 1: 5 former password tasks on watchdog's known list, never healed -> removed from list; hole 2: disabled tasks absent from decommission registry -> +23 rows, discrepancies 84 -> 61 |
+| After panel | watchdog healed 4/5 back to Password, intervals kept |
+| Rake | watchdog run cut by limit wrote known list before healing; rerun without limit healed |
+
+Totals: 24 off, 18 less frequent, 22 inserts removed; panel $0.052. Decision: schedule and enablement live only in the Scheduler; code inserts forbidden.
+
+## 4. Git branches: setting vs script
+
+Order: clean branches; make a skill so cleanup always happens. Built: `git_trace_audit.py`, skill `cleanup-after-commit`, red test.
+
+Measure: 77 own non-fork repos; 88 non-main branches in 13 repos; 34 junk branches in `sqlite-graph-memory` on the day of its journal submission.
+
+Root: `delete_branch_on_merge` off in 77 of 77. Enabled in 76 (77th archived, read-only). Daily cleanup is now GitHub's own door; the script remains an audit instrument for leftovers.
+
+Second defect: rule "merged PR exists -> delete". Squash merge keeps `ahead_by > 0` forever; rule cannot separate merged work from post-merge pushes. 60 of 69 candidates had ahead > 0; panel 6/6 found it, 4 ranked it first.
+
+Live check: all 61 `SAFE-PR-MERGED` tips equal `pulls/<n>.head.sha`; no loss this time. Fix: identity rule, tip == merged PR head AND `base.ref` == default branch. Red test 9 cases; old rule fails 2.
+
+Removal on owner's yes: 70 deleted, 0 failed. Balance: 70 + 13 open PR + 3 unmerged + 2 unverifiable = 88. Also: journal submission completed; red CI on main fixed.
+
+## 5. Canon mirrors for agents
+
+Trigger (owner): the rules file is one for all agents.
+
+| Node | Mirror state before |
+|---|---|
+| laptop | 6.14 |
+| hub | 6.9.5 |
+| mac A | block up to C7 |
+| mac B | 20 KB stub |
+| Grok, Gemini | no canon inside |
+
+Fix: `codex_mirror.py build`; agent door body = bytes of `CLAUDE.md` between markers; agent specifics only in inserts; canon receiver calls build. Two panels 6/6 and 6/6; 13 findings fixed; red probe 9/9. Canon 7.2.0 released mid-work from the same laptop; 7.2.0 delivered.
+
+Own error: delivered canon to hub and one mac ahead of their bus manifest; receiver sent 2 false HOLD alarms to the machine chat; all-clear sent.
+
+Caveat (panel 6/6): `verify` compares the door with the local node canon; green on 2 macs with stale 7.1.0. Fleet: 9 nodes in registry, 4 on 7.2.0, 2 on 7.1.0, 3 unchecked.
+
+## 6. Canon as table and the exam
+
+Canon converted to numbered rows; source = append-only journal, 981 numbers. 7.1.0 installed on laptop via write gate: GO on attempt 22, 80 min waiting for Syncthing.
+
+Exam: 25 situations, 2 judges of different vendors in one pass.
+
+| Variant | Score |
+|---|---|
+| canon 6.18 | 97/100 |
+| draft 7.1 | 95/99 |
+| built from rows | 94/100 |
+| paragraphs | 91/100 |
+| no canon | 29/99 |
+| judge agreement | 91% |
+
+Withdrawn: early "72 vs 87" = one judge on different days. 94 vs 91 within judge noise; only "rows no worse".
+
+Longread (EN+RU): 498 answers with two scores, agreement 454 (91%); without the file, agreement 70/99, number reported with both judges (29 strict, 58 soft).
+
+Panel 6/6 and proofread agreed: "format does not matter" overstated; text now "no difference seen, one run, noise not measured". Files sha256 7/7 OK. Podcast episodes generated, not listened to; reported as "generated".
+
+Prior-art DR: 4 of 6 legs; nobody in the open combines all nine parts; framed as requirements traceability for agent files.
+
+## 7. Live sessions into the vault
+
+Receivers moved into the vault session archive: 48,337 files, 28.0 GB, FAILED 0. Isolated pair test: Revert on receiveonly erases files absent at source; ignoreDelete does not protect; hence trashcan and Revert ban.
+
+Waiter defect: required all 6 live folders idle with need 0 simultaneously; with one folder syncing at a time and sessions written every minute this never happens; 4 h lost. Criterion: need 0 per folder at least once an hour, errors 0 in all samples (46), hub file count == source count: 4951=4951, 351=351, 1964=1964, 11105=11105, 19792 vs 19794 (live delta).
+
+## 8. Other
+
+| Item | Fact |
+|---|---|
+| HF render | daytime run via `Start-Process` from ssh died with the session; `finally` did not fire; night core disabled 3.5 h; rerun as one-off Scheduler task, survival checked by separate ssh; family "dies with session" 19 cases |
+| HF pusher | raw rail advances head before daily push; head accepted only if sha in raw receipts; tests 26/26, old code 1 FAIL |
+| Codex fuse (mac) | `fuse.py` held 6 latched trips, killed Codex engine on every chat reopen; fix: stop only on new work since last stop; copy test old 6 kills / 5 idle ticks, new 0; live 37 s; then stopped chat on each "continue" by design; disabled by owner; DR on runaway-agent guards 4/6 |
+| Persona link | role line with persona link in 333 skills from one source; first rollout 0/8; root: hooks/ and scripts/ not synced, parity guard publishes report not files; after ssh repair probe 5 peers, registry 3/8 (draft said 5/8, panel 6/6 caught); own runs overwrote arms of a peer A/B experiment, found by another agent |
+| Slot store | live session card names active store; 34 checks, 12 mutants 0 survived; 5/8 nodes |
+| `fleet_ssh.py` | Windows passed command to cmd.exe as string (`&&`, `|`, `>` ran on hub); now one argv; 69 checks |
+| arXiv | journal DOI only; second account = permanent ban; new benchmark harness 0/720 generations |
+
+## 9. Patterns
+
+P1. Before building a door, enumerate existing doors for the same resource (registries, gates, queues, hooks). A new door ships only together with removal or delegation of the old one.
+
+P2. If the platform or a standard already exposes the control (Scheduler interval, trigger EndBoundary, `delete_branch_on_merge`), use it; code that re-implements it is a second schedule.
+
+P3. A shared registry with caps is the door. Any publisher that does not call it before and after release bypasses the cap.
+
+P4. Moving data under a watchdog without updating the watchdog's layout makes it blind and green. Declare the layout once and import it.
+
+P5. A diff panel judges only the diff; a missing call to an existing gate is invisible to it.
+
+P6. Judge "merged" by identity (tip sha == merged PR head, base == default), never by a derived counter.
+
+P7. A mirror verified against its local source stays green on a stale source; verify against the fleet version.
+
+P8. Compare variants only within one pass of the same judges; cross-day runs are artifacts.
+
+P9. A long process started from ssh dies with ssh; run it as a Scheduler task.
+
+## 10. Source note
+
+No canon beats for 18.11; the chapter is built from 16 retros. One personal retro omitted.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-19.dev.md
+
+---
+title: "Day 169 - 2026-11-19: the task statement expires before the solution does; seeds that waited 27 to 40 days described a world that had already changed (robot already posting, feeds already running, clock fine, retry already present), so step 0 of queued work is checking whether the need is still alive and rereading the seed's diagnosis against the live system"
+date: 2026-11-19
+day_index: 169
+week: 25
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [step-0, need-alive, spawn-queue, seed-staleness, foreign-slot, x-outbox, source-runs, clock-diagnosis, schedule-glob, python-3.9, socket-timeout, upper-bound, oss-resubmit, ai-policy, persona-drift, eval-null, test-copies, published-vs-delivered, conpty, syncthing, fsmonitor, hook-parser]
+---
+
+# Day 169 - 2026-11-19: the task statement expires before the solution does; seeds that waited 27 to 40 days described a world that had already changed (robot already posting, feeds already running, clock fine, retry already present), so step 0 of queued work is checking whether the need is still alive and rereading the seed's diagnosis against the live system
+
+Dev-log form. Assembled from retros (31 files, 3 personal omitted); no canon beats for 19.11 (section 9). Numbers only from the retros.
+
+Defect: a queued seed is executed as written. Its statement and diagnosis were true on the day of writing; by the day of lifting, part of the need is closed by other paths and the recorded cause is wrong.
+
+Position on the line: 160 receipt before fact; 161 verdict on one line; 162 the fix is the hazard; 163 switch off your own; 164 zero without a map; 165 fix never reached its own test; 166 lock on the call vs lock on the resource; 167 recon outran the hands; 168 one door vs another door; 169 the statement expires before the solution.
+
+## 1. Seeds that outlived the need
+
+| Seed (age) | Seed said | Live state on 19.11 | Residual work |
+|---|---|---|---|
+| X queue drain (28 d) | 56 parked posts, post via live Chrome, open a multi-day elephant | since 23.10 one robot posts from the outbox; posted 474, void 123, rejected 4; 17 in 24 h; node queue 10; Chrome door closed by order 17.11 | 5 posts enqueued with images; 4 rewritten to first person (2 were duplicates of 24.10 tweets: 1 blocked by receipt, 1 voided after panel); 1 stub voided; 4 closed by URL; queue 10 -> 5 |
+| Fireflies/Granola nightly feed (28 d) | feed broken | hub run log: fireflies 234 ok, granola 120 ok since 23.10; both tasks Ready | hub mail run log: 0 `gmail:*` lines; anchored patch (copies diverged), test 18 PASS, 6 FAIL on broken code |
+| Spawn ladder (27 d) | time gauge lies, clock skew -35691 s, 3 red checks | number = freshest app stamp minus now (app silent 10 h); clock OK; same false diagnosis closed 03.10; 15-min floor intentional since 10.09; test window ended at exactly 15 min, failed at 15:02 | real side bug: schedule glob Windows-only, macOS 0 files vs 7 |
+| MCP org block (returned seed) | closed by foreign work | full work done 07.09; block alive 5/5 repos, 76 days | target collector rebuilt 14.11 painted 16/19 org repos green; manual ban lived only in output file |
+
+Side defects:
+- `x_outbox.reconcile` skips own receipt when card `origin` differs from current node name; the laptop had three names. Not fixed, class 1/3.
+- Old mail tests wrote into the live run log: 12 fake ok lines. Fixed with temp log dir in 3 hub tests + 1 mac test; line count before = after on both nodes. Class `test writes into live log` reached 3/3, repair seed queued.
+- Ladder: glob for three OSes, test 6 -> 11 checks, 5/5 mutants red. Rollout: 3 nodes green test read, 2 md5 + exit 0 only, 3 offline; rollout registry refused at 4 gates, no row.
+
+## 2. Wrong diagnosis in the seed; foreign-slot closures
+
+Reply meter seed (40 d) said "no retry in the file". Retry existed since August (3 attempts in shared client).
+
+Cause: mac `python3` is 3.9.6; `socket.timeout` is not a `TimeoutError` subclass before 3.10, so the `except` list missed it and the first timeout escaped.
+
+Fix: `socket.timeout` added to `except`; after exhausted retry the meter prints "cannot judge 1 of 1" and exits 2 instead of CRASH and 4. Red before, 7 test files green after. Exit-code consumers: grep found none reading 4.
+
+Second half of the seed (queue closes a seed with a foreign slot) already fixed by another path (`done` checks slot carries seed + alive proof); no second mechanism built.
+
+Review of closed seeds:
+
+| Metric | Value |
+|---|---|
+| Closed seeds in `done/` | 122 |
+| Closed by a slot carrying foreign work (Sep-Oct) | 56 (upper bound: counted by today's slot title, slots reused) |
+| Done by other path | 44 |
+| Expired | 7 |
+| Alive | 4 |
+| Excluded by terms | 1 |
+| Lost outward | 3: compiler project entry, org block, review tail in our public repo; returned as new seeds |
+| First pass | judged by file/line presence; panel flagged 4 weak rows; behavioural recheck confirmed 3, flipped 1 to alive |
+| Limit | 39 rows marked done had no test run; evidence = file, test or code line |
+
+## 3. Seeds where the need was alive
+
+| Seed | Fact |
+|---|---|
+| Connector resubmit (promise 07.10, 43 d) | old PR closed in batch cleanup without a word, assignment ours; seed premise off (neighbour connectors unchanged since August, conventions changed); one signed commit on fresh main; tests 30 -> 49, 17 fail on old code; 2 outside review rounds (false deletion on partial walk, on atomic save, link loss) closed by tests; PR open, CI awaits maintainer |
+| `llm_ask` stub detector | died at start twice (23.10, 25.10); scratchpad wiped; patch recovered from author transcript; rule: answer < 1500 B to prompt > 4000 B, 5x shorter, marker-opened = stub, rail moves on; rollout 5 nodes verify exit 0, 3 offline |
+| Shard embed idle rewrite | 38,421 files shift per 4 days; runs 8755, 12316, 88201, 87684 s; full walk 314,147 files 21.8 s, so "idle under 5 s" unreachable; fix: shard untouched if rows unchanged, vector reuse by chunk hash; broken shard pair -> ABORT exit 2 |
+| Watchdog self-match | 113 substring matches; one Windows watchdog matched itself, fixed; rest clean or already fixed |
+| Codex model id | 7 calls without `-m` took model from app-rewritten personal config (3 models in a month, last one rejected 400); all 7 now use one source; family 7 cases since 14.08 |
+| Ask gate v11 | blocks asking the owner about a move that is mine by canon; 377 real questions over 45 days -> 7 blocks; 4 false blocks fixed by markers; 15 legit panel questions in test |
+
+## 4. Statement stale outside the code
+
+| Item | Fact | Verdict |
+|---|---|---|
+| Big compiler project entry | previous PR closed 23.10 as "extractive"; AI-policy confirmation and review replies written by an agent; policy requires human in the loop | no second PR from an unattended session; only the owner writes in the thread; ladder 0/3 merges, 0 open PRs; waits for owner's yes on 20 min personal time |
+| Persona "bolder, grey not black" | built a colour gate (17/20 on 20 tasks, black through gate 0/8), rebuilt v2 after BLOCK review; owner asked "what is the use"; ask was a persona, a same-day judge already existed | gate retired, not shipped; judge of colour = owner; rule moved into shared `/QQQ` skill; guard got 3 anchors, red proof 18/18 |
+| Mode K0 eval | 5 models, 2 vendors, 8 real episodes, 40 pairs; 35/40 -> 34/40; 2 better, 4 worse, 34 equal | no stable gain; one owner-facing question is formed by the publishing script before the model call |
+
+## 5. Green on a copy
+
+| Item | Fact |
+|---|---|
+| Conveyor 001 zero-LLM | tests read copies in the acceptance folder; on the live door file 2/7 fail NameError (door changed by order 18.11); live n8n read: only Whisper on the branch, no agents, 0/28 runs of old chain after fix; no watchdog (case 1/3) |
+| Hot memory | hub published 238; Mac Studio local copy 183, 14 h older; colleague installs 0/3 receipts; nightly distillation ended code 1, cause unknown |
+| Visible 001 door | no visible app path -> HTTP 503, CLI never reached; 22 PASS, baseline red on 8; original goal (automatic visible launch) open |
+
+## 6. Claude Desktop lag (hub)
+
+| Root | Fact | State |
+|---|---|---|
+| ConPTY leak | eviction kills process without closing pseudo-console; `conhost.exe` zombies 39 -> 48 in 5 h; memory collector stall up to 11,231 ms | reaper in shadow until 25.11 on 2 nodes, protected process list, unpaired-shell fuse |
+| Syncthing | live-session folders on fast settings on 6/6 nodes, 36 fast of 78; old apply restarted a 270k-file vault | selective PATCH; fast 0 on 6/6 |
+| `EGITTIMEDOUT` | dataset caches create thousands of `.tmp` inside a git tree with fsmonitor; 6.29 s vs 5 s threshold | move caches out, task 26.11 |
+| Config | 123 KB config fsync on every focus; freezes up to 2074 ms | offline trim, task 26.11 |
+
+## 7. Other
+
+- Hook command lock collected all absolute paths from a command on any write marker; now parses proven forms via AST and an installed tree-sitter grammar (C parser 100 ms cap); 29 tests green; raising a timeout to get green was rejected.
+- Chrome: standard policy disabled a broken VPN extension; loaded state confirmed blocked; logins intact.
+- Antigravity 2.32.1 -> 2.33.0 (vendor lists a session-reset fix); per-event causation not proven.
+- Starter kit: Telegram kit patch rebuilt for new upstream (`git apply --check` 0); installer gate no longer reads a hard-coded Python path.
+- Force-push gate probe read only `settings.json`; hooks called via dispatcher since 05-08.11; probe fixed; old package md5 check no longer an instrument (nodes newer than package).
+- Jobs pre-gate: rejection phrase and throttle bucket, 5 red of 110 before fix. Caps linter: bucket for literal-number slices (6509 literal slices measured).
+
+## 8. Patterns
+
+P1. Step 0 of queued work: is the need still alive. Check the live system, not the seed text.
+
+P2. A seed's diagnosis is a claim from the day of writing. Reread the cause (clock skew vs stamp age, missing retry vs uncaught subclass) before fixing.
+
+P3. Count closures by current state carefully: a reused slot title gives an upper bound, not proven loss.
+
+P4. Step 0 can say "alive"; a live need still needs its premise rechecked (connector conventions moved, not neighbours).
+
+P5. A task statement can expire during the work: an ask for a persona that turns into an instrument is drift; return to the ask.
+
+P6. A test must read the live file by path and hash; a green test on a copy says nothing about the running system.
+
+P7. Published, delivered and used are three facts; a fresh producer proves only the first.
+
+## 9. Source note
+
+No canon beats for 19.11; the chapter is built from 31 retros directly. Three personal retros omitted.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-20.dev.md
+
+---
+title: "Day 170 - 2026-11-20: remove the lock, then look at what it was holding; a .gitignore line that silently kept raw sessions out of a public dataset was removed as a bug, and the next push published unmasked data before the mask audit ran"
+date: 2026-11-20
+day_index: 170
+week: 25
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [accidental-lock, gitignore, hugging-face, publish-gate, mask-audit, remote-listing, empty-commit, acceptance-by-answer, thread-started, recall, operation-not-permitted, orphan-server, wal, n8n-retry, eval-noise, discarded-run, reproducibility, reaper-regex, vm-migration, stversions, persona-bench, judge-agreement]
+---
+
+# Day 170 - 2026-11-20: remove the lock, then look at what it was holding; a .gitignore line that silently kept raw sessions out of a public dataset was removed as a bug, and the next push published unmasked data before the mask audit ran
+
+Dev-log form. Assembled from retros (23 files, 4 personal omitted; from one personal retro only a nameless technical fact about the WhatsApp probe is used); no canon beats for 20.11 (section 9). Numbers only from the retros.
+
+Leak scale and the kinds of exposed personal fields are deliberately omitted.
+
+Defect: an obstacle that blocks data flow is treated as a bug and removed; nobody checks what it was holding. Related: a door or outcome is judged by an outside signal (commit sha, thread start, error string, exit code of a probe) instead of by reading the other side.
+
+Position on the line: 160 receipt before fact; 161 verdict on one line; 162 the fix is the hazard; 163 switch off your own; 164 zero without a map; 165 fix never reached its own test; 166 lock on resource not call; 167 recon outran hands; 168 one door vs another door; 170 the removed obstacle was the lock.
+
+## 1. Public dataset push
+
+### 1.1 Context
+
+Task: decentralise live session transcripts across all owner nodes (mesh instead of star). Done: 6x6 mesh, separate history folder, 7-day bin on all receivers, `st_sessions_live.py` fleet-status and fleet-lag (43 tests, mutants red). Mesh 42/42 cells = configuration; delivery proven only by fleet-lag, 18/30 OK at retro time.
+
+### 1.2 Problem -> Cause
+
+| Item | Fact |
+|---|---|
+| Dataset `.gitignore` | `*.jsonl` since 08.10 |
+| Effect | HF dropped all raw files silently |
+| Push verdict | "OK" by sha of the commit |
+| Commits | 72 empty |
+
+### 1.3 The order error
+
+Action: ignore line removed, push started immediately. The ignore line had been acting as an accidental lock. The push published raw session files with unmasked personal fields; the mask audit (two methods + full store scan) ran after.
+
+Audit: keys and passwords masked; a set of personal-field classes not masked.
+
+Response: push killed; all publishing tasks disabled; neighbouring publishers warned. Mask fix not started: executor agent stopped by model safeguards. Checker confirmed mask unchanged, traps still pass.
+
+Closing the dataset and cleaning its history = owner decision. Outward post for the day skipped (would draw attention).
+
+### 1.4 Solution (gate)
+
+| Gate | Behaviour |
+|---|---|
+| Pre-check | `cmd_push` inspects `.gitignore` before upload |
+| Post-check | "HF accepted N of M"; success only by re-read remote file list, never by commit sha |
+| New data shape | full detector scan of the store before first push |
+| Mask gate | tested with traps of several classes, not one sample |
+
+Panel (6/6) accepted: order of events (the remote raw folder did not exist before this run); mesh config vs delivery are separate claims; count-based checks do not see content corruption (accepted as limit).
+
+## 2. Acceptance by outside signal
+
+| Case | Outside signal | Truth | Fix |
+|---|---|---|---|
+| Assistance rail, Codex | `thread.started` | next event `turn.failed: usage limit`; 2 of 13 "Codex ok" false; backup Claude not triggered; voice notes lost ~2 h | Codex accepted by first model step (`item.*`/`turn.completed`); Claude by link + `"type":"assistant"` in new transcript; red probe on old file 1 red, `if True:` mutant 1 red; lost notes re-raised |
+| "cloud cannot raise a local session" | own belief, no RECALL | fleet memory had proven path and `appdoor.py` | door wired; canary and real voice note 5 s and 6 s |
+| loss blamed on rail 001 | start timestamp | rerun showed a different chat | judge loss by chat id |
+| Codex door, `Operation not permitted` | log string read as missing disk permission | Full Disk Access was on; orphan app-server 0.164 held control socket since 02.11 vs CLI 0.169, hook not executed | old server stopped; door code 0 with answer in transcript |
+| Antigravity door | process `SUCCESS` | empty answer text | door logs code 5 "turn without answer" |
+| WhatsApp probe | copied DB file only | fresh rows in `-wal`, not copied; RED 183 h | copy with journal; GREEN 0.0 h |
+
+### 2.1 n8n retry
+
+| Item | Fact |
+|---|---|
+| Runs 13-19.11 | 638 |
+| Errors | 5, all Telegram network (3x 504, 2x drop) |
+| Retries before | 0 |
+| Fix A | `retryOnFail` on 6 nodes |
+| Fix B | separate retrier workflow every 3 min for network failures; first tick restored 1 loss |
+| Door test | was red since 19.11 (checked cancelled contract); 5 red -> 49 green |
+
+Open: n8n import deactivated the active workflow for about a minute; possible inbound loss in that window not checked.
+
+## 3. Measurement honesty
+
+| Item | Fact |
+|---|---|
+| Canon 7.1 vs 6.18 "97 vs 95" | four runs, one rejudge, Fisher p=0.72: noise |
+| Canon 7.6.2 exam | +12 hard situations, 2 runs, answer form checked by code |
+| Discarded run | Gemini 17/25 excluded post hoc by reasoning; panel: fitting; third run 23/25 |
+| Result | without one situation (needed line moved from canon to a skill) pairs 17:11, p=0.35 |
+| Co-founder figure | "70.44% vs 50.71%" did not reproduce; repeat of same gauge 54.18% vs 48.83%; corrected in skill, packet and prompt before podcast; cause unproven |
+| Duplicate build | heresy registry rebuilt while a neighbour session had shipped one that morning; duplicate marked "do not use" |
+| New canon line exam | pairs 16:0, 13 even; proves the line is read, not live behaviour |
+
+Rule: an inconvenient run is re-measured, never dropped. A number is re-measured before it leaves the session.
+
+## 4. Reapers
+
+Order: an LLM-free routine to kill zombies fleet-wide plus a second layer that finds authors. RECALL: about ten reapers exist; an eleventh was not built.
+
+| Item | Fact |
+|---|---|
+| Cause 1 | rail 001 cleanup regex expected `SCREEN`; `ps` prints `/usr/bin/SCREEN`; never matched |
+| Held | 17 sessions, 26-31 h, 8.7 GB |
+| Cause 2 | node missing from patrol's orphan-kill host list; 11 days in shadow |
+| After | simultaneous Claude sessions 86 -> 5; swap 78% -> 58% |
+| Tests | regex test red on old code; patrol 63/63 |
+
+Pattern: fix the misses of existing gauges before building another one.
+
+## 5. Backup node VM migration
+
+| Item | Fact |
+|---|---|
+| Switch | 25 min: 3 rsyncs, network-less test boot, services stopped, final rsync, VM service enabled |
+| After | key services active, failed list empty, sync sees all peers |
+| Old server | powered off only; deletion = owner decision |
+| Disk growth root | a guard moved `.stversions` from the bus folder to an evacuation folder outside sync bin cleanup |
+| Own error | found orphaned near-finished work, waited for its owner ~2 days |
+
+Rule: work with no ON AIR claim and no live process is adopted at once.
+
+## 6. Persona roles bench
+
+| Item | Fact |
+|---|---|
+| Wave 1 | 20 roles x 5 models, 100/100 answers |
+| Judges | 2 blind, different families, correlation 0.78 |
+| Rejudge | same role winner in 13/20 only; stable = tier order |
+| Contamination | Grok on one node reads canon; stays Mycroft in an SMM role; row invalid for clean comparison |
+
+## 7. Other sessions
+
+- CLAUDE.md v8 draft with rule routing: root 143 lines vs 1124; review found a lost stop list, fixed.
+- Assistance rail: two Codex accounts; door iterates login homes on limit; panel found a write race, fixed.
+- Hot memory on one node: old hook labelled a nightly copy "live index"; new hook answered "unavailable" 163/163; panel of 7 refuted 3/3 own claims; hourly build with a fuse accepted.
+- DR content factories: no new factory; one publishing door plus own registry.
+- DR open models without guardrails: 5 legs; panel: model agreement is not proof.
+- Article distribution: two articles to new venues, each line in publishing ledger.
+- Canon persona address points at a shortcut; fix request returned with no taker.
+
+## 8. Patterns
+
+P1. An obstacle that blocks data flow may be an accidental lock. Before removing it, scan what it holds with the same detector the publish gate will use.
+
+P2. "Published" = re-read remote file list matches what was sent. A commit sha, an exit code or "push OK" proves nothing about content on the remote.
+
+P3. Acceptance = the consumer's answer (model step, transcript line, remote listing). Start events and process status are knocks.
+
+P4. An error string is a symptom. `Operation not permitted` was an orphan server, not a missing permission; read state (versions, socket owner, settings) before concluding.
+
+P5. "Cannot" is a claim. RECALL fleet memory before saying it.
+
+P6. A copy of a WAL database without its journal looks stale while the data is fresh.
+
+P7. A discarded inconvenient run hides the variance. Re-measure; never exclude post hoc.
+
+P8. Reaper patterns must be tested against live `ps` output, including full paths.
+
+## 9. Source note
+
+No canon beats for 20.11; the chapter is built from 23 retros. Four personal retros omitted.
 
 ✍️ Написано: Opus 5.5
