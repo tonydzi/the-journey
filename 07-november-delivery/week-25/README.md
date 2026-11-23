@@ -11,10 +11,12 @@ The week opens with Day 166 (November 16): the ban on git worktrees, checked by 
 - [День 168 - 18 ноября: одна дверь, ещё одна дверь](2026-11-18.ru.md) · [EN](2026-11-18.en.md) · [🤖 machine](2026-11-18.dev.md)
 - [День 169 - 19 ноября: постановка протухает раньше решения](2026-11-19.ru.md) · [EN](2026-11-19.en.md) · [🤖 machine](2026-11-19.dev.md)
 - [День 170 - 20 ноября: сними замок, а потом посмотри, что он держал](2026-11-20.ru.md) · [EN](2026-11-20.en.md) · [🤖 machine](2026-11-20.dev.md)
+- [День 171 - 21 ноября: один код возврата на два смысла](2026-11-21.ru.md) · [EN](2026-11-21.en.md) · [🤖 machine](2026-11-21.dev.md)
+- [День 172 - 22 ноября: правку сделали в одном доме, а жили в пяти](2026-11-22.ru.md) · [EN](2026-11-22.en.md) · [🤖 machine](2026-11-22.dev.md)
 
 ---
 
-*Week 25 is open: 5 of 7 days (November 16-20) are written.*
+*Week 25 is closed: 7 of 7 days (November 16-22) are written.*
 
 Day 167 (November 17): reconnaissance outran the hands, with 16 agents and 8 briefs but 0 doors walked. Day 168 (November 18): a door built beside an existing door is one more door.
 
@@ -25,3 +27,7 @@ Source note: Days 167-170 are written from retros only (personal retros not used
 Day 166 (November 16): every "closed" door was tested by a live shot, not by `--help` or a config; the day also holds the X no-links lock, the rail 001 move to Mac Studio, the full principles block in 333 skills, and the repair of 175 renamed skills.
 
 Source note: Day 166 is written from retros only (36 files, 4 personal not used), no canon beats.
+
+Day 171 (November 21): one exit code carried two meanings, so watchers called live things dead and a real red door green. Day 172 (November 22): a fix made in one house while the thing lived in five.
+
+Source note: Days 171-172 are written from retros only (personal retros not used: 7 and 1), no canon beats. Both were closed on November 23.

@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 148 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 150 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -23072,5 +23072,358 @@ P8. Reaper patterns must be tested against live `ps` output, including full path
 ## 9. Source note
 
 No canon beats for 20.11; the chapter is built from 23 retros. Four personal retros omitted.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-21.dev.md
+
+---
+title: "Day 171 - 2026-11-21: one exit code, two meanings; a collision watchdog returned 1 for both a finding and a crash, the healer read its passport only to line 80 while EXIT: sat on line 92, and grey-by-design doors were logged as dead tasks for three weeks"
+date: 2026-11-21
+day_index: 171
+week: 25
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [exit-code-semantics, watchdog, healer, passport, expected-exit-codes, scheduler-timeout, event-329, build-tail, sha256-cache, time-cap, hook-bypass, witness, outcome-judge, data-vs-tool-text, token-boundary, json-escape, privacy-bridge, test-isolation, fixture-leak, stale-argument, live-title]
+---
+
+# Day 171 - 2026-11-21: one exit code, two meanings; a collision watchdog returned 1 for both a finding and a crash, the healer read its passport only to line 80 while EXIT: sat on line 92, and grey-by-design doors were logged as dead tasks for three weeks
+
+Dev-log form. Assembled from retros (70 files, 7 personal omitted, 63 working); no canon beats for 21.11 (section 9). Numbers only from the retros.
+
+The value of the leaked API key is deliberately omitted; only the fact and the mechanism are recorded.
+
+Defect: one exit code (or one signal) covers two distinct events. The reader of the code picks one meaning, usually the worse one: a live process is called dead, and a real alarm can drown among false ones. Related: a stale signal (argument, start event, word match) is trusted over the live source.
+
+Position on the line: 163 switch off your own; 164 zero without a map; 165 fix never reached its own test; 166 lock on resource not call; 167 recon outran hands; 168 one door vs another door; 170 the removed obstacle was the lock; 171 one exit code, two meanings.
+
+## 1. Exit code semantics in watchdogs
+
+### 1.1 Collision watchdog
+
+| Item | Fact |
+|---|---|
+| Script | `cross_node_collision_watch.py` |
+| Exit 1 | meant both "collision found" and "Python crashed" |
+| Passport | `EXIT:` line at line 92 |
+| Healer | `selfheal.py:513` reads first 80 lines only |
+| Healer verdict | any unexplained non-zero = "dead task" |
+| Class count | third breakage of the class |
+
+### 1.2 Fix
+
+| Code | Meaning |
+|---|---|
+| 1 | finding |
+| 3 | alarm not delivered |
+| 4 | crash |
+
+On crash, collision pairs are not written to the database (no half-records read later as findings). Recipe "line in the code map + 3 + 4 + target in the test" applied for the 6th time this month.
+
+### 1.3 Doorbell watchdog
+
+| Item | Fact |
+|---|---|
+| Window | 01-21.11 |
+| Runs | 95 with code 2, 34 with code 3, 0 with code 0 |
+| Cause | 3 of 4 doors grey by design; code 2 is the honest answer |
+| Log | every code 2 run recorded as failure |
+| Fix | `_shared/expected_exit_codes.json`: signal [2] for this watchdog |
+
+### 1.4 Verification
+
+Panel (grok, gemini, glm) found two holes in the fix itself; both closed. Red proven with four mutants via `red_proof.py`.
+
+Open: code 3 at a real red door is still logged by the Scheduler as "dead task". The next night after the fixes has not run yet; no consumer-side fact.
+
+## 2. Scheduler time limit read as task death
+
+| Task | Fact | Fix |
+|---|---|---|
+| TX nightly build | limit 4 h; build 3.5 h + tail (gates 29.8 and 35.9 min, judge, release write); killed at exactly 4 h (event 329, code 267014) | `build_timeout()` in `tx_weekly_batch.py` caps build at limit minus tail (11700 s at 18000 s limit); task limit 5 h |
+| Root | task limit and build duration edited separately by different sessions; no shared budget | one budget computed in code |
+| `tx_release_gate.py` | re-read 7.9 GB jsonl nightly; release unchanged since 16.11 | verdict from sha256 cache; limit 30 min -> 2 h; test 52 checks, 0 failures, 3 new cases red on old copy |
+| `proc_census.py` | work tied to a folder of 25266 files; no time cap; killed at exactly 10 min on 18, 19, 21.11; duration 87-352 s | scandir walk; cap 120 s per phase |
+
+Open: cause of slow builds 17-20.11 unknown ("cold cache" = hypothesis).
+
+Rule: first check of a "dead task" = exit code + Scheduler log (`wevtutil`, events 201 and 329). The hypothesis "robot alive, non-zero is normal" was refuted in 5 retros; neither reading is a default.
+
+## 3. Live components reported dead
+
+### 3.1 Canon witness hook
+
+| Item | Fact |
+|---|---|
+| Alarm | "witness hook dead", 4 nights (18-21.11) |
+| Dispatcher log | 149 and 153 hook launches |
+| Hook scope | Write and Edit tools only |
+| Bypass 1 | `MEMORY.md` appended via shell `printf >>`, 6 s after the lock refused the write |
+| Bypass 2 | `CLAUDE.md` v7.2.0 built by a script on another node, arrived via sync |
+| Signal ambiguity | "file changed without witness" = witness dead OR write bypassed the hook |
+| Fix | `canon_bypass_detector.py`: search session records for the writer, window 60 min before and 5 min after mtime; names node and session |
+
+Owner decision: whether `MEMORY.md` belongs in the canon circle.
+
+### 3.2 Browser rail outcome judge
+
+| Item | Fact |
+|---|---|
+| Judge | `judge_outcome` matched `error`/`failed` across the whole tool response |
+| Flaw | a page-read response is page text; data words read as tool status |
+| Replay | 2594 real responses: old rule fail 40, new rule 0 |
+| Reverse control | 129 real "not connected" still red |
+
+Rule: a judge must distinguish tool-emitted status from words inside returned data.
+
+## 4. Real red that the scrubber missed
+
+| Item | Fact |
+|---|---|
+| Detector | TX release watchdog found 1 full-length Google API key (39 chars) in a Codex session; held 5 TX venues off |
+| Mechanism | JSON-escaped `=` as `=`; the char before the key was `d`; token boundary `_TB` in `tx_publish.py` treated it as a word char, so no boundary matched |
+| Scope | all 7 token kinds blind under this escape |
+| Fix | `\uXXXX` and `%XX` count as boundaries |
+| Test | `_test_tx_token_boundary.py`: 135 checks, 72 failures -> 0 |
+| Cache | `PRIVACY_BRIDGE` added; otherwise ~1 day of cold recompute |
+| Rebuild | 18:45-21:28 UTC, rc=0; keys in release 2 -> 0 |
+
+Contrast case: the alarm had a single meaning and was held red until a proven zero.
+
+## 5. Test fixture leaking into the live rail
+
+| Item | Fact |
+|---|---|
+| Symptom | text "codex-first" in a live rail 001 session = verbatim fixture from `_test_voice001_fire_budget_dedup.py` |
+| Root | red proof ran against old copies `voice001_fire.py.bak-*` without the door guard; `machine.env` keeps doors enabled |
+| Fix | `os.environ.setdefault(<4 door flags>, "0")` in 18 tests |
+| Interception | launch attempts 10 -> 0 |
+| Regression | diff of 19 tests before/after empty |
+
+Rule: red proof on an old copy must run with outward side effects disabled.
+
+## 6. Retro trusted a stale title argument
+
+| Item | Fact |
+|---|---|
+| Symptom | owner's mark in session title wiped, 5 cases on 2 nodes (08.11-17.11) |
+| Prose rule | added 11.11; did not help |
+| Root | `retro_plan` trusted `--text`; live name on disk |
+| Disk | 551 of 25261 session files have `titleSource: user` |
+| Fix | `session_titles.live_title(sid)`; test `test_retro_plan_reads_live_title_not_stale_text` |
+
+## 7. Other sessions
+
+- Chrome slow: VPN extension proxy storm (96 `proxyAuthError`, 186 `onAuthRequired`, 60 PAC rebuilds in 10 min of log) + bloated profile DBs. 1267.6 MB freed; History 57.09 MB -> 5.00 MB, `integrity_check ok`; 670 new visits over 56 h 45 min. Disabling the extension via `manifest.json`: confirmation self-refuted.
+- Claude Desktop, 43 h after fix: 22 fast Syncthing folders of 92 across 6 machines calmed.
+- Rail 001 session beats: 13 sessions with v4 header, 46 nudges, 42 live turns, 4 refused by the Opus 5.5 safeguard; 2 nudges lost on app quit ("Stopping 47 active session(s) on quit"); `durable` flag of CronCreate has no effect in this harness.
+- Codex rhythm: `voice001_codex_beats.py` (+60/120/180 min QQQ, +240 retro). Voice census 04-20.11: 300 notes, Claude 297, without Claude 3.
+- WhatsApp reader: honest BLOCKED; expected tool `get_source_evidence` absent from a third-party package of 17 tools; no code change, nothing sent. Green tests on stubs without a built provider rejected.
+- Agent memory: Zep line; five stores (chDB, DuckDB, LanceDB, Qdrant, pgvector) on 1000 vectors and 20 queries (component check, not quality). Zep v3 article with explicit limits. Precise Zep run awaits spending approval.
+- DolphinBench: new full official runs 0/4, status PARTIAL; release check exit 0, 600 tests, 11147 sessions.
+- Research: machine unlearning; DR legs 1/6 -> 4/6, 6/6 not declared. deer-flow reviews #8422 and #8474 (move: "flag in one place: list all other entry points"). NotebookLM: three series; three errors in one episode, new set issued.
+
+## 8. Patterns
+
+P1. One exit code = one event. A watchdog with overlapping codes (finding vs crash, grey vs dead) poisons every downstream reader.
+
+P2. The healer must read the code map wherever it is. A fixed read window (first 80 lines) silently turns a documented code into an unknown one; a shared `expected_exit_codes.json` removes the window.
+
+P3. A crash must not write partial results that a later reader can mistake for findings.
+
+P4. "Dead task" needs two readings before a verdict: exit code and Scheduler events (201, 329). A kill by time limit is not a task failure.
+
+P5. Two numbers that must fit together (task limit, build duration) live in one place and are computed, not edited separately.
+
+P6. Re-reading an unchanged input is waste; cache by content hash.
+
+P7. "Witness did not see the write" has two causes: witness dead, or write bypassed it. Find the writer before declaring the witness dead.
+
+P8. An outcome judge distinguishes tool status from returned data text; test it on real responses in both directions.
+
+P9. Token boundaries must treat escape sequences (`\uXXXX`, `%XX`) as boundaries; a scrubber rule change needs a cache bridge.
+
+P10. Red proof on old copies runs with outward doors disabled; otherwise the test is a live caller.
+
+P11. A live source (name on disk) beats a passed argument.
+
+## 9. Source note
+
+No canon beats for 21.11; the chapter is built from 70 retros. Seven personal retros omitted; 63 working retros used.
+
+Open at close: next night after the fixes (TX Daily Core, TX Release Gate, `proc_census`, `selfheal`); code 3 at a real red door still logged as "dead task"; slow builds 17-20.11 cause unproven; 2981 cutover-hub records not reconciled with Telegram; DolphinBench 0/4; Zep precise run awaits spending approval; memory research result not accepted; WhatsApp history 2021-2022 not covered; `MEMORY.md` in canon circle = owner decision; six retros returned empty fields in a spot check.
+
+✍️ Написано: Opus 5.5
+
+
+== 2026-11-22.dev.md
+
+---
+title: "Day 172 - 2026-11-22: the fix was made in one house, and the thing lived in five; hook cleanups done in one client on the hub never reached Codex or the laptop, a stale manual SSH block shadowed the managed one, and program conversations lived per machine with their own expiry"
+date: 2026-11-22
+day_index: 172
+week: 25
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [one-house, config-per-client, startup-hooks, codex-hooks, p95, overclaim, stop-hook, powershell-call-operator, stdin, ssh-config-first-match, managed-block, conversation-retention, ignoreDelete, sync-conflict, on-disk-digest, snapshot-vs-live, continuation-seed, peer-help, time-limit-kill]
+---
+
+# Day 172 - 2026-11-22: the fix was made in one house, and the thing lived in five; hook cleanups done in one client on the hub never reached Codex or the laptop, a stale manual SSH block shadowed the managed one, and program conversations lived per machine with their own expiry
+
+Dev-log form. Assembled from retros (23 files, 1 personal omitted, 22 working); no canon beats for 22.11 (section 9). Numbers only from the retros.
+
+Defect: a setting that exists in several homes (per client, per machine, per block of one file, per copy) is fixed and verified in one home; the verification is read as fleet-wide. Related: a verdict is passed from a snapshot or an old digest while a live source exists.
+
+Position on the line: 165 fix never reached its own test; 166 lock on resource not call; 167 recon outran hands; 168 one door vs another door; 169 the statement expires before the solution; 170 the removed obstacle was the lock; 171 dead task was a time-limit kill; 172 the fix lived in one house of five.
+
+## 1. Startup hooks, one denominator
+
+### 1.1 Measurement (4 sessions, 4 nodes)
+
+| Home | Start latency | Note |
+|---|---|---|
+| Studio | p95 72 ms | baseline |
+| Hub, Claude | p95 7.4 s | |
+| Hub, Codex | 5.2-5.8 s | up to 485 KB context per start |
+| Laptop (ZB) | p50 15.4 s, p95 30 s, max 75 s | |
+
+### 1.2 Problem -> Cause
+
+Cleanups of 15-16.11 edited only Claude hooks on the hub. Codex on the same hub and the laptop read their own configs; the cleanup never reached them. Hub Claude being fast was read as fleet proof.
+
+### 1.3 Solution
+
+| Home | Before | After |
+|---|---|---|
+| Hub, Codex | 6 hooks | 1 hook, start output 2710 bytes |
+| Hub start | 7.4 s p95 | under 0.1 s in 7/7 runs |
+| Laptop | 40 rules | 27 off, 13 kept |
+
+Overclaim caught by Codex review: "300 ms budget met". 300 ms was the target; two runs do not yield a p95.
+
+### 1.4 Codex `Stop Failed` (flaky)
+
+| Cause | Mechanism | Fix | Proof |
+|---|---|---|---|
+| A | Orca hook `codex-hook.cmd` exited without reading stdin when Orca not running | drain stdin | 3 live runs, 0 errors |
+| B | Stop hook `completion_check.py` launched by quoted path without `&`; PowerShell breaks it (rc=1; with `&` rc=0); found by silencing hooks one at a time | hook disabled | `codex exec`: Stop x3, Completed x3 |
+
+Open: Orca may overwrite `codex-hook.cmd`.
+
+## 2. SSH mesh, seventh pass (`fleet_ssh_mesh.py`)
+
+| Item | Fact |
+|---|---|
+| Start | 19/32 green |
+| Red | 12 edges to 3 family machines, offline 1209 h |
+| Real defect | 1 edge: manual block for the backup node with an old address above the managed block; SSH first match wins; `ssh -G` showed the dead address |
+| Fix | `fleet_ssh.py` 1.4.5 -> 1.5.0, managed block first; `build()` separates "not connected" |
+| Result | 30/30 between owner's 6 machines; 42 family edges not judged |
+
+## 3. Conversations of all programs into the vault
+
+Owner decision: keep forever, one writer per folder, folders move into the vault.
+
+| Item | Fact |
+|---|---|
+| Hub Antigravity | junction, 1876 = 1876 by MD5 |
+| Studio | 370 = 370 |
+| Antigravity mesh fleet-wide | 2476 files, need 0 |
+| Studio Claude retention | 30 days; older already erased; set `cleanupPeriodDays: 3650` |
+| Antigravity behaviour | deletes conversations without a database itself; receivers require `ignoreDelete` |
+| Not moved | Codex on Studio and hub; Claude on all machines |
+
+## 4. Copies and snapshots
+
+### 4.1 Session-number shelf (Mac)
+
+| Item | Fact |
+|---|---|
+| Profile | cProfile: 1.047 s of 1.14 s parsing 15 shelves |
+| Copies | 9 of 15 old `sync-conflict` copies, 106 MB |
+| Data | title field held whole prompts, up to 9385 chars |
+| Fix | on-disk digest in `session_code.py::_read`, no deletion |
+| After | mint 1.14 -> 0.22 s; records 18357 = 18357 |
+| Open | application on other nodes not proven |
+
+### 4.2 B2B list: snapshot vs live
+
+| Claim | Snapshot | Live |
+|---|---|---|
+| "no warmth" | true for vault snapshot | `leads.db`: temperature on 14 189 of 14 194 |
+| "X overdone x4" | stale | 8/day since order of 19.11 |
+| Tasks | 4 | 2 already done |
+| Find | | 1815 lost warm leads; root `retag_v2.py::dm_signal` |
+| CRM fill | overall % hid it | live cards 1081/14151 filled 99-100% |
+
+### 4.3 Continuation seed
+
+Two sessions continued from an old digest without reading neighbours; one extra "yes" request reached the owner. Seed in `session_distill.py` said only "check facts against files". Added: read the parent's tail and `onair.py same`.
+
+Test 11/11 does not cover the new line (gap). `retro_lost`: Studio lacked the `workclaim` lock store.
+
+## 5. `peer_help` five whys (done-not-answered)
+
+| Item | Fact |
+|---|---|
+| Event | executor on MacPro192 sent answer; command not executed; session stopped before result |
+| Refuted | "forgot to answer" (session record) |
+| Count | 227 foreign claims: 166 answered, 16 refused, 45 silent (not cleaned) |
+| Fix | `claim_went_silent` and `finish` action in `peer_help.py` |
+| Test | `_test_peer_help_sweep.py` 95 PASS; guard silenced -> 6 red |
+| Rollout | 5 nodes, checksum match; panel 6/6 in 115 s |
+| Open | no live nudge yet; what stops a session mid-answer unknown |
+
+## 6. Time-limit kills (detail in day 171)
+
+| Task | Fact | Fix |
+|---|---|---|
+| node-health-beat | killed 8 times in 9 days; internal timeouts ~173 s vs 180 s limit | PT3M -> PT10M; `selfheal.py::time_limit_kill()`, test red on 4 cases |
+| Grok CLI Export | 5 nights START without EXIT; 5.06 GB history read 3x per night | incremental read: 30-87 s vs 4-30 min; test 17 checks, rc=1 on old code; commit 6ec4c82b |
+| Regress Grid Nightly | 2994 tests, cycle over a day, no whole-run ceiling, hub board stale 17 days | PT72H -> PT4H; `_test_regress_run.py` 32/32 |
+
+Note: `subprocess.run(timeout=3)` returned after 25.9 s while a child held the pipe. Open: which of two causes produced exactly 72 h.
+
+## 7. Other sessions
+
+- Voice pipelines: `transcript_drop.py`; Plaud upload 579 = 579; GPU catch-up 125 OK, 4 SKIP, 0 FAIL in 48890 s; blind judging 06.10 agreement 31/36 chunks; no fresh judging after GPU changes of 02.11.
+- Robot fights podcast: 14 fights, 2 episodes.
+- Three red debts in foreign repos: one answer, two acks.
+- 34 essences on AI character (owner expected 24).
+- SGM plugin v0.3.10, no live run.
+- Journal article package stopped: venue forbids LLM-written text; `ready` not set; owner decision; `ai_policy` field in `venues.jsonl`.
+
+## 8. Patterns
+
+P1. A setting has as many homes as there are readers of config. Enumerate homes (clients, machines, blocks, copies) before the fix; verify in each.
+
+P2. A fast result in the repaired home is not fleet evidence. Measure the unrepaired homes.
+
+P3. A target is not a measurement. p95 needs a sample, not two runs.
+
+P4. SSH config is first-match. A managed block must be placed first, or a stale manual block wins silently; `ssh -G` shows the effective value.
+
+P5. Retention is per home. Data kept "forever" by policy may already be gone in a home with a 30-day default.
+
+P6. A receiver of a self-deleting source needs `ignoreDelete`, or one home's deletion propagates.
+
+P7. Old `sync-conflict` copies are readers' load. Digest instead of delete.
+
+P8. A snapshot answers about its date. Verdicts on live state read the live store.
+
+P9. A continuation reads the parent's tail and neighbours before acting.
+
+P10. A hook launched by a quoted path in PowerShell needs `&`; a hook must drain stdin even when its target is absent.
+
+## 9. Source note
+
+No canon beats for 22.11; the chapter is built from 23 retros. One personal retro omitted. Owner quotes in the retros are mostly not verbatim; only short ones used.
 
 ✍️ Написано: Opus 5.5
