@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 150 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 152 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -23427,3 +23427,353 @@ P10. A hook launched by a quoted path in PowerShell needs `&`; a hook must drain
 No canon beats for 22.11; the chapter is built from 23 retros. One personal retro omitted. Owner quotes in the retros are mostly not verbatim; only short ones used.
 
 ✍️ Написано: Opus 5.5
+
+
+== 2026-11-23.dev.md
+
+---
+title: "Day 173 - 2026-11-23: the silent fallback is paid, the loud refusal is free; a merged button label moved robot sessions to the expensive model for ~16% of a weekly bucket in 2 days, a one-key lookup declared three archived documents never downloaded, and five more actors reported success that the consumer did not get"
+date: 2026-11-23
+day_index: 173
+week: 26
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [silent-fallback, loud-refusal, ui-label-drift, model-refused, anchored-patch, diverged-copies, absence-claim, one-key-lookup, archive-listing, private-draft, incomplete-panel, http-409, done-not-complete, and-to-or, delivered-not-applied, queue-without-source-ids, move-filter, stignore, startup-load, auto-compact, routing-claude-md, help-flag-side-effect]
+---
+
+# Day 173 - 2026-11-23: the silent fallback is paid, the loud refusal is free; a merged button label moved robot sessions to the expensive model for ~16% of a weekly bucket in 2 days, a one-key lookup declared three archived documents never downloaded, and five more actors reported success that the consumer did not get
+
+Dev-log form. Assembled from retros only (15 files; 3 personal omitted and not described; 12 working); no canon beats for 23.11 (section 10). Numbers only from the retros.
+
+Defect: when the requested path fails, the component continues along a spare path (default model, "not found = absent", broader search, all sources, reduced file set) without a signal. Output looks normal; the cost surfaces later. Related: one actor's status ("Connected", `done`, "delivered", "queued") read as the consumer's result.
+
+Position on the line: 166 lock on resource not call; 167 recon outran hands; 168 one door vs another door; 169 the statement expires before the solution; 170 the removed obstacle was the lock; 171 one exit code, two meanings; 172 the fix lived in one house of five; 173 the silent fallback is paid.
+
+## 1. Robot sessions on the wrong model
+
+### 1.1 Problem -> Cause
+
+| Item | Fact |
+|---|---|
+| Symptom | 57% of a weekly subscription limit used; largest share from sessions raised by `spawn_lifter.py` |
+| UI change | Claude Desktop merged buttons into one label ("Opus 5.5 Medium · Ultracode") |
+| Door | `voice001_push.py` compared the label strictly, did not recognise the model |
+| Branch | lifter took MODEL-FALLBACK to the app's selected (expensive) model, since 13.11 |
+| Cost | ~16% of the weekly bucket in 2 days from robot sessions |
+
+### 1.2 Solution
+
+| Change | Detail |
+|---|---|
+| Parse | merged button parsed; menu wait up to 6 s; strict check for Sonnet 5.5 |
+| Refuse | selection failure -> session NOT raised, MODEL-REFUSED |
+| Old path | behind flag `SPAWN_LIFTER_MODEL_FALLBACK=1`, off by default |
+| Live | 6 live sessions switched to Sonnet 5.5 |
+| Tests | 3 tests rc=0; red run: no flag -> refused, flag -> fallback |
+| Panel | 6/6 |
+
+### 1.3 Rollout on diverged copies
+
+Node copies diverged (laptop md5 0294fd.. vs latest fleet c7b6f0..). Whole-file push would overwrite foreign edits. Anchored patch `robot_sonnet_patch_20261123.py`: 7 chunks old->new; a chunk applies only if the old text occurs exactly once; one miss = file untouched; backup kept.
+
+| Package | Applied | Waiting |
+|---|---|---|
+| 9 nodes | 5 (laptop, hub, 3 Macs) | 4 (package robot) |
+
+Open: MODEL-REFUSED is counted, nobody reads it. Class `ui-label-drift-silent-fallback` 1/3.
+
+## 2. Absence claimed by a one-key lookup
+
+| Item | Fact |
+|---|---|
+| Task | podcast coverage audit for a closed group; session 4 h 02 min with Codex |
+| Claim | 67 links matched by URL ID; 3 documents declared "never downloaded" |
+| Refutation (Codex) | all 3 in the October ZIP (`drive/*.txt`) and briefly in chapter 9 |
+| Archives | 505 entries Oct, 60 Nov (two ZIPs); SHA 6/6 |
+| Old Nov transcripts | 6 = 3 v1 + 3 v2 |
+| Fix | `unzip -l` + grep by document title before "missing" |
+| Result | 15 ready episodes + 1 draft; E16 new coverage, E14/E15 deepening |
+| Second defect | E15 v1 built from a closed draft "please do not share further"; v2 on public version; v1 renamed "DO NOT LISTEN" |
+| Audio QA | blocked on owner yes (download needs approval) |
+| Panels | Claude retro 6/6 in 63 s; Codex audit 5/6, DeepSeek 65 536 output tokens on reasoning, no answer (finish_reason=length); reported incomplete, limit not raised |
+
+Class `absence-claimed-by-one-key-lookup` 1/3.
+
+## 3. One actor's status read as the consumer's result
+
+| Case | Status reported | Consumer fact | Root | Fix | Open |
+|---|---|---|---|---|---|
+| Codex phone pairing (Mac) | CLI "Connected" | app HTTP 409 "Remote app server already online", 10 in 21:47-21:50 (narrow window showed 0) | two services, one registration | stop competitor, restart app, standalone `remoteControlEnabled=false` via stock command rc=0; reviewer "enable before QR" rejected | phone, QR, live chat |
+| Call transcription | window `done` | short one-sided phrases lost | one file per 30 s cell chosen by speech duration; old test expected one mic; empty part skipped, neighbour success marked window done; search exact AND -> broad OR | all speech devices kept separately with own clocks; `recognition-warning` / `partial`; exact before broad; segment 08:45-08:50 10 -> 16 lines; 18 new + 68 old + 1 search rc=0; panel 6/6 | |
+| Session delivery (hub) | 30/30 directions SHA match; 13 571 paths, 0 gaps | Studio: old open Codex processes wrote 11 originals with >=5 768 385 extra bytes; Pro: 17 old files open | old processes on old folders | owner-approved restart: 1 501/1 501 and 1 729/1 729, 0 old writable | app-side chat open not checked |
+| Pilot exam podcasts | 18 orders queued | at 18:47:58 UTC 14 pending, 4 `QA_HOLD_SOURCE_WHITELIST`, 0 audio | queue stores no source_ids, calls without `-s`; client takes ALL notebook sources | 4 orders held via `mark --status failed`; batch script not rerun (resets state) | pass source_ids through queue; CLI login exit 2 "Missing required cookies" |
+
+Content defect in the pilot reports: foreign national rules, withdrawn documents, invented exam-question frequency.
+
+## 4. Move filter that would drop app files
+
+| Item | Fact |
+|---|---|
+| Move | hub Codex/Antigravity session folders into the vault under junctions |
+| Defect | neighbour session rewrote `sessions_into_vault.py` with a system-dir skip list: `files()` = 95 vs 13 334 |
+| Catch | read before run; rollback to rev3; red test proved loss |
+| Rule | move copies everything; filter only in the pipe's `.stignore` |
+| Antigravity cutover | 13 354 files, 62/62 conversations, 1172 s downtime |
+| Codex | 12 253 + 1 appended, 0 missing |
+| Archive | 827/827 |
+| Folder open | 19-37 ms; reboot: tree walk 16.8 s vs >90 s (helped half); kernel-leak hypothesis refuted |
+
+Mesh (one pipe per node, 6x6):
+
+| Item | Fact |
+|---|---|
+| Mesh | 36/36 points, err=0 |
+| Index | 26 000+ -> 13 568 after `.stignore` |
+| Temp logs | 99.3% of antigravity brain files (12 855 of 12 946) |
+| Recovered | 10 151 previously unsynced Codex sessions + 1 504 from Studio |
+| Gotcha | Python `open(".stignore","w")` Errno 13: Syncthing marks it hidden on Windows |
+| Gotcha | temp-dir exclusions must precede `!` negations, else scanner walks 7000 subfolders |
+
+## 5. Token audit
+
+| Measure | Value |
+|---|---|
+| TG+WA MCP share (40 781 files) | 0.77% Oct, 0.82% Nov; 0.49% = list of 156 names per request |
+| Startup load (37 484 files) | 52.6% of cost, median 95K |
+| Sessions >500K | 456 files, 31.3% |
+| Subagents | 17% |
+| Fleet Oct-Nov | 120.2 bn tokens |
+| 200K cap | share to 22.4% |
+| 300K | estimated 10-15% saving (guess) |
+
+Decision: TG/WA lists kept (0.5% saving, breaks CRM). Stock knob `autoCompactWindow`; owner chose 300K Thu-Sat UTC only, against the "one weekly bag" argument. `compact_by_day.py` for Claude, Codex, Gemini; Antigravity out (knob in internal state).
+
+9 tests PASS, broken copy rc=1; rollout 5/8, 3 offline; panel 6/6. Verify proves the setting, not compaction (check 26.11).
+
+## 6. Routing CLAUDE.md
+
+| Item | Fact |
+|---|---|
+| Live canon v7.9.0 | 1132 lines, 119 164 bytes (red line 120 KB) |
+| v8 draft | 150 lines, 13 979 bytes |
+| Round 1 | v7.9.0 40/50, v8 29/49 |
+| Parity | 10 trigger lines restored parity on 3 vendors at ~14 KB |
+| Defects | asked owner "install v8?" before reading sibling sessions with the same corr_id; round 4 at 153 lines, fixed to 150x100; canon references a non-existent CHANGELOG file |
+| Guard | `check_claude_md.py` (150x100) |
+| Decision | no v8 install until a live exam with skills loaded |
+
+Weak model loses most on the short version, strong almost none; lines carrying the door (script, threshold, model) cannot be moved out.
+
+## 7. Verification podcast (Codex session)
+
+| Item | Fact |
+|---|---|
+| DR | 4 full reports of 6 tries |
+| Recordings | 8 made, 4 rejected, 4 v2 (RU 13:02, 13:14; EN 44:19, 43:23), total 6840.08 s |
+| Defects | EN v2 still had errors; first paper review missed a multi-turn pressure paper on core beliefs |
+| Side effect | `vault_backup.py --help` made a commit with 42 121 accumulated changes |
+| Panel | not run: gate refused sending non-public context to external providers |
+
+## 8. Other
+
+- Phone pairing retro post parked: the live CTA tool appended "Link in bio" against the no-CTA rule; 18 parked post lines, oldest 19.10.
+- Pairing: 3 `pairing/start` response_routed on 23.11, errorCode=null; 57.99 h between report and recheck; panel 6/6.
+- Pilot research: Gemini audit "Researching 139 websites" at measurement time; panel 6/6 in 76 s.
+- Raw session pipe to 5 peers 2.6-8.6%, errors 0.
+
+## 9. Patterns
+
+P1. A fallback that produces normal-looking output is a cost leak. Default to refusal with a named reason; keep the old path behind an explicit flag.
+
+P2. A refusal needs a reader. A counter nobody reads turns a loud refusal back into a silent one.
+
+P3. On diverged copies push an anchored patch: apply a chunk only on an exact single match; one miss leaves the file untouched.
+
+P4. "Not found by one key" is not absence. List the archive contents and search by a second key (title) before "missing".
+
+P5. A closed-group draft never enters a derived artifact; use the public version.
+
+P6. An incomplete panel is reported as incomplete; the limit is not raised silently.
+
+P7. "Connected" of one process is not success of another. Name process, transport, registration and time; a narrow log window does not prove absence.
+
+P8. `done` means processed and delivered; completeness is a separate claim. Empty parts are flagged; exact matches precede broad ones.
+
+P9. Delivered is not applied while old writers stay open. Compare a growing file by exact byte count at the author at measurement time.
+
+P10. A queue record is not an artifact; uploaded document count is not completeness. A missing selector (`-s`) silently widens to all sources.
+
+P11. A move copies everything; filters live in the sync pipe.
+
+P12. Measure the suspect before cutting it; the real cost was startup load (52.6%), not messenger tools (0.8%).
+
+P13. A help flag must not have side effects.
+
+## 10. Source note
+
+No canon beats for 23.11; the chapter is built from retros only, 15 files. Three personal retros were not used and are not described. Owner quotes in the retros are mostly not verbatim; only Mycroft's retro lines are quoted.
+
+✍️ Написано: Fable/Opus
+
+
+== 2026-11-24.dev.md
+
+---
+title: "Day 174 - 2026-11-24: my own fix is the next outage; a clean release re-enabled 5 venues the owner had closed, an mv with an empty variable moved 80 175 bus files, and a new guard silently turned the door test red 10 of 18"
+date: 2026-11-24
+day_index: 174
+week: 26
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [human-lock, auto-reenable, empty-input-refusal, destructive-command, mv-across-filesystems, test-isolation, test-fixture-leak, blind-probe, hook-dispatcher, stderr-discarded, guard-advises, exam-contamination, favourable-verdict, single-account-probe, canon-compression, skill-descriptions, pipe-without-reader, resume-copies-session, cron-rollback, green-exit-not-delivery]
+---
+
+# Day 174 - 2026-11-24: my own fix is the next outage; a clean release re-enabled 5 venues the owner had closed, an mv with an empty variable moved 80 175 bus files, and a new guard silently turned the door test red 10 of 18
+
+Dev-log form. Assembled from retros only (66 files, 4 personal omitted, 62 working); no canon beats for 24.11 (section 9). Numbers only from the retros.
+
+Defect: a repair that is correct for its own task acts on a state it does not own. An automatic re-enable ignores a human decision; a destructive command runs on unchecked input; a new guard changes behaviour under test without re-running the affected tests.
+
+Position on the line: 168 one door, then another; 169 the statement expires before the solution; 170 the removed obstacle was the lock; 171 one exit code, two meanings; 172 the fix lived in one house of five; 174 my own fix is the next outage.
+
+## 1. Main cases
+
+### 1.1 Release gate re-enabled closed outward doors
+
+| Item | Fact |
+|---|---|
+| Earlier fix (20.11) | TX core timeout 9000 -> 12600 s |
+| Proof (night 24.11) | core rc=0, release 01:39 UTC, 64 944 lines, gate clean 04:10 |
+| Human decision (23.11) | 5 outward venues closed until mask v3; audit v3 FAIL (names in 862 files, 46 high) |
+| Effect | `tx_release_gate.py` re-enabled all 5; dev.to Daily running from 08:10 (published 0); Zenodo 01.12 would mint a permanent DOI version; Kaggle would upload overnight |
+| Root | gate knew data cleanliness, not the human decision |
+| Fix | lock file `tx_outward_hold.json`; 5 tasks disabled; dev.to stopped |
+| Tests | `_test_tx_gate_hold.py` 15 ok; original gate 9 FAIL |
+| Panel find | dangling-symlink lock opened the door; fixed with `os.lstat`, test red on round 2 |
+| Side fix | content debt quota after deadline 73/day -> 3/day (fixes the signal, not the debt) |
+| Open | raw-push tasks do not read the lock (both disabled); Syncthing did not deliver `debt_ledger.py` to hub (copied by scp) |
+
+### 1.2 Empty variable in a destructive command
+
+| Item | Fact |
+|---|---|
+| Context | Studio machine-bus: 105 errors "source deleted folder containing ignored `*.sync-conflict-*`"; `.stignore` lacks `(?d)` |
+| Incident | `mv "$B/$f" "$Q/$f"` with empty `$f` moved the whole bus (80 175 files, 4 GB) to backup |
+| Mechanism | `~/Obsidian` is a symlink to an external disk; cross-filesystem mv = copy + delete |
+| Recovery | folder paused; `rsync -a -u`: 80 181 files (80 175 + 6 new), `.stfolder` present; neighbours local=global=76 686, needDeletes=0 |
+| Verified by | file count and marker, not byte compare |
+| Fix | `bus_conflict_quarantine.py`: dry-run default, conflict-marked files only, refuses empty/root path; red probe on `/` rc=1 |
+| Result | 8089 copies quarantined; Studio class 105 -> 0; Mayak 31 folders left |
+| Rule | mv/rm with a variable in the path only via a script that refuses an empty path |
+| Not done | `(?d)` in `.stignore` = auto-delete by mask = owner decision |
+
+### 1.3 New guard silenced the door test; fixture became a live task
+
+| Item | Fact |
+|---|---|
+| Debt key | `u99<unix>`; unix = 2026-11-20 10:12:48 UTC; text verbatim in `_test_voice001_codex_fallback.py` fixture |
+| Class | test text becomes live task: 3rd dated case (20.11, 21.11, 24.11) |
+| Test state | `_test_voice001_cloud_door.py` 8 PASS / 10 FAIL |
+| Causes | (a) new guard lo-019 silences doors under any test; (b) live `bypass_cloud` decided the outcome |
+| Fix | door flags from test env; `active_heal_override` and `_alarm_03` stubbed; 18/18, mutant rc=1; review added guard case -> 19/19 |
+| Root fix 2 | `voice001_completion_guard.py` classes fixture text as `TEST_FIXTURE`; no follow-up born |
+| Layers | test does not open doors; code silences doors under test; debt guard recognises fixture |
+| Report lesson | owner: "didn't get it, fix the roots" after a jargon-only report; format = what happened / why / what changed |
+
+## 2. Blind instruments
+
+| Case | Fact | Fix / proof |
+|---|---|---|
+| Session-number probe | debt hung 5177 min "hook not installed"; probe read only `settings.json`, hooks route via `hook_dispatch.json` | probe reads dispatcher; red copy with rule cut gives ✗; family has 67 prior cases |
+| Three voice-bus doors (4 days) | agy 43 bad of 44; app door HTTP 400 x2; codex door "Reconnecting 2/5" x4; 20.11 patch saw 2 of 43 | roots hidden by door (stderr discarded, 400 body not stored, `willRetry=true` read as end of turn); tests 13/13, 29/29, 17/17, red on backup |
+| Write-lock guard | 25 rules, 4745 calls/day; 346 refusals (203 opt-in, 115 BUSY) | bash -> advice; refusal only for Write/Edit on BUSY; red probe rc=2 |
+
+Canary "answer in one word" does not test tool permissions; a door canary must call a tool outside the working folder.
+
+## 3. Favourable numbers recalled
+
+| Claim | Reality | Rule |
+|---|---|---|
+| "parity on 3 models" 17/25 vs 17/25 (23.11) | claude/codex exam rails load host canon; `--no-principles` ineffective; clean glm: round 1 6/24 vs 15/25, round 2 17/25 vs 20/25 (noise after 10 tuning lines) | canon exams only on rails without host canon or isolated; probe "do you know the rule unprompted" first |
+| "$52 is $0.52" | measured one account; owner's login differs | do not overrule an on-screen owner number with a one-account probe |
+| "30/30" routine models | written to fleet before the instrument | number goes out only from the instrument |
+
+Panel engine: alternative provider first, OpenRouter fallback; bench 144 paired + 72 repeats; live panel 6/6. Before: 1-3 of 6 answered in many retros (HTTP 402).
+
+## 4. Rules file compression
+
+| Exam | Variant | Score |
+|---|---|---|
+| 20 traps, fresh models, blind grader | full 97 KB | 20/20; subtle 20/20; after 276 KB foreign code 20 |
+| | compressed 50 KB | 20; subtle 10-11; long ctx 7.5 |
+| | v7.10.1 120 KB, bodies in skills | 19.5; subtle 16-17 |
+| | "Full: /skill" links opened | 0 of 5 runs |
+| v8 vs v7.9 (50 points) | v8 7x smaller (119 KB vs 16 KB) | round 1 29 vs 40, pairs 0:11; round 2 42 vs 45 (tuned) |
+| 24 situations, skill routing | base / +10 skills / +new chapter | 51.5% / 87.3% / 91.7%; pairs new/old 4:3 |
+
+Rules with a concrete door (script, threshold, model) are lost when moved out. Layout: when / what not / threshold in the main file; procedure in the skill. v8 not installed; v7.11.0 is a proposal (canon gate BLOCK on Studio).
+
+## 5. Automation without a reader or memory
+
+| Case | Fact | Fix |
+|---|---|---|
+| Voice-bus leftovers | 165 lines in leftovers file, no reader, 3 days | `ingest_leftovers` in `voice001_redo.py`, packs of 6; queue 272+28=300 = owner cap; test OK, red probe FAILED 2 |
+| Doorbell copies | session continuation copied the session from the 2nd call; 242 copies / 30 days; first-call cache write median 409 193, total 90 291 469; 322 files, 861 MB | door -> seed session (20.11); explicit exe path (24.11); after: 8 sessions, median first context 158 891 |
+| Skill shelf rollback | Mayak cron 06:45/18:45 UTC reinstalled old package for 8 days; hub took 0 of 6 requests | package discarded on 6 nodes; /QQQ family restored; linter 24 -> 5 red |
+| CRM follow-up robot | "fixed" by exit 0 on 20.11; no sends since 22.10 | roots: single commit at end of tick lost sent state; enrol took row without msg id; 3 service messages removed before 16:00 UTC run; v3.1, 3 review rounds, 11 tests red on old code |
+
+"Done" for sending = a row in the send log for the right day. Idempotency gap (crash between send and commit) open.
+
+## 6. Other sessions
+
+- Codex limit: 4.2 bn tokens on 24.11 vs 0.79 on 20.11; week 9% -> 58% in 40 min; valve (<=8 writing threads, stop at 80%, thread >300K not pushed), mutant 4 FAIL; harvest 26.11.
+- ASR: 24 real notes, CER 7.1% vs 15.6%; whole-file mode drops speech on long audio; 120 s chunking 69 -> 3060 chars on a 230 s note.
+- Codex own memory off on 6 machines (hub had 559+211 records).
+- Win+Tab: output changed 3 times on a rule that never matched; instrument the trigger first.
+- Hub GPU photo offload: best 0.18 vs 0.43 photo/s, threshold 1; STOP.
+- Job pipeline: ~56 applications / 14 days from fleet ledger; exit 0 with 0 submissions on 3 nodes; 101 "no JD text" loops from one unknown job board.
+- Nested sessions: up to 35 under one parent; 72 detached; owner limit 3.
+- GraphRAG paper: even-n median bug, hand-typed tex table; `check_tables.py` 5 MISMATCH on v0.4; Zenodo v0.5.
+- Kaggle dataset private: README 725 B only, anon 404/403.
+- Hot memory coverage: "34 of 35" measured one subfolder; `hot_coverage.py` RED 10 of 22 pairs.
+- Remaining working retros (voice-bus tails, slots, sync, search, Codex canon mirror, DR, publications) show the same pattern: missing instrument, lock or reader.
+
+## 7. Patterns
+
+P1. An automatic re-enable reads the human's lock before acting. Cleanliness of data is not consent.
+
+P2. A lock check must treat a dangling link as a lock, not as absence (`lstat`).
+
+P3. A destructive command refuses empty and root paths. Shell mv/rm with a variable in the path goes through a refusing script.
+
+P4. mv across filesystems is copy + delete. Know where the symlink points before moving.
+
+P5. A new guard that changes behaviour under test re-runs the tests of what it silences in the same pass.
+
+P6. A test fixture key must not be accepted as a live task by downstream guards.
+
+P7. A probe that reads one config misses dispatchers; a door that discards stderr hides its own roots.
+
+P8. Count outcomes over the whole window before patching.
+
+P9. A favourable result gets a second, independent check before it reaches the owner or a public queue.
+
+P10. Thresholds and doors stay in the always-loaded rule line; links to skills are not opened.
+
+P11. Every file a pipe writes has a named reader. A green exit is not delivery.
+
+## 8. Not verified
+
+Byte-level bus restore; 31 Mayak folders; CRM robot live run after 16:00 UTC; Codex valve harvest 26.11; live runs of 10 new skills; mask v3 audit.
+
+## 9. Source note
+
+No canon beats for 24.11; the chapter is built from retros only (66 files). Four personal retros were not used and are not described: an antiparasitic podcast, a photo library, a Codex plan choice, an introduction between two people; a second retro on the same introduction was also left out. Owner quotes are short and taken from the retros.
+
+✍️ Написано: Fable/Opus

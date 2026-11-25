@@ -146,6 +146,7 @@ Reproducible: a frozen ledger snapshot + `verify_claims.py` regenerate all ten h
 - [Week 23 (Nov 2-8)](07-november-delivery/week-23/) - the week an order is read in a world that has already moved on
 - [Week 24 (Nov 9-15)](07-november-delivery/week-24/) - the week a thing is asked where it came from and who signed that it arrived
 - [Week 25 (Nov 16-22)](07-november-delivery/week-25/) - the week a lock is asked which level it sits on
+- [Week 26 (Nov 23-29)](07-november-delivery/week-26/) - the week a fix is asked whose switch it flips
 
 ## Editions and what's coming
 
