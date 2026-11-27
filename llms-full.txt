@@ -1,6 +1,6 @@
 # THE JOURNEY - full machine book (llms-full.txt)
 # Dry dev-log of the whole journey, one day per section. Human chapters: *.ru.md / *.en.md
-# Auto-concatenated from 152 daily .dev.md files. Story canon: canon/README.md
+# Auto-concatenated from 154 daily .dev.md files. Story canon: canon/README.md
 
 
 == 2026-05-27.dev.md
@@ -23775,5 +23775,369 @@ Byte-level bus restore; 31 Mayak folders; CRM robot live run after 16:00 UTC; Co
 ## 9. Source note
 
 No canon beats for 24.11; the chapter is built from retros only (66 files). Four personal retros were not used and are not described: an antiparasitic podcast, a photo library, a Codex plan choice, an introduction between two people; a second retro on the same introduction was also left out. Owner quotes are short and taken from the retros.
+
+✍️ Написано: Fable/Opus
+
+
+== 2026-11-25.dev.md
+
+---
+title: "Day 175 - 2026-11-25: green looked at the wrong place; the token board polled the Studio as the hub, hot memory ranked 55 future-dated records first, and the fleet self-check reported 6 of 6 for 6 of 9 nodes"
+date: 2026-11-25
+day_index: 175
+week: 26
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [instrument-wrong-target, self-as-peer, hub-not-polled, budget-watch-unwired, second-method-check, sqlite-open-copy, wal-loss, atomic-dir-swap, missing-root-guard, file-mtime-not-build-done, foreign-snapshot, canary-timeout-unproven, windows-bash-checks, shared-ask-first-wins, denominator-hidden, node-clock-as-utc, foreign-copy-precedence, service-tags-in-titles, build-cadence, canon-gate-block, stale-config-read]
+---
+
+# Day 175 - 2026-11-25: green looked at the wrong place; the token board polled the Studio as the hub, hot memory ranked 55 future-dated records first, and the fleet self-check reported 6 of 6 for 6 of 9 nodes
+
+Dev-log form. Assembled from retros only (4 files, 0 personal); no canon beats for 25.11 (section 8). Numbers only from the retros.
+
+Defect: a check returns a confident result while reading the wrong target: the wrong node, the wrong file, the wrong clock or the wrong denominator. The result is green relative to what it read, and says nothing about the result that was needed.
+
+Position on the line: 170 the removed obstacle was the lock; 171 one exit code, two meanings; 172 the fix lived in one house of five; 173 the silent fallback is paid; 174 my own fix is the next outage; 175 green looked at the wrong place.
+
+## 1. Token board polled itself (Studio, s44853)
+
+| Item | Fact |
+|---|---|
+| Symptom | "bb accounting broken"; hub on board 0.19 M tokens |
+| Root | `fleet_token_board.py` on Studio treated Studio as hub; real hub never polled |
+| Fix | hub added to PEERS via ssh; local node removed from PEERS |
+| Result | hub 0.19 -> 3 644 M tokens (29% of Claude weight); total 5 709 sessions, 6 nodes, 24 377 M tokens / 7 days |
+| Codex bucket | 91% until 29.11; Studio contributes 46% |
+| Claude bucket | board 0% (reading 514 min old) -> 4% after manual get_usage feed |
+| Root 2 | `plan_budget.py --post` watcher not wired on Studio; settings.json change refused by automatic check; left to owner |
+| Second method | session files vs board, refutation threshold 10%: hub 1294/1255 (3%), ZBook 442/431 (2%), Studio 727/667 (8%) |
+| Not done | outside panel not run |
+
+## 2. Fleet storage and search (Mac16, Codex; fleet PARTIAL)
+
+| Item | Fact |
+|---|---|
+| Move | program histories moved into the vault, old paths became links; 15 paths samefile/inside_vault/symlink = true |
+| Proof reread | archive of 13 source proofs, 0 mismatches |
+| Counts | Claude live 31 313 -> 31 322 records, 0 inode loss; Qwen 969 files, 0 mismatches; Antigravity 396 DB + 396 WAL + 396 SHM |
+| Root | open SQLite cannot be copied as a folder; rename -> symlink races; copy loses a record still in WAL |
+| Fix | atomic directory swap on the same disk |
+| Book Mac16 before | two overdue jobs: TIMEOUT 124, source_validation 4 |
+| Book Mac16 after | 24 998 documents / 1 030 072 fragments, exit 0 in 918.18 s |
+| Book guard | missing root rejected before the old book is replaced; installed 5 of 6 nodes, Studio UNKNOWN |
+| Hot memory entry R4 | installed 6 of 6 nodes, 29 checks |
+| R4 roots | hook started from a foreign snapshot; file time taken as finished build; early marker hid a repeat |
+| Canary fca980 Mac16 | RED_TIMEOUT 541.5 s at cap 540 s, exit 2; last_ingest stayed 08:49:22 |
+| Canary cause | not proven; cold batch 512 rows 2.86 s did not measure the whole database |
+| Late deltas | R4 copier 90c2742b on Mayak: 7 DEFER under a foreign lock; temporary API controller c25d6fc5: 12 results with 12 paths, AC8 restored |
+| Fresh marks | 3 of 5 core nodes; Mac16 killed at 542.9 s, ZB at 600.7 s |
+| Panel | 6 of 6 answered COUNTER, $0.052550192; 3 remarks refuted |
+| Publisher R3 304dd5c5 | 32+32 GREEN, candidate only, 0 live publications |
+
+## 3. Fleet self-check (Studio, Opus 5.5, S20333)
+
+| Item | Fact |
+|---|---|
+| Design | /self-check skill: one check list + one runner |
+| Growth | 22 -> 26 checks, each from a real breakage (machine.env 06.11, vault 13.11, bus 17.11) |
+| Windows gap | hub first run 24/26; two bash checks do not run on Windows; replaced with type envpath -> 26/26 |
+| Fleet | 6 nodes 26/26, exit 0, one separate request per node |
+| Coverage | 3 of 9 nodes not checked: two silent ~1281 h, one with no signals |
+| Failure 1 | shared "first one takes it" request would close on one node's answer; per-node request required |
+| Failure 2 | deploy_register refused rollout (gate probe_only_apply); register not written; human decides |
+| Panel | 6 of 6, $0.081 |
+| Accepted | runner prints list fingerprint sha=fc39de7320bb; "6/6" means 6 of 9 nodes; red probes by type: 5 RED, 3 OK |
+| Rejected | "register closed by going around it" |
+
+## 4. Hot memory fresh roots (ZBook, z55188)
+
+| Item | Fact | Fix / proof |
+|---|---|---|
+| Future dates | message time from md later than file write; 55 future-dated records ranked first | root: md time written by node clock, read as world time; 55 -> 0 |
+| Copy vs live file | foreign copy overrode a live local file | `_holds()`: foreign copy wins only if longer AND written later; first version broke session continuation on another node (headless resume call); 2 failures caught by tests before release |
+| Junk titles | Codex service tags in titles | `_tag_only()`: 24 -> 4 |
+| Cadence | owner 25.11: "2 hours is enough"; run 14-106 s at 15 min step = 1.6-2.8 h CPU/day (panel corrected 1.5) | laptop task PT2H; hot-central client on laptop off |
+| Canon line 8.9-bis.4 "at least every 2 h" | canon_write_gate BLOCK x4; Syncthing did not converge (90 s, 4 attempts) | proposal in canon-proposals |
+| Agent error | read July Syncthing config.xml, stated laptop does not share sessions | live REST refuted; corrected in the same answer |
+| Panel | 6 of 6, $0.062 | 1 finding accepted, 7 rejected |
+
+Open: MacStudio silent since 23.11; red hot_coverage pairs: Grok md 0%, Codex zst on MacPro192 25.8%, on MacStudio 88%; hub lag 219 files; canon header v7.11.0 with no journal entry for that version.
+
+## 5. Patterns
+
+P1. A collector run on a peer must not include itself as the hub. The peer list names the real hub and excludes the local node.
+
+P2. A bucket reading carries its age. A 0% from a reading 514 minutes old is a stale reading.
+
+P3. A second check uses another method with a refutation threshold set before the comparison.
+
+P4. An open SQLite with WAL is moved by an atomic directory swap on the same disk. Copy plus rename loses the WAL tail.
+
+P5. File mtime does not prove a finished build. The completion signal must be written by the build itself.
+
+P6. A replacement refuses a missing source root before touching the old artifact.
+
+P7. A timeout without a whole-run measurement is an unproven cause. A slice benchmark does not stand in for the full run.
+
+P8. A fleet check must run on every OS it claims. Shell-specific checks need a portable type.
+
+P9. A report states the denominator: "6/6" of responding nodes is 6 of 9 of the fleet.
+
+P10. A shared first-wins request is wrong for a per-node check. Each node gets its own request.
+
+P11. Timestamps written by a node clock are normalised before ranking against world time.
+
+P12. A foreign copy overrides a live local file only when it is longer and newer. Session continuation across nodes is in the test set.
+
+P13. Before stating a node's sharing state, read the live API. A config file on disk can be months old.
+
+## 6. Not verified
+
+Cause of the Mac16 canary timeout; book on Studio (UNKNOWN); `plan_budget.py --post` wiring (owner); deploy_register entry (human); 3 unchecked nodes; canon line 8.9-bis.4; outside panel on the token board.
+
+## 7. Other sessions
+
+None. The day had 4 working retros, all covered above.
+
+## 8. Source note
+
+No canon beats for 25.11; the chapter is built from retros only (4 files, 0 personal). The owner quote is short and taken from the retros.
+
+✍️ Написано: Fable/Opus
+
+Источники: 4 ретро, личных 0, канон-битов нет
+
+
+== 2026-11-26.dev.md
+
+---
+title: "Day 176 - 2026-11-26: the fix landed in a file nobody reads; hooks were disabled in a config the ZBook wrapper never loads, start p50 10.2 s -> 449 ms after the fix went through the live door, and an edit plus its check in one parallel pass gave a false green 3 times"
+date: 2026-11-26
+day_index: 176
+week: 26
+month: "november-delivery"
+lang: en
+kind: machine
+voices: [mike]
+audience: llm
+tags: [wrong-config, live-door-check, edit-check-separate-passes, hook-dispatcher, session-start-latency, regex-hot-path, substring-prefilter, no-access-claim, ssh-door, backup-fuse, foreign-profile-path, file-truncation, silent-exit-0, model-readback, sqlite-wal-readonly, sync-stale-engine, skills-filter, cwd-canon-leak, denominator-error, false-green]
+---
+
+# Day 176 - 2026-11-26: the fix landed in a file nobody reads; hooks were disabled in a config the ZBook wrapper never loads, start p50 10.2 s -> 449 ms after the fix went through the live door, and an edit plus its check in one parallel pass gave a false green 3 times
+
+Dev-log form. Assembled from retros only (38 retros, 0 personal); no canon beats for 26.11 (section 9). Numbers only from the retros.
+
+Defect: a fix is written to a location the consumer does not read, and the check reads through another path, so it passes. Variants: wrong config file, rule past a truncation byte, exit code that is the same on failure, model chosen but not read back, check issued in the same parallel pass as the edit.
+
+Position on the line: 172 the fix lived in one house of five; 173 silent fallback is paid, loud refusal is free; 174 my own fix is the next outage; 175 neighbouring chapter; 176 the fix landed in a file nobody reads.
+
+## 1. Main cases
+
+### 1.1 ZBook hooks disabled in an unread config
+
+| Item | Fact |
+|---|---|
+| Window | 19-26.11, 466 starts |
+| Start latency | p50 10.2 s, p90 16 s, max 70 s |
+| Offenders | `inbox_hook` 8.9 s, 27 timeouts; `memory_guard` rc=1 on 464 of 465 starts; `deploy_check` timeout in 26% of starts |
+| Start hint | 18.7 KB emitted, 2 KB seen by model |
+| Root | another session set `disabled:true` in `hooks/hook_dispatch.json`; ZB wrapper reads `state/hook_dispatch/config.json` |
+| Why it looked fixed | check went through a different door and was green; family "fix without live check" 70 cases |
+| Fix (owner "yes") | 23 hooks off (20 start, 3 per message); 4 cheap guards kept (<25 ms each) |
+| Proof via real wrapper | 449 ms, 6 hooks, 893 B |
+| Red probe on old file | 15 640 ms, 26 hooks, 14 634 B |
+| Panel 6/6 | add `config` field to dispatcher log (which file was read) |
+| Slip | first edit via heredoc -> SyntaxError, wrapper broken ~1 min, restored from backup |
+| Open | inbox and packages not visible at start; 449 ms measured on synthetic run |
+
+### 1.2 memory_author_stamp hot path; edit and check in one parallel pass
+
+| Item | Fact |
+|---|---|
+| Hook cost 25-26.11 | steps 1249 s, starts 1426 s |
+| Top consumer | `memory_author_stamp` after every Bash command: 1078 calls x 376 ms |
+| Root | 2310 regexes evaluated per command |
+| Fix | substring check before regexes: p50 387 -> 61 ms, p90 683 -> 81 ms |
+| Live starts | p50 10 234 -> 472 ms (19 starts); first message 2468 -> 358 ms |
+| Tests | 13/13; red probe rc 1; "after" sample 42 calls |
+| Panel | removed my prefilter (lost files with upper-case `.MD`) |
+| Rollout | not rolled to other nodes |
+| Process defect | edit and check sent in one parallel pass; check read the old file -> false green x3; family "instrument lies green" 62 cases |
+| Other slips | time written from memory; session count stated before the search ran |
+
+Rule: edit in one pass, check in the next pass, through the door the system calls.
+
+### 1.3 "No access" without an ssh try; CRM door from any node
+
+| Item | Fact |
+|---|---|
+| Slip | claimed TG login only on hub, queued a one-off send; did not try CRM over ssh; owner: "heresy" |
+| Build | `sirenka.py`: any CRM tool from any node via hub ssh alias; no HTTPS server |
+| Coverage | 49 tools, 6 nodes green, test 26/26 |
+| Door bugs | CRM copy without sessions accepted as hub; `ssh.exe` from Python hangs on stdout pipe |
+| Panel | 6/6, $0.104, 10 findings accepted |
+| Side find | `rail_plan_gate` lock dropped from hook dispatcher on hub and Macs; family "built and not connected" 70 cases |
+| Burning | X post images not rendered 96 h, 16 posts waiting |
+
+### 1.4 E -> F backup behind a fuse; "failed" routines
+
+| Item | Fact |
+|---|---|
+| Last backup | 23.10, 34 days |
+| Fuse | mass delete guard; 22.11 184 745 files to delete vs limit 5000 |
+| Signal ignored | robot knew from 01.11 (P0 task), 25 days no action |
+| Copy without deletions | 2 h 15 min, 2 443 870 files, 834 GB, exit 11 |
+| Not copied | 617 (465 access denied, 150 vanished, 2 busy) |
+| Verify | 100 of 100 SHA256 |
+| 26.11 quarantine run | stopped itself: path count 184 764 vs 184 763; root found and fixed 27.11 |
+| Routine triage | 3 of 7 first causes from last log line wrong; 1 of 7 fixed in code (`corpus-bench-weekly`, broken repo copy since 02.10) |
+| Instrument | 41 of 69 "failed" routines write no log; scheduler codes 267009, 267011 are not failures |
+| Other | Distill Fresh Daily 0 of 10 successes; TX Weekly Batch cut at 1800 s (651 records await masking) |
+
+### 1.5 Rule past the truncation byte (§5.4)
+
+| Item | Fact |
+|---|---|
+| Ask-for-simple measurement | 423 unique lines in 354 sessions of 17 850 |
+| Baseline | Antigravity ordinary turns 37/303 (12.2%); /rr 2/21 (9.5%) |
+| Root | `GEMINI.md` 127 972 B, truncated at byte 23 959; §5.4 at byte 75 887 |
+| Second drift | canon header "Просто." (85 words) vs skills "Объяснение как пятилетнему" (140 words) |
+| Fix | supports and "Before -> After" in first 20 lines of `principles-block.md`; guard 13 surfaces, 44/44 red mutations; 6 nodes, selftest rc=0 |
+| After (56 Antigravity sessions) | 55/94 (58.5%) -> 39/47 (83.0%); /QQQ 1/4 -> 14/15; /rr 2/12 -> 4/5 |
+| Denominator error | first count 54/148 (36.5%) mixed 47 finals with 101 pauses; caught by panel |
+| Refusal find | Sonnet 5.5 `stop_reason: refusal` on one substring; caught by GLM and Grok review before rollout |
+| Instrument blind | `retro_lost_scan` rc=3 for Antigravity |
+| Open | 3 sleeping laptops not confirmed; patches v7.15.1 and v7.15.2 wait at `canon_write_gate`; CLAUDE.md v7.14.0 120 765 B vs red line 120 000 |
+| Burning | Claude-Codex TG call failed 54 times in a row (red streak 103 tasks); E -> F fuse 34 days |
+
+### 1.6 Night script with exit 0 on failure
+
+| Item | Fact |
+|---|---|
+| Instrument | 0 of 720 answers |
+| Cause | night run did not start 8 nights; harvest 25.11 at zero; script returned 0 and was silent on failure |
+| Fix | scheduler task 00:10 until 15.12; script returns 10 and alarms to 03 on failure |
+| Probe | 8 of 720 plus 8 in second wave; verdict tests 8/8; red probe 55/55 |
+| Limits | Codex limit until 29.11; Antigravity added as second wave |
+| Panel | 6/6, 6 holes closed |
+| Open | real night unverified; first run 27.11 |
+
+### 1.7 Model chosen, not read back before Send
+
+| Item | Fact |
+|---|---|
+| Incident | podcast courier died on "Fable limit reached"; seed asked Sonnet, session ran 144 turns on Fable |
+| Root | lift door selected a model and did not verify the label before Send; 24.11 two of four Sonnet-seed lifts landed on Opus |
+| Fix | `uia_model_read == RAIL_MODEL` before Send, else MODEL-UNSAFE |
+| Tests | 12/12; old door 3 red |
+| Open | request holder stall 7.5 h (TTL 240 min, cleanup robot did not tick 00:19-04:45, laptop asleep), not fixed |
+
+## 2. Instruments and memory
+
+| Case | Fact | Fix / proof |
+|---|---|---|
+| Hot memory coverage | `hot_coverage.py` 24.11 red 10/22; morning 26.11 4/22; final GREEN 37/37, rc=0; live folder 37 GB | Codex forks lost: rollout has two `session_meta`, parser took parent id (MacPro192 24, MacStudio 256); rule "first session_meta wins" |
+| Junction blindness | Grok, Gemini CLI, Muse, Mistral Vibe shown as "no pipe" | read: grok-cli 7337, muse 6535, gemini-cli 124, mistral-vibe 145; Grok CLI md hub 0 -> 1431/1431, MacBook 0 -> 29/29 |
+| Stale engine | Mayak ran engine from a folder sync does not update | copied by hand |
+| Hypothesis as verdict | twice stated a read-hang cause on MacStudio; owner: heresy | cause not proven |
+| First-prompt guard | "unavailable" 10/10: WAL db, Python 3.14 build removes -wal/-shm, `mode=ro` reader cannot open without -shm | `immutable=1` fallback in 3 readers |
+| Bus debts | 28 -> 11; 14 checked on machines: 8 verify green, 6 red at author too; 33 packages marked, 8 debts paid | per-node debts 84/275/298/113/11; 505 TASK orders not closable by script |
+| Scope slip | night rule ordered for one node, extended to fleet without asking | a Windows laptop 26 tasks; hub 61 of 92 (31 need Windows password) |
+| Deaf nodes | 361 requests, 267 answered, 94 not; to silent nodes 14/13/10 requests, 0 answers | all 18 lost on-duty requests from MacStudioM4 (no lifter); "loses every fifth" refuted; `drop_deaf` v3 on 6 nodes, 64 checks; >1 day silent = send with warning, >7 days = do not send (7-day bound unmeasured) |
+| Lifter on MacStudioM4 | runs 5, 1 session lifted, 4 ticks skipped by macOS system window | owner pressed a button 11:20 UTC; hub 35 of 52 seeds did not reach work |
+
+## 3. Monthly audit and skills
+
+| Item | Fact |
+|---|---|
+| Scope | 5317 Claude sessions, 2805 Antigravity, 2833 failure lines, 31 days |
+| Skill failures | 20 of 26 (76.9%) from one foreign profile path `C:\Users\_\` arriving by sync from a laptop; separately 6081 fails across 14 rails |
+| Fixed | 37 files (20 + 17 after review); 0 left in scan of 1227 files |
+| Skills | 11 updated, 5 new; linters 16/16; bridge 521/521 |
+| Tool | `browser_auth_check.py` v2, tests 7/7, network 0 |
+| Usage | 354 of 516 skills not called in a month |
+| Panel | 6/6, $0.0633, 7 findings |
+| Burning | one coworker laptop silent 54 days; canon patch v7.15.2 waits at `canon_write_gate` |
+| Antigravity bridge | v1.1.0 -> v1.1.1 (relative path, hyphens in Go RE2 regexes, no 12 500-token ceiling under 20 000 budget); 3 red probes; `skills.json` filter keeps 113 of 516 while `~/.gemini/skills` loads 516; browser, research and 65 skills displaced |
+| Guest JWT | chat.z.ai issues anonymous `role=guest` JWT bypassing detector; closed in code, 2 red probes |
+| DR order | 3 of 7 legs, quorum 4/7 |
+| Skill hands | 333 active skills to hand A; 22 selling skills with tail anchor; 10 days A=191, B=1, C=4; 522 skill folders (333 active, 189 stubs); Codex mounts 521 |
+| Self-kill | `Stop-Process` without excluding `$PID` killed own shell |
+
+## 4. Fleet and architecture
+
+| Case | Fact |
+|---|---|
+| Bus 001 swarm | 500 tasks -> 199 architectural -> 28 recurring pains; 11 sessions (8 builders, 2 reviewers, 1 monitor), 8/8 fronts; 6 live bugs caught; main: split-brain synced `node_env.sh` on 3 Macs, two Macs overwrote `routines-MacStudioM4.json` every 60 s |
+| Live check after 5.4 days | `sys_scan --membership-json` timed out at 300 s; `scan_mocs` >150 s, called twice; limit 900 s; other 11 scanners 18.42 s |
+| Blind master | `fleet_routines_master` sees 7 of 9 nodes (78%), 1955 routines; 5 instruments printed coverage without `blind_zone.line()` and `denominator_guard.line()`, fixed |
+| Skills audit | 516 skills, 0 violations |
+| P2P mesh | 6 machines, twice a day, 0 tokens, no hub; `llm_routing.json` 3 forks -> v2.1.0; `voice001_fire.py` 3 forks -> v1.4.1 |
+| Speed | Defender on a Windows laptop 574.61 -> 55.72 s (10.3x); Mayak fallback 131.7 -> 12.88 s (10.2x) |
+| Cascade | Antigravity -> Codex -> Claude live on 6/6 machines, all 3 steps; panel-required live run on a MacBook: modelProvider without key gave rc=5 instead of rc=4, fixed v1.1.6, rc=0 in 51.66 s; red 12/12, MD5 6/6 |
+| Claude stupor | 11 roots, 3 waves, one a `hook_client` pipe deadlock; after 5 days daemon 18.8 h, 0 zombie `hook_client.exe` |
+| Bypass token | `!force` swallowed by harness leading "!"; postfix "форс!" added, probe rc=0 |
+| First-prompt hook | 1.05 GB base: 2671 -> 1049 ms (2.55x), query capped at 12 words |
+| Session sprawl | mother session raised 47 children, held 461K context; 35 claude.exe used 9.58 GB; bus 001 108/108 tasks closed; R mark on 15 of 47 children; 34-hour hung test at 55% core killed |
+| ZBook routines | 194 scheduler tasks (152 on), 146 Claude routines (21 on), 10 fixes; `dr_registry.py` literal `\n` line 137 (rc=0); leads-to-VPS 5 nights FAIL on old address after Mayak move 20.11 (rc=0); FB Graph token dead since 29.10, now valid until 25.01.2027; exit-code map copy 43 entries behind (family 30); Config Git Snapshot failed 251 times since 05.11, fixed; Mayak bus 112 conflict copies quarantined, errors 31 -> 0; no Chrome cookie copies since 15.09; UAC given as 3 manual steps instead of one click |
+| Gemini no-canon bench | 3 walls: `--no-principles` quoted canon, REST 429, `GOOGLE_CLOUD_PROJECT` not cleared; root (~15 min of code reading): agy starts with cwd=~ (AGENTS.md there), reads GEMINI.md and rules, HEADLESS_MARK appends canon, rail falls back to REST silently; own launcher 60/60, "Майкрофт"/"Антон" 0; isolation: mkdtemp, empty cwd, no HEADLESS_MARK; package v1 mutated after registration, rejected by `cargo_binding=mutated`; v2 to 9 machines, applied 1 of 9; review: only Gemini answered |
+
+## 5. Outward and publishing
+
+| Case | Fact |
+|---|---|
+| Model eval kit | 21 tasks, one file, on GitHub, fresh clone runs; base tier 8 of 11 models 13/13; hard tier full pass 6 of 11; needle 60k words 11/11; inversions O(n log n) 10/11; panel: model code ran with API keys in env, fixed with red probe; README 9 -> 8 and 11 -> 10 of 11 caught by recount before push; Claude not measured (CLI logged out); post to call group failed, went via second door (owner: "heresy, a hard screw-up") |
+| Journal submission | submitted, manuscript number, status "Awaiting EO Checklist"; 4 files, 5948 words, 5 tables; password not entered by agent (harness ban), blocker named late; account reset; panel: "aligned" was wrong, owner-rewrite rule not executed; AI-policy rejection risk; file metadata clean |
+| Journal AI policy | one journal forbids AI text; owner order: submit to all, owner rewrites draft, agent presses Submit; blocked manuscript wrongly marked ready, then parked to 03.12; time written by eye (04:00 vs clock 03:32); skill exam 4 rails 2/2, 4 of 12 could not judge (300 s timeout) |
+| Journal list routine | 31.7 M tokens per run was a mix: robot 4.59 M per run (59.7 M over 13 runs), conversations 173.4 M over 30 days (74%); independent script 59 731 919 and 173 381 855; broken-copy test rc=1; tick with seed present now returns 0 instead of 10; one archive URL 404, domain expired |
+| Lab affiliation | lab not in ROR (ROR gates ORCID domain and WoS lists); `zenodo_deposit.py` defaulted to another company; ORCID employment set, Founder/Co-Founder -> CTO/COO; Scholar domain verified; 3 Zenodo DOIs unchanged; `TestLabAffiliation` red on old; rule in 4 skills (exam 8/8); open: 5 September preprints, CTO title |
+| Scientist podcast | OpenAlex: 60 works, 111 citations, h=7; ORCID 111 rows with duplicates; 0 works in NeurIPS/ICLR/ICML/arXiv; false "no NotebookLM login on laptop" (heresy); 4 audios 20:01, 11:49, 47:26, 35:02, not listened |
+| Meetups | organisers' reply in mailbox 34 days (since 23.10), two checks "0 of 6"; found by thread id; sent after "Yes, send it"; SENT label != delivery; 9 touches since 12.10, 1 live reply, 0 slots; one of three mailboxes checked; blind-reply-check 1/3 |
+| Profiles bio | 2 of 3 updated; Reddit blocked by tool safety restriction; instruction given instead of action after owner login; HF verified by anonymous curl (4 hits), HN API byte-equal; secret gate blocked answer because public bio sits in secrets file; `form_input` on React form does not save, keyboard does |
+| Outside team fundraise | 4-page PDF, 9 rules, 10-week plan, podcast on 15 sources, sent on WhatsApp (2 group, 2 DM); podcast sent unchecked, transcript confirmed a stale app-store claim; episode 2 (12:54) confirmed; raise numbers from 19.11 DR not reconciled |
+| Raise bet | conditional; trigger A: DR 1514 quorum (>=3 legs with URL, ~72 h) says "cell closed"; trigger B: no 2-3 external teams in design-partner loop by end of December; Grok leg 33 236 B, 448 s, 0 URL, quorum 1/6; RU Deep Dive 12:26 ready, EN started; 0 external bench reproductions; rail plan not recorded (invented flag) |
+| Agent platform DR | 25 tasks, mean 2.48/3 (2.90 on 20 finished), 3 not started; 2393 coins; 3 wide tasks 68% of spend, stuck on "Confirm workflow" (38-72 agents), rerun with cap 8 agents and ~500 coins; one-surface conclusion blocked by Stop hook |
+| Plaud | "Plaud text first, then own pass" in 7 skills; review: example without `--full` read 0-600 s only; `plaud_retranscribe.py` does not write to `_transcripts`, "overwrites" was false; fixed in 8 places; whisper-1 banned, gpt-4o-transcribe used; paid live run not done |
+| Mistral canvas | 32 984 chars, 29 headings, 67 links; Gemini leg hanging since 12.11; extension JS reply cut at ~1000 chars, use `get_page_text`; 578-char diff closed by whitespace-stripped hash |
+| Returned DR request | no taker 245 min; 6 sources checked (registry, queue, originals, Chrome 2 profiles, Firefox 5 profiles 18 529 records): no reports; rule: registry status and queue manifest first |
+
+## 6. Patterns
+
+P1. A fix is verified through the exact entry point the consumer uses, never through a sibling config or a different reader.
+
+P2. A dispatcher logs which config it actually loaded; without that field "disabled" in one file and "enabled" in another look the same.
+
+P3. Edit and check go in separate passes. A check issued in the same parallel batch reads the pre-edit state.
+
+P4. A rule placed past a truncation byte does not exist for the model. Load-bearing rules go into the first lines.
+
+P5. A script returns a distinct non-zero code and alarms on failure; exit 0 on failure hides the outage for days.
+
+P6. A UI door reads back the selected model before pressing Send.
+
+P7. "No access" is a claim until the cheapest door (ssh to the hub) has been tried.
+
+P8. A safety fuse that blocks for weeks needs an owner and an alert, not only a P0 task.
+
+P9. Hot path hooks get a substring prefilter before large regex sets; prefilters are case-insensitive on extensions.
+
+P10. Denominators are stated before the ratio; mixing finals with pauses is a different metric.
+
+## 7. Not verified
+
+Live starts after 449 ms; stamp speed-up on other nodes; inbox and packages at start; real persona night (first run 27.11); X images for 16 posts; canon patches v7.15.1 and v7.15.2; Mayak engine copy kept fresh; 3 sleeping laptops; paid Plaud live run; podcast audios not listened.
+
+## 8. Slips logged
+
+Heredoc edit broke the wrapper ~1 min; edit and check in one parallel pass (false green x3); time from memory (twice); count before search; "no access" without ssh; UAC as 3 steps; instruction instead of action after login; hypothesis stated as verdict (twice); scope extended to fleet without asking; invented flag in rail plan.
+
+## 9. Source note
+
+No canon beats for 26.11; the chapter is built from retros only (38 retros, 0 personal). Owner quotes are short and taken from the retros. Day 175 is written in parallel and referenced by text only.
+
+Sources: 38 retros, personal 0, no canon beats.
 
 ✍️ Написано: Fable/Opus
